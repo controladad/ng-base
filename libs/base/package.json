@@ -1,0 +1,9 @@
+{
+  "name": "@cac/base",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "@angular/common": "^19.0.0",
+    "@angular/core": "^19.0.0"
+  },
+  "sideEffects": false
+}
