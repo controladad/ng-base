@@ -1,0 +1,137 @@
+:host ::ng-deep {
+  @apply w-full;
+
+  .table-loader {
+    transition: all 0.15s ease;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0);
+    z-index: 1;
+    overflow: hidden;
+
+    opacity: 0;
+    &.is-visible {
+      opacity: 1;
+    }
+  }
+
+  .table-skeleton {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: initial !important;
+    min-width: initial !important;
+    max-height: initial !important;
+    min-height: initial !important;
+    overflow: hidden !important;
+  }
+
+  .table-container {
+    width: 75rem;
+    min-height: 25rem;
+    overflow: auto;
+    @screen lg {
+      width: 100%;
+      min-height: 37.5rem;
+    }
+
+    .table {
+      @apply w-full;
+
+      .mat-mdc-header-row {
+        @apply bg-neutral-60;
+
+        .mat-mdc-header-cell {
+          @apply text-surface-on-variant;
+        }
+        .mat-sort-header-arrow {
+          color: white;
+        }
+      }
+
+      .mat-mdc-row:nth-child(even) {
+        @apply bg-neutral-98;
+
+        //.mat-mdc-cell {
+        //  @apply text-surface-on-variant font-medium;
+        //}
+      }
+
+      .mat-mdc-row.highlighted {
+        @apply bg-primary-50;
+      }
+
+      .status-type-col {
+        @apply border border-outline px-3 py-0.5 bg-white font-medium rounded-1;
+        min-width: 4.5rem;
+        white-space: nowrap;
+      }
+
+      .button-type-col {
+        @apply text-primary w-fit;
+        white-space: nowrap;
+      }
+
+      .tag-type-col {
+        @apply text-tertiary border border-outline px-3 py-0.5 bg-white font-medium rounded-1;
+        min-width: 4.5rem;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  th {
+    user-select: none;
+  }
+
+  .feature-table-row {
+    height: auto !important;
+    td {
+      @apply text-surface-on font-medium;
+      width: auto;
+      height: 4rem !important;
+      white-space: pre;
+      line-height: 1.5rem;
+      max-width: 20rem;
+      position: relative;
+    }
+
+    td.mat-column-_action {
+      max-width: initial !important;
+    }
+
+    td:last-child {
+      //width: 100% !important;
+    }
+  }
+
+  .auto-index-col {
+    width: 6rem !important;
+  }
+
+  .table-header-checkbox {
+    //&:not(.mat-mdc-checkbox-checked) {
+    //  .mdc-checkbox__background {
+    //    background: white !important;
+    //  }
+    //}
+    //&.mat-mdc-checkbox-checked,
+    //&[ng-reflect-indeterminate='true'] {
+    //  .mdc-checkbox__background {
+    //    background: none !important;
+    //    border: none !important;
+    //    color: white !important;
+    //  }
+    //  .mdc-checkbox__mixedmark {
+    //    border-color: white !important;
+    //  }
+    //}
+  }
+}
+
+.table-shadow {
+  box-shadow: 0px 4px 4px 0px #e2e6f340;
+}

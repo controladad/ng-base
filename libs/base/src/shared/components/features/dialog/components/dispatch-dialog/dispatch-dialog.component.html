@@ -1,0 +1,20 @@
+<feature-dialog-layout title="تایید {{ data.isArrival ? 'ورود' : 'خروج' }}" [hideControls]="true">
+  <p class="text-base font-semibold my-4">اطلاعات شرکت باربری</p>
+  <feature-form-builder [options]="companyForm"></feature-form-builder>
+
+  <p class="text-base font-semibold my-4">اطلاعات توزین</p>
+  <feature-form-builder [options]="weightForm"></feature-form-builder>
+
+  <p *ngIf="registrationErrors$ | async as errors" class="text-error mt-6 flex items-center gap-2">
+    <ui-icon icon="error"></ui-icon>
+    <span>{{ errors }}</span>
+  </p>
+
+  <div class="flex items-center flex-row-reverse pt-6 gap-2">
+    <ui-button (onClick)="onConfirm()">تایید {{ data.isArrival ? 'ورود' : 'خروج' }}</ui-button>
+    <ui-button (onClick)="onCancel()" appearance="stroked">لغو</ui-button>
+    <ui-button (onClick)="onAddDescription()" icon="plus" iconPosition="prefix" appearance="stroked"
+      >ثبت توضیحات</ui-button
+    >
+  </div>
+</feature-dialog-layout>

@@ -1,0 +1,85 @@
+<div *ngIf="billData() as billData" class="feature-printable-bill">
+  <header>
+    <section class="flex items-center">
+      <p class="text-base font-medium">{{ billData!.branch }}</p>
+      <p class="text-3xs ms-auto">{{ 'تاریخ: ' + billData!.date }}</p>
+    </section>
+
+    <section class="flex mt-3">
+      <p class="text-3xs">
+        {{ 'شماره قبض: ' }} <span dir="ltr">{{ billData!.billNumber }}</span>
+      </p>
+    </section>
+  </header>
+
+  <main class="mt-6">
+    <p class="table-label">اطلاعات بار</p>
+    <table class="table">
+      <tr>
+        <th>قلم کالا</th>
+        <th>شماره دستور حمل</th>
+        <th>شرکت باربر</th>
+      </tr>
+      <tr>
+        <td>{{ billData!.itemName }}</td>
+        <td>{{ billData!.shipmentOrder }}</td>
+        <td>{{ billData!.customer }}</td>
+      </tr>
+    </table>
+
+    <p class="table-label mt-6">اطلاعات خودرو</p>
+    <table class="table">
+      <tr>
+        <th>پلاک خودرو</th>
+        <th>کد وسیله نقلیه</th>
+        <th>نام راننده</th>
+      </tr>
+      <tr>
+        <td>
+          <ui-license-plate
+            class="plate"
+            [value]="billData!.plateNumber"
+            [readonly]="true"
+            [mini]="true"
+            label=""
+          ></ui-license-plate>
+        </td>
+        <td>{{ billData!.vehicleCode }}</td>
+        <td>{{ billData!.driver }}</td>
+      </tr>
+    </table>
+
+    <p class="table-label mt-6">اطلاعات توزین</p>
+    <table class="table">
+      <tr>
+        <th>توزین</th>
+        <th>وزن</th>
+        <th>ساعت</th>
+        <th>تاریخ</th>
+      </tr>
+      <tr>
+        <td>وزن اولیه</td>
+        <td>{{ billData!.initialWeight }}</td>
+        <td>{{ billData!.timeOfInitialWeight }}</td>
+        <td>{{ billData!.dateOfInitialWeight }}</td>
+      </tr>
+      <tr>
+        <td>وزن ثانویه</td>
+        <td>{{ billData!.secondaryWeight }}</td>
+        <td>{{ billData!.timeOfSecondaryWeight }}</td>
+        <td>{{ billData!.dateOfSecondaryWeight }}</td>
+      </tr>
+      <tr>
+        <td>وزن خالص</td>
+        <td>{{ billData!.pureWeight }}</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    </table>
+  </main>
+
+  <footer class="footer text-center text-3xs">
+    <div class="border-l pt-2">امضاء</div>
+    <div class="col-span-2 pt-2">مهر</div>
+  </footer>
+</div>

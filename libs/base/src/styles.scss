@@ -1,0 +1,55 @@
+@import 'theme/colors';
+@import 'theme/fonts';
+@import 'theme/material';
+@import 'theme/design-system';
+@import 'theme/animations';
+
+h3 {
+  @apply text-surface-on text-base font-medium mb-4;
+}
+
+mat-label,
+label,
+p,
+span,
+input,
+textarea,
+div {
+  letter-spacing: 0 !important;
+}
+
+input,
+textarea {
+  unicode-bidi: plaintext;
+  &:placeholder-shown {
+    unicode-bidi: normal !important;
+  }
+}
+
+.unicode-plain {
+  unicode-bidi: plaintext !important;
+}
+.unicode-normal {
+  unicode-bidi: normal !important;
+}
+
+.hide-if-empty {
+  &:empty {
+    display: none !important;
+  }
+}
+
+*[role='button'] {
+  user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-200 hover:bg-gray-300;
+  border-radius: 5px;
+  border: 3px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+}

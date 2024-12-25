@@ -1,0 +1,28 @@
+:host {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  background: #eff1f6 no-repeat;
+}
+:host ::ng-deep .ui-skeleton {
+  display: block;
+  width: inherit !important;
+  height: inherit !important;
+  background: inherit !important;
+  border-radius: inherit !important;
+  .skeleton-loader {
+    @apply transform-gpu #{!important};
+    height: 100% !important;
+    border-radius: inherit !important;
+    background: inherit !important;
+    margin-bottom: 0 !important;
+    display: block !important;
+  }
+
+  @at-root {
+    & {
+      @apply rtl:rotate-180 #{!important};
+    }
+  }
+}

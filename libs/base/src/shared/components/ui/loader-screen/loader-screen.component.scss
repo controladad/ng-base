@@ -1,0 +1,28 @@
+:host {
+  display: contents;
+}
+
+.loader {
+  @apply absolute inset-0 flex items-center justify-center;
+  transition: opacity 1s ease;
+
+  &.blurry {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
+  }
+  &:not(.blurry) {
+    @apply bg-neutral-99;
+  }
+}
+
+.retry-panel {
+  @apply px-6 py-8 bg-background rounded-2 flex flex-col items-center justify-center shadow-1;
+  transition: opacity 0.5s ease;
+
+  opacity: 0;
+  pointer-events: none;
+  &.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

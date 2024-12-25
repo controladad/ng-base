@@ -1,0 +1,18 @@
+<ng-content></ng-content>
+<ui-button
+  #SubmitButton
+  class="yes-btn {{ submitClass ?? '' }}"
+  [class.cursor-not-allowed]="insufficientPermission()"
+  (onClick)="onSubmitClick($event)"
+  [disabled]="disabled || insufficientPermission()"
+  [matTooltip]="insufficientPermission() ? 'شما دسترسی برای انجام این فعالیت را ندارید.' : ''"
+  >{{ submitText }}</ui-button
+>
+<ui-button
+  *ngIf="!hideCancel && !!cancelText"
+  [appearance]="'stroked'"
+  class="no-btn {{ cancelClass ?? '' }}"
+  [route]="cancelRoute"
+  (onClick)="onCancelClick()"
+  >{{ cancelText }}</ui-button
+>

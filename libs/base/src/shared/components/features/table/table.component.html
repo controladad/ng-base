@@ -1,0 +1,366 @@
+<!-- -- -- -- -- -- --- -- -- -- -- -- -- -- -->
+<div class="hidden">
+  <mat-icon svgIcon="sort"></mat-icon>
+  <mat-icon svgIcon="sort-up"></mat-icon>
+  <mat-icon svgIcon="sort-down"></mat-icon>
+</div>
+<!-- Preload icons for a smoother experience! -->
+
+<div class="p-1">
+  <!-- Header -->
+  <div class="flex flex-col gap-y-4 mb-6 pe-4 min-h-[3rem]">
+    <!-- Title -->
+    <p class="text-2xl text-surface-medium font-medium">{{ options().view?.title }}</p>
+    <!-- Second row of header -->
+    <div class="flex items-center gap-2 mt-2 flex-wrap">
+      <ng-content select="[slot=header-start]"></ng-content>
+
+      <!-- Batch Actions -->
+      <ng-container *ngIf="options().batchActions?.length">
+        <ui-field
+          class="w-full max-w-[12rem]"
+          [control]="batchActionControl"
+          controlType="select"
+          [items]="batchActions()"
+          [searchable]="false"
+          label="عمل مورد نیاز"
+          placeholder="انتخاب"
+          [hideError]="true"
+        ></ui-field>
+        <ui-button
+          class="h-12"
+          (onClick)="onBatchActionApply()"
+          [disabled]="!batchActionControl.value || !options().selectionModel!.hasSelection()"
+          >اعمال</ui-button
+        >
+        <span *ngIf="options().selectionModel?.selectedCount() ?? 0" class="font-medium"
+          ><span class="mx-1">{{ options().selectionModel?.selectedCount() }}</span> از
+          <span class="mx-1">{{ totalItems() }}</span> انتخاب شده است</span
+        >
+      </ng-container>
+      <div class="flex-auto"><!-- Spacer --></div>
+      <!-- Other buttons -->
+      <ui-button
+        *ngIf="options().export"
+        uiPermissionHide
+        class="h-12"
+        appearance="text"
+        (onClick)="onExport($event)"
+        icon="excel-file"
+        action="export"
+      >
+        <span class="mr-1">خروجی اکسل</span>
+      </ui-button>
+      <ui-button
+        *ngIf="options().print"
+        uiPermissionHide
+        class="h-12"
+        appearance="text"
+        (onClick)="onPrint($event)"
+        icon="print"
+        action="print"
+      >
+        <span class="mr-1">پرینت</span>
+      </ui-button>
+      <ui-button
+        *ngIf="options().events?.add"
+        uiPermissionHide
+        #MenuTriggerAddButton="matMenuTrigger"
+        [matMenuTriggerFor]="null"
+        class="h-12"
+        (onClick)="onAdd()"
+        icon="plus"
+        action="create"
+      >
+        {{ options().view?.addButtonText ?? ADD_TEXT + ' ' + options().view?.itemName }}
+      </ui-button>
+
+      <ui-button icon="sync" class="h-12" appearance="text" [disabled]="loading()" (onClick)="onRefresh()"></ui-button>
+
+      <ng-content select="[slot=header]"></ng-content>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="relative overflow-auto bg-neutral-99 border border-surface-container-highest rounded-1 table-shadow">
+    <div class="table-loader {{ loading() ? 'is-visible' : '' }}">
+      <feature-table-filter-bar
+        *ngIf="hasFilter()"
+        class="{{ !isFirstLoad() ? 'opacity-0 pointer-events-none' : '' }}"
+      ></feature-table-filter-bar>
+      <div *ngIf="loading()" class="table-container table-skeleton relative">
+        <table class="table">
+          <thead class="{{ !isFirstLoad() ? 'opacity-0 pointer-events-none' : '' }}">
+            <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="mdc-data-table__content relative">
+            <tr class="absolute left-0 right-0 top-0">
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </tr>
+            <tr
+              *forNumber="8"
+              class="mat-mdc-row mdc-data-table__row cdk-row feature-table-row {{
+                !isFirstLoad() ? 'bg-transparent' : ''
+              }}"
+            >
+              <td>
+                <ui-skeleton class="bg-inherit"></ui-skeleton>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Current Filters Bar -->
+    <feature-table-filter-bar *ngIf="hasFilter()" [filterModel]="options().filterModel!"></feature-table-filter-bar>
+    <div #Table class="table-container {{ loading() ? 'opacity-50' : '' }}">
+      <!-- Table -->
+      <table [dataSource]="dataSource" [trackBy]="trackByItem" mat-table class="table">
+        <!-- Selection (Checkbox) Define -->
+        <ng-container *ngIf="options().selectable" [matColumnDef]="SELECTION_COL">
+          <th mat-header-cell *matHeaderCellDef>
+            <ui-checkbox
+              class="table-header-checkbox"
+              [indeterminate]="options().selectionModel!.indeterminate()"
+              [checked]="options().selectionModel!.allSelected()"
+              (onChange)="onHeaderSelection($event)"
+            ></ui-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row; let i = index" style="width: 3rem">
+            <ui-checkbox
+              [checked]="options().selectionModel!.selectedIds()[row.id]"
+              (onChange)="onItemSelection(row.originalItem, $event)"
+            ></ui-checkbox>
+          </td>
+        </ng-container>
+
+        <!-- Index Define -->
+        <ng-container *ngIf="options().showIndex" [matColumnDef]="AUTO_INDEX_COL">
+          <th mat-header-cell *matHeaderCellDef>ردیف</th>
+          <td class="auto-index-col" role="presentation" mat-cell *matCellDef="let row; let i = index">
+            {{ i + 1 + Pagination.startIndex() }}
+          </td>
+        </ng-container>
+
+        <!-- Other cols define -->
+        <ng-container *ngFor="let col of columns(); trackBy: trackByProp" [matColumnDef]="col.prop">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="flex">
+              <div
+                role="presentation"
+                class="flex flex-col pe-2 select-none {{ col.sortable ? 'cursor-pointer' : '' }}"
+                (click)="Sort.onSortClick()"
+              >
+                <span class="whitespace-nowrap">{{ col.label }}</span>
+                <span *ngIf="col.hint" class="text-white text-xs">{{ col.hint }}</span>
+              </div>
+              <feature-table-sort
+                class="ms-1"
+                #Sort
+                [column]="col"
+                [sortModel]="options().sortModel!"
+              ></feature-table-sort>
+
+              <feature-table-filter [column]="col" [filterModel]="options().filterModel!"></feature-table-filter>
+            </div>
+          </th>
+          <td
+            role="presentation"
+            mat-cell
+            *matCellDef="let row"
+            (click)="onRowClick(row)"
+            class="{{ options().clickableRows ? 'cursor-pointer' : '' }}"
+            [ngStyle]="{ minWidth: col.width ?? '' }"
+          >
+            <ng-container
+              *ngIf="{
+                dynamicClass: row.data[col.prop].dynamicClass$
+                  ? (row.data[col.prop].dynamicClass$ | async)
+                  : row.data[col.prop].dynamicClass
+              } as rowState"
+              [ngSwitch]="col.type"
+            >
+              <div *ngSwitchCase="'status'">
+                <button
+                  class="status-type-col {{
+                    (
+                      row.data[col.prop].isValueTrue$
+                        ? (row.data[col.prop].isValueTrue$ | async)
+                        : row.data[col.prop].isValueTrue
+                    )
+                      ? 'text-green-700'
+                      : 'text-red-600'
+                  }} {{ rowState.dynamicClass }}"
+                >
+                  <ng-container
+                    [ngTemplateOutlet]="CellValue"
+                    [ngTemplateOutletContext]="{
+                      col: col,
+                      row: row
+                    }"
+                  ></ng-container>
+                </button>
+              </div>
+              <div *ngSwitchCase="'tag'">
+                <button class="tag-type-col {{ rowState.dynamicClass }}">
+                  <ng-container
+                    [ngTemplateOutlet]="CellValue"
+                    [ngTemplateOutletContext]="{
+                      col: col,
+                      row: row
+                    }"
+                  ></ng-container>
+                </button>
+              </div>
+              <div *ngSwitchCase="'plate'">
+                <ui-license-plate
+                  class="absolute scale-50 min-w-[19rem] pointer-events-none"
+                  style="transform-origin: top right"
+                  [value]="row.data[col.prop].rawValue"
+                  [hideError]="true"
+                ></ui-license-plate>
+                <div class="w-44 h-6"></div>
+              </div>
+              <div *ngSwitchCase="'button'">
+                <ui-button
+                  class="button-type-col {{ rowState.dynamicClass }}"
+                  padding="0"
+                  appearance="text"
+                  (onClick)="col.onClick?.(row.originalItem, $event)"
+                >
+                  <ng-container
+                    [ngTemplateOutlet]="CellValue"
+                    [ngTemplateOutletContext]="{
+                      col: col,
+                      row: row
+                    }"
+                  ></ng-container>
+                </ui-button>
+              </div>
+              <div *ngSwitchDefault class="{{ rowState.dynamicClass }}">
+                <!-- text & number -->
+                <ng-container
+                  [ngTemplateOutlet]="CellValue"
+                  [ngTemplateOutletContext]="{
+                    col: col,
+                    row: row
+                  }"
+                ></ng-container>
+              </div>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <!-- Actions Define -->
+        <ng-container matColumnDef="{{ ACTION_COL }}">
+          <th mat-header-cell *matHeaderCellDef class="text-center">{{ options().view?.actionsText }}</th>
+          <td #ActionMenuTrigger="matMenuTrigger" mat-cell *matCellDef="let row" [matMenuTriggerFor]="null">
+            <div class="flex items-center gap-1 justify-center">
+              <div
+                #ActionColCells
+                *ngFor="let action of actions(); let index = index"
+                role="presentation"
+                class="w-fit {{ (row.actions[index]?.disabled$ | async) ? 'pointer-events-none' : '' }}"
+              >
+                <ng-container *ngIf="{ data: row.actions[index] } as state">
+                  <ng-container [ngSwitch]="action.type">
+                    <ui-button
+                      *ngSwitchCase="'icon'"
+                      uiPermissionHide
+                      [icon]="action.content"
+                      [disabled]="$any(state.data.disabled$ ? (state.data.disabled$ | async) : state.data.disabled)"
+                      [matBadge]="action.badge ? action.badge(row.originalItem) : ''"
+                      [action]="action.actionType"
+                      [permission]="state.data.permission"
+                      (onClick)="onAction(row.originalItem, action, ActionMenuTrigger, $event)"
+                      class="w-8 h-8 text-primary"
+                      padding="0.5rem"
+                      appearance="text"
+                      iconSize="1.375rem"
+                      matBadgeColor="warn"
+                      matBadgePosition="before"
+                    ></ui-button>
+                    <div *ngSwitchCase="'text'" class="cursor-pointer">
+                      {{ action.content }}
+                    </div>
+                    <ui-button
+                      *ngSwitchCase="'button'"
+                      uiPermissionHide
+                      [class]="action.class"
+                      [appearance]="action.appearance ?? 'filled'"
+                      [theme]="action.theme ?? 'primary'"
+                      [disabled]="$any(state.data.disabled$ ? (state.data.disabled$ | async) : state.data.disabled)"
+                      [matBadge]="action.badge ? action.badge(row.originalItem) : ''"
+                      [action]="action.actionType"
+                      [permission]="state.data.permission"
+                      (onClick)="onAction(row.originalItem, action, ActionMenuTrigger, $event)"
+                      matBadgeColor="warn"
+                      matBadgePosition="before"
+                    >
+                      {{ action.content }}
+                    </ui-button>
+                    <div *ngSwitchDefault>
+                      {{ action.content }}
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Columns registration -->
+        <tr mat-header-row *matHeaderRowDef="columnsLabels()"></tr>
+        <!-- Rows registration -->
+        <tr
+          class="feature-table-row {{ $any(highlightedRows())[row.id] ? 'highlighted' : '' }}"
+          mat-row
+          *matRowDef="let row; let col; columns: columnsLabels()"
+          [attr.data-id]="row.originalItem.id"
+        ></tr>
+      </table>
+    </div>
+    <div class="hide-if-empty px-12 py-3 border-t border-inherit flex gap-16">
+      <ng-content select="[slot=footer]"></ng-content>
+    </div>
+  </div>
+  <ui-pagination
+    #Pagination
+    [total]="totalItems()"
+    (onUpdate)="onPaginate()"
+    class="{{ noPagination ? 'hidden' : '' }}"
+  ></ui-pagination>
+</div>
+
+<!-- Menu used for the Add/Edit action -->
+<feature-table-form-menu #FormMenu [options]="options()"></feature-table-form-menu>
+
+<!-- Print -->
+<feature-printable-table #PrintableTable></feature-printable-table>
+
+<!-- Reusable Templates -->
+
+<ng-template #CellValue let-row="row" let-col="col">
+  <span
+    [title]="state.value"
+    *ngIf="{
+      value: row.data[col.prop].value$ ? (row.data[col.prop].value$ | async) : row.data[col.prop].value
+    } as state"
+  >
+    <ng-container *ngIf="state.value | typeof: 'array'; else DefaultType">
+      <span
+        class="flex flex-wrap"
+        [style.min-width]="state.value.length > 3 ? '12rem' : state.value.length > 2 ? '10rem' : '8rem'"
+      >
+        <ng-container *ngFor="let i of state.value; last as last">
+          <span>{{ i }}<span *ngIf="!last" class="me-1">,</span></span>
+        </ng-container>
+      </span>
+    </ng-container>
+    <ng-template #DefaultType>
+      {{ state.value }}
+    </ng-template>
+  </span>
+</ng-template>

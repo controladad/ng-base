@@ -1,0 +1,20 @@
+:host ::ng-deep .mdc-evolution-chip__action--primary:before {
+  content: none;
+}
+
+:host ::ng-deep mat-chip-option {
+  &.rounded {
+    @apply rounded-full;
+  }
+  &:not(.rounded) {
+    @apply rounded-2;
+  }
+  @apply border-[1px] border-outline-variant overflow-hidden min-w-fit h-8 flex flex-row;
+}
+.example-box.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-chip .cdk-drop-list-dragging {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

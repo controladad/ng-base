@@ -1,0 +1,9 @@
+<div role="presentation" #Wrapper (click)="onClick()" class="ui-snackbar-panel {{ data.panelClass ?? '' }}">
+  {{ data.message }}
+  <ui-icon (onClick)="onAction()" class="ml-auto text-primary-400" *ngIf="data.action">
+    {{ data.action }}
+  </ui-icon>
+  <span *ngIf="data.code" class="absolute text-sm font-bold end-3.5 top-1.5 opacity-80">
+    {{ data.code }}
+  </span>
+</div>

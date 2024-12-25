@@ -1,0 +1,91 @@
+<!-- Desktop -->
+<div class="w-full hidden lg:flex relative items-baseline pt-3">
+  <div class="flex items-center justify-start flex-auto z-1">
+    <ng-container [ngTemplateOutlet]="SizeSelect"></ng-container>
+  </div>
+  <div class="relative text-center -top-2">
+    <ng-container [ngTemplateOutlet]="TotalCountText"></ng-container>
+  </div>
+  <div class="flex items-center flex-auto justify-end">
+    <ng-container [ngTemplateOutlet]="Paginator"></ng-container>
+  </div>
+</div>
+
+<!-- Mobile -->
+<div class="w-full flex flex-col lg:hidden relative items-center pt-6 gap-y-4">
+  <div class="flex items-center justify-center">
+    <ng-container [ngTemplateOutlet]="Paginator"></ng-container>
+  </div>
+  <div class="absolute top-2 end-2 text-center">
+    <ng-container [ngTemplateOutlet]="TotalCountText"></ng-container>
+  </div>
+  <div class="flex items-center justify-start flex-auto z-1">
+    <ng-container [ngTemplateOutlet]="SizeSelect"></ng-container>
+  </div>
+</div>
+
+<ng-template #Paginator>
+  <div
+    *ngIf="!(autoHide && totalPages() === 1)"
+    class="flex relative text-gray-caption text-base justify-center items-center gap-2"
+  >
+    <ui-button
+      appearance="text"
+      theme="custom"
+      class="navigate-button"
+      padding="0.25rem"
+      (onClick)="previous()"
+      [disabled]="page() === 1"
+    >
+      <mat-icon svgIcon="chevron-left"></mat-icon>
+      <span>قبلی</span>
+    </ui-button>
+    <div class="flex gap-2">
+      <ng-container *ngFor="let item of pagesArray(); index as index">
+        <p class="ellipsis-gap" *ngIf="item.number === totalPages() && showRightEllipsis()">...</p>
+        <div
+          role="button"
+          tabindex="-1"
+          [ngClass]="page() === item.number ? 'selected-page' : ''"
+          class="page-item"
+          (click)="onSelect(item)"
+          (keydown)="onSelect(item)"
+        >
+          <p class="pointer-events-none">{{ item.number | number: '2.0-0' }}</p>
+        </div>
+        <p class="ellipsis-gap" *ngIf="item.number === 1 && showLeftEllipsis()">...</p>
+      </ng-container>
+    </div>
+    <ui-button
+      appearance="text"
+      theme="custom"
+      class="navigate-button"
+      (onClick)="next()"
+      padding="0.25rem"
+      [disabled]="page() === totalPages()"
+    >
+      <span>بعدی</span>
+      <mat-icon svgIcon="chevron-right"></mat-icon>
+    </ui-button>
+  </div>
+</ng-template>
+
+<ng-template #SizeSelect>
+  <div class="flex items-baseline gap-4">
+    <span class="text-outline">نمایش</span>
+    <ui-field
+      controlType="select"
+      class="w-32 flex"
+      [items]="pageSizesList"
+      [control]="currentSizeControl"
+      [hideError]="true"
+      [searchable]="false"
+    >
+    </ui-field>
+    <span class="text-outline">ردیف در صفحه</span>
+  </div>
+</ng-template>
+
+<ng-template #TotalCountText>
+  <p class="text-xs font-medium whitespace-nowrap">تعداد کل: {{ _total() }}</p>
+</ng-template>

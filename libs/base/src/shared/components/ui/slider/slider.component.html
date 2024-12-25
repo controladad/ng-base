@@ -1,0 +1,26 @@
+<div [ngSwitch]="type" class="w-full flex flex-col">
+  <p *ngIf="label">{{ label }}</p>
+  <mat-slider
+    [showTickMarks]="isDoted"
+    [discrete]="hasLabel"
+    [disabled]="isDisabled"
+    [min]="min"
+    [max]="max"
+    [step]="steps"
+    *ngSwitchCase="'basic'"
+  >
+    <input [formControl]="control" matSliderThumb />
+  </mat-slider>
+  <mat-slider
+    [showTickMarks]="isDoted"
+    [discrete]="hasLabel"
+    [disabled]="isDisabled"
+    [min]="min"
+    [max]="max"
+    [step]="steps"
+    *ngSwitchCase="'range'"
+  >
+    <input matSliderStartThumb [value]="min" [formControl]="$any(formGroup.controls.start)" />
+    <input matSliderEndThumb [value]="max" [formControl]="$any(formGroup.controls.end)" />
+  </mat-slider>
+</div>

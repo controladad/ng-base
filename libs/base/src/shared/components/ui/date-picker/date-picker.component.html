@@ -1,0 +1,83 @@
+<div class="rounded-4 px-2 py-4 bg-surface-light-surface overflow-hidden" [ngSwitch]="switch">
+  <ng-container *ngSwitchCase="'calendar'" [ngTemplateOutlet]="calendar"></ng-container>
+  <ng-container *ngSwitchCase="'date-picker'" [ngTemplateOutlet]="datepicker"></ng-container>
+  <hr />
+  <div class="h-16 w-full flex flex-row items-center justify-end">
+    <ui-button [appearance]="'text'" (onClick)="cancel()">انصراف</ui-button>
+    <ui-button [appearance]="'text'" (onClick)="submit()">تایید</ui-button>
+  </div>
+</div>
+
+<ng-template #calendar>
+  <div class="w-full flex flex-col justify-between py-2 h-16">
+    <p class="title">{{ title }}</p>
+    <div class="flex flex-row items-center justify-between">
+      <p *ngIf="mode === 'range'">
+        {{ dateRangeGroup.controls.start.value ?? '' }}
+        <span>-</span>
+        {{ dateRangeGroup.controls.end.value ?? '' }}
+      </p>
+      <p *ngIf="mode === 'one-day'">
+        {{ dateRangeGroup.controls.start.value }}
+      </p>
+      <mat-icon class="w-4 h-4 cursor-pointer" svgIcon="edit"></mat-icon>
+    </div>
+  </div>
+  <hr />
+  <ng-container [ngTemplateOutlet]="matCalendar"></ng-container>
+</ng-template>
+
+<ng-template #datepicker>
+  <div [ngSwitch]="mode" class="date-picker-container">
+    <div class="flex flex-col">
+      <p class="title">{{ title }}</p>
+      <div class="w-full flex flex-row justify-between items-center">
+        <p>تاریخ‌{{ mode === 'range' ? ' ها ' : '' }}را وارد کنید</p>
+        <mat-icon class="calendar" svgIcon="calendar" [matMenuTriggerFor]="calendarMenu"></mat-icon>
+      </div>
+    </div>
+    <hr />
+    <div *ngSwitchCase="'range'" class="w-full flex flex-row p-2 items-center justify-between">
+      <ui-field
+        (keyup)="inputDateManually(dateRangeGroup.controls.start, 'first')"
+        [prefixIcon]="undefined"
+        class="w-[45%] text-xs"
+        placeholder="روز/ماه/سال"
+        [control]="dateRangeGroup.controls.start"
+        label="تاریخ شروع"
+      ></ui-field>
+      <ui-field
+        (keyup)="inputDateManually(dateRangeGroup.controls.end, 'second')"
+        [prefixIcon]="undefined"
+        class="w-[45%] text-xs"
+        placeholder="روز/ماه/سال"
+        [control]="dateRangeGroup.controls.end"
+        label="تاریخ پایان"
+      ></ui-field>
+    </div>
+    <div *ngSwitchCase="'one-day'" class="p-2 flex items-center justify-center">
+      <ui-field
+        (keyup)="inputDateManually(oneDayFormControl)"
+        [prefixIcon]="undefined"
+        [control]="oneDayFormControl"
+        class="bg-transparent"
+        label="تاریخ"
+        placeholder="تاریخ"
+      ></ui-field>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #matCalendar>
+  <div [ngSwitch]="mode">
+    <mat-calendar *ngSwitchCase="'range'" (selectedChange)="selectRange($event)" [selected]="selectedDateRange">
+    </mat-calendar>
+    <mat-calendar *ngSwitchCase="'one-day'" [selected]="oneDay" (selectedChange)="selectOneDay($event)"> </mat-calendar>
+  </div>
+</ng-template>
+
+<mat-menu #calendarMenu>
+  <div role="presentation" class="p-1 bg-surface-light-surface" (click)="$event.stopPropagation()">
+    <ng-container [ngTemplateOutlet]="matCalendar"></ng-container>
+  </div>
+</mat-menu>

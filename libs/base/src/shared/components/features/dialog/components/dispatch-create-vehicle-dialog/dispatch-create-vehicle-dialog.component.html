@@ -1,0 +1,9 @@
+<feature-dialog-layout title="افزودن وسیله نقلیه" submitBtn="افزودن" (onSubmit)="onSubmit($event)" cancelBtn="لغو">
+  <p class="form-title">اطلاعات راننده</p>
+  <div class="flex flex-row gap-6">
+    <feature-form-builder class="w-1/2" [options]="driverForm"></feature-form-builder>
+    <feature-form-builder class="w-1/2" [options]="driverSecondForm"></feature-form-builder>
+  </div>
+  <p class="form-title">اطلاعات وسیله نقلیه</p>
+  <feature-form-builder [options]="vehicleForm"></feature-form-builder>
+</feature-dialog-layout>

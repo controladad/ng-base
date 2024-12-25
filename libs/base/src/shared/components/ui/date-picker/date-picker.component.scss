@@ -1,0 +1,14 @@
+::ng-deep .mat-mdc-menu-content {
+  padding: 0 !important;
+}
+hr {
+  border-top: 1px solid;
+  @apply w-full border-black opacity-20;
+}
+mat-icon.calendar {
+  @apply h-5 w-5 cursor-pointer;
+}
+
+.title {
+  @apply text-xs text-surface-on-variant;
+}

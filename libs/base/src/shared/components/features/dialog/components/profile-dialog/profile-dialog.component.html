@@ -1,0 +1,15 @@
+<feature-dialog-layout title="پروفایل" [hideControls]="true">
+  <div class="profile">
+    <img [src]="data.profileImageUrl" width="130" height="130" />
+    <p>{{ data.userFullname }}</p>
+  </div>
+  <hr class="mt-6" />
+  <p (click)="onSelect('change-password')" class="dialog-btn">
+    <ui-icon icon="key"></ui-icon>
+    <span>تغییر رمز عبور</span>
+  </p>
+  <p (click)="onSelect('signout')" class="dialog-btn">
+    <ui-icon icon="logout" class="text-error-600"></ui-icon>
+    <span>خروج از حساب کاربری</span>
+  </p>
+</feature-dialog-layout>

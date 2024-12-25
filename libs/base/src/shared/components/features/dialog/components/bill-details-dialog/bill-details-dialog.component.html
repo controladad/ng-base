@@ -1,0 +1,52 @@
+<feature-dialog-layout title="جزئیات قبض" [hideControls]="true">
+  <div class="mt-4"><!-- Spacer --></div>
+  <p class="form-title">اطلاعات پایه</p>
+  <feature-form-builder [options]="baseForm"></feature-form-builder>
+  <p class="form-title">اطلاعات توزین</p>
+  <feature-form-builder [options]="weightForm"></feature-form-builder>
+  <ng-container *ngIf="!data.hideExtraDetails">
+    <p class="form-title">توضیحات</p>
+    <div class="grid grid-cols-3 gap-4">
+      <feature-form-builder *ngIf="!isOtherBill()" class="col-span-1" [options]="stateForm"></feature-form-builder>
+      <feature-form-builder class="col-span-2" [options]="descriptionForm"></feature-form-builder>
+    </div>
+  </ng-container>
+  <p class="form-title">اطلاعات شرکت باربری</p>
+  <feature-form-builder [options]="companyForm"></feature-form-builder>
+
+  <div class="flex items-center flex-row-reverse gap-2 mt-5">
+    <ui-button
+      *ngIf="plugins.isNavyAvailable() && !isOtherBill()"
+      class="w-48"
+      icon="route"
+      appearance="stroked"
+      (onClick)="onOpenMapRoute($event)"
+      >نمایش مسیر توزین</ui-button
+    >
+    <ui-button
+      *ngIf="data.print"
+      class="w-40"
+      icon="print"
+      appearance="stroked"
+      [permission]="!isOtherBill() ? 'PrintABillFromAdminPanel' : 'PrintAOtherBillFromAdminPanel'"
+      (onClick)="Printer.print()"
+      >چاپ</ui-button
+    >
+    <ui-button *ngIf="data.addDescription" class="w-40" icon="plus" appearance="stroked" (onClick)="onAddDescription()"
+      >ثبت توضیحات</ui-button
+    >
+    <div class="flex-auto"></div>
+    <feature-bottom-controls
+      *ngIf="isActionBound()"
+      class="inline-flex m-0 flex-row w-auto"
+      cancelText="بستن"
+      submitText="تایید"
+      (onSubmit)="onSubmit()"
+      (onCancel)="close()"
+    ></feature-bottom-controls>
+  </div>
+</feature-dialog-layout>
+
+<div #Printer="alxPrint" alxPrint [hidden]="true">
+  <feature-printable-bill [bill]="data.bill"></feature-printable-bill>
+</div>

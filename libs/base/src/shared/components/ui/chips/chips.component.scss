@@ -1,0 +1,50 @@
+:host {
+  &.ui-chips {
+    @apply transition-all duration-100 rounded-2 text-sm font-medium;
+    @apply flex items-center justify-center py-2 px-2.5 gap-1;
+    @apply select-none cursor-pointer;
+    white-space: nowrap;
+
+    &.ui-chips-appearance-filled {
+      @apply bg-neutral-100 text-secondary-on-container;
+      &:hover {
+        @apply bg-neutral-200;
+      }
+      &:hover:active {
+        @apply bg-neutral-300;
+      }
+    }
+    &.ui-chips-appearance-outlined {
+      @apply bg-transparent border border-outline text-secondary-on-container;
+      &:hover {
+        @apply bg-neutral-900 bg-opacity-10;
+      }
+      &:hover:active {
+        @apply bg-neutral-900 bg-opacity-20;
+      }
+    }
+  }
+
+  // Active state
+
+  &.ui-chips-active {
+    &.ui-chips-appearance-filled {
+      @apply bg-primary-200 brightness-95;
+      &:hover {
+        @apply bg-primary-300;
+      }
+      &:hover:active {
+        @apply bg-primary-300 brightness-90;
+      }
+    }
+    &.ui-chips-appearance-outlined {
+      @apply text-white bg-primary-600 border-primary-900;
+      &:hover {
+        @apply bg-primary-600 brightness-95;
+      }
+      &:hover:active {
+        @apply bg-primary-700 bg-opacity-20;
+      }
+    }
+  }
+}

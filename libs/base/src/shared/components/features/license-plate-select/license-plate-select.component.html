@@ -1,0 +1,20 @@
+<div class="relative">
+  <ui-license-plate
+    class="block relative"
+    [control]="control"
+    [uiOptionsTriggerFor]="items ? Options : undefined"
+    [filter]="true"
+    [selector]="'input'"
+    [label]="label"
+    [mini]="mini"
+    [hideError]="hideError"
+  ></ui-license-plate>
+  <ui-select-options
+    #Options
+    menuClass="-mt-5 license-plate-select-menu"
+    [control]="control"
+    [items]="items"
+    [searchable]="true"
+    [optional]="false"
+  ></ui-select-options>
+</div>

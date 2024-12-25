@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: inherit !important;
+}
+.dialog-save-button {
+  max-width: 23%;
+  @apply bg-secondary-400 text-white h-12 w-full;
+}
+
+.dialog-cancel-button {
+  max-width: 23%;
+  @apply text-secondary-400 border border-secondary-400 bg-white h-12 w-full;
+}

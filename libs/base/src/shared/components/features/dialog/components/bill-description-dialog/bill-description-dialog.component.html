@@ -1,0 +1,9 @@
+<feature-dialog-layout
+  [title]="data.description && data.description !== '' ? 'ویرایش توضیح' : 'افزودن توضیح'"
+  [form]="descriptionControl"
+  (onSubmit)="onSave($event)"
+  submitBtn="ذخیره"
+  subtitle="لطفا توضیح خود را وارد کرده و دکمه ذخیره را فشار دهید"
+>
+  <ui-field class="mt-8" controlType="textarea" [control]="descriptionControl" placeholder="متن توضیحات"></ui-field>
+</feature-dialog-layout>

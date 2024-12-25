@@ -1,0 +1,66 @@
+<ng-container *ngIf="input()" [ngSwitch]="input().type">
+  <ui-radio
+    *ngSwitchCase="'radio'"
+    [control]="input().control"
+    [label]="input().label"
+    [items]="input().items ?? []"
+    class="{{ class }}"
+    [ngStyle]="style"
+  ></ui-radio>
+  <ng-container *ngSwitchCase="'checkbox'">
+    <ui-checkbox
+      [label]="input().label ?? ''"
+      [control]="$any(input().control)"
+      class="{{ class }}"
+      [ngStyle]="style"
+    ></ui-checkbox>
+  </ng-container>
+
+  <ui-switch
+    *ngSwitchCase="'switch'"
+    [control]="input().control"
+    [label]="input().label"
+    class="{{ class }}"
+    [ngStyle]="style"
+  ></ui-switch>
+
+  <ui-license-plate
+    *ngSwitchCase="'plate'"
+    [control]="input().control"
+    class="{{ class }}"
+    [ngStyle]="style"
+    [style.align-self]="'center'"
+    [mini]="true"
+  ></ui-license-plate>
+
+  <ng-container *ngSwitchDefault>
+    <div class="flex gap-2" [ngStyle]="style">
+      <ui-field
+        style="width: 100%; height: 100%"
+        class="{{ class }}"
+        [control]="input().control"
+        [appearance]="input().appearance ?? 'outlined'"
+        [label]="input().label"
+        [placeholder]="input().placeholder"
+        [controlType]="$any(input().type) ?? 'input'"
+        [inputType]="input().inputType ?? 'text'"
+        [floatLabel]="(screenDetector.md$ | async) ? input().floatLabel : 'always'"
+        [items]="input().items"
+        [maskType]="input().mask"
+        [suffixIcon]="input().suffixIcon"
+        [prefixIcon]="input().prefixIcon"
+        [suffix]="input().suffix"
+        [autoComplete]="input().autocomplete === undefined ? allowAutocomplete! : $any(input().autocomplete)"
+        [clearable]="input().clearable!"
+        [searchable]="input().searchable ?? true"
+        [optional]="input().optional ?? false"
+        [multiple]="input().multiple ?? false"
+        [hideError]="input().hideError"
+        [textareaRows]="input().rows"
+        [categories]="input().categories"
+        [showIcons]="input().showIcons ?? false"
+        [menuClass]="input().menuClass"
+      ></ui-field>
+    </div>
+  </ng-container>
+</ng-container>

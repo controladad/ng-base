@@ -1,0 +1,50 @@
+<feature-dialog-layout title="جزئیات خودرو" [hideControls]="true">
+  <div class="grid grid-cols-2 border border-outline-variant mt-4">
+    <ng-container
+      [ngTemplateOutlet]="Item"
+      [ngTemplateOutletContext]="{ title: 'نام راننده', value: data.driverName, icon: 'user' }"
+    ></ng-container>
+    <ng-container
+      [ngTemplateOutlet]="Item"
+      [ngTemplateOutletContext]="{ title: 'کد وسیله نقلیه', value: data.vehicleCode, icon: 'code' }"
+    ></ng-container>
+    <ng-container
+      [ngTemplateOutlet]="Item"
+      [ngTemplateOutletContext]="{ title: 'شماره تماس', value: data.driverPhoneNumber, icon: 'phone' }"
+    ></ng-container>
+    <ng-container
+      [ngTemplateOutlet]="Item"
+      [ngTemplateOutletContext]="{ title: 'پلاک', value: data.plateNumber, icon: 'plate', isPlate: true }"
+    ></ng-container>
+    <ng-container
+      [ngTemplateOutlet]="Item"
+      [ngTemplateOutletContext]="{ title: 'شعبه', value: branches, icon: 'branch' }"
+    ></ng-container>
+    <ng-container
+      [ngTemplateOutlet]="Item"
+      [ngTemplateOutletContext]="{ title: 'نوع قرارداد', value: contract, icon: 'truck' }"
+    ></ng-container>
+    <ng-container
+      [ngTemplateOutlet]="Item"
+      [ngTemplateOutletContext]="{ title: 'شرکت باربری', value: data.truckingCompanyName, icon: 'building' }"
+    ></ng-container>
+    <ng-container
+      [ngTemplateOutlet]="Item"
+      [ngTemplateOutletContext]="{ title: 'دستور حمل', value: data.shipmentOrderNumber, icon: 'sort-indicator' }"
+    ></ng-container>
+  </div>
+
+  <ng-template #Item let-title="title" let-value="value" let-icon="icon" let-isPlate="isPlate">
+    <div class="p-6 border-b odd:border-l [&:nth-last-child(-n+2)]:border-b-0 border-outline-variant">
+      <p class="text-surface-on-variant flex gap-2 mb-2">
+        <ui-icon [icon]="icon"></ui-icon>
+        <span>{{ title }}</span>
+      </p>
+      @if (isPlate) {
+        <ui-license-plate [value]="value"></ui-license-plate>
+      } @else {
+        <p>{{ value }}</p>
+      }
+    </div>
+  </ng-template>
+</feature-dialog-layout>

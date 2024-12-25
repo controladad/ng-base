@@ -1,0 +1,31 @@
+.ui-snackbar-panel {
+  &.is-message {
+    @apply bg-primary-400 text-surface #{!important};
+  }
+  &.is-error {
+    @apply bg-error text-error-100 #{!important};
+  }
+  @apply rounded-6 #{!important};
+  //animation: snack-anim infinite ease-in-out alternate 1s;
+  transition: all 0.15s ease;
+  position: relative;
+  padding: 1rem 3.5rem !important;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  pointer-events: auto;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  white-space: pre;
+}
+
+@keyframes snack-anim {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.96);
+  }
+}

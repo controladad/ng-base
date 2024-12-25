@@ -1,0 +1,82 @@
+<ng-container *ngLet="(control.readonly$ | async) || readonly as isReadonly">
+  <div [class.pointer-events-none]="isReadonly">
+    <ng-container *ngIf="!mini; else Mini" [ngTemplateOutlet]="Default"></ng-container>
+  </div>
+
+  <ng-template #Default>
+    <div class="feature-license-plate-default" (click)="input.focus()" (keydown.enter)="input.focus()">
+      <span *ngIf="label" class="pb-2 ps-1 text-sm text-surface-on" (click)="input.focus()" aria-hidden="true"
+        >{{ label }} :</span
+      >
+      <div class="wrapper {{ isFocused() ? 'is-focused' : '' }}">
+        <div class="iran-section">
+          <img class="w-full" src="assets/base/images/iran-flag.webp" alt="" />
+          <span class="mt-auto ps-px leading-0 me-auto mb-2">I.R.</span>
+          <span class="ps-px leading-0 mb-1">IRAN</span>
+        </div>
+        <span class="first-section">{{ firstSection }}</span>
+        <span class="letter-section">{{ letterSection }}</span>
+        <span class="second-section">{{ secondSection }}</span>
+        <span class="state-section relative">
+          <span class="state-label">ایران</span>
+          {{ stateSection }}
+        </span>
+      </div>
+    </div>
+    <div *ngIf="!hideError" class="relative pb-6">
+      <ui-control-error [control]="control"></ui-control-error>
+    </div>
+    <input
+      class="absolute opacity-0 w-0 h-0"
+      #input
+      type="text"
+      [formControl]="control"
+      [inputMask]="inputMask"
+      [readonly]="isReadonly"
+      (focus)="onFocusChanged(true)"
+      (blur)="onFocusChanged(false)"
+      (input)="onInputChange()"
+    />
+  </ng-template>
+
+  <ng-template #Mini>
+    <mat-form-field
+      class="feature-license-plate-field"
+      [class.hide-error]="hideError"
+      floatLabel="always"
+      appearance="outline"
+      (click)="input.focus()"
+      (keydown.enter)="input.focus()"
+    >
+      <mat-label *ngIf="label !== ''">{{ label ?? 'پلاک' }}</mat-label>
+      <input
+        matInput
+        class="absolute opacity-0 w-0 h-0"
+        #input
+        type="text"
+        [formControl]="control"
+        [inputMask]="inputMask"
+        [readonly]="isReadonly"
+        (focus)="onFocusChanged(true)"
+        (blur)="onFocusChanged(false)"
+        (input)="onInputChange()"
+      />
+      <div class="feature-license-plate-mini">
+        <div class="iran-section">
+          <img class="w-full" src="assets/base/images/iran-flag-mini.webp" alt="" />
+          <span class="mt-auto mb-3.5">I.R.</span>
+          <span class="-mt-1 mb-1">IRAN</span>
+        </div>
+        <div class="section-wrapper">
+          <span class="first-section ps-2">{{ firstSection }}</span>
+          <span class="letter-section">{{ letterSection }}</span>
+          <span class="second-section">{{ secondSection }}</span>
+          <span class="state-section px-2">{{ stateSection }}</span>
+        </div>
+      </div>
+    </mat-form-field>
+    <div *ngIf="!hideError" class="relative">
+      <ui-control-error [control]="control"></ui-control-error>
+    </div>
+  </ng-template>
+</ng-container>

@@ -1,0 +1,237 @@
+:host {
+  display: block;
+  position: relative;
+  unicode-bidi: plaintext;
+
+  .loading {
+    opacity: 0.7 !important;
+    pointer-events: none;
+  }
+}
+
+.ui-field-label {
+  @apply text-sm mb-2 font-medium;
+  .required-star {
+    @apply text-error;
+  }
+}
+
+:host ::ng-deep .ui-field {
+  // Base Properties
+
+  border-radius: var(--mdc-outlined-text-field-container-shape);
+
+  &.mat-form-field-disabled,
+  &.is-readonly {
+    .mat-mdc-form-field-icon-suffix,
+    .mat-mdc-form-field-icon-prefix {
+      .mat-icon {
+        color: rgba(0, 0, 0, 0.75) !important;
+      }
+    }
+    input {
+      color: rgba(0, 0, 0, 0.65) !important;
+    }
+    textarea {
+      color: rgba(0, 0, 0, 0.65) !important;
+    }
+  }
+
+  &.hide-error {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
+    }
+  }
+
+  &.align-left {
+    input,
+    textarea {
+      text-align: left !important;
+    }
+  }
+  &.align-right {
+    input,
+    textarea {
+      text-align: right !important;
+    }
+  }
+
+  .mat-mdc-floating-label {
+    margin-top: -0.25rem;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    cursor: pointer;
+    border-radius: var(--mdc-outlined-text-field-container-shape);
+  }
+
+  .mat-mdc-form-field-bottom-align::before {
+    height: 12px !important;
+  }
+
+  .mat-mdc-form-field-infix {
+    padding-inline-end: 0.75rem;
+    position: static !important;
+    padding-top: 14px !important;
+    padding-bottom: 8px !important;
+    min-width: 5rem !important;
+    width: auto !important;
+    font-weight: 500 !important;
+  }
+
+  &.type-textarea {
+    .mat-form-field-outline {
+      height: auto !important;
+    }
+  }
+
+  &.infix-flex {
+    .mat-mdc-form-field-infix {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+
+  input,
+  textarea {
+    unicode-bidi: inherit;
+    height: 100% !important;
+    letter-spacing: 0 !important;
+    outline: 0 !important;
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.3) !important;
+    }
+  }
+
+  .mat-mdc-select-arrow-wrapper {
+    display: none !important;
+  }
+  .mat-mdc-form-field-icon-suffix {
+    transition: all 0.15s ease;
+    @apply flex text-outline items-center gap-2 pe-4 ps-1;
+    mat-icon {
+      padding: 0 !important;
+    }
+  }
+
+  &.mat-form-field-invalid {
+    .mat-mdc-form-field-icon-suffix {
+      @apply text-error #{!important};
+    }
+  }
+  &.mat-focused:not(.mat-form-field-invalid) {
+    .mat-mdc-form-field-icon-suffix {
+      @apply text-primary #{!important};
+    }
+    .clear-button {
+      @apply text-primary #{!important};
+    }
+  }
+
+  // Styled Properties
+
+  &.ui-field-outlined {
+    .mat-mdc-text-field-wrapper {
+      background: white;
+    }
+    &.mat-form-field-disabled {
+      .mat-mdc-text-field-wrapper {
+        background: rgba(255, 255, 255, 0.6) !important;
+      }
+    }
+    .mdc-notched-outline__notch {
+      border-right: none !important;
+    }
+  }
+
+  &.ui-field-compact {
+    .mdc-notched-outline__trailing,
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch {
+      border-radius: 0 !important;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
+      border-bottom: none !important;
+    }
+
+    .mat-mdc-form-field-infix {
+      min-height: 42px !important;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      padding: 0 0.25rem !important;
+    }
+  }
+
+  &.ui-field-simple {
+    .mdc-notched-outline__trailing,
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch {
+      border-radius: 0 !important;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
+    }
+  }
+}
+
+/* autofill background: */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #000;
+  -webkit-box-shadow: 0 0 0px 1000px #f9f9fc inset;
+  transition: background-color 100s ease-in-out 0s;
+}
+
+// Numeric up and down icons hide \/
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+// - - - - - - - - - - -
+
+// Fix password input font *don't apply the global font-family* to fix the bullet icons
+input[type='password'] {
+  font-family: math, monospaced;
+}
+
+.numeric-field-fix {
+  unicode-bidi: plaintext !important;
+  text-align: end !important;
+}
+
+.clear-button {
+  @apply text-outline cursor-pointer w-6 h-6;
+  transition: all 0.15s ease;
+  &.hide-clear {
+    pointer-events: none;
+    transform: scale(0);
+  }
+}
+
+:host ::ng-deep .date-toggle-button {
+  & > button {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    padding: 0 !important;
+  }
+}
+
+.numeric-control {
+  @apply flex flex-col;
+}

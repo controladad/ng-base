@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  width: 24px;
+  height: 24px;
+  color: black;
+  position: relative;
+  border-radius: 0.25rem;
+}
+:host ::ng-deep .ui-icon {
+  @apply transition-all duration-150 filter w-inherit h-inherit text-inherit;
+  @apply flex items-center justify-center;
+  border-radius: inherit;
+
+  &.is-clickable {
+    @apply cursor-pointer;
+    &:hover {
+      @apply bg-surface-bright brightness-90 drop-shadow-sm #{!important};
+    }
+    &:hover:active {
+      @apply bg-surface-container brightness-100 drop-shadow-none #{!important};
+    }
+  }
+
+  &.disabled {
+    cursor: default !important;
+    @apply text-gray-400;
+  }
+}

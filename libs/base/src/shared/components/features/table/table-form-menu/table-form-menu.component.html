@@ -1,0 +1,47 @@
+<mat-menu #MenuForm backdropClass="ui-backdrop-blur-sm">
+  <ng-container *ngIf="formOptions() && showForm()">
+    <div
+      cdkTrapFocus
+      [cdkTrapFocusAutoCapture]="true"
+      role="presentation"
+      class="p-4 pt-1 overflow-auto flex flex-col h-full"
+      (click)="$event.stopPropagation()"
+      (keydown)="$event.stopPropagation()"
+      (keydown.enter)="Controller.submit()"
+      (keydown.escape)="Controller.cancel()"
+    >
+      <span class="text-lg font-medium">{{
+        formOptions()!.mode === 'create'
+          ? ADD_TEXT + ' ' + formOptions()!.itemName + ' ' + NEW_TEXT
+          : EDIT_TEXT + ' ' + formOptions()!.itemName
+      }}</span>
+      <span class="text-sm font-normal mt-1">مشخصات را وارد کنید و دکمه ثبت را بزنید</span>
+      <ui-icon
+        class="absolute w-12 h-12 left-4 text-surface-on"
+        size="1.5rem"
+        icon="close"
+        (onClick)="Controller.cancel()"
+      ></ui-icon>
+      <div class="overflow-auto flex-auto">
+        <feature-form-builder
+          #Form
+          class="block mt-7"
+          [options]="formOptions()!.formBuilder"
+          [focusOnInit]="true"
+        ></feature-form-builder>
+      </div>
+      <feature-bottom-controls
+        #Controller
+        [form]="formOptions()!.formBuilder.formGroup"
+        [actionType]="formOptions()!.mode === 'edit' ? 'update' : 'create'"
+        class="flex-row-reverse justify-start"
+        submitClass="w-28"
+        cancelClass="w-16"
+        submitText="ثبت"
+        cancelText="لغو"
+        (onSubmit)="onFormMenuSubmit($event)"
+        (onCancel)="onFormMenuCancel()"
+      ></feature-bottom-controls>
+    </div>
+  </ng-container>
+</mat-menu>

@@ -1,0 +1,22 @@
+<div #Printer="alxPrint" alxPrint [hidden]="true">
+  <ng-container *ngLet="_currentData() as currentData">
+    <table class="feature-printable-table">
+      <thead>
+        <tr>
+          <th #Headers *ngFor="let val of currentData?.header ?? []">{{ val }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr #Rows *ngFor="let row of currentData?.rows ?? []">
+          <td #Cols *ngFor="let val of row">
+            {{ val }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mt-7 text-sm hide-if-empty">
+      <p #Extras *ngFor="let item of currentData?.extra ?? []">{{ item.label }} : {{ item.value }}</p>
+    </div>
+  </ng-container>
+</div>

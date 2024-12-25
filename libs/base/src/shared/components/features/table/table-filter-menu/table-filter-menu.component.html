@@ -1,0 +1,25 @@
+<mat-menu #FilterMenu backdropClass="ui-backdrop-blur-sm">
+  <div
+    cdkTrapFocus
+    [cdkTrapFocusAutoCapture]="true"
+    role="presentation"
+    class="flex flex-col pt-1 p-4"
+    (click)="$event.stopPropagation()"
+    (keydown)="$event.stopPropagation()"
+    (keydown.enter)="submit()"
+    (keydown.escape)="cancel()"
+  >
+    <ng-container *ngIf="form() && show()">
+      <span class="text-lg font-medium">فیلتر {{ column.label }}</span>
+      <feature-form-builder class="mt-4" #Form [options]="form()!" [focusOnInit]="true"></feature-form-builder>
+      <feature-bottom-controls
+        class="mt-4"
+        submitText="فیلتر"
+        cancelText="لغو"
+        [form]="form()!.formGroup"
+        (onSubmit)="submit()"
+        (onCancel)="cancel()"
+      ></feature-bottom-controls>
+    </ng-container>
+  </div>
+</mat-menu>

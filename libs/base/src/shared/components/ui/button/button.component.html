@@ -1,0 +1,38 @@
+<div
+  class="ui-inherit-parent"
+  [matTooltip]="insufficientPermission() ? 'شما دسترسی برای انجام این فعالیت را ندارید.' : ''"
+>
+  <button
+    #Button
+    mat-flat-button
+    class="ui-inherit-parent ui-button"
+    [disabled]="(disabled ?? false) || loading() || insufficientPermission()"
+    [ngStyle]="{ padding: padding }"
+    (click)="onClickEvent($event)"
+    [routerLink]="route"
+    [class.fit-content]="fitContent"
+    [class.content-align-start]="align === 'start'"
+    [class.content-align-center]="align === 'center' || align === undefined"
+    [class.content-align-end]="align === 'end'"
+  >
+    <div class="ui-button-content" [class.loading]="loading()">
+      <ng-container *ngIf="iconPosition === 'prefix'" [ngTemplateOutlet]="Icon"></ng-container>
+      <div class="ui-button-content-portal inline-flex mx-2 hide-if-empty">
+        <ng-content></ng-content>
+      </div>
+      <ng-container *ngIf="iconPosition === 'suffix'" [ngTemplateOutlet]="Icon"></ng-container>
+      <div *ngIf="loading()" class="ui-button-loading-spinner">
+        <mat-spinner color="primary" diameter="16" class="mx-2"></mat-spinner>
+      </div>
+    </div>
+  </button>
+</div>
+
+<ng-template #Icon>
+  <mat-icon
+    class="transition-colors"
+    *ngIf="!!icon"
+    [svgIcon]="icon"
+    [style]="'width:' + iconSize + ';height:' + iconSize"
+  ></mat-icon>
+</ng-template>

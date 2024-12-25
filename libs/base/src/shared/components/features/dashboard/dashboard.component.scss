@@ -1,0 +1,14 @@
+:host .charts-row div,
+.filters-container {
+  @apply bg-white border-outline-variant border border-opacity-50 py-5 px-6;
+  p {
+    @apply text-base text-black mb-4 font-medium;
+    span {
+      @apply text-surface-on-variant font-normal;
+    }
+  }
+  ::ng-deep .mat-button-toggle-button .mat-button-toggle-label-content {
+    padding: 0.635rem 1.5rem;
+    line-height: normal;
+  }
+}

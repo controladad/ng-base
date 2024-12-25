@@ -1,0 +1,32 @@
+<ngx-file-drop
+  class="feature-image-uploader"
+  [class.has-error]="!isLoading() && (control.showError$ | async)"
+  [class.has-value]="control.hasValue$ | async"
+  (onFileDrop)="onFileDrop($event)"
+  [multiple]="false"
+  accept=".png,.jpeg,.jpg,.webp"
+>
+  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+    <div
+      class="transition-all w-full h-full flex flex-col items-center justify-center relative cursor-pointer hover:bg-neutral-50 overflow-hidden"
+      (keydown.enter)="control.markAsTouched(); openFileSelector()"
+      (click)="control.markAsTouched(); openFileSelector()"
+    >
+      @if (url()) {
+        <img class="absolute w-full h-full object-contain" [src]="url()" alt="" />
+        <ui-button
+          (onClick)="$event.event.stopPropagation(); onDelete()"
+          class="border-primary-on-container bg-primary-container text-primary-on-container absolute bottom-2 end-2 w-6 h-6"
+          icon="trash"
+        ></ui-button>
+      } @else {
+        @if (isLoading()) {
+          <mat-spinner mode="indeterminate" [diameter]="32" [strokeWidth]="4"></mat-spinner>
+        } @else {
+          <mat-icon class="upload-icon absolute w-8 h-8" svgIcon="camera"></mat-icon>
+          <span class="upload-text mt-auto mb-7">بارگذاری تصویر</span>
+        }
+      }
+    </div>
+  </ng-template>
+</ngx-file-drop>

@@ -1,0 +1,25 @@
+<feature-table [options]="table">
+  @if (mode() === 'view') {
+    <ng-container slot="header-start">
+      <div class="flex gap-2">
+        <ui-field
+          [control]="rangeControl"
+          label="بازه زمانی"
+          controlType="select"
+          [items]="rangeItems"
+          [searchable]="false"
+          [hideError]="true"
+          (onSelect)="selectRange()"
+        ></ui-field>
+        <ui-button
+          theme="primary"
+          appearance="stroked"
+          icon="calendar"
+          class="h-inherit"
+          (onClick)="selectRangeManually()"
+          >انتخاب دستی
+        </ui-button>
+      </div>
+    </ng-container>
+  }
+</feature-table>

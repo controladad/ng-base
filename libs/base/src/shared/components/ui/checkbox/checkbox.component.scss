@@ -1,0 +1,30 @@
+:host {
+  @apply text-surface-on;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+:host ::ng-deep .ui-checkbox {
+  user-select: none;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  .mdc-form-field {
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    color: inherit !important;
+  }
+  .mdc-label {
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    color: inherit !important;
+  }
+  &.mat-mdc-checkbox-checked,
+  &[ng-reflect-indeterminate='true'] {
+    .mdc-checkbox__background {
+      @apply bg-primary #{!important};
+    }
+    .mdc-checkbox__mixedmark {
+      @apply border-white #{!important};
+    }
+  }
+}

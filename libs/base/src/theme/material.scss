@@ -1,0 +1,115 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$primary-colors: (
+  50: var(--primary-50),
+  100: var(--primary-100),
+  200: var(--primary-200),
+  300: var(--primary-300),
+  400: var(--primary-400),
+  500: var(--primary-500),
+  600: var(--primary-600),
+  700: var(--primary-700),
+  800: var(--primary-800),
+  900: var(--primary-900),
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  ),
+);
+
+$accent-colors: (
+  50: var(--secondary-50),
+  100: var(--secondary-100),
+  200: var(--secondary-200),
+  300: var(--secondary-300),
+  400: var(--secondary-400),
+  500: var(--secondary-500),
+  600: var(--secondary-600),
+  700: var(--secondary-700),
+  800: var(--secondary-800),
+  900: var(--secondary-900),
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  ),
+);
+
+$warn-colors: (
+  50: var(--error-50),
+  100: var(--error-100),
+  200: var(--error-200),
+  300: var(--error-300),
+  400: var(--error-400),
+  500: var(--error-500),
+  600: var(--error-600),
+  700: var(--error-700),
+  800: var(--error-800),
+  900: var(--error-900),
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  ),
+);
+
+.mat-elevation-z1 {
+  @apply shadow-1 #{!important};
+}
+.mat-elevation-z2 {
+  @apply shadow-2 #{!important};
+}
+.mat-elevation-z3 {
+  @apply shadow-3 #{!important};
+}
+.mat-elevation-z4 {
+  @apply shadow-4 #{!important};
+}
+.mat-elevation-z5 {
+  @apply shadow-5 #{!important};
+}
+
+$typography: mat.define-typography-config(
+  $font-family: 'Estedad',
+);
+
+$primary-palette: mat.define-palette($primary-colors);
+$accent-palette: mat.define-palette($accent-colors);
+$warn-palette: mat.define-palette($warn-colors);
+
+$theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $primary-palette,
+      accent: $accent-palette,
+      warn: $warn-palette,
+    ),
+    typography: $typography,
+    density: 0,
+  )
+);
+
+@include mat.all-component-themes($theme);

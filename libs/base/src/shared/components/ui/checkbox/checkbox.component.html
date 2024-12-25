@@ -1,0 +1,10 @@
+<mat-checkbox
+  class="ui-checkbox {{ (control.readonly$ | async) ? 'pointer-events-none' : '' }}"
+  [formControl]="control"
+  [checked]="checked"
+  [indeterminate]="indeterminate"
+  (change)="onChange.emit($event.checked)"
+>
+  <ng-content></ng-content>
+  {{ label }}
+</mat-checkbox>

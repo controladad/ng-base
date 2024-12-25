@@ -1,0 +1,267 @@
+.cdk-global-scrollblock {
+  overflow-y: hidden !important;
+}
+
+.cdk-global-overlay-wrapper {
+}
+
+.ui-dialog-default-panel {
+  direction: rtl;
+  .mat-mdc-dialog-container {
+    padding: 0 !important;
+    border-radius: 0 !important;
+    position: relative;
+  }
+  .mat-mdc-dialog-surface {
+    @apply border border-outline-variant;
+    box-shadow: none !important;
+    border-radius: 0.75rem !important;
+    background: transparent !important;
+    display: flex !important;
+    flex-direction: column;
+    & > * {
+      @apply relative bg-surface-container-low;
+      @apply shadow-5 #{!important};
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      flex: 1 1 auto;
+      overflow: hidden;
+    }
+  }
+}
+
+.ui-backdrop-blur {
+  background: rgba(45, 45, 45, 0.25) !important;
+  backdrop-filter: blur(2px);
+}
+
+.ui-backdrop-blur-xl {
+  background: rgba(45, 45, 45, 0.3) !important;
+  backdrop-filter: blur(6px);
+}
+
+.ui-backdrop-blur-sm {
+  background: rgba(110, 110, 112, 0.2) !important;
+  backdrop-filter: blur(1px);
+}
+
+.ui-no-transition {
+  transition: none !important;
+}
+
+.ui-snackbar-default {
+  padding: 0 !important;
+  font-family: inherit;
+  font-weight: inherit;
+  .mdc-snackbar__surface {
+    background: transparent !important;
+    box-shadow: none !important;
+    font-family: inherit;
+    font-weight: inherit;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    pointer-events: none !important;
+  }
+  .mat-mdc-snack-bar-label {
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    color: inherit !important;
+    font-size: 0.875rem !important;
+  }
+}
+
+mat-checkbox {
+  .mdc-checkbox__checkmark {
+    color: white !important;
+  }
+  .mdc-checkbox__background {
+    border-width: 1px !important;
+    @apply border-outline #{!important};
+  }
+  .mdc-label {
+    @apply text-outline;
+    font-weight: 500;
+  }
+}
+
+mat-radio-button {
+  @apply cursor-pointer #{!important};
+  .mdc-form-field,
+  .mdc-label {
+    user-select: none;
+    @apply cursor-pointer #{!important};
+  }
+}
+
+mat-tab-group {
+  .mat-mdc-tab.mdc-tab,
+  .mat-mdc-tab-labels,
+  .mat-mdc-tab-label-container,
+  mat-tab-header {
+    height: 100% !important;
+  }
+  .mat-mdc-tab-label-container {
+    //overflow-x: auto;
+  }
+  .mdc-tab__text-label {
+    @apply text-sm;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-weight: 500;
+  }
+  .mdc-tab--active {
+    @apply bg-tertiary-50;
+    .mdc-tab__text-label {
+      @apply text-primary-600 #{!important};
+    }
+  }
+  .mdc-tab {
+    min-width: initial !important;
+  }
+}
+
+mat-progress-bar {
+  .mdc-linear-progress__buffer-bar {
+    @apply bg-surface-container-highest #{!important};
+  }
+  .mdc-linear-progress__bar-inner {
+    @apply border-primary #{!important};
+  }
+}
+
+$calendar-width: 20rem;
+mat-calendar {
+  width: $calendar-width;
+  height: 30rem;
+  margin: auto;
+  & * > .mat-calendar-header {
+    height: 20%;
+  }
+  .mat-calendar-content {
+    height: 80%;
+    overflow: hidden;
+    & * > .mat-calendar-table-header-divider::after {
+      display: none;
+    }
+    mat-year-view,
+    mat-multi-year-view,
+    mat-month-view {
+      display: flex;
+      height: 100%;
+    }
+    mat-year-view {
+      & * > .mat-calendar-body-cell-content {
+        font-size: 10px;
+        font-weight: bold;
+      }
+    }
+    & * > .mat-calendar-body-cell {
+      height: 2.5rem;
+    }
+    & * > .mat-calendar-body-in-range::before {
+      @apply bg-secondary-container;
+    }
+  }
+  //.mat-calendar-body-label {
+  //  display: none !important;
+  //}
+
+  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+    @apply bg-primary-100 #{!important};
+  }
+  .cdk-keyboard-focused
+    .mat-calendar-body-active
+    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical),
+  .cdk-program-focused
+    .mat-calendar-body-active
+    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+    @apply bg-primary-50 #{!important};
+  }
+}
+
+.cdk-overlay-pane.mat-datepicker-popup .mat-datepicker-content {
+  border-radius: 1rem !important;
+  .mat-calendar {
+    height: max-content !important;
+  }
+  .mat-datepicker-content-container.mat-datepicker-content-container-with-actions {
+    @apply bg-surface;
+  }
+}
+
+.mat-mdc-menu-panel {
+  @apply bg-surface-container-low rounded-3 shadow-3 border-outline-variant #{!important};
+  @apply mt-1;
+  min-width: 360px !important;
+  max-width: unset !important;
+  overflow-x: hidden !important;
+  .mat-mdc-menu-content {
+    height: 100% !important;
+  }
+}
+
+.mat-button-toggle-group {
+  @apply border-outline rounded-1 #{!important};
+
+  mat-button-toggle {
+    @apply text-secondary-on-container bg-transparent border-outline font-medium #{!important};
+  }
+  .mat-button-toggle-checked {
+    @apply bg-secondary-container #{!important};
+  }
+}
+
+div[data-tippy-root] {
+  .tippy-box {
+    @apply bg-surface text-surface-on p-6 text-sm;
+    box-shadow:
+      0px 2px 3px 0px #0000004d,
+      0px 2px 10px 0px #00000026;
+
+    &[data-state='hidden'] {
+      opacity: 0;
+    }
+  }
+  .tippy-arrow {
+    width: 16px;
+    height: 16px;
+    color: #333;
+    bottom: -16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .tippy-arrow:before {
+    @apply text-surface;
+    content: '';
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 12px 24px 0 24px;
+    border-color: currentColor transparent transparent transparent;
+    transform: rotate(0deg);
+  }
+}
+
+.license-plate-field-input {
+  .mat-mdc-form-field-infix {
+    direction: ltr;
+    input {
+      text-align: end;
+      unicode-bidi: bidi-override !important;
+    }
+  }
+}
+
+.license-plate-select-menu {
+  .option-item .mdc-button__label > div {
+    direction: ltr;
+    flex-direction: row-reverse;
+    span {
+      unicode-bidi: bidi-override !important;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+:root {
+  --primary-50: #f1efff; // 95
+  --primary-100: #e0e0ff; // 90
+  --primary-200: #e5ecf8; // 80
+  --primary-300: #9da3ff; // 70
+  --primary-400: #7b85ff; // 60
+  --primary-500: #5c66f6; // 50
+  --primary-600: #414bdc; // 40
+  --primary-700: #252dc4; // 30
+  --primary-800: #0002ab; // 20
+  --primary-900: #00016d; // 10
+  --primary-default: var(--primary-600);
+  --primary-container: var(--primary-100);
+  --primary-on-container: var(--primary-900);
+  --primary-inverse: var(--primary-200);
+  --primary-fixed: var(--primary-900);
+  --primary-fixed-dim: var(--primary-800);
+  --primary-on-fixed: var(--primary-100);
+  --primary-on-fixed-variant: var(--primary-300);
+
+  --secondary-50: #eff1ff; // 95
+  --secondary-100: #e1e0f9; // 90
+  --secondary-200: #c5c4dd; // 80
+  --secondary-300: #a9a9c1; // 70
+  --secondary-400: #8f8fa6; // 60
+  --secondary-500: #75758b; // 50
+  --secondary-600: #5c5d72; // 40
+  --secondary-700: #444559; // 30
+  --secondary-800: #2e2f42; // 20
+  --secondary-900: #191a2c; // 10
+  --secondary-default: var(--secondary-600);
+  --secondary-container: var(--secondary-100);
+  --secondary-on-container: var(--secondary-900);
+  --secondary-fixed: var(--secondary-900);
+  --secondary-fixed-dim: var(--secondary-800);
+  --secondary-on-fixed: var(--secondary-100);
+  --secondary-on-fixed-variant: var(--secondary-300);
+
+  --tertiary-50: #ffecf4; // 95
+  --tertiary-100: #ffd8ee; // 90
+  --tertiary-200: #e8b9d5; // 80
+  --tertiary-300: #cb9eb9; // 70
+  --tertiary-400: #ae849e; // 60
+  --tertiary-500: #936b84; // 50
+  --tertiary-600: #78536b; // 40
+  --tertiary-700: #5e3c52; // 30
+  --tertiary-800: #46263b; // 20
+  --tertiary-900: #2e1126; // 10
+  --tertiary-default: var(--tertiary-600);
+  --tertiary-container: var(--tertiary-100);
+  --tertiary-on-container: var(--tertiary-900);
+  --tertiary-fixed: var(--tertiary-900);
+  --tertiary-fixed-dim: var(--tertiary-800);
+  --tertiary-on-fixed: var(--tertiary-100);
+  --tertiary-on-fixed-variant: var(--tertiary-300);
+
+  --error-50: #ffdad6; // 95
+  --error-100: #ffdad6; // 90
+  --error-200: #ffb4ab; // 80
+  --error-300: #ff897d; // 70
+  --error-400: #ff5449; // 60
+  --error-500: #de3730; // 50
+  --error-600: #ba1a1a; // 40
+  --error-700: #93000a; // 30
+  --error-800: #690005; // 20
+  --error-900: #410002; // 10
+  --error-default: var(--error-600);
+  --error-container: var(--error-100);
+  --error-on-container: var(--error-900);
+}

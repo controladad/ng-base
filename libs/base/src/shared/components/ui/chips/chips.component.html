@@ -1,0 +1,9 @@
+<ng-content></ng-content>
+<ui-icon
+  *ngIf="closable"
+  class="w-5 h-5 ms-2 text-surface-on"
+  wrapperClass="hover:bg-secondary-200"
+  size="1.5rem"
+  icon="close"
+  (onClick)="onCloseClick($event)"
+></ui-icon>

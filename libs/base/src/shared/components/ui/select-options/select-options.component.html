@@ -1,0 +1,116 @@
+<div #Wrapper #Trigger="matMenuTrigger" class="relative w-full h-full pointer-events-none" [matMenuTriggerFor]="Menu">
+  <mat-menu #Menu class="options-menu {{ menuClass ?? '' }}" yPosition="below">
+    <div
+      #Panel
+      role="presentation"
+      class="options-menu-panel"
+      (click)="$event.stopPropagation()"
+      (keydown)="onFilterKeyDown($event)"
+      tabindex="0"
+    >
+      <div *ngIf="searchable" class="filter-input pe-4">
+        <mat-icon svgIcon="search"></mat-icon>
+        <input
+          #FilterInput
+          [formControl]="filterControl"
+          (keydown)="onFilterKeyDown($event)"
+          class="unicode-normal"
+          [placeholder]="optional ? 'مقداری را اضافه یا جستجو کنید...' : 'جستجو در موارد ...'"
+        />
+      </div>
+
+      <div *ngIf="categories">
+        <div *ngLet="categories$ | async as items" class="w-full h-16 overflow-auto">
+          <ui-chips-group [control]="categoryControl" [toggleable]="true" class="mx-4">
+            <ui-chips *ngFor="let item of items" class="min-w-[5rem] py-1" appearance="outlined" [value]="item.value">{{
+              item.label
+            }}</ui-chips>
+          </ui-chips-group>
+        </div>
+      </div>
+
+      <p *ngIf="multiple" class="pt-2 pb-2 px-5 text-xs text-primary">
+        {{ _selectionModel.selectedCount() }} مورد انتخاب شده
+      </p>
+
+      <div *ngIf="multiple" class="h-px bg-outline-variant w-full mb-2"><!-- Divider --></div>
+
+      <ng-container *ngIf="_showingOptionalValue()">
+        <span class="ps-3 pb-2 text-xs">انتخاب مقدار اختیاری:</span>
+      </ng-container>
+
+      <div #Container class="flex flex-col overflow-auto min-h-[7rem] max-h-[18rem]">
+        <ng-container *ngIf="{ items: filteredItems$ | async } as state">
+          <div *ngIf="state.items === undefined; else CheckItemsCount" class="flex flex-col items-center">
+            <mat-spinner class="mt-2" strokeWidth="2" diameter="24"></mat-spinner>
+            <div
+              role="menuitem"
+              tabindex="0"
+              class="bg-transparent pointer-events-none flex flex-col items-center justify-center default-info-item"
+              (keydown.enter)="close()"
+              mat-menu-item
+            >
+              در حال بارگذاری...
+            </div>
+          </div>
+          <ng-template #CheckItemsCount>
+            <div *ngIf="!state.items || state.items.length === 0; else RenderItems" class="flex flex-col items-center">
+              <div
+                role="menuitem"
+                tabindex="0"
+                class="bg-transparent pointer-events-none default-info-item"
+                (keydown.enter)="close()"
+                mat-menu-item
+              >
+                آیتمی موجود نیست.
+              </div>
+            </div>
+          </ng-template>
+          <ng-template #RenderItems>
+            <button
+              mat-button
+              class="option-item"
+              [class.option-selected]="currentItemControl.value?.value === item.value && !multiple"
+              [class.option-focused]="currentFocusIndex() === index"
+              *ngFor="let item of state.items; index as index"
+              (click)="selectItem(item, $event)"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  *ngIf="showIcons"
+                  class="rounded-full flex items-center justify-center w-14 h-14 overflow-hidden"
+                  [class.bg-gray-200]="item.type !== 'selectAll'"
+                >
+                  <img
+                    *ngIf="item.icon && item.type !== 'selectAll'"
+                    class="w-full object-cover"
+                    [src]="item.icon"
+                    alt=""
+                  />
+                  <mat-icon *ngIf="item.type === 'selectAll'" [svgIcon]="'people'"></mat-icon>
+                </div>
+                <span class="text-base">
+                  {{ item.optional ? '"' : '' }} {{ item.label }} {{ item.optional ? '"' : '' }}
+                </span>
+
+                <div class="flex-1"><!-- --></div>
+
+                <ui-checkbox
+                  *ngIf="multiple && item.type === undefined"
+                  class="pointer-events-none"
+                  [checked]="_selectionModel.selectedIds()[item.label]"
+                ></ui-checkbox>
+                <ui-checkbox
+                  *ngIf="item.type === 'selectAll'"
+                  class="pointer-events-none"
+                  [checked]="_selectionModel.allSelected()"
+                  [indeterminate]="_selectionModel.indeterminate()"
+                ></ui-checkbox>
+              </div>
+            </button>
+          </ng-template>
+        </ng-container>
+      </div>
+    </div>
+  </mat-menu>
+</div>

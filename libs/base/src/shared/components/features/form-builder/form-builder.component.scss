@@ -1,0 +1,7 @@
+:host {
+  width: 100%;
+}
+
+.ui-form-builder {
+  @apply grid grid-flow-row gap-x-10 gap-y-3 justify-between items-baseline;
+}

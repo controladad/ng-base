@@ -1,0 +1,28 @@
+@page {
+  size: A4 portrait;
+}
+
+::ng-deep .feature-printable-table {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  @apply text-sm min-w-full;
+  thead {
+    tr {
+      background: #eeeeee;
+      th {
+        @apply whitespace-nowrap;
+        padding: 0.75rem;
+      }
+    }
+  }
+  tbody {
+    tr:nth-child(even) {
+      background: #f8f8f8;
+    }
+    td {
+      @apply text-center;
+      padding: 0.5rem;
+      white-space: pre-line;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@page {
+  size: A5 portrait;
+}
+
+::ng-deep .feature-printable-bill {
+  print-color-adjust: exact;
+  font-size: 125%;
+  .table {
+    @apply border w-full border-collapse text-2xs;
+    td {
+      @apply border p-2 py-3 text-right font-normal;
+    }
+    th {
+      @apply border p-2 pt-1.5 text-right font-normal bg-outline-variant bg-opacity-25;
+    }
+  }
+  .table-label {
+    @apply text-right mb-3 font-medium text-xs;
+  }
+  .footer {
+    @apply grid grid-cols-3 border h-1/6 absolute bottom-0 left-0 right-0;
+  }
+  .plate {
+    width: 105px;
+    height: 25px;
+    & > div {
+      transform: translate(16px, -20px) scale(0.5);
+    }
+  }
+}

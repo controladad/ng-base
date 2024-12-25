@@ -1,0 +1,11 @@
+<div class="relative w-full h-full">
+  <div
+    class="w-full h-full overflow-hidden border border-outline"
+    leaflet
+    [leafletOptions]="options"
+    (leafletMapReady)="onMapReady($event)"
+  ></div>
+  @if (label()) {
+    <p class="label">{{ label() }}</p>
+  }
+</div>

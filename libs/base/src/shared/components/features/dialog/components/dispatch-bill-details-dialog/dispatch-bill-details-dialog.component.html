@@ -1,0 +1,30 @@
+<feature-dialog-layout title="جزئیات تردد" [hideControls]="true">
+  <p class="form-title">اطلاعات پایه</p>
+  <feature-form-builder [options]="baseForm"></feature-form-builder>
+  <p class="form-title">اطلاعات توزین</p>
+  <feature-form-builder [options]="weighingForm"></feature-form-builder>
+  <p class="form-title">توضیحات</p>
+  <div class="grid grid-cols-3 gap-6">
+    <div class="flex flex-col gap-6">
+      <feature-control-builder [options]="extrasForm.inputs.trafficStatus"></feature-control-builder>
+      <feature-control-builder [options]="extrasForm.inputs.trafficDuration"></feature-control-builder>
+      <feature-control-builder [options]="extrasForm.inputs.arrivalNotes"></feature-control-builder>
+    </div>
+    <div class="flex flex-col gap-6 justify-between">
+      <feature-control-builder [options]="notesForm.inputs.declineReason"></feature-control-builder>
+      <feature-control-builder [options]="notesForm.inputs.checkoutNotes"></feature-control-builder>
+    </div>
+    @if (plugins.isNavyAvailable() && mapRoute()) {
+      <div>
+        <feature-map label="مسیر تردد" [mapRoute]="mapRoute()!"></feature-map>
+      </div>
+    }
+    <!--    <feature-form-builder [options]="extrasForm" class="w-2/3"></feature-form-builder>-->
+    <!--    <feature-form-builder [options]="notesForm" class="w-2/3"></feature-form-builder>-->
+    <!--    <div class="w-1/3" *ngIf="plugins.isNavyAvailable()">-->
+    <!--      &lt;!&ndash; map goes here &ndash;&gt;-->
+    <!--    </div>-->
+  </div>
+  <p class="form-title">اطلاعات شرکت باربری</p>
+  <feature-form-builder [options]="truckingCompanyForm"></feature-form-builder>
+</feature-dialog-layout>

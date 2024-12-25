@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  position: relative;
+  width: 100%;
+}
+
+.yes-btn {
+  width: auto;
+}
+.no-btn {
+  width: auto;
+  //border-radius: 99999px;
+}
