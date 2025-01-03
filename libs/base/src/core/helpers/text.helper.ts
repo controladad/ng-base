@@ -1,6 +1,15 @@
-export function getFullName(obj: { firstName: string; lastName: string } | null | undefined, emptyState = '') {
-  const name = (obj ? `${obj.firstName ?? ''} ${obj.lastName ?? ''}` : '').trim();
-  return name === '' ? emptyState : name;
+export function getFullName(obj: any, defaultValue = '') {
+  const firstNameKeys = ['firstName', 'first_name', 'firstname', 'FirstName'];
+  const lastNameKeys = ['lastName', 'last_name', 'lastname', 'LastName'];
+
+  if (!obj) return defaultValue;
+
+  const firstNameKey = firstNameKeys.find((key) => key in obj);
+  const lastNameKey = lastNameKeys.find((key) => key in obj);
+
+  const name = `${firstNameKey ? (obj[firstNameKey] ?? '') : ''} ${lastNameKey ? (obj[lastNameKey] ?? '') : ''}`.trim();
+
+  return name.length ? name : defaultValue;
 }
 
 export function toPascalCase(text: string | undefined | null): string {

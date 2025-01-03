@@ -1,10 +1,9 @@
 import { distinctUntilChanged, filter, map, MonoTypeOperatorFunction, Observable, of, pipe, tap } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { ItemRecord, ItemRecords$ } from '../interfaces';
 import { DestroyRef } from '@angular/core';
 
-export function getItemRecordObservable<T, U>(items: ItemRecords$<T, U>): Observable<ItemRecord<T, U>[] | undefined> {
-  return items instanceof Observable ? items : of(items);
+export function getObservable<T>(value: T | Observable<T>): Observable<T> {
+  return value instanceof Observable ? value : of(value);
 }
 
 export function startWithTap<T>(callback: () => void) {
