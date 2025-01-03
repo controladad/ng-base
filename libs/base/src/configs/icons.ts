@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 
+// prettier-ignore
 const baseIcons = [
   'add', 'arrow-down', 'arrow-up', 'arrow-left', 'arrow-right', 'calendar', 'camera', 'check', 'check-double',
   'chevron-down', 'chevron-left', 'chevron-right', 'chevron-up', 'clock', 'close', 'delete', 'dropdown', 'edit',
@@ -12,7 +13,7 @@ const baseIcons = [
   'user-circle', 'users', 'wrench'
 ] as const;
 
-export type BASE_ICONS = typeof baseIcons[number];
+export type BASE_ICONS = (typeof baseIcons)[number];
 
 export function registerIcons(icons?: string[]) {
   const sanitizer = inject(DomSanitizer);
