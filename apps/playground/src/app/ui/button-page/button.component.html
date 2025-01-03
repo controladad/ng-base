@@ -1,0 +1,12 @@
+<app-test-section title="Buttons">
+  <ui-button theme="primary">Filled Enabled</ui-button>
+  <ui-button theme="primary" [disabled]="true">Filled Disabled</ui-button>
+  <ui-button theme="primary" appearance="stroked">Stroked Enabled</ui-button>
+  <ui-button theme="primary" appearance="stroked" [disabled]="true">Stroked Disabled</ui-button>
+  <ui-button theme="primary" appearance="filled" [elevated]="true">Filled elevated</ui-button>
+  <ui-button theme="primary" appearance="text">Text Enabled</ui-button>
+  <ui-button theme="primary" appearance="text" [disabled]="true">Text Disabled</ui-button>
+  <ui-button theme="primary" appearance="filled" [tonal]="true">Tonal (Hover)</ui-button>
+  <ui-button theme="secondary" appearance="filled" (onClick)="$event.setLoading()">Click To Load</ui-button>
+  <ui-button theme="tertiary" appearance="filled" icon="close" iconSize="1rem">With Icon</ui-button>
+</app-test-section>

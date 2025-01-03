@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { TableColumnData } from '../table.component';
 import { FormBuilder, formBuilder, FormBuilderComponent } from '../../form-builder';
-import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { BottomControlsComponent } from '../../bottom-controls';
 import { TableFilterModel } from '../../../../classes';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -23,7 +23,7 @@ import { formControl, FormControlExtended } from '../../../../forms';
 @Component({
   selector: 'feature-table-filter-menu',
   standalone: true,
-  imports: [NgSwitch, NgSwitchCase, FormBuilderComponent, BottomControlsComponent, NgIf, MatMenuModule, A11yModule],
+  imports: [FormBuilderComponent, BottomControlsComponent, NgIf, MatMenuModule, A11yModule],
   templateUrl: './table-filter-menu.component.html',
   styleUrls: ['./table-filter-menu.component.scss'],
 })

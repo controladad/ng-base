@@ -42,9 +42,9 @@ export class ChangePasswordDialogComponent
       },
     },
     onAfterInit: (controls) => {
-      controls.newPasswordRepeat.control.setValidators([
+      controls.newPasswordRepeat.setValidators([
         Validators.required,
-        Validators.match(controls.newPassword.control),
+        Validators.match(controls.newPassword),
       ])
     }
   });

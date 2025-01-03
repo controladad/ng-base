@@ -42,7 +42,7 @@
       @apply w-full;
 
       .mat-mdc-header-row {
-        @apply bg-neutral-60;
+        @apply bg-neutral-50;
 
         .mat-mdc-header-cell {
           @apply text-surface-on-variant;
@@ -53,7 +53,7 @@
       }
 
       .mat-mdc-row:nth-child(even) {
-        @apply bg-neutral-98;
+        @apply bg-surface-container-high;
 
         //.mat-mdc-cell {
         //  @apply text-surface-on-variant font-medium;

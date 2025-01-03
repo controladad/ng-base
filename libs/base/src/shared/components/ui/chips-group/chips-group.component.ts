@@ -15,7 +15,6 @@ import { EventEmitter } from '@angular/core';
 import { startWith, Subscription } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ChipsComponent } from '../chips';
-import { AsyncPipe } from '@angular/common';
 import { formControl, FormControlExtended } from '../../../forms';
 
 @Component({
@@ -24,7 +23,7 @@ import { formControl, FormControlExtended } from '../../../forms';
   styleUrls: ['./chips-group.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ChipsComponent, AsyncPipe],
+  imports: [],
 })
 export class ChipsGroupComponent<T> implements OnInit, AfterContentInit {
   readonly destroyRef = inject(DestroyRef);

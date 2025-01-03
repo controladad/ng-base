@@ -6,7 +6,6 @@ import { Location } from '@angular/common';
 import { arraySafeAt, includes, isRouteExtended, resolveRouteChildren } from '../helpers';
 import { AuthStore } from '../states';
 import { RoleApiService } from './api';
-import { MfPluginsService } from '@mf';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +15,6 @@ export class RouteHelperService {
   private location = inject(Location);
   private auth = inject(AuthStore);
   private roleApi = inject(RoleApiService);
-  private plugins = inject(MfPluginsService);
 
   private _initialized = false;
   private _allRoutes = signal<RouteItem[]>([]);
@@ -193,7 +191,8 @@ export class RouteHelperService {
       for (const item of children ?? []) {
         if (item.path === '' && item.children) {
           result.push(...transformer(item.children));
-        } else if (!!item.view && !!item.path && (item.remoteName ? this.plugins.isAvailable(item.remoteName) : true)) {
+        // } else if (!!item.view && !!item.path && (item.remoteName ? this.plugins.isAvailable(item.remoteName) : true)) {
+        } else if (!!item.view && !!item.path) {
           result.push(this.routeToRouteItem(item));
         }
       }

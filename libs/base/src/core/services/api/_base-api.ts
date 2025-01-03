@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { getJalaliDate, toPascalCase } from '../../helpers';
 import { DataGetOptions, DataGetRequest, ItemRecord } from '../../interfaces';
-import { ENVIRONMENT } from '../../../tokens';
+import { ENVIRONMENT } from '../../../configs';
 
 type ResponseType = 'json' | 'text' | 'blob' | undefined;
 interface ApiOptions {

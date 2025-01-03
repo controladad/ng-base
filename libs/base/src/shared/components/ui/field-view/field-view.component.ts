@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnDestroy, signal, SimpleChanges } from '@angular/core';
-import { FormControlExtended, getFromItemRecord, ItemRecord, ItemRecords$ } from '../../../../core';
+import { getFromItemRecord, ItemRecord, ItemRecords$ } from '../../../../core';
 import { Observable, of, Subscription, tap } from 'rxjs';
+import { FormControlExtended } from '../../../forms';
 
 @Component({
   selector: 'ui-field-view',

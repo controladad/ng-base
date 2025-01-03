@@ -68,7 +68,6 @@ import {
   TableStateParams,
 } from './table.interfaces';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TableFilterMenuComponent } from './table-filter-menu/table-filter-menu.component';
 import { TableFilterBarComponent } from './table-filter-bar/table-filter-bar.component';
 import { TableFormMenuComponent } from './table-form-menu/table-form-menu.component';
 import { TableFilterComponent } from './table-filter/table-filter.component';
@@ -78,16 +77,12 @@ import {
   ButtonClickEvent,
   ButtonComponent,
   CheckboxComponent,
-  ChipsComponent,
   FieldComponent,
-  IconComponent,
   LicensePlateComponent,
   PaginationComponent,
   SkeletonComponent,
 } from '../../ui';
 import { TableSortComponent } from './table-sort/table-sort.component';
-import { FormBuilderComponent } from '../form-builder';
-import { BottomControlsComponent } from '../bottom-controls';
 import * as dateFns from 'date-fns-jalali';
 import { PrintableTableComponent } from '../printable-table';
 import { ForNumberDirective, PermissionHideDirective } from '../../../directives';
@@ -196,7 +191,6 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
     MatTableModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    IconComponent,
     ButtonComponent,
     NgIf,
     NgSwitchDefault,
@@ -213,12 +207,7 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
     MatMenuModule,
     TableSortComponent,
     MatIconModule,
-    FormBuilderComponent,
-    BottomControlsComponent,
-    TableFilterMenuComponent,
-    ChipsComponent,
     TableFilterBarComponent,
-    TableFormMenuComponent,
     TableFilterComponent,
     CheckboxComponent,
     LicensePlateComponent,
@@ -229,6 +218,7 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
     SkeletonComponent,
     TypeofPipe,
     MatProgressBarModule,
+    TableFormMenuComponent,
   ],
   providers: [DecimalPipe],
   templateUrl: './table.component.html',
@@ -293,22 +283,16 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
   highlightedRowsArray = signal<(string | number)[]>([]);
 
   hiddenCols = computed(() =>
-    this.hiddenColsArray().reduce(
-      (pre, cur) => {
-        pre[cur] = true;
-        return pre;
-      },
-      {} as { [key in keyof T]: boolean },
-    ),
+    this.hiddenColsArray().reduce((pre, cur) => {
+      pre[cur] = true;
+      return pre;
+    }, {} as { [key in keyof T]: boolean }),
   );
   highlightedRows = computed(() =>
-    this.highlightedRowsArray().reduce(
-      (pre, cur) => {
-        pre[cur] = true;
-        return pre;
-      },
-      {} as { [key: string | number]: boolean },
-    ),
+    this.highlightedRowsArray().reduce((pre, cur) => {
+      pre[cur] = true;
+      return pre;
+    }, {} as { [key: string | number]: boolean }),
   );
   columns = computed<TableColumnData<T>[]>(() =>
     Object.entries(this.options().columns).map(([key, value]) => ({
@@ -887,8 +871,8 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
     return typeof value === 'number'
       ? value === 1
       : typeof value === 'string'
-        ? value === this.ACTIVE_STRING_VALUE
-        : !!value;
+      ? value === this.ACTIVE_STRING_VALUE
+      : !!value;
   }
 
   private isValueEmpty(value: any) {
@@ -923,8 +907,8 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
             typeof value === 'number'
               ? value === 1
               : typeof value === 'string'
-                ? value === this.ACTIVE_STRING_VALUE
-                : value;
+              ? value === this.ACTIVE_STRING_VALUE
+              : value;
           return status ? this.ACTIVE_TEXT : this.INACTIVE_TEXT;
         };
 

@@ -60,21 +60,6 @@ export class AuthStore<T extends AuthStoreProps = AuthStoreProps> extends BaseSt
     return !!this.state.user?.permissions?.find((t) => t === 'SuperAdmin');
   }
 
-  getUserBranches() {
-    return this.state?.user?.branches?.map((t) => t.id);
-  }
-
-  getUserEntezamats() {
-    return this.state?.user?.entezamat;
-  }
-
-  hasAccessToBranch(branchId: number) {
-    if (this.isSuper()) return true;
-    const branchIds = this.state.user?.branches?.map((t) => t.id);
-    if (!branchIds) return false;
-    return branchIds.includes(branchId);
-  }
-
   permissionKeys(state?: AuthStoreProps) {
     const user = (state ?? this.state).user;
     return user?.roles?.length ? flatten(user?.roles.map((t) => t.permissions)) : user?.permissions;

@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import {
-  ControlErrorComponent,
   LicensePlateComponent,
   OptionsTriggerDirective,
   SelectOptionsComponent,
@@ -15,10 +13,6 @@ import { formControl } from '../../../forms';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgForOf,
-    NgIf,
-    AsyncPipe,
-    ControlErrorComponent,
     LicensePlateComponent,
     SelectOptionsComponent,
     OptionsTriggerDirective,

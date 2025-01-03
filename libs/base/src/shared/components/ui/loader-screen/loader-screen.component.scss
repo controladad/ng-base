@@ -11,7 +11,7 @@
     backdrop-filter: blur(2px);
   }
   &:not(.blurry) {
-    @apply bg-neutral-99;
+    @apply bg-surface-container-highest;
   }
 }
 

@@ -4,7 +4,6 @@ import { distinctUntilChanged, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ScreenDetectorService } from '@al00x/screen-detector';
 import { MatIconModule } from '@angular/material/icon';
-import { IconComponent } from '../icon';
 import { FieldComponent } from '../field';
 import { ButtonComponent } from '../button';
 import { ItemRecord } from '../../../../core';
@@ -27,12 +26,10 @@ interface PageItem {
   styleUrls: ['./pagination.component.scss'],
   standalone: true,
   imports: [
-    IconComponent,
     NgIf,
     NgClass,
     NgForOf,
     NgTemplateOutlet,
-    IconComponent,
     FieldComponent,
     DecimalPipe,
     ButtonComponent,

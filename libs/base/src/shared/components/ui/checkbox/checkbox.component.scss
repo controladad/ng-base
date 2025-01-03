@@ -5,6 +5,9 @@
 }
 
 :host ::ng-deep .ui-checkbox {
+  --mdc-checkbox-selected-focus-state-layer-opacity: 0.02;
+  --mdc-checkbox-unselected-focus-state-layer-opacity: 0.02;
+
   user-select: none;
   font-size: inherit !important;
   font-weight: inherit !important;
@@ -18,11 +21,14 @@
     font-weight: inherit !important;
     color: inherit !important;
   }
-  &.mat-mdc-checkbox-checked,
-  &[ng-reflect-indeterminate='true'] {
-    .mdc-checkbox__background {
-      @apply bg-primary #{!important};
+  .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background {
+    @apply bg-primary #{!important};
+    .mdc-checkbox__mixedmark {
+      @apply border-white #{!important};
     }
+  }
+  .mdc-checkbox__native-control:enabled:indeterminate ~ .mdc-checkbox__background {
+    @apply bg-neutral-500 #{!important};
     .mdc-checkbox__mixedmark {
       @apply border-white #{!important};
     }

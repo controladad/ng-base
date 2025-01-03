@@ -3,7 +3,6 @@ import { AsyncPipe, NgIf, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault } fro
 import { CheckboxComponent, FieldComponent, LicensePlateComponent, RadioComponent, SwitchComponent } from '../../ui';
 import { FormBuilderInputOption } from './form-builder.types';
 import { ScreenDetectorService } from '@al00x/screen-detector';
-import { LicensePlateSelectComponent } from '../license-plate-select';
 
 @Component({
   selector: 'feature-control-builder',
@@ -20,7 +19,6 @@ import { LicensePlateSelectComponent } from '../license-plate-select';
     NgSwitchDefault,
     FieldComponent,
     AsyncPipe,
-    LicensePlateSelectComponent,
   ],
   templateUrl: './control-builder.component.html',
   styleUrl: './control-builder.component.scss',

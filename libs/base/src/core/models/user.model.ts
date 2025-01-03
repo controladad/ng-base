@@ -1,7 +1,5 @@
 import { DynamicRoleEntity } from './role.model';
 import { StatusType } from './api.model';
-import { BranchEntity } from './branch.model';
-import { EntezamatEntity } from './entezamat.model';
 
 export interface UserEntity {
   id: number;
@@ -12,9 +10,7 @@ export interface UserEntity {
   status: StatusType;
   roles: DynamicRoleEntity[];
   permissions: string[];
-  branches: BranchEntity[];
   profileImagePath: string;
-  entezamat: EntezamatEntity[];
 }
 
 export interface UserCreate {

@@ -1,8 +1,8 @@
 import { Component, inject, Input, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgxFileDropEntry, NgxFileDropModule } from 'ngx-file-drop';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { ButtonComponent, IconComponent } from '../../ui';
+import { AsyncPipe } from '@angular/common';
+import { ButtonComponent } from '../../ui';
 import { AttachmentApiService, AttachmentCacheService } from '../../../../core';
 import { MatIcon } from '@angular/material/icon';
 import { formControl } from '../../../forms';
@@ -12,7 +12,7 @@ import { formControl } from '../../../forms';
   templateUrl: './image-uploader.component.html',
   styleUrls: ['./image-uploader.component.scss'],
   standalone: true,
-  imports: [MatProgressSpinner, NgxFileDropModule, AsyncPipe, NgIf, ButtonComponent, IconComponent, MatIcon],
+  imports: [MatProgressSpinner, NgxFileDropModule, AsyncPipe, ButtonComponent, MatIcon],
 })
 export class ImageUploaderComponent implements OnInit, OnDestroy {
   private readonly attachmentApi = inject(AttachmentApiService);

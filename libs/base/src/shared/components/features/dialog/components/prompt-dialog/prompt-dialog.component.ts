@@ -19,7 +19,7 @@ export type PromptDialogResult = boolean;
   templateUrl: './prompt-dialog.component.html',
   styleUrls: ['./prompt-dialog.component.scss'],
   standalone: true,
-  imports: [ButtonComponent, DialogLayoutComponent],
+  imports: [DialogLayoutComponent],
 })
 export class PromptDialogComponent extends BaseDialogComponent<PromptDialogData, PromptDialogResult> {
   onYes(e: ButtonClickEvent) {

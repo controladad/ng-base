@@ -13,7 +13,6 @@ import {
   DescriptionDialogData,
   DescriptionDialogResult,
 } from './components/description-dialog/description-dialog.component';
-import { MapDialogComponent, MapDialogData, MapDialogResult } from './components/map-dialog/map-dialog.component';
 import {
   ChangePasswordDialogComponent,
   ChangePasswordDialogResult,
@@ -83,15 +82,6 @@ export class DialogService {
         minWidth: '40rem',
       },
     );
-  }
-
-  map(data: MapDialogData) {
-    return this.dialog.open<MapDialogComponent, MapDialogData, MapDialogResult>(MapDialogComponent, data ?? undefined, {
-      height: '50vh',
-      minHeight: '570px',
-      width: '90vw',
-      minWidth: '720px',
-    });
   }
 
   changePassword() {

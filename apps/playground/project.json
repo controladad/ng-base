@@ -20,12 +20,17 @@
           {
             "glob": "**/*",
             "input": "apps/playground/public"
+          },
+          {
+            "input": "libs/base/src/assets",
+            "glob": "**/*",
+            "output": "assets/base"
           }
         ],
         "stylePreprocessorOptions": {
           "includePaths": ["libs/base/src"]
         },
-        "styles": ["apps/playground/src/styles.scss"],
+        "styles": ["apps/playground/src/styles.scss", "libs/base/src/styles.scss", "node_modules/@al00x/printer/styles.css"],
         "scripts": []
       },
       "configurations": {

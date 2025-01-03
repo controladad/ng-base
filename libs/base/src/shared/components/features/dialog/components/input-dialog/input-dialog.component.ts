@@ -1,11 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { FormBuilder, FormBuilderComponent } from '../../../form-builder';
 import { DialogLayoutComponent } from '../../../../layouts';
-import { ButtonClickEvent, ButtonComponent, FieldComponent } from '../../../../ui';
+import { ButtonClickEvent, ButtonComponent } from '../../../../ui';
 import { BaseDialogComponent, DialogAction, DialogActionEvent } from '../_base-dialog.component';
 import { Subject } from 'rxjs';
-import { BottomControlsComponent } from '../../../bottom-controls';
 import { DialogInvokerService } from '../../dialog-invoker.service';
 import { PromptDialogComponent, PromptDialogData, PromptDialogResult } from '../prompt-dialog/prompt-dialog.component';
 
@@ -25,17 +24,10 @@ export interface InputDialogData<T, U> {
   selector: 'feature-input-dialog',
   standalone: true,
   imports: [
-    NgForOf,
-    NgSwitch,
-    NgSwitchCase,
-    NgSwitchDefault,
     NgIf,
-    AsyncPipe,
     DialogLayoutComponent,
-    FieldComponent,
     FormBuilderComponent,
     ButtonComponent,
-    BottomControlsComponent,
   ],
   templateUrl: './input-dialog.component.html',
   styleUrls: ['./input-dialog.component.scss'],

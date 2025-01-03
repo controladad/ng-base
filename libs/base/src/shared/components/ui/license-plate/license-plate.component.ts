@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AsyncPipe, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
+import { AsyncPipe, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ControlErrorComponent } from '../control-error';
 import { createMask, InputMaskDirective, NgLetDirective } from '../../../directives';
 import { formControl, FormControlExtended } from '../../../forms';
@@ -22,7 +22,6 @@ import { MatInputModule } from '@angular/material/input';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgForOf,
     InputMaskDirective,
     NgIf,
     AsyncPipe,

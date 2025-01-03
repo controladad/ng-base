@@ -68,6 +68,9 @@
       background-color: rgba(30, 30, 30, 0.01) !important;
       filter: brightness(100%);
     }
+    &:active:hover:not(.disabled) {
+      background-color: rgba(30, 30, 30, 0.03) !important;
+    }
     //&.disabled {
     //  filter: saturate(0%) !important;
     //}
@@ -92,6 +95,9 @@
   &.text {
     &:hover:not(.disabled) {
       @apply bg-transparent hover:bg-primary-50;
+    }
+    &:active:hover:not(.disabled) {
+      filter: brightness(95%);
     }
     &.disabled {
       @apply text-surface-on text-opacity-60 #{!important};

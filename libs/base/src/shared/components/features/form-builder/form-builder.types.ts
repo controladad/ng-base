@@ -1,7 +1,8 @@
 import { FieldAppearanceType, FieldControlType, FieldFloatLabelType, FieldInputType, FieldMaskType } from '../../ui';
-import { FormControlExtended, ItemRecords$ } from '../../../../core';
+import { ItemRecords$ } from '../../../../core';
 import { Observable, Subscription } from 'rxjs';
 import { Signal } from '@angular/core';
+import { FormControlExtended } from '../../../forms';
 
 export type FormBuilderInputType = FieldControlType | 'radio' | 'switch' | 'checkbox' | 'plate' | 'datetime';
 

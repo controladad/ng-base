@@ -24,7 +24,7 @@ import { DateFilterFn, MatDatepicker, MatDatepickerModule } from '@angular/mater
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, NgTemplateOutlet } from '@angular/common';
+import { AsyncPipe, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { createMask, InputMaskDirective, InputmaskOptions } from '../../../directives';
 import {
   ItemRecords$,
@@ -66,9 +66,7 @@ export type FieldFloatLabelType = 'always' | 'auto';
     NgIf,
     NgSwitchDefault,
     NgSwitchCase,
-    NgTemplateOutlet,
     NgSwitch,
-    NgForOf,
     InputMaskDirective,
     SelectOptionsComponent,
     OptionsTriggerDirective,

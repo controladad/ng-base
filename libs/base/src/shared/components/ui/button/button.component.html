@@ -5,7 +5,7 @@
   <button
     #Button
     mat-flat-button
-    class="ui-inherit-parent ui-button"
+    class="ui-button-inherit-parent ui-button"
     [disabled]="(disabled ?? false) || loading() || insufficientPermission()"
     [ngStyle]="{ padding: padding }"
     (click)="onClickEvent($event)"
