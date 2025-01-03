@@ -72,7 +72,7 @@ import { TableFilterMenuComponent } from './table-filter-menu/table-filter-menu.
 import { TableFilterBarComponent } from './table-filter-bar/table-filter-bar.component';
 import { TableFormMenuComponent } from './table-form-menu/table-form-menu.component';
 import { TableFilterComponent } from './table-filter/table-filter.component';
-import { DataGetRequest, DataGetResponse, effectDep, formControl, ItemRecord, ItemToId } from '../../../../core';
+import { DataGetRequest, DataGetResponse, effectDep, ItemRecord, ItemToId } from '../../../../core';
 import { SelectionModel, SortModel, TableFilterModel } from '../../../classes';
 import {
   ButtonClickEvent,
@@ -95,6 +95,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { TypeofPipe } from '../../../pipes';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
+import { formControl } from '../../../forms';
 
 interface TableRowData {
   value: any;

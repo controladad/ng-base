@@ -12,10 +12,10 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AsyncPipe, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
-import { formControl, FormControlExtended } from '../../../../core';
 import { ControlErrorComponent } from '../control-error';
-import { MatInputModule } from '@angular/material/input';
 import { createMask, InputMaskDirective, NgLetDirective } from '../../../directives';
+import { formControl, FormControlExtended } from '../../../forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'ui-license-plate',

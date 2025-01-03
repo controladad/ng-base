@@ -13,9 +13,9 @@ import {
   RoleApiService,
 } from '../core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import faIR from 'date-fns-jalali/locale/fa-jalali-IR';
 import { API_BASEURL, ENVIRONMENT } from './tokens';
 import { firstValueFrom } from 'rxjs';
+import { faIR } from 'date-fns-jalali/locale';
 
 export const provideEnvironment = (env: any) => ({ provide: ENVIRONMENT, useValue: env }) as Provider;
 

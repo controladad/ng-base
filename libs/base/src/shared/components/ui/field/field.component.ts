@@ -27,8 +27,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, NgTemplateOutlet } from '@angular/common';
 import { createMask, InputMaskDirective, InputmaskOptions } from '../../../directives';
 import {
-  FormControlExtended,
-  formControl,
   ItemRecords$,
   getDurationInHHMM,
   getHHMMInDuration,
@@ -40,6 +38,7 @@ import { IconComponent } from '../icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ControlErrorComponent } from '../control-error';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { formControl, FormControlExtended } from '../../../forms';
 
 export type FieldInputType = 'text' | 'password' | 'password-eye' | 'number' | 'number-nobtn' | 'time';
 export type FieldControlType = 'input' | 'date' | 'datetime' | 'textarea' | 'select';

@@ -3,8 +3,9 @@ import { formBuilder, FormBuilderComponent } from '../form-builder';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonClickEvent, ButtonComponent } from '../../ui';
-import { AuthStore, AuthStoreLoginModel, formControl } from '../../../../core';
+import { AuthStore, AuthStoreLoginModel } from '../../../../core';
 import { Observable } from 'rxjs';
+import { formControl } from '../../../forms';
 
 interface LoginFormGroup {
   username: string;

@@ -3,8 +3,9 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgxFileDropEntry, NgxFileDropModule } from 'ngx-file-drop';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ButtonComponent, IconComponent } from '../../ui';
-import { AttachmentApiService, AttachmentCacheService, formControl } from '../../../../core';
+import { AttachmentApiService, AttachmentCacheService } from '../../../../core';
 import { MatIcon } from '@angular/material/icon';
+import { formControl } from '../../../forms';
 
 @Component({
   selector: 'feature-image-uploader',

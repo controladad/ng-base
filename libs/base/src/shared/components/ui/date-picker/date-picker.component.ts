@@ -12,7 +12,7 @@ import { ButtonComponent } from '../button';
 import { MatIconModule } from '@angular/material/icon';
 import { format, newDate } from 'date-fns-jalali';
 import { FieldComponent } from '../field';
-import { formControl } from '../../../../core';
+import { formControl } from '../../../forms';
 
 export const DATE_FORMAT = 'yyyy/MM/dd';
 

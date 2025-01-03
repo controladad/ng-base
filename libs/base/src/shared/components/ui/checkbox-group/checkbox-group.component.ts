@@ -3,7 +3,8 @@ import { Component, Input, OnDestroy, OnChanges, SimpleChanges, signal } from '@
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Observable, of, startWith, Subscription } from 'rxjs';
-import { formControl, FormControlExtended, ItemRecord, ItemRecords$ } from '../../../../core';
+import { ItemRecord, ItemRecords$ } from '../../../../core';
+import { formControl, FormControlExtended } from '../../../forms';
 
 @Component({
   selector: 'ui-checkbox-group',

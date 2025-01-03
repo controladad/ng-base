@@ -1,27 +1,27 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { DialogLayoutComponent } from '../../../../layouts';
 import { FormBuilderComponent, formBuilder } from '../../../form-builder';
-import { Validators } from '@angular/forms';
 import { BaseDialogComponent } from '../_base-dialog.component';
-import { ChangePassword, UserApiService, formControl } from '../../../../../../../../base/src/core';
-import { ValidatorMatch, ValidatorPassword } from '../../../../../../../../base/src/shared/validators';
 import { ButtonClickEvent } from '../../../../ui';
+import { formControl, Validators } from '../../../../../forms';
 
-export type ChangePasswordDialogResult = boolean;
+export interface ChangePasswordDialogData {}
+
+export type ChangePasswordDialogResult = {
+  oldPassword: string;
+  newPassword: string;
+};
 
 @Component({
   selector: 'feature-change-password-dialog',
   standalone: true,
   imports: [DialogLayoutComponent, FormBuilderComponent],
   templateUrl: './change-password-dialog.component.html',
-  styleUrl: './change-password-dialog.component.css',
+  styleUrl: './change-password-dialog.component.scss',
 })
 export class ChangePasswordDialogComponent
-  extends BaseDialogComponent<null, ChangePasswordDialogResult>
-  implements OnInit
+  extends BaseDialogComponent<ChangePasswordDialogData, ChangePasswordDialogResult>
 {
-  private userApiService = inject(UserApiService);
-
   formBuilder = formBuilder({
     cols: 1,
     inputs: {
@@ -31,7 +31,7 @@ export class ChangePasswordDialogComponent
         inputType: 'password-eye',
       },
       newPassword: {
-        control: formControl<string>(undefined, Validators.required),
+        control: formControl<string>(undefined, [Validators.required, Validators.password]),
         label: 'رمز عبور جدید',
         inputType: 'password-eye',
       },
@@ -41,32 +41,25 @@ export class ChangePasswordDialogComponent
         inputType: 'password-eye',
       },
     },
+    onAfterInit: (controls) => {
+      controls.newPasswordRepeat.control.setValidators([
+        Validators.required,
+        Validators.match(controls.newPassword.control),
+      ])
+    }
   });
 
   constructor() {
     super();
   }
 
-  ngOnInit(): void {
-    this.formBuilder.controls.newPassword.setValidators([Validators.required, ValidatorPassword()]);
-    this.formBuilder.controls.newPasswordRepeat.setValidators([
-      Validators.required,
-      ValidatorMatch(this.formBuilder.controls.newPassword),
-    ]);
-  }
-
   onSubmit(e: ButtonClickEvent) {
     const values = this.formBuilder.getValue();
     if (!values) return;
-    const model: ChangePassword = {
-      oldPassword: values.oldPassword || '',
-      newPassword: values.newPassword || '',
+    const result: ChangePasswordDialogResult = {
+      oldPassword: (values.oldPassword as string) || '',
+      newPassword: (values.newPassword as string) || '',
     };
-    return this.userApiService
-      .changePassword(model)
-      .pipe(e.pipe())
-      .subscribe(() => {
-        this.close(true);
-      });
+    this.submit(result);
   }
 }

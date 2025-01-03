@@ -39,9 +39,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { CheckboxComponent } from '../checkbox';
 import {
   arraysEqual,
-  formControl,
-  FormControlExtended,
-  isFormControlExtended,
   ItemRecord,
   ItemRecords$,
   RoleService,
@@ -51,6 +48,7 @@ import { NgLetDirective } from '../../../directives';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ChipsGroupComponent } from '../chips-group';
 import { ChipsComponent } from '../chips';
+import { formControl, FormControlExtended, isFormControlExtended } from '../../../forms';
 
 interface SelectItem<T> extends ItemRecord<T> {
   optional?: boolean;

@@ -7,7 +7,8 @@ import {
   OptionsTriggerDirective,
   SelectOptionsComponent,
 } from '../../ui';
-import { formControl, ItemRecords$ } from '../../../../core';
+import { ItemRecords$ } from '../../../../core';
+import { formControl } from '../../../forms';
 
 @Component({
   selector: 'feature-license-plate-select',

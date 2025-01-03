@@ -16,7 +16,7 @@ import { startWith, Subscription } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ChipsComponent } from '../chips';
 import { AsyncPipe } from '@angular/common';
-import { formControl, FormControlExtended } from '../../../../core';
+import { formControl, FormControlExtended } from '../../../forms';
 
 @Component({
   selector: 'ui-chips-group',

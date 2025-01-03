@@ -7,7 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { IconComponent } from '../icon';
 import { FieldComponent } from '../field';
 import { ButtonComponent } from '../button';
-import { formControl, ItemRecord } from '../../../../core';
+import { ItemRecord } from '../../../../core';
+import { formControl } from '../../../forms';
 
 export interface PaginationEvent {
   index: number;

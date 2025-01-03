@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { formControl } from '../../../../core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
+import { formControl } from '../../../forms';
 
 @Component({
   selector: 'ui-checkbox',

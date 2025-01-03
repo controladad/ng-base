@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NgIf, NgStyle } from '@angular/common';
+import { BASE_ICONS } from '../../../../configs';
 
 @Component({
   selector: 'ui-icon',
@@ -20,7 +21,7 @@ import { NgIf, NgStyle } from '@angular/common';
   imports: [MatIconModule, NgIf, NgStyle],
 })
 export class IconComponent implements OnInit, OnChanges {
-  @Input() icon?: string;
+  @Input() icon?: BASE_ICONS | string;
   @Input() disabled = false;
   @Input() size = '1.5rem';
   @Input() iconClass?: string;

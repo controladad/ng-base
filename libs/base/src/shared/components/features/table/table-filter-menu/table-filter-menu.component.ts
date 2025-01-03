@@ -12,13 +12,13 @@ import {
 } from '@angular/core';
 import { TableColumnData } from '../table.component';
 import { FormBuilder, formBuilder, FormBuilderComponent } from '../../form-builder';
-import { formControl, FormControlExtended } from '../../../../../core';
 import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { BottomControlsComponent } from '../../bottom-controls';
 import { TableFilterModel } from '../../../../classes';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { A11yModule } from '@angular/cdk/a11y';
+import { formControl, FormControlExtended } from '../../../../forms';
 
 @Component({
   selector: 'feature-table-filter-menu',

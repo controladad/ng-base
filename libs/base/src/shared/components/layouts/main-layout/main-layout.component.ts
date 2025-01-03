@@ -64,7 +64,7 @@ export class MainLayoutComponent {
 
   sidenavOpened = signal(false);
   currentTopbarIndex = signal(0);
-  profileUrl = signal('/assets/base/images/profile.png');
+  profileUrl = signal('/assets/base/images/default-profile.webp');
   userInfo: WritableSignal<string | null> = signal('');
 
   constructor(

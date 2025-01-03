@@ -18,7 +18,7 @@ import {
   setMonth,
   toDate,
 } from 'date-fns-jalali';
-import faIR from 'date-fns-jalali/locale/fa-jalali-IR';
+import { faIR } from 'date-fns-jalali/locale';
 
 export const DATEFNS_PERSIAN_DATE_FORMATS = {
   parse: {

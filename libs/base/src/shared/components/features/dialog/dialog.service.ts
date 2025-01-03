@@ -9,73 +9,16 @@ import { InputDialogComponent, InputDialogData } from './components/input-dialog
 import { DialogAction, DialogActionEvent } from './components/_base-dialog.component';
 import { merge, Observable, take } from 'rxjs';
 import {
-  BillDetailsDialogComponent,
-  BillDetailsDialogData,
-  BillDetailsDialogResult,
-} from './components/bill-details-dialog/bill-details-dialog.component';
-import {
-  BillStatusDialogComponent,
-  BillStatusDialogData,
-  BillStatusDialogResult,
-} from './components/bill-status-dialog/bill-status-dialog.component';
-import { RoleDialogComponent, RoleDialogData, RoleDialogResult } from './components/role-dialog/role-dialog.component';
-import {
-  BillDescriptionDialogComponent,
-  BillDescriptionDialogData,
-  BillDescriptionDialogResult,
-} from './components/bill-description-dialog/bill-description-dialog.component';
-import {
   DescriptionDialogComponent,
   DescriptionDialogData,
   DescriptionDialogResult,
 } from './components/description-dialog/description-dialog.component';
-import {
-  ShipmentOrderCreateDialogData,
-  ShipmentOrderCreateDialogComponent,
-  ShipmentOrderCreateDialogResult,
-} from './components/shipment-order-create-dialog/shipment-order-create-dialog.component';
-import {
-  UserCreateDialogComponent,
-  UserCreateDialogData,
-  UserCreateDialogResult,
-} from './components/user-create-dialog/user-create-dialog.component';
-import {
-  DispatchBillDetailsDialogComponent,
-  DispatchBillDetailsDialogData,
-  DispatchBillDetailsDialogResult,
-} from './components/dispatch-bill-details-dialog/dispatch-bill-details-dialog.component';
-import {
-  DispatchCreateVehicleDialogComponent,
-  DispatchCreateVehicleDialogData,
-  DispatchCreateVehicleDialogResult,
-} from './components/dispatch-create-vehicle-dialog/dispatch-create-vehicle-dialog.component';
 import { MapDialogComponent, MapDialogData, MapDialogResult } from './components/map-dialog/map-dialog.component';
 import {
   ChangePasswordDialogComponent,
   ChangePasswordDialogResult,
 } from './components/change-password-dialog/change-password-dialog.component';
-import {
-  ProfileDialogComponent,
-  ProfileDialogDialogData,
-  ProfileDialogDialogResult,
-} from './components/profile-dialog/profile-dialog.component';
-import {
-  DispatchDetailsDialogComponent,
-  DispatchDetailsDialogData,
-  DispatchDetailsDialogResult,
-} from './components/dispatch-details-dialog/dispatch-details-dialog.component';
 import { CalendarDialogComponent, CalendarsDialogResult } from './components/calendar-dialog/calendar-dialog.component';
-import { ReportDialogComponent, ReportDialogData } from './components/report-dialog/report-dialog.component';
-import {
-  DispatchDialogComponent,
-  DispatchDialogData,
-  DispatchDialogResult,
-} from './components/dispatch-dialog/dispatch-dialog.component';
-import {
-  VehicleInfoDialogComponent,
-  VehicleInfoDialogData,
-  VehicleInfoDialogResult,
-} from './components/vehicle-info-dialog/vehicle-info-dialog.component';
 
 export interface InputDialogExtended<T, U> extends DialogExtended<InputDialogComponent<T, U>, U> {
   deleteAction: <ACTION>(action: DialogAction<null, ACTION>) => InputDialogExtended<T, U>;
@@ -132,117 +75,12 @@ export class DialogService {
     return dialog;
   }
 
-  billDetails(data: BillDetailsDialogData) {
-    return this.dialog.open<BillDetailsDialogComponent, BillDetailsDialogData, BillDetailsDialogResult>(
-      BillDetailsDialogComponent,
-      data,
-      {
-        maxWidth: '95vw',
-        maxHeight: '97vh',
-      },
-    );
-  }
-
-  dispatchBillDetails(data: DispatchBillDetailsDialogData) {
-    return this.dialog.open<
-      DispatchBillDetailsDialogComponent,
-      DispatchBillDetailsDialogData,
-      DispatchBillDetailsDialogResult
-    >(DispatchBillDetailsDialogComponent, data, {
-      maxWidth: '95vw',
-      maxHeight: '97vh',
-    });
-  }
-
-  dispatchCreateVehicle(data: DispatchCreateVehicleDialogData) {
-    return this.dialog.open<
-      DispatchCreateVehicleDialogComponent,
-      DispatchCreateVehicleDialogData,
-      DispatchCreateVehicleDialogResult
-    >(DispatchCreateVehicleDialogComponent, data, {
-      maxWidth: '95vw',
-      maxHeight: '97vh',
-    });
-  }
-
-  dispatchDetails(data: DispatchDetailsDialogData) {
-    return this.dialog.open<DispatchDetailsDialogComponent, DispatchDetailsDialogData, DispatchDetailsDialogResult>(
-      DispatchDetailsDialogComponent,
-      data,
-      {
-        width: '90%',
-        maxWidth: '91vw',
-        maxHeight: '90vh',
-      },
-    );
-  }
-
-  dispatch(data: DispatchDialogData) {
-    return this.dialog.open<DispatchDialogComponent, DispatchDialogData, DispatchDialogResult>(
-      DispatchDialogComponent,
-      data,
-      {
-        width: '60%',
-        maxWidth: '91vw',
-        maxHeight: '90vh',
-      },
-    );
-  }
-
-  billStatus(data: BillStatusDialogData) {
-    return this.dialog
-      .open<BillStatusDialogComponent, BillStatusDialogData, BillStatusDialogResult>(BillStatusDialogComponent, data, {
-        minWidth: '40rem',
-      })
-      .setActionType('update');
-  }
-
-  billDescription(data: BillDescriptionDialogData) {
-    return this.dialog.open<BillDescriptionDialogComponent, BillDescriptionDialogData, BillDescriptionDialogResult>(
-      BillDescriptionDialogComponent,
-      data,
-      {
-        minWidth: '40rem',
-      },
-    );
-  }
-
   description(data: DescriptionDialogData) {
     return this.dialog.open<DescriptionDialogComponent, DescriptionDialogData, DescriptionDialogResult>(
       DescriptionDialogComponent,
       data,
       {
         minWidth: '40rem',
-      },
-    );
-  }
-
-  role(data: RoleDialogData) {
-    return this.dialog.open<RoleDialogComponent, RoleDialogData, RoleDialogResult>(RoleDialogComponent, data, {
-      maxWidth: '91vw',
-      minWidth: data.viewOnly ? '50vw' : '80vw',
-      maxHeight: data.viewOnly ? '75vh' : '93vh',
-      height: '100vh',
-    });
-  }
-
-  shipmentOrder(data?: ShipmentOrderCreateDialogData) {
-    return this.dialog.open<
-      ShipmentOrderCreateDialogComponent,
-      ShipmentOrderCreateDialogData,
-      ShipmentOrderCreateDialogResult
-    >(ShipmentOrderCreateDialogComponent, data, {
-      minWidth: '92vw',
-      maxHeight: '90vh',
-    });
-  }
-
-  user(data?: UserCreateDialogData) {
-    return this.dialog.open<UserCreateDialogComponent, UserCreateDialogData, UserCreateDialogResult>(
-      UserCreateDialogComponent,
-      data ?? {},
-      {
-        maxHeight: '95vh',
       },
     );
   }
@@ -256,17 +94,6 @@ export class DialogService {
     });
   }
 
-  profile(data: ProfileDialogDialogData) {
-    return this.dialog.open<ProfileDialogComponent, ProfileDialogDialogData, ProfileDialogDialogResult>(
-      ProfileDialogComponent,
-      data ?? {},
-      {
-        width: '25rem',
-        maxWidth: '90vw',
-      },
-    );
-  }
-
   changePassword() {
     return this.dialog.open<ChangePasswordDialogComponent, null, ChangePasswordDialogResult>(
       ChangePasswordDialogComponent,
@@ -278,24 +105,5 @@ export class DialogService {
       width: '25rem',
       maxWidth: '90vw',
     });
-  }
-
-  reportPreview(data: ReportDialogData) {
-    return this.dialog.open<ReportDialogComponent, ReportDialogData, null>(ReportDialogComponent, data, {
-      width: '90vw',
-      maxHeight: '90vh',
-    });
-  }
-
-  vehicleInfo(data: VehicleInfoDialogData) {
-    return this.dialog.open<VehicleInfoDialogComponent, VehicleInfoDialogData, VehicleInfoDialogResult>(
-      VehicleInfoDialogComponent,
-      data,
-      {
-        width: '50rem',
-        maxWidth: '90vw',
-        maxHeight: '90vh',
-      },
-    );
   }
 }

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { formControl } from '../../../../core';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { formControl } from '../../../forms';
 
 @Component({
   selector: 'ui-control-error',

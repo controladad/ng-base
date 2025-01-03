@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BaseDialogComponent } from '../_base-dialog.component';
 import { ButtonClickEvent, FieldComponent } from '../../../../ui';
 import { DialogLayoutComponent } from '../../../../layouts';
-import { formControl } from '../../../../../../core';
+import { formControl } from '../../../../../forms';
 
 export interface DescriptionDialogData {
   title?: string;
