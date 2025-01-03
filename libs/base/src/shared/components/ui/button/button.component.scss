@@ -86,7 +86,7 @@
       }
     }
     &.disabled {
-      @apply border-outline-variant bg-surface-on bg-opacity-[12%] text-surface-on text-opacity-[38%] #{!important};
+      @apply border-outline-variant bg-neutral-500 bg-opacity-[12%] text-surface-on text-opacity-[38%] #{!important};
     }
   }
   &.text {
@@ -107,7 +107,7 @@
   }
 }
 
-.ui-inherit-parent {
+.ui-button-inherit-parent {
   border-radius: inherit !important;
   min-width: inherit !important;
   min-height: inherit !important;
@@ -160,6 +160,10 @@
       stroke: currentColor !important;
       color: inherit !important;
     }
+  }
+
+  .ui-button-content-portal {
+    @apply inline-flex items-center mx-2 empty:hidden;
   }
 
   &.fit-content {

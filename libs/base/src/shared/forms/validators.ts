@@ -1,25 +1,36 @@
 import { AbstractControl, ValidationErrors, ValidatorFn, Validators as AngularValidators } from '@angular/forms';
 import { debounceTime, Subscription, take } from 'rxjs';
 import { RegexIP, RegexPassword } from '../../core';
+import { CacBase } from '../../configs';
 
 // @ts-ignore
 export class Validators extends AngularValidators {
-  static codeMelli(): ValidatorFn {
+  static nationalCode(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      return Validators.number(10, 10)(control) !== null ? { codeMelli: { value: control.value } } : null;
+      return Validators.number(CacBase.config.validators.nationalCode.min, CacBase.config.validators.nationalCode.max)(control) !== null ? { codeMelli: { value: control.value } } : null;
     };
   }
 
   static clone(controller: AbstractControl): ValidatorFn {
     return (): ValidationErrors | null => {
-      return controller.invalid ? { bind: true } : null;
+      return controller.invalid ? { clone: true } : null;
     };
   }
 
   static ip(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control?.value?.toString() ?? '';
-      return !RegexIP.test(value) ? { number: { value: control.value } } : null;
+      return !RegexIP.test(value) ? { ip: { value: control.value } } : null;
+    };
+  }
+
+  static alphabet(lang?: 'en'): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control?.value?.toString() ?? '';
+      const regex = new RegExp(
+        lang === 'en' ? '^[A-Za-z0-9\\s!@#$%^&*()_+={}\\[\\]:;"\'<>,.?/\\\\|-]+$' : /^(\p{L}|\p{N}|\p{S}|\s)+$/u,
+      );
+      return !regex.test(value) ? { alphabet: { value: control.value } } : null;
     };
   }
 
@@ -50,7 +61,7 @@ export class Validators extends AngularValidators {
       if (!value || value === '') return null;
 
       const tested = new RegExp(RegexPassword, 'gm').test(value);
-      const length = (value.length ?? 0) >= 8;
+      const length = (value.length ?? 0) >= CacBase.config.validators.password.min;
       return !tested
         ? { passwordChars: { value: control.value } }
         : !length
@@ -61,7 +72,9 @@ export class Validators extends AngularValidators {
 
   static phone(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      return Validators.number(11, 11)(control) !== null ? { phoneNumber: { value: control.value } } : null;
+      return Validators.number(CacBase.config.validators.phone.min, CacBase.config.validators.phone.max)(control) !== null
+        ? { phoneNumber: { value: control.value } }
+        : null;
     };
   }
 
@@ -69,8 +82,7 @@ export class Validators extends AngularValidators {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
       const isEmpty =
-        value === undefined ||
-        ((typeof value === 'string' || Array.isArray(value)) && value.length === 0);
+        value === undefined || ((typeof value === 'string' || Array.isArray(value)) && value.length === 0);
       return isEmpty ? { required: true } : null;
     };
   }

@@ -1,6 +1,6 @@
 <div
-  class="ui-inherit-parent"
-  [matTooltip]="insufficientPermission() ? 'شما دسترسی برای انجام این فعالیت را ندارید.' : ''"
+  class="ui-button-inherit-parent"
+  [matTooltip]="insufficientPermission() ? 'You have insufficient permission.' : ''"
 >
   <button
     #Button
@@ -17,7 +17,7 @@
   >
     <div class="ui-button-content" [class.loading]="loading()">
       <ng-container *ngIf="iconPosition === 'prefix'" [ngTemplateOutlet]="Icon"></ng-container>
-      <div class="ui-button-content-portal inline-flex mx-2 empty:hidden">
+      <div class="ui-button-content-portal">
         <ng-content></ng-content>
       </div>
       <ng-container *ngIf="iconPosition === 'suffix'" [ngTemplateOutlet]="Icon"></ng-container>

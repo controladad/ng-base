@@ -10,7 +10,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe, NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet } from '@angular/common';
 import { ButtonComponent } from '../button';
 import { MatIconModule } from '@angular/material/icon';
-import { format, newDate } from 'date-fns-jalali';
+import { format } from 'date-fns';
 import { FieldComponent } from '../field';
 import { formControl } from '../../../forms';
 
@@ -43,9 +43,9 @@ export const DATE_FORMAT = 'yyyy/MM/dd';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DatePickerComponent {
-  @Input() switch: 'calendar' | 'date-picker' | 'input' = 'calendar';
+  @Input() type: 'calendar' | 'date-picker' | 'input' = 'calendar';
   @Input() mode: 'one-day' | 'range' = 'range';
-  @Input() title = 'تاریخ';
+  @Input() title = 'Date';
   @Output() date = new EventEmitter<DateRange<Date | null> | Date>();
 
   constructor(private datePipe: DatePipe) {}
@@ -94,7 +94,10 @@ export class DatePickerComponent {
     const date: string[] = control.value.split('/');
     if (date.length < 3) return;
     const dateNumber: number[] = date.map((str) => (str === '' ? Number('01') : Number(str)));
-    const miladyDate = newDate(dateNumber[0], dateNumber[1] - 1, dateNumber[2]);
+    // TODO: Fix this
+    // const miladyDate = newDate(dateNumber[0], dateNumber[1] - 1, dateNumber[2]);
+    dateNumber;
+    const miladyDate = undefined;
 
     if (miladyDate) {
       if (this.mode === 'one-day') {

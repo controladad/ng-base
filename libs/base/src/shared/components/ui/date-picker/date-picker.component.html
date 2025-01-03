@@ -1,10 +1,10 @@
-<div class="rounded-4 px-2 py-4 bg-surface-light-surface overflow-hidden" [ngSwitch]="switch">
+<div class="rounded-4 px-2 py-4 bg-surface-light-surface overflow-hidden" [ngSwitch]="type">
   <ng-container *ngSwitchCase="'calendar'" [ngTemplateOutlet]="calendar"></ng-container>
   <ng-container *ngSwitchCase="'date-picker'" [ngTemplateOutlet]="datepicker"></ng-container>
   <hr />
   <div class="h-16 w-full flex flex-row items-center justify-end">
-    <ui-button [appearance]="'text'" (onClick)="cancel()">انصراف</ui-button>
-    <ui-button [appearance]="'text'" (onClick)="submit()">تایید</ui-button>
+    <ui-button [appearance]="'text'" (onClick)="cancel()">Cancel</ui-button>
+    <ui-button [appearance]="'text'" (onClick)="submit()">Save</ui-button>
   </div>
 </div>
 
@@ -32,7 +32,7 @@
     <div class="flex flex-col">
       <p class="title">{{ title }}</p>
       <div class="w-full flex flex-row justify-between items-center">
-        <p>تاریخ‌{{ mode === 'range' ? ' ها ' : '' }}را وارد کنید</p>
+        <p>Select a {{ mode === 'range' ? 'date range' : 'date' }}</p>
         <mat-icon class="calendar" svgIcon="calendar" [matMenuTriggerFor]="calendarMenu"></mat-icon>
       </div>
     </div>
@@ -42,17 +42,17 @@
         (keyup)="inputDateManually(dateRangeGroup.controls.start, 'first')"
         [prefixIcon]="undefined"
         class="w-[45%] text-xs"
-        placeholder="روز/ماه/سال"
+        placeholder="yy/mm/dd"
         [control]="dateRangeGroup.controls.start"
-        label="تاریخ شروع"
+        label="Start date"
       ></ui-field>
       <ui-field
         (keyup)="inputDateManually(dateRangeGroup.controls.end, 'second')"
         [prefixIcon]="undefined"
         class="w-[45%] text-xs"
-        placeholder="روز/ماه/سال"
+        placeholder="yy/mm/dd"
         [control]="dateRangeGroup.controls.end"
-        label="تاریخ پایان"
+        label="End date"
       ></ui-field>
     </div>
     <div *ngSwitchCase="'one-day'" class="p-2 flex items-center justify-center">
@@ -61,8 +61,8 @@
         [prefixIcon]="undefined"
         [control]="oneDayFormControl"
         class="bg-transparent"
-        label="تاریخ"
-        placeholder="تاریخ"
+        label="Date"
+        placeholder="Date"
       ></ui-field>
     </div>
   </div>

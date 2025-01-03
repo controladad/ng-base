@@ -15,12 +15,16 @@ const baseIcons = [
 
 export type BASE_ICONS = (typeof baseIcons)[number];
 
+let isBaseRegistered = false;
 export function registerIcons(icons?: string[]) {
   const sanitizer = inject(DomSanitizer);
   const iconRegistry = inject(MatIconRegistry);
 
-  for (const icon of baseIcons) {
-    iconRegistry.addSvgIcon(icon, sanitizer.bypassSecurityTrustResourceUrl(`./assets/base/icons/${icon}.svg`));
+  if (!isBaseRegistered) {
+    for (const icon of baseIcons) {
+      iconRegistry.addSvgIcon(icon, sanitizer.bypassSecurityTrustResourceUrl(`./assets/base/icons/${icon}.svg`));
+    }
+    isBaseRegistered = true;
   }
 
   for (const icon of icons ?? []) {

@@ -6,7 +6,7 @@
     white-space: nowrap;
 
     &.ui-chips-appearance-filled {
-      @apply bg-neutral-100 text-secondary-on-container;
+      @apply bg-neutral-100 text-secondary-800;
       &:hover {
         @apply bg-neutral-200;
       }
@@ -15,7 +15,7 @@
       }
     }
     &.ui-chips-appearance-outlined {
-      @apply bg-transparent border border-outline text-secondary-on-container;
+      @apply bg-transparent border border-outline text-secondary-800;
       &:hover {
         @apply bg-neutral-900 bg-opacity-10;
       }

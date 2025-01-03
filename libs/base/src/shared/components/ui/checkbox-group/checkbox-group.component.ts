@@ -14,7 +14,7 @@ import { formControl, FormControlExtended } from '../../../forms';
   styleUrls: ['./checkbox-group.component.scss'],
 })
 export class CheckboxGroupComponent<T extends string | number> implements OnChanges, OnDestroy {
-  readonly ERROR_TEXT = 'حداقل یک مورد انتخاب شود';
+  readonly ERROR_TEXT = 'Select at least one item';
 
   @Input('items') rawItems?: ItemRecords$<T>;
   @Input() control: FormControlExtended = formControl(undefined);

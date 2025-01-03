@@ -9,12 +9,15 @@ import {
   TokenInterceptor,
   ErrorInterceptor,
   DATEFNS_PERSIAN_DATE_FORMATS,
-  DatefnsJalaliDateAdapter,
+  DatefnsJalaliDateAdapter, deepMerge
 } from '../core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { API_BASEURL, ENVIRONMENT } from './tokens';
 import { faIR } from 'date-fns-jalali/locale';
 import { setupGlobalServices, setupProdMode } from './globals';
+import { registerIcons } from './icons';
+import { CacBase } from './base-config';
+import { DateFnsAdapter } from '@angular/material-date-fns-adapter';
 
 export const provideEnvironment = (env: any) => ({ provide: ENVIRONMENT, useValue: env } as Provider);
 
@@ -45,26 +48,26 @@ export const provideTokenInterceptor = () => ({
 });
 
 export interface CacBaseProviderConfig {
+  config?: Partial<typeof CacBase.config>;
+
+  // array of supported languages, the first index will be selected as default.
+  //
+  // Default Value: ['fa', 'en']
+  langs?: string[];
   initializeFn?: () => void;
   interceptorOnly?: boolean;
   providersOnly?: boolean;
   environment?: any;
 
-  // if a string is provided, it will obtain by key from environment
+  // if a string is provided, it will obtain by key from environment.
   //
   // Default Value: "prod" || "production"
   isProd?: string | boolean;
 
-  // if a string is provided, it will obtain by key from environment
+  // if a string is provided, it will obtain by key from environment.
   //
   // Default Value: "apiBaseUrl"
   apiBaseUrl?: string | { fn: Function; deps?: any[] };
-
-  date?: {
-    locale?: any;
-    formats?: any;
-    adapter?: any;
-  };
 }
 
 export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBaseProviderConfig)) => {
@@ -81,6 +84,12 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
         : env[config.isProd]
       : env['prod'] ?? env['production']) ?? false;
 
+  const langs = config?.langs ?? ['fa', 'en'];
+  const currentLang = localStorage.getItem('lang') ?? langs[0];
+  localStorage.setItem('lang', currentLang);
+
+  CacBase.updateConfig(config?.config ?? {});
+
   if (!config?.interceptorOnly) {
     providers = [
       provideAnimations(),
@@ -88,15 +97,19 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
         config?.initializeFn?.();
         setupGlobalServices();
         setupProdMode(isProd);
+        registerIcons();
         // const roleApi = inject(RoleApiService)
         // firstValueFrom(roleApi.fetchPermissions())
       }),
       importProvidersFrom(HttpClientModule, MatDialogModule, MatSnackBarModule, MatProgressSpinnerModule),
 
-      { provide: MAT_DATE_LOCALE, useValue: config?.date?.locale || faIR },
-      { provide: MAT_DATE_FORMATS, useValue: config?.date?.formats || DATEFNS_PERSIAN_DATE_FORMATS },
-      { provide: DateAdapter, useClass: config?.date?.adapter || DatefnsJalaliDateAdapter, deps: [MAT_DATE_LOCALE] },
+      { provide: DateAdapter, useClass: currentLang === 'fa' ? DatefnsJalaliDateAdapter : DateFnsAdapter, deps: [MAT_DATE_LOCALE] },
     ] as Provider[];
+
+    if (currentLang === 'fa') {
+      providers.push({ provide: MAT_DATE_LOCALE, useValue: faIR })
+      providers.push({ provide: MAT_DATE_FORMATS, useValue: DATEFNS_PERSIAN_DATE_FORMATS })
+    }
   }
 
   if (!config?.providersOnly) {
