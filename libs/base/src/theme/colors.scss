@@ -1,14 +1,22 @@
+@use 'm3-theme' as theme;
+@use 'sass:map';
+
+@function _get-color($style, $color) {
+  @return map.get(map.get(theme.$palettes, $style), $color);
+}
+
 :root {
-  --primary-50: #f1efff; // 95
-  --primary-100: #e0e0ff; // 90
-  --primary-200: #e5ecf8; // 80
-  --primary-300: #9da3ff; // 70
-  --primary-400: #7b85ff; // 60
-  --primary-500: #5c66f6; // 50
-  --primary-600: #414bdc; // 40
-  --primary-700: #252dc4; // 30
-  --primary-800: #0002ab; // 20
-  --primary-900: #00016d; // 10
+  --primary-50: #{_get-color(primary, 95)};
+  --primary-100: #{_get-color(primary, 90)};
+  --primary-200: #{_get-color(primary, 80)};
+  --primary-300: #{_get-color(primary, 70)};
+  --primary-400: #{_get-color(primary, 60)};
+  --primary-500: #{_get-color(primary, 50)};
+  --primary-600: #{_get-color(primary, 40)};
+  --primary-700: #{_get-color(primary, 30)};
+  --primary-800: #{_get-color(primary, 20)};
+  --primary-900: #{_get-color(primary, 10)};
+
   --primary-default: var(--primary-600);
   --primary-container: var(--primary-100);
   --primary-on-container: var(--primary-900);
@@ -18,16 +26,17 @@
   --primary-on-fixed: var(--primary-100);
   --primary-on-fixed-variant: var(--primary-300);
 
-  --secondary-50: #eff1ff; // 95
-  --secondary-100: #e1e0f9; // 90
-  --secondary-200: #c5c4dd; // 80
-  --secondary-300: #a9a9c1; // 70
-  --secondary-400: #8f8fa6; // 60
-  --secondary-500: #75758b; // 50
-  --secondary-600: #5c5d72; // 40
-  --secondary-700: #444559; // 30
-  --secondary-800: #2e2f42; // 20
-  --secondary-900: #191a2c; // 10
+  --secondary-50: #{_get-color(secondary, 95)};
+  --secondary-100: #{_get-color(secondary, 90)};
+  --secondary-200: #{_get-color(secondary, 80)};
+  --secondary-300: #{_get-color(secondary, 70)};
+  --secondary-400: #{_get-color(secondary, 60)};
+  --secondary-500: #{_get-color(secondary, 50)};
+  --secondary-600: #{_get-color(secondary, 40)};
+  --secondary-700: #{_get-color(secondary, 30)};
+  --secondary-800: #{_get-color(secondary, 20)};
+  --secondary-900: #{_get-color(secondary, 10)};
+
   --secondary-default: var(--secondary-600);
   --secondary-container: var(--secondary-100);
   --secondary-on-container: var(--secondary-900);
@@ -36,16 +45,16 @@
   --secondary-on-fixed: var(--secondary-100);
   --secondary-on-fixed-variant: var(--secondary-300);
 
-  --tertiary-50: #ffecf4; // 95
-  --tertiary-100: #ffd8ee; // 90
-  --tertiary-200: #e8b9d5; // 80
-  --tertiary-300: #cb9eb9; // 70
-  --tertiary-400: #ae849e; // 60
-  --tertiary-500: #936b84; // 50
-  --tertiary-600: #78536b; // 40
-  --tertiary-700: #5e3c52; // 30
-  --tertiary-800: #46263b; // 20
-  --tertiary-900: #2e1126; // 10
+  --tertiary-50: #{_get-color(tertiary, 95)};
+  --tertiary-100: #{_get-color(tertiary, 90)};
+  --tertiary-200: #{_get-color(tertiary, 80)};
+  --tertiary-300: #{_get-color(tertiary, 70)};
+  --tertiary-400: #{_get-color(tertiary, 60)};
+  --tertiary-500: #{_get-color(tertiary, 50)};
+  --tertiary-600: #{_get-color(tertiary, 40)};
+  --tertiary-700: #{_get-color(tertiary, 30)};
+  --tertiary-800: #{_get-color(tertiary, 20)};
+  --tertiary-900: #{_get-color(tertiary, 10)};
   --tertiary-default: var(--tertiary-600);
   --tertiary-container: var(--tertiary-100);
   --tertiary-on-container: var(--tertiary-900);
@@ -54,17 +63,40 @@
   --tertiary-on-fixed: var(--tertiary-100);
   --tertiary-on-fixed-variant: var(--tertiary-300);
 
-  --error-50: #ffdad6; // 95
-  --error-100: #ffdad6; // 90
-  --error-200: #ffb4ab; // 80
-  --error-300: #ff897d; // 70
-  --error-400: #ff5449; // 60
-  --error-500: #de3730; // 50
-  --error-600: #ba1a1a; // 40
-  --error-700: #93000a; // 30
-  --error-800: #690005; // 20
-  --error-900: #410002; // 10
+  --error-50: #{_get-color(error, 95)};
+  --error-100: #{_get-color(error, 90)};
+  --error-200: #{_get-color(error, 80)};
+  --error-300: #{_get-color(error, 70)};
+  --error-400: #{_get-color(error, 60)};
+  --error-500: #{_get-color(error, 50)};
+  --error-600: #{_get-color(error, 40)};
+  --error-700: #{_get-color(error, 30)};
+  --error-800: #{_get-color(error, 20)};
+  --error-900: #{_get-color(error, 10)};
+
   --error-default: var(--error-600);
   --error-container: var(--error-100);
   --error-on-container: var(--error-900);
+
+  --surface: #{_get-color(neutral, 99)};
+  --surface-on: #{_get-color(neutral, 10)};
+  --surface-dim: #{_get-color(neutral, 95)};
+  --surface-bright: #{_get-color(neutral, 98)};
+  --surface-variant: #{_get-color(neutral-variant, 90)};
+  --surface-on-variant: #{_get-color(neutral-variant, 30)};
+  --surface-variant-dim: #{_get-color(neutral-variant, 20)};
+  --surface-container: #{_get-color(neutral, 80)};
+  --surface-on-container: #{_get-color(neutral, 20)};
+  --surface-container-lowest: #{_get-color(neutral, 100)};
+  --surface-container-low: #{_get-color(neutral, 98)};
+  --surface-container-high: #{_get-color(neutral, 95)};
+  --surface-container-highest: #{_get-color(neutral, 90)};
+  --surface-inverse: #{_get-color(neutral-variant, 20)};
+  --surface-on-inverse: #{_get-color(neutral-variant, 95)};
+
+  --outline: #{_get-color(neutral-variant, 50)};
+  --outline-variant: #{_get-color(neutral-variant, 80)};
+
+  --background: #{_get-color(neutral, 99)};
+  --background-on: #{_get-color(neutral, 10)};
 }
