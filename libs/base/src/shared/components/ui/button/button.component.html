@@ -17,7 +17,7 @@
   >
     <div class="ui-button-content" [class.loading]="loading()">
       <ng-container *ngIf="iconPosition === 'prefix'" [ngTemplateOutlet]="Icon"></ng-container>
-      <div class="ui-button-content-portal inline-flex mx-2 hide-if-empty">
+      <div class="ui-button-content-portal inline-flex mx-2 empty:hidden">
         <ng-content></ng-content>
       </div>
       <ng-container *ngIf="iconPosition === 'suffix'" [ngTemplateOutlet]="Icon"></ng-container>

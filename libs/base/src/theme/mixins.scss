@@ -1,0 +1,20 @@
+@mixin scrollbar($width: 11px, $padding: 3px) {
+  * {
+    ::-webkit-scrollbar {
+      width: $width;
+       background-color: rgb(108, 108, 110);
+    }
+    ::-webkit-scrollbar-thumb {
+      @apply bg-gray-200 hover:bg-gray-300;
+
+      background-color: rgb(229 231 235);
+      &:hover {
+        background-color: rgb(209 213 219);
+      }
+
+      border-radius: 5px;
+      border: $padding solid rgba(0, 0, 0, 0);
+      background-clip: padding-box;
+    }
+  }
+}

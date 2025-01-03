@@ -15,7 +15,7 @@
       </tbody>
     </table>
 
-    <div class="mt-7 text-sm hide-if-empty">
+    <div class="mt-7 text-sm empty:hidden">
       <p #Extras *ngFor="let item of currentData?.extra ?? []">{{ item.label }} : {{ item.value }}</p>
     </div>
   </ng-container>

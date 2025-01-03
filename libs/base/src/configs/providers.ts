@@ -11,7 +11,7 @@ import {
   DATEFNS_PERSIAN_DATE_FORMATS,
   DatefnsJalaliDateAdapter,
   RoleApiService,
-} from './core';
+} from '../core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import faIR from 'date-fns-jalali/locale/fa-jalali-IR';
 import { API_BASEURL, ENVIRONMENT } from './tokens';

@@ -22,6 +22,9 @@
             "input": "apps/playground/public"
           }
         ],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/base/src"]
+        },
         "styles": ["apps/playground/src/styles.scss"],
         "scripts": []
       },
