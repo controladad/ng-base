@@ -21,8 +21,8 @@ export interface FormControlExtended<TValue = any, Data = any> extends FormContr
   error$: Observable<string | undefined>;
   hasValue$: Observable<boolean>;
 
-  selectedItems$: BehaviorSubject<ItemRecord<Singleton<TValue>>[] | undefined>;
-  selectedItems: ItemRecord<Singleton<TValue>>[] | undefined;
+  selectedItems$: BehaviorSubject<any[] | undefined>;
+  selectedItems: any[] | undefined;
 
   readonly$: BehaviorSubject<boolean>;
   readonly: boolean;
@@ -48,7 +48,7 @@ export interface FormControlExtended<TValue = any, Data = any> extends FormContr
   setReadonly: (value: boolean) => FormControlExtended<TValue, Data>;
   // if value is typeof string or number, it will be set in the display text, otherwise, undefined
   setDisplayText: (value: any | undefined) => FormControlExtended<TValue>;
-  setSelectedItems: (value: ItemRecord<Singleton<TValue>>[] | undefined) => FormControlExtended<TValue, Data>;
+  setSelectedItems: (value: any[] | undefined) => FormControlExtended<TValue, Data>;
   setCustomError: (value: string | undefined) => FormControlExtended<TValue, Data>;
   setDisabled: (value: boolean) => FormControlExtended<TValue, Data>;
   // get value if valid, else, return null

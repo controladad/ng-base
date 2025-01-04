@@ -1,0 +1,31 @@
+<app-test-section title="Chips">
+  <ui-chips>Filled</ui-chips>
+  <ui-chips [closable]="true">Closable</ui-chips>
+  <ui-chips appearance="outlined">Outlined</ui-chips>
+  <ui-chips class="bg-red-700 text-red-50" icon="info">Customized</ui-chips>
+</app-test-section>
+
+<app-test-section title="Chips Group">
+  <ui-chips-group>
+    <ui-chips value="a">Label1</ui-chips>
+    <ui-chips value="b">Label2</ui-chips>
+    <ui-chips value="c">Label3</ui-chips>
+  </ui-chips-group>
+</app-test-section>
+
+<app-test-section title="Chips Group (Selectable)">
+  <ui-chips-group [toggleable]="true">
+    <ui-chips value="a">Label1</ui-chips>
+    <ui-chips value="b">Label2</ui-chips>
+    <ui-chips value="c">Label3</ui-chips>
+  </ui-chips-group>
+</app-test-section>
+
+<app-test-section title="Chips Group (Multi Select)">
+  <ui-chips-group [toggleable]="true" [multiple]="true">
+    <ui-chips value="a">Label1</ui-chips>
+    <ui-chips value="b">Label2</ui-chips>
+    <ui-chips value="c">Label3</ui-chips>
+  </ui-chips-group>
+</app-test-section>
+

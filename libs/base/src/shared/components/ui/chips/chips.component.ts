@@ -13,6 +13,8 @@ import {
 import { IconComponent } from '../icon';
 import { NgIf } from '@angular/common';
 
+// TODO: activeClass property is not working
+
 @Component({
   selector: 'ui-chips',
   standalone: true,
@@ -22,24 +24,26 @@ import { NgIf } from '@angular/common';
 })
 export class ChipsComponent<T> implements OnChanges {
   @Input() closable = false;
+  // active is used as a flag and has no behavioral significance
   @Input() active = false;
   @Input() value?: T;
   @Input() appearance: 'filled' | 'outlined' = 'filled';
-  @Input('activeClass') activeClassNames?: string;
+  @Input() icon?: string;
+  @Input('activeClass') activeClass?: string;
 
   @Output() onClose = new EventEmitter<MouseEvent>();
   @Output() onClick = new EventEmitter<MouseEvent>();
 
-  @HostBinding('class.ui-chips') baseClass = true;
-  @HostBinding('class.ui-chips-active') activeClass = false;
-  @HostBinding('class.ui-chips-appearance-filled') appearanceFilledClass = true;
-  @HostBinding('class.ui-chips-appearance-outlined') appearanceOutlinedClass = false;
+  @HostBinding('class.ui-chips') baseClassBinding = true;
+  @HostBinding('class.ui-chips-active') activeClassBinding = false;
+  @HostBinding('class.ui-chips-appearance-filled') appearanceFilledClassBinding = true;
+  @HostBinding('class.ui-chips-appearance-outlined') appearanceOutlinedClassBinding = false;
 
   private _active = signal(false);
 
   constructor() {
     effect(() => {
-      this.activeClass = this._active();
+      this.activeClassBinding = this._active();
     });
   }
 
@@ -48,8 +52,8 @@ export class ChipsComponent<T> implements OnChanges {
       this._active.set(this.active);
     }
     if (changes['appearance']) {
-      this.appearanceFilledClass = this.appearance === 'filled';
-      this.appearanceOutlinedClass = this.appearance === 'outlined';
+      this.appearanceFilledClassBinding = this.appearance === 'filled';
+      this.appearanceOutlinedClassBinding = this.appearance === 'outlined';
     }
   }
 

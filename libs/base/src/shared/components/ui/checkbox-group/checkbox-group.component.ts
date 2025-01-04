@@ -6,6 +6,11 @@ import { Observable, of, startWith, Subscription } from 'rxjs';
 import { ItemRecord, ItemRecords$ } from '../../../../core';
 import { formControl, FormControlExtended } from '../../../forms';
 
+// TODO: UPDATE THIS COMPONENT
+// it has signal problem, and it isn't using our ui-checkbox
+// or at least sharing the styles with ui-checkbox.
+// it should be like ui-chips-group in implementation
+
 @Component({
   selector: 'ui-checkbox-group',
   standalone: true,
@@ -43,8 +48,8 @@ export class CheckboxGroupComponent<T extends string | number> implements OnChan
         (this.rawItems === undefined
           ? of(undefined)
           : this.rawItems instanceof Array
-            ? of(this.rawItems)
-            : this.rawItems) as Observable<ItemRecord<T>[] | undefined>
+          ? of(this.rawItems)
+          : this.rawItems) as Observable<ItemRecord<T>[] | undefined>
       ).subscribe((items) => {
         this.items.set(items);
       });
