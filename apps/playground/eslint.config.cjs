@@ -24,6 +24,13 @@ module.exports = [
           style: 'kebab-case',
         },
       ],
+      '@angular-eslint/no-output-on-prefix': 0,
+      '@typescript-eslint/ban-ts-comment': 0,
+      '@typescript-eslint/no-unused-expressions': 0,
+      '@typescript-eslint/no-unsafe-function-type': 0,
+      '@angular-eslint/no-input-rename': 0,
+      '@typescript-eslint/no-empty-object-type': 0,
+      '@typescript-eslint/no-empty-interface': 0,
     },
   },
   {

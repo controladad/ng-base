@@ -147,14 +147,16 @@ export class FormBuilder<T, U = T> implements FormBuilderOptions<T> {
     }
   }
 
-  clone(): FormBuilder<T, U> {
-    return new FormBuilder<T, U>(
+  clone(values?: any): FormBuilder<T, U> {
+    const cloned = new FormBuilder<T, U>(
       {
         ...this,
         values: clone(this._values),
       },
       this._transfomer,
     );
+    cloned.reset(values);
+    return cloned;
   }
 
   setReadonly(state: boolean, ...keys: (keyof T)[]) {
