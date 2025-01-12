@@ -15,19 +15,19 @@ export class AppComponent {
   constructor() {
     DriverRepository.init();
 
-    setTimeout(() => {
-      DriverRepository.api.getAll().subscribe((v) => {
-        console.log(v);
-        DriverRepository.dialog(v[1])
-          .afterClosed()
-          .subscribe(() => {
-            DriverRepository.dialog(v[2])
-              .afterClosed()
-              .subscribe(() => {
-                DriverRepository.dialog()
-              });
-          });
-      });
-    }, 500);
+    // setTimeout(() => {
+    //   DriverRepository.api.getAll().subscribe((v) => {
+    //     console.log(v);
+    //     DriverRepository.dialog(v[1])
+    //       .afterClosed()
+    //       .subscribe(() => {
+    //         DriverRepository.dialog(v[2])
+    //           .afterClosed()
+    //           .subscribe(() => {
+    //             DriverRepository.dialog()
+    //           });
+    //       });
+    //   });
+    // }, 500);
   }
 }
