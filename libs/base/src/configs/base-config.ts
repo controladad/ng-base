@@ -1,7 +1,19 @@
 import { deepMerge } from '../core';
+import { DialogExtendedConfig } from '../shared';
 
 export class CacBase {
   static config = {
+    components: {
+      dialog: {
+        defaults: {
+          panelClass: ['ui-dialog-default-panel'],
+          autoFocus: true,
+        } as DialogExtendedConfig<any>
+      },
+      icon: {
+        strokeWidth: 1.9,
+      }
+    },
     validators: {
       phone: {
         min: 11,

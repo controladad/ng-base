@@ -5,6 +5,7 @@
   (click)="onClickEvent($event)"
 >
   <mat-icon
+    #MatIcon
     class="{{ iconClass ?? '' }}"
     [ngStyle]="{ width: size, height: size }"
     *ngIf="!!icon"

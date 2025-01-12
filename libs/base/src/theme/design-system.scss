@@ -1,47 +1,15 @@
-.cdk-global-scrollblock {
-  overflow-y: hidden !important;
-}
-
-.cdk-global-overlay-wrapper {
-}
-
-.ui-dialog-default-panel {
-  .mat-mdc-dialog-container {
-    padding: 0 !important;
-    border-radius: 0 !important;
-    position: relative;
-  }
-  .mat-mdc-dialog-surface {
-    @apply border border-outline-variant;
-    box-shadow: none !important;
-    border-radius: 0.75rem !important;
-    background: transparent !important;
-    display: flex !important;
-    flex-direction: column;
-    & > * {
-      @apply relative bg-surface-container-low;
-      @apply shadow-5 #{!important};
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      flex: 1 1 auto;
-      overflow: hidden;
-    }
-  }
-}
-
 .ui-backdrop-blur {
-  background: rgba(45, 45, 45, 0.25) !important;
+  background: rgba(45, 45, 45, 0.25);
   backdrop-filter: blur(2px);
 }
 
 .ui-backdrop-blur-xl {
-  background: rgba(45, 45, 45, 0.3) !important;
+  background: rgba(45, 45, 45, 0.3);
   backdrop-filter: blur(6px);
 }
 
 .ui-backdrop-blur-sm {
-  background: rgba(110, 110, 112, 0.2) !important;
+  background: rgba(110, 110, 112, 0.2);
   backdrop-filter: blur(1px);
 }
 

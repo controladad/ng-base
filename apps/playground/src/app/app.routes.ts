@@ -12,5 +12,9 @@ export const appRoutes: Route[] = [
   {
     path: 'chips',
     loadComponent: () => import('./ui/chips-page/chips-page.component').then((m) => m.ChipsPageComponent),
+  },
+  {
+    path: 'table',
+    loadComponent: () => import('./features/table-page/table-page.component').then((m) => m.TablePageComponent),
   }
 ];

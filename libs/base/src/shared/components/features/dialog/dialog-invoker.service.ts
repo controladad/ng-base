@@ -4,6 +4,7 @@ import { ComponentType } from '@angular/cdk/overlay';
 import { BaseDialogComponent, DialogAction, DialogActionEvent } from './components/_base-dialog.component';
 import { filter, map, Observable, take } from 'rxjs';
 import { ActionTypes } from '../../../../core';
+import { CacBase } from '../../../../configs';
 
 export interface DialogExtended<T, R> {
   ref: MatDialogRef<T, R>;
@@ -26,14 +27,15 @@ export class DialogInvokerService {
   constructor(private dialog: MatDialog) {}
 
   open<T, D, R>(component: ComponentType<T>, data?: D, config?: DialogExtendedConfig<D>): DialogExtended<T, R> {
+    const defaultConfig = CacBase.config.components.dialog
+
     const ref = this.dialog.open<T, D, R>(component, {
       data,
-      panelClass: ['ui-dialog-default-panel'],
       backdropClass: [
         config?.backdropBlur === 'xl' ? 'ui-backdrop-blur-xl' : 'ui-backdrop-blur',
         config?.enterAnimationDuration === 0 ? 'ui-no-transition' : '',
       ],
-      autoFocus: false,
+      ...defaultConfig.defaults,
       ...config,
     });
 

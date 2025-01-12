@@ -5,3 +5,9 @@
 @tailwind utilities;
 
 @include cac.scrollbar;
+
+@include cac.dialog((
+  backgroundColor: var(--surface-container-low),
+  borderColor: var(--outline-variant),
+  borderRadius: 0.75rem,
+))

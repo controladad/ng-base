@@ -1,0 +1,60 @@
+<ng-container matColumnDef>
+  <th mat-header-cell *matHeaderCellDef class="text-center">{{ options.view?.actionsText }}</th>
+  <td #trigger="matMenuTrigger" mat-cell *matCellDef="let row" [matMenuTriggerFor]="null">
+    <div class="flex items-center gap-1 justify-center">
+      @for (action of actions; track action.type + action.content; let index = $index) {
+        <div
+          #ActionColCells
+          role="presentation"
+          class="w-fit {{ (row.actions[index]?.disabled$ | async) ? 'pointer-events-none' : '' }}"
+        >
+          @let data = row.actions[index];
+          @switch (action.type) {
+            @case ('icon') {
+              <ui-button
+                uiPermissionHide
+                [icon]="action.content"
+                [disabled]="$any(data.disabled$ ? (data.disabled$ | async) : data.disabled)"
+                [matBadge]="action.badge ? action.badge(row.originalItem) : ''"
+                [action]="action.actionType"
+                [permission]="data.permission"
+                (onClick)="onAction.emit({ row, action, trigger, clickEvent: $event })"
+                class="w-8 h-8 text-primary"
+                padding="0.5rem"
+                appearance="text"
+                iconSize="1.375rem"
+                matBadgeColor="warn"
+                matBadgePosition="before"
+              ></ui-button>
+            }
+            @case ('text') {
+              <div class="cursor-pointer">
+                {{ action.content }}
+              </div>
+            }
+            @case ('button') {
+              <ui-button
+                uiPermissionHide
+                [class]="action.class"
+                [appearance]="action.appearance ?? 'filled'"
+                [theme]="action.theme ?? 'primary'"
+                [disabled]="$any(data.disabled$ ? (data.disabled$ | async) : data.disabled)"
+                [matBadge]="action.badge ? action.badge(row.originalItem) : ''"
+                [action]="action.actionType"
+                [permission]="data.permission"
+                (onClick)="onAction.emit({ row, action, trigger, clickEvent: $event })"
+                matBadgeColor="warn"
+                matBadgePosition="before"
+              >
+                {{ action.content }}
+              </ui-button>
+            }
+            @default {
+              {{ action.content }}
+            }
+          }
+        </div>
+      }
+    </div>
+  </td>
+</ng-container>

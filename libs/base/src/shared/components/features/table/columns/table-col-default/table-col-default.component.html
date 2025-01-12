@@ -1,0 +1,122 @@
+<ng-container matColumnDef>
+  <th mat-header-cell *matHeaderCellDef>
+    <div class="flex">
+      <div
+        role="presentation"
+        class="flex flex-col pe-2 select-none {{ col.sortable ? 'cursor-pointer' : '' }}"
+        (click)="Sort.onSortClick()"
+      >
+        <span class="whitespace-nowrap">{{ col.label }}</span>
+        @if (col.hint) {
+          <span class="text-white text-xs">{{ col.hint }}</span>
+        }
+      </div>
+      <feature-table-sort class="ms-1" #Sort [column]="col" [sortModel]="options.sortModel!"></feature-table-sort>
+
+      <feature-table-filter [column]="col" [filterModel]="options.filterModel!"></feature-table-filter>
+    </div>
+  </th>
+  <td
+    role="presentation"
+    mat-cell
+    *matCellDef="let row"
+    (click)="onRowClick.emit(row)"
+    class="{{ options.clickableRows ? 'cursor-pointer' : '' }}"
+    [ngStyle]="{ minWidth: col.width ?? '' }"
+  >
+    @let dynamicClass =
+      row.data[col.prop].dynamicClass$ ? (row.data[col.prop].dynamicClass$ | async) : row.data[col.prop].dynamicClass;
+    @switch (col.type) {
+      @case ('status') {
+        <button
+          class="status-type-col {{
+            (
+              row.data[col.prop].isValueTrue$
+                ? (row.data[col.prop].isValueTrue$ | async)
+                : row.data[col.prop].isValueTrue
+            )
+              ? 'text-green-700'
+              : 'text-red-600'
+          }} {{ dynamicClass }}"
+        >
+          <ng-container
+            [ngTemplateOutlet]="CellValue"
+            [ngTemplateOutletContext]="{
+              col: col,
+              row: row,
+            }"
+          ></ng-container>
+        </button>
+      }
+      @case ('tag') {
+        <button class="tag-type-col {{ dynamicClass }}">
+          <ng-container
+            [ngTemplateOutlet]="CellValue"
+            [ngTemplateOutletContext]="{
+              col: col,
+              row: row,
+            }"
+          ></ng-container>
+        </button>
+      }
+      @case ('plate') {
+        <ui-license-plate
+          class="absolute scale-50 min-w-[19rem] pointer-events-none"
+          style="transform-origin: top right"
+          [value]="row.data[col.prop].rawValue"
+          [hideError]="true"
+        ></ui-license-plate>
+        <div class="w-44 h-6"></div>
+      }
+      @case ('button') {
+        <ui-button
+          class="button-type-col {{ dynamicClass }}"
+          padding="0"
+          appearance="text"
+          (onClick)="col.onClick?.(row.originalItem, $event)"
+        >
+          <ng-container
+            [ngTemplateOutlet]="CellValue"
+            [ngTemplateOutletContext]="{
+              col: col,
+              row: row,
+            }"
+          ></ng-container>
+        </ui-button>
+      }
+      @default {
+        <!-- text & number -->
+        <div class="{{ dynamicClass }}">
+          <ng-container
+            [ngTemplateOutlet]="CellValue"
+            [ngTemplateOutletContext]="{
+              col: col,
+              row: row,
+            }"
+          ></ng-container>
+        </div>
+      }
+    }
+  </td>
+</ng-container>
+
+<ng-template #CellValue let-row="row" let-col="col">
+  @let value = row.data[col.prop].value$ ? (row.data[col.prop].value$ | async) : row.data[col.prop].value;
+  <span [title]="value">
+    @if (value | typeOf: 'array') {
+      <span class="flex flex-wrap" [style.min-width]="value.length > 3 ? '12rem' : value.length > 2 ? '10rem' : '8rem'">
+        @for (i of value; let last = $last; track i) {
+          <span>
+            {{ i }}
+            @if (!last) {
+              <span class="me-1">,</span>
+            }
+          </span>
+        }
+      </span>
+    } @else {
+      {{ value }}
+    }
+  </span>
+</ng-template>
+

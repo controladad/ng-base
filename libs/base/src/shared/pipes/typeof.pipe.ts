@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'typeof',
+  name: 'typeOf',
   standalone: true,
   pure: true,
 })

@@ -6,3 +6,7 @@ export * from './table-filter-bar/table-filter-bar.component';
 export * from './table-filter-menu/table-filter-menu.component';
 export * from './table-form-menu/table-form-menu.component';
 export * from './table-sort/table-sort.component';
+export * from './columns/table-col-selection/table-col-selection.component';
+export * from './columns/table-col-index/table-col-index.component';
+export * from './columns/table-col-default/table-col-default.component';
+export * from './columns/table-col-action/table-col-action.component';

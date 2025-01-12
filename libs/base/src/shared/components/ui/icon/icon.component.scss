@@ -1,14 +1,14 @@
 :host {
-  display: block;
+  display: inline-block;
   width: 24px;
   height: 24px;
-  color: black;
+  color: inherit;
   position: relative;
   border-radius: 0.25rem;
 }
 :host ::ng-deep .ui-icon {
   @apply transition-all duration-150 filter w-inherit h-inherit text-inherit;
-  @apply flex items-center justify-center;
+  @apply inline-flex items-center justify-center;
   border-radius: inherit;
 
   &.is-clickable {

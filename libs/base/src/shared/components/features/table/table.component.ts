@@ -13,8 +13,6 @@ import {
   AfterContentInit,
   OnDestroy,
   OnInit,
-  ViewChildren,
-  QueryList,
   ElementRef,
   inject,
   DestroyRef,
@@ -40,16 +38,9 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {
-  AsyncPipe,
   DecimalPipe,
   formatNumber,
-  NgForOf,
   NgIf,
-  NgStyle,
-  NgSwitch,
-  NgSwitchCase,
-  NgSwitchDefault,
-  NgTemplateOutlet,
 } from '@angular/common';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -63,34 +54,36 @@ import {
   TableDialogParams,
   TableExportOutput,
   TableMenuParams,
-  TableOptions,
+  TableOptions, TablePagination,
   TablePrintOptionsCol,
-  TableStateParams,
+  TableStateParams
 } from './table.interfaces';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableFilterBarComponent } from './table-filter-bar/table-filter-bar.component';
 import { TableFormMenuComponent } from './table-form-menu/table-form-menu.component';
-import { TableFilterComponent } from './table-filter/table-filter.component';
 import { DataGetRequest, DataGetResponse, effectDep, ItemRecord, ItemToId } from '../../../../core';
 import { SelectionModel, SortModel, TableFilterModel } from '../../../classes';
 import {
   ButtonClickEvent,
   ButtonComponent,
-  CheckboxComponent,
   FieldComponent,
-  LicensePlateComponent,
   PaginationComponent,
   SkeletonComponent,
 } from '../../ui';
-import { TableSortComponent } from './table-sort/table-sort.component';
 import * as dateFns from 'date-fns-jalali';
 import { PrintableTableComponent } from '../printable-table';
 import { ForNumberDirective, PermissionHideDirective } from '../../../directives';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { TypeofPipe } from '../../../pipes';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
 import { formControl } from '../../../forms';
+import {
+  TABLE_COL_SELECTION_PROP,
+  TableColSelectionComponent
+} from './columns/table-col-selection/table-col-selection.component';
+import { TABLE_COL_INDEX_PROP, TableColIndexComponent } from './columns/table-col-index/table-col-index.component';
+import { TableColDefaultComponent } from './columns/table-col-default/table-col-default.component';
+import { TABLE_COL_ACTION_PROP, TableColActionComponent } from './columns/table-col-action/table-col-action.component';
 
 interface TableRowData {
   value: any;
@@ -109,7 +102,7 @@ interface TableRowAction {
   permission?: string;
 }
 
-interface TableRow<T> {
+export interface TableRow<T> {
   id: string | number;
   // This is used to track if an item is mutated and update the view.
   mutation: number;
@@ -132,7 +125,9 @@ const TABLE_DEFAULT_GENERATOR = () =>
     columns: {},
     actions: [],
     batchActions: [],
-    pageSize: 10,
+    pagination: {
+      size: 10,
+    },
     selectionModel: new SelectionModel<any>(0, true, [], TABLE_ITEM_TO_ID_FN),
     sortModel: new SortModel(),
     filterModel: new TableFilterModel(),
@@ -193,32 +188,24 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
     MatProgressSpinnerModule,
     ButtonComponent,
     NgIf,
-    NgSwitchDefault,
-    NgSwitchCase,
-    NgSwitch,
-    NgForOf,
-    NgTemplateOutlet,
-    AsyncPipe,
     MatBadgeModule,
-    NgStyle,
     PaginationComponent,
     MatCheckboxModule,
     FieldComponent,
     MatMenuModule,
-    TableSortComponent,
     MatIconModule,
     TableFilterBarComponent,
-    TableFilterComponent,
-    CheckboxComponent,
-    LicensePlateComponent,
     PrintableTableComponent,
     PermissionHideDirective,
     NgxSkeletonLoaderModule,
     ForNumberDirective,
     SkeletonComponent,
-    TypeofPipe,
     MatProgressBarModule,
     TableFormMenuComponent,
+    TableColSelectionComponent,
+    TableColIndexComponent,
+    TableColDefaultComponent,
+    TableColActionComponent,
   ],
   providers: [DecimalPipe],
   templateUrl: './table.component.html',
@@ -227,9 +214,6 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
 export class TableComponent<T extends object> implements OnInit, OnChanges, AfterViewInit, AfterContentInit, OnDestroy {
   readonly destroyRef = inject(DestroyRef);
 
-  readonly AUTO_INDEX_COL = '_auto_index';
-  readonly SELECTION_COL = '_selection';
-  readonly ACTION_COL = '_action';
   readonly ACTIVE_STRING_VALUE = 'Active';
 
   readonly EMPTY_VALUE = '-';
@@ -243,15 +227,14 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
 
   readonly TABLE_DEFAULTS = TABLE_DEFAULT_GENERATOR();
 
-  @ViewChildren('ActionColCells') actionColCells?: QueryList<ElementRef<HTMLDivElement>>;
   @ViewChild('Pagination') pagination?: PaginationComponent;
   @ViewChild('FormMenu') tableFormMenu!: TableFormMenuComponent;
   @ViewChild('MenuTriggerAddButton') menuTriggerAddButton?: MatMenuTrigger;
   @ViewChild('PrintableTable') printableTable!: PrintableTableComponent;
   @ViewChild('Table') tableElement!: ElementRef<HTMLElement>;
+  @ViewChild('ActionCol') actionCol!: TableColActionComponent;
 
   @Input('options') rawOptions: TableClass<T> | TableOptions<T> = this.TABLE_DEFAULTS as TableOptions<T>;
-  @Input() noPagination = false;
 
   @Output() add = new EventEmitter<TableButtonEvent>();
   @Output() clickRow = new EventEmitter<T>();
@@ -282,17 +265,28 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
   hiddenColsArray = signal<(keyof T)[]>([]);
   highlightedRowsArray = signal<(string | number)[]>([]);
 
+  // if undefined, pagination is disabled
+  paginationOptions = computed(
+    () => (!this.options().pagination ? null : this.options().pagination) as TablePagination,
+  );
+
   hiddenCols = computed(() =>
-    this.hiddenColsArray().reduce((pre, cur) => {
-      pre[cur] = true;
-      return pre;
-    }, {} as { [key in keyof T]: boolean }),
+    this.hiddenColsArray().reduce(
+      (pre, cur) => {
+        pre[cur] = true;
+        return pre;
+      },
+      {} as { [key in keyof T]: boolean },
+    ),
   );
   highlightedRows = computed(() =>
-    this.highlightedRowsArray().reduce((pre, cur) => {
-      pre[cur] = true;
-      return pre;
-    }, {} as { [key: string | number]: boolean }),
+    this.highlightedRowsArray().reduce(
+      (pre, cur) => {
+        pre[cur] = true;
+        return pre;
+      },
+      {} as { [key: string | number]: boolean },
+    ),
   );
   columns = computed<TableColumnData<T>[]>(() =>
     Object.entries(this.options().columns).map(([key, value]) => ({
@@ -309,7 +303,7 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
     (this.options().batchActions ?? []).map((t) => ({ label: t.content, value: t })),
   );
   isActionHidden = computed(
-    () => this.hiddenColsArray().includes(this.ACTION_COL as any) || this.actions().length === 0,
+    () => this.hiddenColsArray().includes(TABLE_COL_ACTION_PROP as any) || this.actions().length === 0,
   );
   hasFilter = computed(() => this.columns().some((v) => v.filterable));
   columnsLabels = computed<string[]>(() => {
@@ -320,12 +314,12 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
 
     cols.unshift(
       ...([
-        this.options().selectable ? this.SELECTION_COL : undefined,
-        this.options().showIndex ? this.AUTO_INDEX_COL : undefined,
+        this.options().selectable ? TABLE_COL_SELECTION_PROP : undefined,
+        this.options().showIndex ? TABLE_COL_INDEX_PROP : undefined,
       ].filter((x) => !!x) as string[]),
     );
     if (!isActionHidden) {
-      cols.push(this.ACTION_COL);
+      cols.push(TABLE_COL_ACTION_PROP);
     }
 
     return cols;
@@ -370,13 +364,11 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
   }
 
   ngAfterViewInit() {
-    this.actionColCells?.changes.pipe(take(1)).subscribe(() => {
-      const isVisible = this.actionColCells?.some((wrapper) =>
-        Array.from(wrapper.nativeElement.children).some((el) => el.clientWidth !== 0),
-      );
-      this.setHidden(!isVisible, this.ACTION_COL as any);
+    this.actionCol.onVisible$.pipe(take(1)).subscribe((isVisible) => {
+      this.setHidden(!isVisible, TABLE_COL_ACTION_PROP as any);
       this.cdr.detectChanges();
-    });
+    })
+
     this.cdr.detectChanges();
   }
 
@@ -561,14 +553,7 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
     this.options.set(opt);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected onAction(item: T, action: TableAction<T>, trigger: MatMenuTrigger, e?: ButtonClickEvent) {
-    // const result = this.tableFormMenu.open('edit', trigger, (e) =>
-    //   action.action(item, {
-    //     ...e,
-    //     ...this.createTableDialogParam('edit'),
-    //   }),
-    // );
     const result = action.action(item, {
       ...this.createTableDialogParam('edit'),
       ...this.createTableMenuParam('edit', trigger),
@@ -718,7 +703,7 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
       const mapped = this.mapItemToCol(item, col);
       newItem.data[col.prop] = mapped;
 
-      const isHidden = typeof col.hide === 'function' ? col.hide(mapped.value, item) : col.hide ?? false;
+      const isHidden = typeof col.hide === 'function' ? col.hide(mapped.value, item) : (col.hide ?? false);
       this.setHidden(isHidden, col.prop as any);
     }
     this.actions().forEach((action, index) => {
@@ -772,8 +757,8 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
           this.tableRawResponse$.next(result);
           this.totalItems.set(value.totalItems);
 
-          this.options().selectionModel!.setItems(items);
-          this.options().selectionModel!.setTotalCount(value.totalItems);
+          this.options().selectionModel?.setItems(items);
+          this.options().selectionModel?.setTotalCount(value.totalItems);
 
           // If total pages mismatched the current selected page, simply change the page.
           if ('pagination' in result && result.pagination.totalPages !== undefined) {
@@ -871,8 +856,8 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
     return typeof value === 'number'
       ? value === 1
       : typeof value === 'string'
-      ? value === this.ACTIVE_STRING_VALUE
-      : !!value;
+        ? value === this.ACTIVE_STRING_VALUE
+        : !!value;
   }
 
   private isValueEmpty(value: any) {
@@ -907,8 +892,8 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
             typeof value === 'number'
               ? value === 1
               : typeof value === 'string'
-              ? value === this.ACTIVE_STRING_VALUE
-              : value;
+                ? value === this.ACTIVE_STRING_VALUE
+                : value;
           return status ? this.ACTIVE_TEXT : this.INACTIVE_TEXT;
         };
 

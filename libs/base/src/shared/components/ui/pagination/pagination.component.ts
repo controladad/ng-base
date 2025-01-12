@@ -1,4 +1,14 @@
-import { Component, computed, EventEmitter, Input, OnChanges, Output, signal, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  signal,
+  SimpleChanges
+} from '@angular/core';
 import { DecimalPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 import { distinctUntilChanged, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -123,6 +133,10 @@ export class PaginationComponent implements OnChanges {
   });
 
   constructor(private screen: ScreenDetectorService) {
+    effect(() => {
+      this.currentSizeControl.setValue(this.size())
+    })
+
     this.currentSizeControl.valueChanges
       .pipe(takeUntilDestroyed(), startWith(this.currentSizeControl.value), distinctUntilChanged())
       .subscribe((value) => {

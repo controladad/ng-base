@@ -23,6 +23,7 @@ import { pipe, tap, UnaryFunction } from 'rxjs';
 import { ActionTypes, RoleService, startWithTap } from '../../../../core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { IconComponent } from '../icon';
 
 export interface ButtonClickEvent {
   event: MouseEvent;
@@ -50,6 +51,7 @@ export type ButtonThemeType = 'primary' | 'secondary' | 'tertiary' | 'error' | '
     NgIf,
     NgStyle,
     MatTooltipModule,
+    IconComponent,
   ],
 })
 export class ButtonComponent implements OnInit, AfterViewInit, OnChanges {

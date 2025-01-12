@@ -7,11 +7,12 @@ import {
   Output,
   EventEmitter,
   OnInit,
-  signal,
+  signal, ViewChild, AfterViewInit
 } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { NgIf, NgStyle } from '@angular/common';
-import { BASE_ICONS } from '../../../../configs';
+import { BASE_ICONS, CacBase } from '../../../../configs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ui-icon',
@@ -20,10 +21,13 @@ import { BASE_ICONS } from '../../../../configs';
   standalone: true,
   imports: [MatIconModule, NgIf, NgStyle],
 })
-export class IconComponent implements OnInit, OnChanges {
+export class IconComponent implements OnInit, OnChanges, AfterViewInit {
+  @ViewChild('MatIcon') matIcon!: MatIcon;
+
   @Input() icon?: BASE_ICONS | string;
   @Input() disabled = false;
   @Input() size = '1.5rem';
+  @Input() strokeWidth = CacBase.config.components.icon.strokeWidth;
   @Input() iconClass?: string;
   @Input() wrapperClass?: string;
   @Output() onClick = new EventEmitter<MouseEvent>();
@@ -33,6 +37,15 @@ export class IconComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.isClickable.set(this.onClick.observed);
+  }
+
+  ngAfterViewInit() {
+    // @ts-ignore
+    const fetchSub = this.matIcon._currentIconFetch as Subscription;
+    fetchSub.add(() => {
+      const svgElement = this.matIcon._elementRef.nativeElement.children.item(0) as SVGElement;
+      svgElement.style.strokeWidth = `${this.strokeWidth}`;
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -140,6 +140,12 @@ export interface TableExportOutput {
   event: ButtonClickEvent;
 }
 
+export interface TablePagination {
+  size?: number;
+  // when the total item count is below the selected size, pagination will get hidden
+  autoHide?: boolean;
+}
+
 type ColumnKeyIndex<T> = keyof Partial<T> | string;
 
 export interface TableOptions<T extends object> {
@@ -150,22 +156,27 @@ export interface TableOptions<T extends object> {
   actions?: TableAction<T>[];
   batchActions?: TableBatchAction<T>[];
   showIndex?: boolean;
-  // set to -1 to disable pagination
-  pageSize?: number;
+
+  pagination?: false | TablePagination;
+
   export?: (options: DataGetRequest | undefined) => Observable<any>;
   print?: boolean | TablePrintOptions<T>;
   clickableRows?: boolean;
   selectable?: boolean;
+
   selectionModel?: SelectionModel<T>;
   filterModel?: TableFilterModel;
   sortModel?: SortModel;
+
   view?: {
     title?: string;
     itemName?: string;
     addButtonText?: string;
     actionsText?: string;
   };
+
   transformRequest?: (request: DataGetRequest) => DataGetRequest;
+
   events?: {
     // returning observable to this event, will automatically refresh the table
     add?: (e: TableAddEvent) => Observable<any> | void;

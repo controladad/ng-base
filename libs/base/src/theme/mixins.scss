@@ -1,8 +1,24 @@
+@use 'sass:map';
+
+@function defaultTo($mapVariable: (), $defaultMap){
+    @if (type-of($defaultMap) == 'map' ){
+        $finalParams: $mapVariable;
+        @each $key, $value in $defaultMap {
+            @if (not map-has-key($mapVariable, $key)) {
+                $finalParams: map-merge($finalParams, ($key : $value));
+            }
+        }
+        @return $finalParams;
+    } @else {
+        @error 'The defaultTo function only works for Sass maps';
+    }
+}
+
 @mixin scrollbar($width: 11px, $padding: 3px) {
   * {
     ::-webkit-scrollbar {
       width: $width;
-       background-color: rgb(108, 108, 110);
+      background-color: rgb(108, 108, 110);
     }
     ::-webkit-scrollbar-thumb {
       @apply bg-gray-200 hover:bg-gray-300;
@@ -15,6 +31,54 @@
       border-radius: 5px;
       border: $padding solid rgba(0, 0, 0, 0);
       background-clip: padding-box;
+    }
+  }
+}
+
+@mixin dialog($map: ()) {
+  $map: defaultTo($map, (
+  backgroundColor: #fff,
+  borderColor: #fff,
+  borderRadius: 0.75rem,
+  padding: 0,
+  shadow: 0px 8px 12px 6px rgba(0, 0, 0, 0.15)
+  ));
+
+  $backgroundColor: map.get($map, 'backgroundColor');
+  $borderColor: map.get($map, 'borderColor');
+  $borderRadius: map.get($map, 'borderRadius');
+  $padding: map.get($map, 'padding');
+  $shadow: map.get($map, 'shadow');
+
+  .ui-dialog-default-panel {
+    .mat-mdc-dialog-container {
+      padding: 0 !important;
+      border-radius: 0 !important;
+      position: relative;
+    }
+    .mat-mdc-dialog-surface {
+      @apply border;
+      border-color: $borderColor;
+      box-shadow: none !important;
+      border-radius: $borderRadius !important;
+      background: transparent !important;
+      display: flex !important;
+      flex-direction: column;
+      &::before {
+        display: none !important;
+      }
+      & > * {
+        @apply relative;
+        background: $backgroundColor;
+        box-shadow: $shadow;
+        padding: $padding;
+        border-radius: inherit;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        flex: 1 1 auto;
+        overflow: hidden;
+      }
     }
   }
 }

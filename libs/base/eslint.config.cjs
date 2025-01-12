@@ -45,6 +45,7 @@ module.exports = [
       '@angular-eslint/no-input-rename': 0,
       '@typescript-eslint/no-empty-object-type': 0,
       '@typescript-eslint/no-empty-interface': 0,
+      '@typescript-eslint/no-non-null-assertion': 0,
     },
   },
   {

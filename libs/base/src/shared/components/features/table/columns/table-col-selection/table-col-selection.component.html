@@ -1,0 +1,16 @@
+<ng-container matColumnDef>
+  <th mat-header-cell *matHeaderCellDef>
+    <ui-checkbox
+      class="table-header-checkbox"
+      [indeterminate]="options.selectionModel!.indeterminate()"
+      [checked]="options.selectionModel!.allSelected()"
+      (onChange)="onSelectAll.emit($event)"
+    ></ui-checkbox>
+  </th>
+  <td mat-cell *matCellDef="let row; let i = index" style="width: 3rem">
+    <ui-checkbox
+      [checked]="options.selectionModel!.selectedIds()[row.id]"
+      (onChange)="onSelect.emit({row: row.originalItem, state: $event})"
+    ></ui-checkbox>
+  </td>
+</ng-container>
