@@ -1,5 +1,11 @@
-import { deepMerge } from '../core';
-import { DialogExtendedConfig } from '../shared';
+import { deepMerge, objectToId } from '../core';
+import {
+  DialogExtendedConfig,
+  SelectionModel,
+  SortModel,
+  TableFilterModel,
+  TableOptions,
+} from '../shared';
 
 export class CacBase {
   static config = {
@@ -8,11 +14,21 @@ export class CacBase {
         defaults: {
           panelClass: ['ui-dialog-default-panel'],
           autoFocus: true,
-        } as DialogExtendedConfig<any>
+        } as DialogExtendedConfig<any>,
       },
       icon: {
         strokeWidth: 1.9,
-      }
+      },
+      table: {
+        pagination: {
+          size: 10,
+        },
+        view: {
+          title: '',
+          itemName: 'آیتم',
+          actionsText: 'عمليات',
+        },
+      } as TableOptions<any>,
     },
     validators: {
       phone: {

@@ -362,7 +362,6 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
   }
 
   open() {
-    console.log('TRYING TO OPAN');
     if (this.control.disabled) return;
     if (isFormControlExtended(this.control) && this.control.readonly) return;
     if (this.trigger.menuOpen) return;

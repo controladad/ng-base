@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { GetOfflineAdapter, table, TableComponent } from '@cac/base';
-import { of } from 'rxjs';
+import { delay, of } from 'rxjs';
 
 @Component({
   selector: 'app-table-page',
@@ -19,7 +19,7 @@ export class TablePageComponent {
       { id: 6, name: 'Lance Stroll', class: 'Aston Martin', team: 'Blue', car: 'AMR22', talented: true, transfer: false },
       { id: 7, name: 'Pierre Gasly', class: 'Alpine', team: 'Red', car: 'A22', talented: true, transfer: false },
       { id: 8, name: 'Sebastian Vettel', class: 'Ferrari', team: 'Red', car: 'F1', talented: true, transfer: false },
-    ])),
+    ]).pipe(delay(1500))),
     pagination: { size: 25, },
     selectable: true,
     showIndex: true,

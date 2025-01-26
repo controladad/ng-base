@@ -38,9 +38,8 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {
-  DecimalPipe,
   formatNumber,
-  NgIf,
+  NgIf, NgTemplateOutlet
 } from '@angular/common';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -48,7 +47,7 @@ import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import {
   TableAction,
-  TableBatchAction,
+  TableBulkAction,
   TableButtonEvent,
   TableColumn,
   TableDialogParams,
@@ -61,18 +60,16 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableFilterBarComponent } from './table-filter-bar/table-filter-bar.component';
 import { TableFormMenuComponent } from './table-form-menu/table-form-menu.component';
-import { DataGetRequest, DataGetResponse, effectDep, ItemRecord, ItemToId } from '../../../../core';
+import { DataGetRequest, DataGetResponse, effectDep, ItemRecord, ItemToId, objectToId } from '../../../../core';
 import { SelectionModel, SortModel, TableFilterModel } from '../../../classes';
 import {
   ButtonClickEvent,
-  ButtonComponent,
-  FieldComponent,
   PaginationComponent,
   SkeletonComponent,
 } from '../../ui';
 import * as dateFns from 'date-fns-jalali';
 import { PrintableTableComponent } from '../printable-table';
-import { ForNumberDirective, PermissionHideDirective } from '../../../directives';
+import { ForNumberDirective } from '../../../directives';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
@@ -84,6 +81,8 @@ import {
 import { TABLE_COL_INDEX_PROP, TableColIndexComponent } from './columns/table-col-index/table-col-index.component';
 import { TableColDefaultComponent } from './columns/table-col-default/table-col-default.component';
 import { TABLE_COL_ACTION_PROP, TableColActionComponent } from './columns/table-col-action/table-col-action.component';
+import { TableHeaderComponent } from './table-header/table-header.component';
+import { CacBase } from '../../../../configs';
 
 interface TableRowData {
   value: any;
@@ -116,26 +115,17 @@ export interface TableColumnData<T> extends TableColumn<T> {
   isHidden: boolean;
 }
 
-export const TABLE_ITEM_TO_ID_FN: ItemToId<any> = (t) =>
-  'id' in t ? t.id : typeof t === 'object' ? Object.values(t).at(0) : t;
 const TABLE_DEFAULT_GENERATOR = () =>
   ({
-    itemsFn: undefined,
-    itemToIdFn: TABLE_ITEM_TO_ID_FN,
-    columns: {},
+    itemToIdFn: objectToId,
     actions: [],
-    batchActions: [],
-    pagination: {
-      size: 10,
-    },
-    selectionModel: new SelectionModel<any>(0, true, [], TABLE_ITEM_TO_ID_FN),
+    bulkActions: [],
+    selectionModel: new SelectionModel<any>(0, true, [], objectToId),
     sortModel: new SortModel(),
     filterModel: new TableFilterModel(),
-    view: {
-      title: '',
-      itemName: 'آیتم',
-      actionsText: 'عمليات',
-    },
+    ...CacBase.config.components.table,
+    columns: {},
+    itemsFn: undefined,
   }) as TableOptions<any>;
 
 export class TablePaginationMismatchError extends Error {
@@ -146,6 +136,11 @@ export class TablePaginationMismatchError extends Error {
     this.name = 'TablePaginationMismatchError';
   }
 }
+
+// TODO: Table loader should be inline in each row instead of hiding everything.
+// like showing the header and each row containing a skeleton
+// TODO: Add tooltip to action buttons
+// TODO: Refactor using TableService
 
 export class TableClass<T extends object> {
   private _initFn?: (ref: TableComponent<T>) => void;
@@ -186,17 +181,14 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
     MatTableModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    ButtonComponent,
     NgIf,
     MatBadgeModule,
     PaginationComponent,
     MatCheckboxModule,
-    FieldComponent,
     MatMenuModule,
     MatIconModule,
     TableFilterBarComponent,
     PrintableTableComponent,
-    PermissionHideDirective,
     NgxSkeletonLoaderModule,
     ForNumberDirective,
     SkeletonComponent,
@@ -206,13 +198,16 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
     TableColIndexComponent,
     TableColDefaultComponent,
     TableColActionComponent,
+    NgTemplateOutlet,
+    TableHeaderComponent,
   ],
-  providers: [DecimalPipe],
+  providers: [],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent<T extends object> implements OnInit, OnChanges, AfterViewInit, AfterContentInit, OnDestroy {
   readonly destroyRef = inject(DestroyRef);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   readonly ACTIVE_STRING_VALUE = 'Active';
 
@@ -255,7 +250,6 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
 
   dataSource: CdkTableDataSourceInput<TableRow<T> | undefined> = this._dataSource$.pipe(map((t) => t ?? []));
   tableRawResponse$ = new BehaviorSubject<any>(undefined);
-  batchActionControl = formControl<TableBatchAction<T> | undefined>();
 
   options = signal<TableOptions<T>>(this.TABLE_DEFAULTS);
   totalItems = signal(0);
@@ -299,8 +293,8 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
     const actions = this.options().actions ?? [];
     return actions.map((action) => this.actionAutoPermissionize(action));
   });
-  batchActions = computed<ItemRecord<TableBatchAction<T>>[]>(() =>
-    (this.options().batchActions ?? []).map((t) => ({ label: t.content, value: t })),
+  bulkActions = computed<ItemRecord<TableBulkAction<T>>[]>(() =>
+    (this.options().bulkActions ?? []).map((t) => ({ label: t.content, value: t })),
   );
   isActionHidden = computed(
     () => this.hiddenColsArray().includes(TABLE_COL_ACTION_PROP as any) || this.actions().length === 0,
@@ -325,7 +319,7 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
     return cols;
   });
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor() {
     this._refreshTrigger$.pipe(takeUntilDestroyed(), debounceTime(50)).subscribe(() => {
       this._refresh();
     });
@@ -367,7 +361,7 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
     this.actionCol.onVisible$.pipe(take(1)).subscribe((isVisible) => {
       this.setHidden(!isVisible, TABLE_COL_ACTION_PROP as any);
       this.cdr.detectChanges();
-    })
+    });
 
     this.cdr.detectChanges();
   }
@@ -547,7 +541,7 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
         ...rawOpts.view,
       },
     };
-    if (opt.batchActions?.length) {
+    if (opt.bulkActions?.length) {
       opt.selectable = true;
     }
     this.options.set(opt);
@@ -569,25 +563,24 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
     );
   }
 
-  protected onBatchActionApply() {
-    const batchAction = this.batchActionControl.value;
-    if (!batchAction) return;
+  protected onBulkActionApply(bulkAction: any, e: ButtonClickEvent) {
+    if (!bulkAction) return;
 
     const selectedItems = this.options().selectionModel?.selected() ?? [];
     if (selectedItems.length === 0) return;
 
-    const result = batchAction.action(selectedItems, this.createTableStateParam());
+    const result = bulkAction.action(selectedItems, this.createTableStateParam());
     this.subscribeToEventResult(result, () =>
       pipe(
         tap(() => {
-          this.batchActionControl.setValue(undefined);
+          // this.batchActionControl.setValue(undefined);
           this.options().selectionModel?.clear();
         }),
       ),
     );
   }
 
-  protected onAdd() {
+  protected onAdd(e: ButtonClickEvent) {
     if (this.options().events?.add) {
       const result = this.options().events!.add!({
         ...this.createTableDialogParam('create'),

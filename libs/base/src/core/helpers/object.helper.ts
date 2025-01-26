@@ -1,6 +1,10 @@
+import { ItemToId } from '../interfaces';
+
 export function clone<T>(o: T) {
   return structuredClone(o);
 }
+
+export const objectToId: ItemToId<any> = (t) => ('id' in t ? t.id : typeof t === 'object' ? Object.values(t).at(0) : t);
 
 export function omit<T extends object, K extends keyof T>(obj: T, ...keys: K[]): Omit<T, K> {
   keys.forEach((key) => delete obj[key]);
@@ -8,7 +12,7 @@ export function omit<T extends object, K extends keyof T>(obj: T, ...keys: K[]):
 }
 
 function isObject(item: any) {
-  return (item && typeof item === 'object' && !Array.isArray(item));
+  return item && typeof item === 'object' && !Array.isArray(item);
 }
 
 export function deepMerge(target: any, ...sources: any[]) {

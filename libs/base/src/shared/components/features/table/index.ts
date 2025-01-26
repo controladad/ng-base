@@ -10,3 +10,4 @@ export * from './columns/table-col-selection/table-col-selection.component';
 export * from './columns/table-col-index/table-col-index.component';
 export * from './columns/table-col-default/table-col-default.component';
 export * from './columns/table-col-action/table-col-action.component';
+export * from './table-header/table-header.component';

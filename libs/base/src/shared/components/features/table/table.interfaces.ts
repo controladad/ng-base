@@ -122,7 +122,7 @@ export interface TableAction<T> {
   badge?: (item: T) => string;
 }
 
-export interface TableBatchAction<T> {
+export interface TableBulkAction<T> {
   content: string;
   action: TableBatchActionFn<T>;
   disabled$?: () => Observable<boolean>;
@@ -154,7 +154,7 @@ export interface TableOptions<T extends object> {
   itemToIdFn?: ItemToId<T>;
   columns: { [p in ColumnKeyIndex<T>]: TableColumn<T> };
   actions?: TableAction<T>[];
-  batchActions?: TableBatchAction<T>[];
+  bulkActions?: TableBulkAction<T>[];
   showIndex?: boolean;
 
   pagination?: false | TablePagination;

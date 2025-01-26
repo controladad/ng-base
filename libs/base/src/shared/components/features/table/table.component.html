@@ -15,73 +15,17 @@
     <div class="flex items-center gap-2 mt-2 flex-wrap">
       <ng-content select="[slot=header-start]"></ng-content>
 
-      <!-- Batch Actions -->
-      <ng-container *ngIf="options().batchActions?.length">
-        <ui-field
-          class="w-full max-w-[12rem]"
-          [control]="batchActionControl"
-          controlType="select"
-          [items]="batchActions()"
-          [searchable]="false"
-          label="عمل مورد نیاز"
-          placeholder="انتخاب"
-          [hideError]="true"
-        ></ui-field>
-        <ui-button
-          class="h-12"
-          (onClick)="onBatchActionApply()"
-          [disabled]="!batchActionControl.value || !options().selectionModel!.hasSelection()"
-          >اعمال</ui-button
-        >
-        <span *ngIf="options().selectionModel?.selectedCount() ?? 0" class="font-medium"
-          ><span class="mx-1">{{ options().selectionModel?.selectedCount() }}</span> از
-          <span class="mx-1">{{ totalItems() }}</span> انتخاب شده است</span
-        >
-      </ng-container>
-      <div class="flex-auto"><!-- Spacer --></div>
-      <!-- Other buttons -->
-      <ui-button
-        *ngIf="options().export"
-        uiPermissionHide
-        class="h-12"
-        appearance="text"
-        (onClick)="onExport($event)"
-        icon="excel-file"
-        action="export"
-      >
-        <span class="mr-1">خروجی اکسل</span>
-      </ui-button>
-      <ui-button
-        *ngIf="options().print"
-        uiPermissionHide
-        class="h-12"
-        appearance="text"
-        (onClick)="onPrint($event)"
-        icon="print"
-        action="print"
-      >
-        <span class="mr-1">پرینت</span>
-      </ui-button>
-      <ui-button
-        *ngIf="options().events?.add"
-        uiPermissionHide
-        #MenuTriggerAddButton="matMenuTrigger"
-        [matMenuTriggerFor]="null"
-        class="h-12"
-        (onClick)="onAdd()"
-        icon="plus"
-        action="create"
-      >
-        {{ options().view?.addButtonText ?? ADD_TEXT + ' ' + options().view?.itemName }}
-      </ui-button>
-
-      <ui-button
-        icon="refresh"
-        class="h-12"
-        appearance="text"
-        [disabled]="loading()"
-        (onClick)="onRefresh()"
-      ></ui-button>
+      <feature-table-header
+        [options]="options()"
+        [totalItems]="totalItems()"
+        [loading]="loading()"
+        [bulkActions]="bulkActions()"
+        (onAdd)="onAdd($event)"
+        (onExport)="onExport($event)"
+        (onPrint)="onPrint($event)"
+        (onBulkAction)="onBulkActionApply($event.value, $event.e)"
+        (onRefresh)="onRefresh()"
+      ></feature-table-header>
 
       <ng-content select="[slot=header]"></ng-content>
     </div>
@@ -89,38 +33,12 @@
 
   <!-- Body -->
   <div class="relative overflow-auto bg-neutral-99 border border-surface-container-highest rounded-1 table-shadow">
-    <div class="table-loader {{ loading() ? 'is-visible' : '' }}">
-      <feature-table-filter-bar
-        *ngIf="hasFilter()"
-        class="{{ !isFirstLoad() ? 'opacity-0 pointer-events-none' : '' }}"
-      ></feature-table-filter-bar>
-      <div *ngIf="loading()" class="table-container table-skeleton relative">
-        <table class="table">
-          <thead class="{{ !isFirstLoad() ? 'opacity-0 pointer-events-none' : '' }}">
-            <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
-              <th></th>
-            </tr>
-          </thead>
-          <tbody class="mdc-data-table__content relative">
-            <tr class="absolute left-0 right-0 top-0">
-              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </tr>
-            <tr
-              *forNumber="8"
-              class="mat-mdc-row mdc-data-table__row cdk-row feature-table-row {{
-                !isFirstLoad() ? 'bg-transparent' : ''
-              }}"
-            >
-              <td>
-                <ui-skeleton class="bg-inherit"></ui-skeleton>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <ng-container [ngTemplateOutlet]="TableSkeletonLoader"></ng-container>
     <!-- Current Filters Bar -->
-    <feature-table-filter-bar *ngIf="hasFilter()" [filterModel]="options().filterModel!"></feature-table-filter-bar>
+    @if (hasFilter()) {
+      <feature-table-filter-bar [filterModel]="options().filterModel!"></feature-table-filter-bar>
+    }
+
     <div #Table class="table-container {{ loading() ? 'opacity-50' : '' }}">
       <!-- Table -->
       <table [dataSource]="dataSource" [trackBy]="trackByItem" mat-table class="table">
@@ -173,7 +91,7 @@
     [total]="totalItems()"
     [autoHide]="paginationOptions()?.autoHide ?? false"
     (onUpdate)="onPaginate()"
-    class="{{ !paginationOptions() ? 'hidden' : '' }}"
+    class="block px-8 {{ !paginationOptions() ? 'hidden' : '' }}"
   ></ui-pagination>
 </div>
 
@@ -182,3 +100,38 @@
 
 <!-- Print -->
 <feature-printable-table #PrintableTable></feature-printable-table>
+
+<ng-template #TableSkeletonLoader>
+  <div class="table-loader {{ loading() ? 'is-visible' : '' }}">
+    @if (hasFilter()) {
+      <feature-table-filter-bar
+        class="{{ !isFirstLoad() ? 'opacity-0 pointer-events-none' : '' }}"
+      ></feature-table-filter-bar>
+    }
+
+    <div *ngIf="loading()" class="table-container table-skeleton relative">
+      <table class="table">
+        <thead class="{{ !isFirstLoad() ? 'opacity-0 pointer-events-none' : '' }}">
+          <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="mdc-data-table__content relative">
+          <tr class="absolute left-0 right-0 top-0">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </tr>
+          <tr
+            *forNumber="8"
+            class="mat-mdc-row mdc-data-table__row cdk-row feature-table-row {{
+              !isFirstLoad() ? 'bg-transparent' : ''
+            }}"
+          >
+            <td>
+              <ui-skeleton class="bg-inherit"></ui-skeleton>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>

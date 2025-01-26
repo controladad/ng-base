@@ -1,0 +1,68 @@
+<!-- Bulk Actions -->
+@if (options.bulkActions?.length) {
+  <ui-field
+    class="w-full max-w-[12rem]"
+    [control]="bulkActionControl"
+    controlType="select"
+    [items]="bulkActions"
+    [searchable]="false"
+    label="عمل مورد نیاز"
+    placeholder="انتخاب"
+    [hideError]="true"
+  ></ui-field>
+  <ui-button
+    class="h-12"
+    (onClick)="onBulkAction.emit({ value: bulkActionControl.value, e: $event })"
+    [disabled]="!bulkActionControl.value || !options.selectionModel!.hasSelection()"
+    >اعمال</ui-button
+  >
+  @if (options.selectionModel?.selectedCount() ?? 0) {
+    <span class="font-medium"
+    ><span class="mx-1">{{ options.selectionModel?.selectedCount() }}</span> از
+    <span class="mx-1">{{ totalItems }}</span> انتخاب شده است</span
+  >
+  }
+}
+
+<div class="flex-auto"><!-- Spacer --></div>
+<!-- Other buttons -->
+@if (options.export) {
+  <ui-button
+  uiPermissionHide
+  class="h-12"
+  appearance="text"
+  (onClick)="onExport.emit($event)"
+  icon="excel-file"
+  action="export"
+>
+  <span class="mr-1">خروجی اکسل</span>
+</ui-button>
+}
+
+@if(options.export) {
+  <ui-button
+  uiPermissionHide
+  class="h-12"
+  appearance="text"
+  (onClick)="onPrint.emit($event)"
+  icon="print"
+  action="print"
+>
+  <span class="mr-1">پرینت</span>
+</ui-button>
+}
+@if(options.events?.add) {
+  <ui-button
+  uiPermissionHide
+  #MenuTriggerAddButton="matMenuTrigger"
+  [matMenuTriggerFor]="null"
+  class="h-12"
+  (onClick)="onAdd.emit($event)"
+  icon="plus"
+  action="create"
+>
+  {{ options.view?.addButtonText ?? ADD_TEXT + ' ' + options.view?.itemName }}
+</ui-button>
+}
+
+<ui-button icon="refresh" class="h-12" appearance="text" [disabled]="loading" (onClick)="onRefresh.emit($event)"></ui-button>
