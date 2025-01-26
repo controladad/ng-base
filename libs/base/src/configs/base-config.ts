@@ -13,7 +13,7 @@ export class CacBase {
       dialog: {
         defaults: {
           panelClass: ['ui-dialog-default-panel'],
-          autoFocus: true,
+          autoFocus: false,
         } as DialogExtendedConfig<any>,
       },
       icon: {

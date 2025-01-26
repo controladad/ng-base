@@ -16,5 +16,9 @@ export const appRoutes: Route[] = [
   {
     path: 'table',
     loadComponent: () => import('./features/table-page/table-page.component').then((m) => m.TablePageComponent),
+  },
+  {
+    path: 'dialog',
+    loadComponent: () => import('./features/dialog-page/dialog-page.component').then((m) => m.DialogPageComponent),
   }
 ];

@@ -16,6 +16,7 @@ interface LoginFormGroup {
 export interface LoginFormOptions {
   loginFn?: (model: AuthStoreLoginModel) => Observable<any>;
   hideRememberMe?: boolean;
+  routeTo?: string;
 }
 
 @Component({
@@ -79,7 +80,7 @@ export class LoginFormComponent implements OnInit {
 
     (this.options.loginFn ? this.options.loginFn(model) : this.authStore.login(model)).pipe(e.pipe()).subscribe({
       next: () => {
-        this.router.navigate(['/']);
+        this.router.navigate([this.options.routeTo ?? '/']);
       },
     });
   }

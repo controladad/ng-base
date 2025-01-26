@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DriverRepository } from './repositories/driver.repository';
+import { ExtendedDialog } from './features/dialog-page/extended-dialog';
 
 @Component({
   imports: [RouterModule],
@@ -14,6 +15,7 @@ export class AppComponent {
 
   constructor() {
     DriverRepository.init();
+    dialog$ = inject(ExtendedDialog);
 
     // setTimeout(() => {
     //   DriverRepository.api.getAll().subscribe((v) => {
