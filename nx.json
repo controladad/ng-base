@@ -15,6 +15,14 @@
     "sharedGlobals": []
   },
   "release": {
+    "changelog": {
+      "projectChangelogs": {
+        "renderOptions": {
+          "authors": false,
+          "mapAuthorsToGitHubUsernames": false
+        }
+      }
+    },
     "conventionalCommits": {
       "types": {
         "update": {},
