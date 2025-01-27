@@ -3,5 +3,27 @@
   "dest": "../../dist/libs/base",
   "lib": {
     "entryFile": "src/index.ts"
-  }
+  },
+  "assets": [
+    {
+      "glob": "**/*",
+      "input": "src/assets",
+      "output": "assets"
+    },
+    {
+      "glob": "**/*",
+      "input": "src/theme",
+      "output": "theme"
+    },
+    {
+      "glob": "index.scss",
+      "input": "src",
+      "output": "."
+    },
+    {
+      "glob": "styles.scss",
+      "input": "src",
+      "output": "."
+    }
+  ]
 }
