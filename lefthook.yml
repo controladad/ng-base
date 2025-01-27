@@ -12,6 +12,9 @@ pre-push:
     - name: Check if can push
       run: git push origin HEAD --dry-run --no-verify
 
+    - name: Build library
+      run: npx nx build base
+
     - name: Release version
       run: npx nx release patch --skip-publish
 
