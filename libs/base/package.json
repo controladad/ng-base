@@ -11,6 +11,9 @@
     "extend",
     "essentials"
   ],
+  "exports": {
+    "./tailwind": "./tailwind.js"
+  },
   "publishConfig": {
     "access": "public"
   },

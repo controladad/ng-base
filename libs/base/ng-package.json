@@ -24,6 +24,11 @@
       "glob": "styles.scss",
       "input": "src",
       "output": "."
+    },
+    {
+      "glob": "tailwind.js",
+      "input": "src/configs",
+      "output": "."
     }
   ]
 }

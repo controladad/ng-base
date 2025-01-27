@@ -1,7 +1,7 @@
-import { PluginCreator } from 'tailwindcss/types/config';
+// import { PluginCreator } from 'tailwindcss/types/config';
 import plugin from 'tailwindcss/plugin';
 
-const utility: PluginCreator = ({ addUtilities, theme }) => {
+const utility = ({ addUtilities, theme }) => {
   addUtilities({
     '.unicode-plain': {
       'unicode-bidi': 'plaintext',
