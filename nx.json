@@ -16,24 +16,8 @@
   },
   "release": {
     "changelog": {
-      "projectChangelogs": {
-        "renderOptions": {
-          "authors": false,
-          "mapAuthorsToGitHubUsernames": false,
-          "commitReferences": true,
-          "versionTitleDate": true
-        }
-      }
-    },
-    "conventionalCommits": {
-      "types": {
-        "update": {},
-        "change": {},
-        "config": {}
-      }
-    },
-    "version": {
-      "conventionalCommits": true
+      "projectChangelogs": false,
+      "workspaceChangelog": false
     }
   },
   "targetDefaults": {
