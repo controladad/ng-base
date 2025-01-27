@@ -3,17 +3,20 @@
 #   Refer for explanation to following link:
 #   https://lefthook.dev/configuration/
 #
- pre-push:
-   jobs:
-     - name: Check if can push
-       run: git push --dry-run --no-verify
+output:
+  - summary
 
-     - name: Release version
-       run: npx nx release --skip-publish
+pre-push:
+  piped: true
+  jobs:
+    - name: Check if can push
+      run: git push --dry-run --no-verify
 
-     - name: Publish tags
-       run: git push --tags --no-verify
+    - name: Release version
+      run: npx nx release --skip-publish
 
+    - name: Publish tags
+      run: git push --tags --no-verify
 # pre-commit:
 #   parallel: true
 #   jobs:
