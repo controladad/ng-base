@@ -1,3 +1,18 @@
+## 2.0.4 (2025-01-27)
+
+### update
+
+- hooks ([cd77281](https://github.com/controladad/ng-base/commit/cd77281))
+- hooks ([9d28689](https://github.com/controladad/ng-base/commit/9d28689))
+
+### config
+
+- something ([151c9ff](https://github.com/controladad/ng-base/commit/151c9ff))
+
+### ❤️ Thank You
+
+- Ali X @Al00X
+
 ## 2.0.3 (2025-01-27)
 
 ### 🩹 Fixes
