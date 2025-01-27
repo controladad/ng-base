@@ -1,4 +1,4 @@
-# @ControlAdad/ng-Base
+# @ControlAdad/ng-base
 
 `npm i @controladad/ng-base`
 

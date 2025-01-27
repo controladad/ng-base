@@ -12,7 +12,7 @@
       "assets": [
         {
           "glob": "../../README.md",
-          "input": ".",
+          "input": "libs/base/",
           "output": "."
         }
       ],
