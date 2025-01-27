@@ -1,4 +1,4 @@
-import { FormBuilderInputOption, FormBuilderOptions } from './form-builder.types';
+import type { FormBuilderInputOption, FormBuilderOptions } from './form-builder.types';
 import { clone } from '../../../../core';
 import { computed, signal } from '@angular/core';
 import { FormControlExtended, formGroup } from '../../../forms';

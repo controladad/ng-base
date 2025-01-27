@@ -9,7 +9,7 @@ import {
   TokenInterceptor,
   ErrorInterceptor,
   DATEFNS_PERSIAN_DATE_FORMATS,
-  DatefnsJalaliDateAdapter, deepMerge
+  DatefnsJalaliDateAdapter
 } from '../core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { API_BASEURL, ENVIRONMENT } from './tokens';
@@ -18,6 +18,7 @@ import { setupGlobalServices, setupProdMode } from './globals';
 import { registerIcons } from './icons';
 import { CacBase } from './base-config';
 import { DateFnsAdapter } from '@angular/material-date-fns-adapter';
+import { loadTranslations } from '@angular/localize';
 
 export const provideEnvironment = (env: any) => ({ provide: ENVIRONMENT, useValue: env } as Provider);
 
@@ -54,6 +55,7 @@ export interface CacBaseProviderConfig {
   //
   // Default Value: ['fa', 'en']
   langs?: string[];
+  localesPath?: string;
   initializeFn?: () => void;
   interceptorOnly?: boolean;
   providersOnly?: boolean;
@@ -93,11 +95,21 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
   if (!config?.interceptorOnly) {
     providers = [
       provideAnimations(),
-      provideAppInitializer(() => {
+      provideAppInitializer(async () => {
         config?.initializeFn?.();
         setupGlobalServices();
         setupProdMode(isProd);
         registerIcons();
+
+        if (config?.localesPath && currentLang !== 'en') {
+          const path = `${!config.localesPath.startsWith('/') ? '/' : ''}${config.localesPath}${!config.localesPath.endsWith('/') ? '/' : ''}`
+          const json = await fetch(`${path}${currentLang}.json`)
+          .then((r) => r.json())
+            .catch((e) => console.error(`Failed to load translations`, e));
+          loadTranslations(json.translations)
+          $localize.locale = currentLang
+        }
+
         // const roleApi = inject(RoleApiService)
         // firstValueFrom(roleApi.fetchPermissions())
       }),

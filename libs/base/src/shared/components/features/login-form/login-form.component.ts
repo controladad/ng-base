@@ -38,20 +38,20 @@ export class LoginFormComponent implements OnInit {
     inputs: {
       username: {
         control: formControl('', Validators.required),
-        label: 'نام کاربری',
+        label: $localize`:@@base.feature.login.username:Username`,
         class: 'unicode-normal',
         suffixIcon: 'user',
       },
       password: {
         control: formControl('', Validators.required),
         class: 'unicode-normal',
-        label: 'رمز عبور',
+        label: $localize`:@@base.feature.login.password:Password`,
         inputType: 'password',
         suffixIcon: 'password',
       },
       rememberMe: {
         control: formControl(false),
-        label: 'مرا به خاطر بسپار',
+        label: $localize`:@@base.feature.login.rememberMe:Remember Me`,
         type: 'checkbox',
         class: '-mt-2',
       },

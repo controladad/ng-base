@@ -7,7 +7,6 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { BehaviorSubject, debounceTime, map, Observable, startWith, Subject, merge, combineLatest } from 'rxjs';
-import { ItemRecord, Singleton } from '../../core';
 import { Validators } from './validators';
 import { getControlErrorMessage } from './errors';
 

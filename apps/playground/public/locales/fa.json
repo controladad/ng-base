@@ -1,0 +1,11 @@
+{
+  "locale": "en",
+  "translations": {
+    "base.feature.login.title": "ورود",
+    "base.feature.login.guide": "نام کاربری و رمز عبور خود را وارد کرده سپس دکمه ورود را کلیک کنید.",
+    "base.feature.login.button": "ورود",
+    "base.feature.login.username": "نام کاربری",
+    "base.feature.login.password": "رمز عبور",
+    "base.feature.login.rememberMe": "مرا به خاطر بسپار"
+  }
+}

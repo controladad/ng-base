@@ -1,4 +1,4 @@
-import { ItemToId } from '../interfaces';
+import type { ItemToId } from '../interfaces';
 
 export function clone<T>(o: T) {
   return structuredClone(o);

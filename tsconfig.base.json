@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@controladad/ng-base": ["libs/base/src/index.ts"]
-    }
+    },
+    "types": ["@angular/localize"]
   },
   "exclude": ["node_modules", "tmp"]
 }

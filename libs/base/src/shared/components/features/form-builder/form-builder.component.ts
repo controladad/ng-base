@@ -14,7 +14,7 @@ import {
 import { Observable, of, Subscription, map } from 'rxjs';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormBuilderInputItem, FormBuilderInputOption } from './form-builder.types';
+import type { FormBuilderInputItem, FormBuilderInputOption } from './form-builder.types';
 import { FormBuilder } from './form-builder';
 import { ScreenDetectorService } from '@al00x/screen-detector';
 import { NgLetDirective } from '../../../directives';

@@ -7,6 +7,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
-    provideCacBase(),
+    provideCacBase({
+      localesPath: '/assets/locales/'
+    }),
   ],
 };

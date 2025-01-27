@@ -1,22 +1,18 @@
 import { Component, computed, inject, input, Input } from '@angular/core';
-import { AsyncPipe, NgIf, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { AsyncPipe, NgStyle} from '@angular/common';
 import { CheckboxComponent, FieldComponent, LicensePlateComponent, RadioComponent, SwitchComponent } from '../../ui';
-import { FormBuilderInputOption } from './form-builder.types';
+import type { FormBuilderInputOption } from './form-builder.types';
 import { ScreenDetectorService } from '@al00x/screen-detector';
 
 @Component({
   selector: 'feature-control-builder',
   standalone: true,
   imports: [
-    NgIf,
     RadioComponent,
-    NgSwitch,
-    NgSwitchCase,
     NgStyle,
     CheckboxComponent,
     SwitchComponent,
     LicensePlateComponent,
-    NgSwitchDefault,
     FieldComponent,
     AsyncPipe,
   ],

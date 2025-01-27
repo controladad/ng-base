@@ -19,7 +19,8 @@
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/playground/public"
+            "input": "apps/playground/public",
+            "output": "assets"
           },
           {
             "input": "libs/base/src/assets",

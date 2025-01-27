@@ -4,7 +4,9 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve playground --hmr",
-    "format": "nx format"
+    "format": "nx format",
+    "extract-tailwind": "npx tailwindcss -c ./tailwind.config.ts -i dist/libs/base/styles.scss -o dist/libs/base/output.scss",
+    "localize": "nx run base:extract-i18n"
   },
   "private": true,
   "dependencies": {
@@ -16,6 +18,7 @@
     "@angular/compiler": "~19.0.0",
     "@angular/core": "~19.0.0",
     "@angular/forms": "~19.0.0",
+    "@angular/localize": "~19.0.0",
     "@angular/material": "^19.0.4",
     "@angular/material-date-fns-adapter": "^19.0.4",
     "@angular/platform-browser": "~19.0.0",
@@ -68,6 +71,7 @@
     "jest-preset-angular": "~14.4.0",
     "jsonc-eslint-parser": "^2.1.0",
     "lefthook": "^1.10.10",
+    "ng-extract-i18n-merge": "^2.14.0",
     "ng-packagr": "~19.0.0",
     "nx": "20.3.0",
     "postcss": "^8.4.5",

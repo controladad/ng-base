@@ -1,9 +1,6 @@
-import { deepMerge, objectToId } from '../core';
-import {
+import { deepMerge } from '../core';
+import type {
   DialogExtendedConfig,
-  SelectionModel,
-  SortModel,
-  TableFilterModel,
   TableOptions,
 } from '../shared';
 
