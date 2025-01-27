@@ -1,11 +1,16 @@
 {
   "name": "@controladad/ng-base",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Everything you need for Angular",
   "author": {
     "name": "ControlAdad"
   },
-  "keywords": ["angular", "material", "extend", "essentials"],
+  "keywords": [
+    "angular",
+    "material",
+    "extend",
+    "essentials"
+  ],
   "publishConfig": {
     "access": "public"
   },
