@@ -67,6 +67,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-preset-angular": "~14.4.0",
     "jsonc-eslint-parser": "^2.1.0",
+    "lefthook": "^1.10.10",
     "ng-packagr": "~19.0.0",
     "nx": "20.3.0",
     "postcss": "^8.4.5",
