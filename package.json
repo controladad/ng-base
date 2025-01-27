@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve playground --hmr"
+    "start": "nx serve playground --hmr",
+    "format": "nx format"
   },
   "private": true,
   "dependencies": {
