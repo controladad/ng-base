@@ -5,10 +5,6 @@
 - thing ([a2b8304](https://github.com/controladad/ng-base/commit/a2b8304))
 - hook ([1199cb7](https://github.com/controladad/ng-base/commit/1199cb7))
 
-### ❤️ Thank You
-
-- Ali X @Al00X
-
 ## 2.0.4 (2025-01-27)
 
 ### update
