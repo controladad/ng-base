@@ -9,6 +9,13 @@
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "assets": [
+        {
+          "glob": "../../README.md",
+          "input": ".",
+          "output": "."
+        }
+      ],
       "options": {
         "project": "libs/base/ng-package.json"
       },
