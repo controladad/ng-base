@@ -15,10 +15,6 @@ jobs:
       id-token: write # needed for provenance data generation
     timeout-minutes: 10
     steps:
-      - name: Exit if not on main branch
-        if: endsWith(github.event.base_ref, 'main') == false
-        run: exit -1
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
