@@ -14,11 +14,6 @@
     ],
     "sharedGlobals": []
   },
-  "release": {
-    "version": {
-      "conventionalCommits": true
-    }
-  },
   "targetDefaults": {
     "@angular-devkit/build-angular:application": {
       "cache": true,
