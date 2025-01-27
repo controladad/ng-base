@@ -19,7 +19,9 @@
       "projectChangelogs": {
         "renderOptions": {
           "authors": false,
-          "mapAuthorsToGitHubUsernames": false
+          "mapAuthorsToGitHubUsernames": false,
+          "commitReferences": true,
+          "versionTitleDate": true
         }
       }
     },
