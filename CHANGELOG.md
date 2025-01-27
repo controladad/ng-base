@@ -1,3 +1,13 @@
+## 2.0.3 (2025-01-27)
+
+### config
+
+- something ([151c9ff](https://github.com/controladad/ng-base/commit/151c9ff))
+
+### ❤️ Thank You
+
+- Ali X @Al00X
+
 ## 2.0.2 (2025-01-27)
 
 ### 🩹 Fixes
