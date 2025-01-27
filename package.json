@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve playground --hmr",
-    "format": "nx format"
+    "format": "nx format",
+    "bump": "npx nx release patch --skip-publish"
   },
   "private": true,
   "dependencies": {

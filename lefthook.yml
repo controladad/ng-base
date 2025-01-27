@@ -13,7 +13,7 @@ pre-push:
       run: git push origin HEAD --dry-run --no-verify
 
     - name: Release version
-      run: npx nx release --skip-publish
+      run: npm run bump
 
     - name: Publish tags
       run: git push --tags --no-verify

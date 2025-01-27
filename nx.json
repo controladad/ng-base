@@ -24,16 +24,6 @@
           "versionTitleDate": true
         }
       }
-    },
-    "conventionalCommits": {
-      "types": {
-        "update": {},
-        "change": {},
-        "config": {}
-      }
-    },
-    "version": {
-      "conventionalCommits": true
     }
   },
   "targetDefaults": {
