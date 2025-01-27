@@ -1,3 +1,13 @@
+## 2.0.3 (2025-01-27)
+
+### 🩹 Fixes
+
+- Another test ([7fc50b9](https://github.com/controladad/ng-base/commit/7fc50b9))
+
+### ❤️ Thank You
+
+- Ali X @Al00X
+
 ## 2.0.2 (2025-01-27)
 
 ### 🩹 Fixes
