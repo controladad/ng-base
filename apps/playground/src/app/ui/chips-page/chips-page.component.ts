@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SectionComponent } from '../../section.component';
-import { ChipsComponent, ChipsGroupComponent } from '@cac/base';
+import { ChipsComponent, ChipsGroupComponent } from '@controladad/ng-base';
 
 @Component({
   selector: 'app-chips-page',

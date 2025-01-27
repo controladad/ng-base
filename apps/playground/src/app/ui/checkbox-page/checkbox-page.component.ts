@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SectionComponent } from '../../section.component';
-import { CheckboxComponent, CheckboxGroupComponent, ItemRecord } from '@cac/base';
+import { CheckboxComponent, CheckboxGroupComponent, ItemRecord } from '@controladad/ng-base';
 
 @Component({
   selector: 'app-checkbox-page',

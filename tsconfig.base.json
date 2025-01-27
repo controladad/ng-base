@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@cac/base": ["libs/base/src/index.ts"]
+      "@controladad/ng-base": ["libs/base/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

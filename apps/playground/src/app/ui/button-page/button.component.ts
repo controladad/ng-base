@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '@cac/base';
+import { ButtonComponent } from '@controladad/ng-base';
 import { SectionComponent } from '../../section.component';
 
 @Component({

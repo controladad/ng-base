@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DialogService } from '@cac/base';
+import { DialogService } from '@controladad/ng-base';
 
 @Injectable({
   providedIn: 'root',

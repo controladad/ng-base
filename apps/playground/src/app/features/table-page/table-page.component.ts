@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GetOfflineAdapter, table, TableComponent } from '@cac/base';
+import { GetOfflineAdapter, table, TableComponent } from '@controladad/ng-base';
 import { delay, of } from 'rxjs';
 
 @Component({

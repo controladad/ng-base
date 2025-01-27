@@ -1,7 +1,7 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
-import { provideCacBase } from '@cac/base';
+import { provideCacBase } from '@controladad/ng-base';
 
 export const appConfig: ApplicationConfig = {
   providers: [

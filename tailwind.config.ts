@@ -177,6 +177,6 @@ module.exports = {
   },
   plugins: [
     require('./libs/base/src/configs/tailwind'),
-    // require('@cac/base/tailwind'),
+    // require('@controladad/ng-base/tailwind'),
   ],
 };
