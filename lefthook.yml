@@ -10,7 +10,7 @@ pre-push:
   piped: true
   jobs:
     - name: Check if can push
-      run: git push --dry-run --no-verify
+      run: git push origin HEAD --dry-run --no-verify
 
     - name: Release version
       run: npx nx release --skip-publish
