@@ -9,7 +9,7 @@ import {
   TokenInterceptor,
   ErrorInterceptor,
   DATEFNS_PERSIAN_DATE_FORMATS,
-  DatefnsJalaliDateAdapter
+  DatefnsJalaliDateAdapter,
 } from '../core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { API_BASEURL, ENVIRONMENT } from './tokens';
@@ -19,8 +19,11 @@ import { registerIcons } from './icons';
 import { CacBase } from './base-config';
 import { DateFnsAdapter } from '@angular/material-date-fns-adapter';
 import { loadTranslations } from '@angular/localize';
+import { enUS } from 'date-fns/locale';
+import localeEn from '@angular/common/locales/en';
+import { registerLocaleData } from '@angular/common';
 
-export const provideEnvironment = (env: any) => ({ provide: ENVIRONMENT, useValue: env } as Provider);
+export const provideEnvironment = (env: any) => ({ provide: ENVIRONMENT, useValue: env }) as Provider;
 
 // factory should return a string
 export const provideApiBaseUrl = (urlFn: Function, deps?: any[]) =>
@@ -28,7 +31,7 @@ export const provideApiBaseUrl = (urlFn: Function, deps?: any[]) =>
     provide: API_BASEURL,
     useFactory: urlFn,
     deps,
-  } as Provider);
+  }) as Provider;
 
 export const provideApiInterceptor = () => ({
   provide: HTTP_INTERCEPTORS,
@@ -48,18 +51,24 @@ export const provideTokenInterceptor = () => ({
   multi: true,
 });
 
+interface CacBaseProviderConfigLocalization {
+  // array of supported languages, the first index will be selected as default.
+  //
+  // Default Value: ['en']
+  langs?: string[];
+  localesPath?: string;
+  localesData?: { [p: string]: { dateLocale?: any; dateFormats?: any; localeData?: any } };
+}
+
 export interface CacBaseProviderConfig {
   config?: Partial<typeof CacBase.config>;
 
-  // array of supported languages, the first index will be selected as default.
-  //
-  // Default Value: ['fa', 'en']
-  langs?: string[];
-  localesPath?: string;
   initializeFn?: () => void;
   interceptorOnly?: boolean;
   providersOnly?: boolean;
   environment?: any;
+
+  localization?: CacBaseProviderConfigLocalization;
 
   // if a string is provided, it will obtain by key from environment.
   //
@@ -84,13 +93,29 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
       ? typeof config.isProd === 'boolean'
         ? config.isProd
         : env[config.isProd]
-      : env['prod'] ?? env['production']) ?? false;
+      : (env['prod'] ?? env['production'])) ?? false;
 
-  const langs = config?.langs ?? ['fa', 'en'];
+  const langs = config?.localization?.langs ?? ['en'];
   const currentLang = localStorage.getItem('lang') ?? langs[0];
+  const currentData = {
+    dateLocale: enUS,
+    // dateFormats: DateF,
+    localeData: localeEn,
+    ...config?.localization?.localesData?.[currentLang],
+  };
   localStorage.setItem('lang', currentLang);
 
   CacBase.updateConfig(config?.config ?? {});
+
+  if (currentData.dateLocale) {
+    providers.push({ provide: MAT_DATE_LOCALE, useValue: currentData.dateLocale });
+  }
+  if (currentData.dateFormats) {
+    providers.push({ provide: MAT_DATE_FORMATS, useValue: currentData.dateFormats });
+  }
+  if (currentData.localeData) {
+    registerLocaleData(currentData.localeData);
+  }
 
   if (!config?.interceptorOnly) {
     providers = [
@@ -101,13 +126,13 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
         setupProdMode(isProd);
         registerIcons();
 
-        if (config?.localesPath && currentLang !== 'en') {
-          const path = `${!config.localesPath.startsWith('/') ? '/' : ''}${config.localesPath}${!config.localesPath.endsWith('/') ? '/' : ''}`
+        if (config?.localization?.localesPath && currentLang !== 'en') {
+          const path = `${!config.localization?.localesPath.startsWith('/') ? '/' : ''}${config.localization?.localesPath}${!config.localization?.localesPath.endsWith('/') ? '/' : ''}`;
           const json = await fetch(`${path}${currentLang}.json`)
-          .then((r) => r.json())
+            .then((r) => r.json())
             .catch((e) => console.error(`Failed to load translations`, e));
-          loadTranslations(json.translations)
-          $localize.locale = currentLang
+          loadTranslations(json.translations);
+          $localize.locale = currentLang;
         }
 
         // const roleApi = inject(RoleApiService)
@@ -115,13 +140,12 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
       }),
       importProvidersFrom(HttpClientModule, MatDialogModule, MatSnackBarModule, MatProgressSpinnerModule),
 
-      { provide: DateAdapter, useClass: currentLang === 'fa' ? DatefnsJalaliDateAdapter : DateFnsAdapter, deps: [MAT_DATE_LOCALE] },
+      {
+        provide: DateAdapter,
+        useClass: currentLang === 'fa' ? DatefnsJalaliDateAdapter : DateFnsAdapter,
+        deps: [MAT_DATE_LOCALE],
+      },
     ] as Provider[];
-
-    if (currentLang === 'fa') {
-      providers.push({ provide: MAT_DATE_LOCALE, useValue: faIR })
-      providers.push({ provide: MAT_DATE_FORMATS, useValue: DATEFNS_PERSIAN_DATE_FORMATS })
-    }
   }
 
   if (!config?.providersOnly) {

@@ -41,7 +41,7 @@
         <span>قبلی</span>
       </ui-button>
       <div class="flex gap-2">
-        @for (item of pagesArray(); track item; let index = $index) {
+        @for (item of pagesArray(); track item.number; let index = $index) {
           @if (item.number === totalPages() && showRightEllipsis()) {
             <p class="ellipsis-gap">...</p>
           }

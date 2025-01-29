@@ -1,4 +1,6 @@
 @use "index" as cac;
+@use "themes/colors";
+@use "themes/material";
 
 @tailwind base;
 @tailwind components;
