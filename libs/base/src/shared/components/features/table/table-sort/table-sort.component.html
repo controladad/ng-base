@@ -1,4 +1,4 @@
-<ng-container *ngIf="column.sortable">
+@if (column.sortable) {
   <ui-icon
     (onClick)="onSortClick()"
     class="transition-all duration-300 {{
@@ -8,4 +8,4 @@
     [icon]="sortModel.key() === key ? (sortModel.direction() === 'asc' ? 'sort-up' : 'sort-down') : 'sort'"
     size="1.25rem"
   ></ui-icon>
-</ng-container>
+}

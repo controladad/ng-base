@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, Input, OnDestroy, OnChanges, SimpleChanges, signal } from '@angular/core';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -14,7 +14,7 @@ import { formControl, FormControlExtended } from '../../../forms';
 @Component({
   selector: 'ui-checkbox-group',
   standalone: true,
-  imports: [MatCheckboxModule, NgFor, ReactiveFormsModule, NgIf, AsyncPipe],
+  imports: [MatCheckboxModule, ReactiveFormsModule, AsyncPipe],
   templateUrl: './checkbox-group.component.html',
   styleUrls: ['./checkbox-group.component.scss'],
 })

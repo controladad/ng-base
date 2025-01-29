@@ -9,7 +9,7 @@ import {
   signal,
   SimpleChanges
 } from '@angular/core';
-import { DecimalPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
+import { DecimalPipe, NgClass, NgTemplateOutlet } from '@angular/common';
 import { distinctUntilChanged, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ScreenDetectorService } from '@al00x/screen-detector';
@@ -36,15 +36,13 @@ interface PageItem {
   styleUrls: ['./pagination.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
     NgClass,
-    NgForOf,
     NgTemplateOutlet,
     FieldComponent,
     DecimalPipe,
     ButtonComponent,
-    MatIconModule,
-  ],
+    MatIconModule
+],
 })
 export class PaginationComponent implements OnChanges {
   protected _total = signal<number>(0);

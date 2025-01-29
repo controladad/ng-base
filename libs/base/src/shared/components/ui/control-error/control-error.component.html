@@ -1,9 +1,10 @@
 <div role="presentation" class="absolute bottom-0 left-0 right-0 w-full h-4" (click)="$event.stopPropagation()">
-  <p
-    @errorAnimation
-    *ngIf="control.touched && control.invalid && !control.disabled"
-    class="text-xs text-error-500 ps-3"
-  >
-    {{ control.error$ | async }}
-  </p>
+  @if (control.touched && control.invalid && !control.disabled) {
+    <p
+      @errorAnimation
+      class="text-xs text-error-500 ps-3"
+      >
+      {{ control.error$ | async }}
+    </p>
+  }
 </div>

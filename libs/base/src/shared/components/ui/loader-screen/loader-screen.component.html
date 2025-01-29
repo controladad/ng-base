@@ -1,13 +1,16 @@
-<div @fade *ngIf="show" class="loader" [class.blurry]="blurry" [style.z-index]="z">
-  <mat-spinner
-    *ngIf="!hideSpinner && !errored"
-    class="absolute"
-    mode="indeterminate"
-    diameter="64"
-    strokeWidth="8"
-  ></mat-spinner>
-  <div class="retry-panel" [class.show]="errored">
-    <p>در بارگزاری مشکلی به وجود آمد، لطفا دوباره تلاش کنید.</p>
-    <ui-button class="mt-6 w-1/2" (onClick)="onRetry()">تلاش مجدد</ui-button>
+@if (show) {
+  <div @fade class="loader" [class.blurry]="blurry" [style.z-index]="z">
+    @if (!hideSpinner && !errored) {
+      <mat-spinner
+        class="absolute"
+        mode="indeterminate"
+        diameter="64"
+        strokeWidth="8"
+      ></mat-spinner>
+    }
+    <div class="retry-panel" [class.show]="errored">
+      <p>در بارگزاری مشکلی به وجود آمد، لطفا دوباره تلاش کنید.</p>
+      <ui-button class="mt-6 w-1/2" (onClick)="onRetry()">تلاش مجدد</ui-button>
+    </div>
   </div>
-</div>
+}

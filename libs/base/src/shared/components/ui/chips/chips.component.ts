@@ -11,14 +11,14 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { IconComponent } from '../icon';
-import { NgIf } from '@angular/common';
+
 
 // TODO: activeClass property is not working
 
 @Component({
   selector: 'ui-chips',
   standalone: true,
-  imports: [IconComponent, NgIf],
+  imports: [IconComponent],
   templateUrl: './chips.component.html',
   styleUrls: ['./chips.component.scss'],
 })

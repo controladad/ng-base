@@ -8,8 +8,8 @@
     (keydown)="$event.stopPropagation()"
     (keydown.enter)="submit()"
     (keydown.escape)="cancel()"
-  >
-    <ng-container *ngIf="form() && show()">
+    >
+    @if (form() && show()) {
       <span class="text-lg font-medium">فیلتر {{ column.label }}</span>
       <feature-form-builder class="mt-4" #Form [options]="form()!" [focusOnInit]="true"></feature-form-builder>
       <feature-bottom-controls
@@ -20,6 +20,6 @@
         (onSubmit)="submit()"
         (onCancel)="cancel()"
       ></feature-bottom-controls>
-    </ng-container>
+    }
   </div>
 </mat-menu>

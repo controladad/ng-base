@@ -7,21 +7,22 @@
   [form]="data.formBuilder.formGroup"
   [submitBtn]="data.addButtonText"
   [submitClass]="data.addButtonClass"
->
+  >
   <div class="mt-5 w-full flex flex-col pb-1">
     <feature-form-builder #FormBuilder [options]="data.formBuilder"></feature-form-builder>
     <div [innerHTML]="data.footerHtmlContent"></div>
   </div>
 
   <ng-container slot="bottom">
-    <ui-button
-      *ngIf="data.deleteButton && _boundDeleteAction"
-      class="absolute w-auto inline-flex mt-0 start-0"
-      theme="error"
-      appearance="stroked"
-      action="delete"
-      (onClick)="onDelete()"
-      >حذف</ui-button
-    >
-  </ng-container>
-</feature-dialog-layout>
+    @if (data.deleteButton && _boundDeleteAction) {
+      <ui-button
+        class="absolute w-auto inline-flex mt-0 start-0"
+        theme="error"
+        appearance="stroked"
+        action="delete"
+        (onClick)="onDelete()"
+        >حذف</ui-button
+        >
+      }
+    </ng-container>
+  </feature-dialog-layout>

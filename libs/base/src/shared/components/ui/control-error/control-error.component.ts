@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { formControl } from '../../../forms';
 
 @Component({
   selector: 'ui-control-error',
   standalone: true,
-  imports: [NgIf, AsyncPipe],
+  imports: [AsyncPipe],
   templateUrl: './control-error.component.html',
   styleUrls: ['./control-error.component.scss'],
   animations: [

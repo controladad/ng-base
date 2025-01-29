@@ -13,7 +13,7 @@ import {
 import { UntypedFormControl, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { Observable, take } from 'rxjs';
-import { NgForOf, NgIf } from '@angular/common';
+
 import { MatIconModule } from '@angular/material/icon';
 import { UiRadioCompareWithDirective, UiRadioCompareWithFn } from '../../../directives';
 import { ItemRecord, ItemRecords$ } from '../../../../core';
@@ -21,7 +21,7 @@ import { ItemRecord, ItemRecords$ } from '../../../../core';
 @Component({
   selector: 'ui-radio',
   standalone: true,
-  imports: [ReactiveFormsModule, MatRadioModule, UiRadioCompareWithDirective, NgIf, NgForOf, MatIconModule],
+  imports: [ReactiveFormsModule, MatRadioModule, UiRadioCompareWithDirective, MatIconModule],
   templateUrl: './radio.component.html',
   styleUrls: ['./radio.component.scss'],
 })

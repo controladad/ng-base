@@ -109,29 +109,31 @@
       ></feature-table-filter-bar>
     }
 
-    <div *ngIf="loading()" class="table-container table-skeleton relative">
-      <table class="table">
-        <thead class="{{ !isFirstLoad() ? 'opacity-0 pointer-events-none' : '' }}">
-          <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
-            <th></th>
-          </tr>
-        </thead>
-        <tbody class="mdc-data-table__content relative">
-          <tr class="absolute left-0 right-0 top-0">
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-          </tr>
-          <tr
-            *forNumber="8"
+    @if (loading()) {
+      <div class="table-container table-skeleton relative">
+        <table class="table">
+          <thead class="{{ !isFirstLoad() ? 'opacity-0 pointer-events-none' : '' }}">
+            <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="mdc-data-table__content relative">
+            <tr class="absolute left-0 right-0 top-0">
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </tr>
+            <tr
+              *forNumber="8"
             class="mat-mdc-row mdc-data-table__row cdk-row feature-table-row {{
               !isFirstLoad() ? 'bg-transparent' : ''
             }}"
-          >
-            <td>
-              <ui-skeleton class="bg-inherit"></ui-skeleton>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+              >
+              <td>
+                <ui-skeleton class="bg-inherit"></ui-skeleton>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    }
   </div>
 </ng-template>

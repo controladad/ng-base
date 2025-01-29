@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { ButtonComponent } from '../button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
+
 import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'ui-loader-screen',
   standalone: true,
-  imports: [ButtonComponent, MatProgressSpinnerModule, NgIf],
+  imports: [ButtonComponent, MatProgressSpinnerModule],
   templateUrl: './loader-screen.component.html',
   styleUrls: ['./loader-screen.component.scss'],
   animations: [

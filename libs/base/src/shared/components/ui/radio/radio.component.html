@@ -1,37 +1,48 @@
 <div>
-  <p *ngIf="label" class="separate-label h-auto">{{ label }}</p>
-  <mat-radio-group
-    dir="ltr"
-    #RadioGroup="uiRadio"
-    UiRadioCompareWith
-    [compareWith]="compareFn"
-    *ngIf="currentItems; else Loading"
-    [formControl]="control"
-    color="primary"
-    class="{{ this.control.disabled ? 'pointer-events-none opacity-70' : '' }}"
-    (change)="onValueChange($event)"
-  >
-    <mat-radio-button
-      class="ms-6"
-      [class.pointer-events-none]="readonly"
-      *ngFor="let item of currentItems()"
-      [value]="item.value"
-      >{{ item.label }}
-    </mat-radio-button>
-  </mat-radio-group>
-  <ng-container *ngIf="currentItems() && currentItems()!.length === 0">
+  @if (label) {
+    <p class="separate-label h-auto">{{ label }}</p>
+  }
+  @if (currentItems()) {
+    <mat-radio-group
+      dir="ltr"
+      #RadioGroup="uiRadio"
+      UiRadioCompareWith
+      [compareWith]="compareFn"
+      [formControl]="control"
+      color="primary"
+      class="{{ this.control.disabled ? 'pointer-events-none opacity-70' : '' }}"
+      (change)="onValueChange($event)"
+      >
+      @for (item of currentItems(); track item) {
+        <mat-radio-button
+          class="ms-6"
+          [class.pointer-events-none]="readonly"
+          [value]="item.value"
+          >{{ item.label }}
+        </mat-radio-button>
+      }
+    </mat-radio-group>
+  } @else {
+    <mat-radio-group color="primary">
+      <mat-radio-button class="pointer-events-none"> Loading... </mat-radio-button>
+    </mat-radio-group>
+  }
+  @if (currentItems() && currentItems()!.length === 0) {
     <ng-content select="[slot=no-data]"></ng-content>
-  </ng-container>
-  <mat-icon
-    *ngIf="control.invalid && control.touched"
-    matSuffix
-    svgIcon="error"
-    class="w-[1.125rem] h-[1.125rem]"
-  ></mat-icon>
+  }
+  @if (control.invalid && control.touched) {
+    <mat-icon
+      matSuffix
+      svgIcon="error"
+      class="w-[1.125rem] h-[1.125rem]"
+    ></mat-icon>
+  }
 </div>
-<p *ngIf="control.invalid && control.touched" class="text-error-500 text-xs mt-3 {{ label ? 'mr-[6.25rem]' : '' }}">
-  این فیلد الزامی می باشد.
-</p>
+@if (control.invalid && control.touched) {
+  <p class="text-error-500 text-xs mt-3 {{ label ? 'mr-[6.25rem]' : '' }}">
+    این فیلد الزامی می باشد.
+  </p>
+}
 
 <ng-template #Loading>
   <mat-radio-group color="primary">

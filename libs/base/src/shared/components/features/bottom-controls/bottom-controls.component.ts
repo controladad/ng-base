@@ -10,7 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { NgIf } from '@angular/common';
+
 import { ButtonClickEvent, ButtonComponent } from '../../ui';
 import { ActionTypes, RoleService } from '../../../../core';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -18,7 +18,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'feature-bottom-controls',
   standalone: true,
-  imports: [ButtonComponent, NgIf, MatTooltipModule],
+  imports: [ButtonComponent, MatTooltipModule],
   templateUrl: './bottom-controls.component.html',
   styleUrls: ['./bottom-controls.component.scss'],
 })

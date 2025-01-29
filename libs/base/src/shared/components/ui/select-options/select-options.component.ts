@@ -28,7 +28,7 @@ import {
   timer,
 } from 'rxjs';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { merge } from 'rxjs';
@@ -44,7 +44,6 @@ import {
   RoleService,
 } from '../../../../core';
 import { SelectionModel } from '../../../classes';
-import { NgLetDirective } from '../../../directives';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ChipsGroupComponent } from '../chips-group';
 import { ChipsComponent } from '../chips';
@@ -65,19 +64,16 @@ const FILTER_DEBOUNCE_MAX = 250;
   standalone: true,
   imports: [
     MatMenuModule,
-    NgForOf,
     AsyncPipe,
-    NgIf,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     MatIconModule,
     CheckboxComponent,
     MatButtonModule,
-    NgLetDirective,
     MatButtonToggleModule,
     ChipsGroupComponent,
-    ChipsComponent,
-  ],
+    ChipsComponent
+],
   templateUrl: './select-options.component.html',
   styleUrls: ['./select-options.component.scss'],
 })

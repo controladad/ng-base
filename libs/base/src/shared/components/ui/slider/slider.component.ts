@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 
 export interface RangeFormGroup {
   start: FormControl<number | null>;
@@ -12,7 +11,7 @@ export interface RangeFormGroup {
   selector: 'ui-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss'],
-  imports: [MatSliderModule, ReactiveFormsModule, NgIf, NgSwitch, NgSwitchCase],
+  imports: [MatSliderModule, ReactiveFormsModule],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

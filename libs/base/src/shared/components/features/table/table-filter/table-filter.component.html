@@ -1,4 +1,4 @@
-<ng-container *ngIf="column.filterable">
+@if (column.filterable) {
   <ui-icon
     #FilterMenuTrigger="matMenuTrigger"
     [matMenuTriggerFor]="null"
@@ -14,4 +14,4 @@
     [filterModel]="filterModel"
     [trigger]="FilterMenuTrigger"
   ></feature-table-filter-menu>
-</ng-container>
+}

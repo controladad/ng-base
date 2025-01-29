@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { NgIf } from '@angular/common';
+
 import { FormBuilder, FormBuilderComponent } from '../../../form-builder';
 import { DialogLayoutComponent } from '../../../../layouts';
 import { ButtonClickEvent, ButtonComponent } from '../../../../ui';
@@ -24,11 +24,10 @@ export interface InputDialogData<T, U> {
   selector: 'feature-input-dialog',
   standalone: true,
   imports: [
-    NgIf,
     DialogLayoutComponent,
     FormBuilderComponent,
-    ButtonComponent,
-  ],
+    ButtonComponent
+],
   templateUrl: './input-dialog.component.html',
   styleUrls: ['./input-dialog.component.scss'],
 })

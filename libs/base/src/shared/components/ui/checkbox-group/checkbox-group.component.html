@@ -1,10 +1,12 @@
 <div class="w-full h-full flex flex-col select-none">
   <p class="{{ control.invalid && control.dirty ? 'text-red-dark' : 'text-blue-dark' }}">
-    {{ label ?? '' }}<span *ngIf="isRequired()" class="text-red-dark">*</span>
-  </p>
-  <div class="h-full flex flex-col">
+    {{ label ?? '' }}@if (isRequired()) {
+    <span class="text-red-dark">*</span>
+  }
+</p>
+<div class="h-full flex flex-col">
+  @for (item of items() ?? []; track item) {
     <mat-checkbox
-      *ngFor="let item of items() ?? []"
       class="checkbox"
       [checked]="checkedItems[item.value]"
       [value]="$any(item.value)"
@@ -12,9 +14,12 @@
       (change)="onChangeItem()"
       color="primary"
       >{{ item.label }}</mat-checkbox
-    >
+      >
+    }
   </div>
-  <p class="text-error-400 text-sm" *ngIf="control.invalid && control.dirty">
-    {{ control.error$ | async }}
-  </p>
+  @if (control.invalid && control.dirty) {
+    <p class="text-error-400 text-sm">
+      {{ control.error$ | async }}
+    </p>
+  }
 </div>
