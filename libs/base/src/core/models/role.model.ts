@@ -7,11 +7,6 @@ export type RoleType =
   | 'Reporter'
   | 'Manager';
 
-export interface RoleEntity {
-  id: number;
-  name: RoleType;
-}
-
 export interface DynamicRoleEntity {
   id: number;
   name: string;
