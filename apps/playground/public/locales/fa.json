@@ -9,6 +9,8 @@
     "base.feature.login.rememberMe": "مرا به خاطر بسپار",
     "base.feature.dialog.open": "باز کردن دیالوگ",
     "base.feature.dialog.cancelButtonDefault": "انصراف",
-    "base.feature.dialog.saveButtonDefault": "ذخیره"
+    "base.feature.dialog.saveButtonDefault": "ذخیره",
+    "base.feature.dialog.insufficientPermission": "شما دسترسی برای انجام این فعالیت را ندارید."
+
   }
 }

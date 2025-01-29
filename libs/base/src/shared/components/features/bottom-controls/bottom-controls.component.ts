@@ -40,7 +40,7 @@ export class BottomControlsComponent implements OnInit, OnChanges {
   @Output() onSubmit = new EventEmitter<ButtonClickEvent>();
 
   insufficientPermission = signal(false);
-
+  fallbackInsufficientPermissionText = $localize`:@@base.feature.dialog.insufficientPermission:شما دسترسی برای انجام این فعالیت را ندارید.`;
   constructor(private roleService: RoleService) {}
 
   ngOnInit(): void {
