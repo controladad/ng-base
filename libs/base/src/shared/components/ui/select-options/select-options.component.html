@@ -51,7 +51,8 @@
       }
 
       <div #Container class="flex flex-col overflow-auto min-h-[7rem] max-h-[18rem]">
-        @if ({ items: filteredItems$ | async }; as state) {
+        @let state = { items: filteredItems$ | async };
+        @if (state) {
           @if (state.items === undefined) {
             <div class="flex flex-col items-center">
               <mat-spinner class="mt-2" strokeWidth="2" diameter="24"></mat-spinner>

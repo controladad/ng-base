@@ -1,7 +1,9 @@
-@if ({
+@let state = {
   showPassword: showPassword$ | async,
   isReadonly: control.readonly$ | async
-  }; as state) {
+};
+
+@if (state) {
   <!--  <p *ngIf="label" class="ui-field-label">-->
   <!--    {{ label }}-->
   <!--    <span *ngIf="hasStar()" class="required-star">*</span>-->
