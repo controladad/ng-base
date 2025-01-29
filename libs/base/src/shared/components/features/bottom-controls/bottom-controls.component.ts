@@ -25,7 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class BottomControlsComponent implements OnInit, OnChanges {
   @ViewChild('SubmitButton') submitButton!: ButtonComponent;
 
-  @Input() cancelText?: string = 'انصراف';
+  @Input() cancelText?: string;
   @Input() submitText = 'ذخیره';
   @Input() submitClass?: string;
   @Input() cancelClass?: string;

@@ -20,8 +20,8 @@
     <feature-bottom-controls
       [form]="form"
       [actionType]="actionType()"
-      [submitText]="submitBtn ?? 'ذخیره'"
-      [cancelText]="cancelBtn ?? 'انصراف'"
+      [submitText]="submitBtn ?? fallbackSubmitText"
+      [cancelText]="cancelBtn ?? fallbackCancelText"
       [submitClass]="submitClass"
       [cancelClass]="cancelClass"
       (onSubmit)="onSubmit.emit($event)"
