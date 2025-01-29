@@ -1,52 +1,53 @@
-<ng-container
-  *ngIf="{
-    showPassword: showPassword$ | async,
-    isReadonly: control.readonly$ | async
-  } as state"
->
+@if ({
+  showPassword: showPassword$ | async,
+  isReadonly: control.readonly$ | async
+  }; as state) {
   <!--  <p *ngIf="label" class="ui-field-label">-->
   <!--    {{ label }}-->
   <!--    <span *ngIf="hasStar()" class="required-star">*</span>-->
-  <!--  </p>-->
-
-  <mat-form-field
-    #MatFormField
-    [class.type-textarea]="controlType === 'textarea'"
-    [class.infix-flex]="controlType === 'datetime'"
-    [class.align-left]="align === 'left'"
-    [class.align-right]="align === 'right'"
-    [class.ui-field-outlined]="appearance === 'outlined'"
-    [class.ui-field-compact]="appearance === 'compact'"
-    [class.ui-field-simple]="appearance === 'simple'"
-    [class.is-readonly]="state.isReadonly"
-    [class.hide-error]="hideError"
-    class="ui-field relative w-full"
-    appearance="outline"
-    [hideRequiredMarker]="true"
-    [class.loading]="loading"
-    [title]="control.displayText ?? (control.value !== null && control.value !== undefined ? control.value : '')"
-    [floatLabel]="overrideFloatLabel() ?? floatLabel ?? 'auto'"
-    (click)="onFormFieldClick()"
+<!--  </p>-->
+<mat-form-field
+  #MatFormField
+  [class.type-textarea]="controlType === 'textarea'"
+  [class.infix-flex]="controlType === 'datetime'"
+  [class.align-left]="align === 'left'"
+  [class.align-right]="align === 'right'"
+  [class.ui-field-outlined]="appearance === 'outlined'"
+  [class.ui-field-compact]="appearance === 'compact'"
+  [class.ui-field-simple]="appearance === 'simple'"
+  [class.is-readonly]="state.isReadonly"
+  [class.hide-error]="hideError"
+  class="ui-field relative w-full"
+  appearance="outline"
+  [hideRequiredMarker]="true"
+  [class.loading]="loading"
+  [title]="control.displayText ?? (control.value !== null && control.value !== undefined ? control.value : '')"
+  [floatLabel]="overrideFloatLabel() ?? floatLabel ?? 'auto'"
+  (click)="onFormFieldClick()"
   >
-    <mat-label *ngIf="label" class="ui-field-label">
+  @if (label) {
+    <mat-label class="ui-field-label">
       {{ label }}
-      <span *ngIf="hasStar() && (control.enabled$ | async)" class="required-star">*</span>
+      @if (hasStar() && (control.enabled$ | async)) {
+        <span class="required-star">*</span>
+      }
     </mat-label>
-
-    <!-- Prefix Elements -->
-    <mat-icon matPrefix *ngIf="prefixIcon" class="w-6 h-6" [svgIcon]="prefixIcon"></mat-icon>
-
-    <!-- Inputs -->
-    <ng-container [ngSwitch]="controlType">
-      <ng-container *ngSwitchDefault>
-        <input
-          #InputElement
-          [class.numeric-field-fix]="maskType === 'time' || (inputType === 'number' && control.value)"
-          matInput
-          [formControl]="control"
-          [placeholder]="placeholder ?? ''"
-          [readonly]="state.isReadonly"
-          [autocomplete]="autoComplete === true ? 'on' : autoComplete === false ? 'off' : autoComplete"
+  }
+  <!-- Prefix Elements -->
+  @if (prefixIcon) {
+    <mat-icon matPrefix class="w-6 h-6" [svgIcon]="prefixIcon"></mat-icon>
+  }
+  <!-- Inputs -->
+  @switch (controlType) {
+    @default {
+      <input
+        #InputElement
+        [class.numeric-field-fix]="maskType === 'time' || (inputType === 'number' && control.value)"
+        matInput
+        [formControl]="control"
+        [placeholder]="placeholder ?? ''"
+        [readonly]="state.isReadonly"
+        [autocomplete]="autoComplete === true ? 'on' : autoComplete === false ? 'off' : autoComplete"
           [type]="
             inputType === 'password-eye'
               ? (showPassword$ | async)
@@ -56,116 +57,114 @@
                 ? 'number'
                 : inputType
           "
-          [inputMask]="inputMask"
-          (focus)="onFocus()"
-          (blur)="onBlur()"
-          [tabindex]="state.isReadonly ? -1 : 0"
+        [inputMask]="inputMask"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        [tabindex]="state.isReadonly ? -1 : 0"
         />
-      </ng-container>
-      <ng-container *ngSwitchCase="'select'">
-        <input matInput [formControl]="control" class="hidden" readonly tabindex="-1" />
-        <input
-          #SelectElement
-          class="w-full bg-inherit"
-          [uiOptionsTriggerFor]="Options"
-          [formControl]="control.displayControl"
-          [tabindex]="state.isReadonly ? -1 : 0"
-          [placeholder]="placeholder ?? ''"
-          [readonly]="true"
+    }
+    @case ('select') {
+      <input matInput [formControl]="control" class="hidden" readonly tabindex="-1" />
+      <input
+        #SelectElement
+        class="w-full bg-inherit"
+        [uiOptionsTriggerFor]="Options"
+        [formControl]="control.displayControl"
+        [tabindex]="state.isReadonly ? -1 : 0"
+        [placeholder]="placeholder ?? ''"
+        [readonly]="true"
         />
-        <ui-select-options
-          #Options
-          [control]="control"
-          [items]="items"
-          [optional]="optional"
-          [multiple]="multiple"
-          [searchable]="searchable"
-          [showIcons]="showIcons"
-          [categories]="categories"
-          [menuClass]="menuClass"
-          (onSelect)="onSelect.emit($event)"
-          (onMultiSelect)="onSelectOptionsMultiple($event)"
-        ></ui-select-options>
-      </ng-container>
-      <ng-container *ngSwitchCase="'date'">
-        <input
-          matInput
-          [formControl]="control"
-          [matDatepicker]="DatePicker"
-          [placeholder]="placeholder ?? ''"
-          [readonly]="true"
-          (focus)="onFocus()"
-          (blur)="onBlur()"
-          [matDatepickerFilter]="dateFilter"
-          [tabindex]="state.isReadonly ? -1 : 0"
+      <ui-select-options
+        #Options
+        [control]="control"
+        [items]="items"
+        [optional]="optional"
+        [multiple]="multiple"
+        [searchable]="searchable"
+        [showIcons]="showIcons"
+        [categories]="categories"
+        [menuClass]="menuClass"
+        (onSelect)="onSelect.emit($event)"
+        (onMultiSelect)="onSelectOptionsMultiple($event)"
+      ></ui-select-options>
+    }
+    @case ('date') {
+      <input
+        matInput
+        [formControl]="control"
+        [matDatepicker]="DatePicker"
+        [placeholder]="placeholder ?? ''"
+        [readonly]="true"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        [matDatepickerFilter]="dateFilter"
+        [tabindex]="state.isReadonly ? -1 : 0"
         />
-      </ng-container>
-      <ng-container *ngSwitchCase="'datetime'">
-        <input
-          matInput
-          #InputElement
-          [formControl]="control"
-          class="numeric-field-fix"
-          [readonly]="state.isReadonly"
-          autocomplete="off"
-          [inputMask]="inputMask"
-          (focus)="onFocus()"
-          (blur)="onBlur()"
-          [tabindex]="state.isReadonly ? -1 : 0"
+    }
+    @case ('datetime') {
+      <input
+        matInput
+        #InputElement
+        [formControl]="control"
+        class="numeric-field-fix"
+        [readonly]="state.isReadonly"
+        autocomplete="off"
+        [inputMask]="inputMask"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        [tabindex]="state.isReadonly ? -1 : 0"
         />
-        <input class="hidden" [matDatepicker]="DatePicker" [formControl]="tempControl" tabindex="-1" readonly />
-        <!--        <input-->
-        <!--          class="flex-auto"-->
-        <!--          [formControl]="control"-->
-        <!--          [matDatepicker]="DatePicker"-->
-        <!--          [placeholder]="placeholder ?? ''"-->
-        <!--          [readonly]="true"-->
-        <!--          (focus)="onFocus()"-->
-        <!--          (blur)="onBlur()"-->
-        <!--          [matDatepickerFilter]="dateFilter"-->
-        <!--          [tabindex]="state.isReadonly ? -1 : 0"-->
-        <!--        />-->
-      </ng-container>
-      <ng-container *ngSwitchCase="'textarea'">
-        <textarea
-          matInput
-          [formControl]="control"
-          [placeholder]="placeholder ?? ''"
-          [readonly]="state.isReadonly"
-          [rows]="textareaRows ?? 3"
-          [style]="!resizable ? 'resize: none;' : ''"
-          (focus)="onFocus()"
-          (blur)="onBlur()"
-          [tabindex]="state.isReadonly ? -1 : 0"
-        ></textarea>
-      </ng-container>
-    </ng-container>
-
-    <mat-datepicker #DatePicker (closed)="onDatePickerClose()" [restoreFocus]="false">
-      <mat-datepicker-actions>
-        <button class="text-error" mat-button matDatepickerCancel>انصراف</button>
-        <button class="text-primary" mat-button matDatepickerApply>ذخیره</button>
-      </mat-datepicker-actions>
-    </mat-datepicker>
-
-    <!-- Suffix Elements -->
-
-    <!--    <mat-icon-->
-    <!--      *ngIf="inputType === 'password'"-->
-    <!--      matSuffix-->
-    <!--      class="w-6 h-6 cursor-pointer select-none"-->
-    <!--      (click)="showPassword$.next(!state.showPassword)"-->
-    <!--    >-->
-    <!--      {{ state.showPassword ? 'visibility' : 'visibility_off' }}-->
-    <!--    </mat-icon>-->
-
-    <div *ngIf="isLoading()" class="absolute bottom-0 left-0 right-0">
-      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    </div>
-    <ui-icon
-      *ngIf="clearable"
-      icon="close"
-      matSuffix
+      <input class="hidden" [matDatepicker]="DatePicker" [formControl]="tempControl" tabindex="-1" readonly />
+      <!--        <input-->
+      <!--          class="flex-auto"-->
+      <!--          [formControl]="control"-->
+      <!--          [matDatepicker]="DatePicker"-->
+      <!--          [placeholder]="placeholder ?? ''"-->
+      <!--          [readonly]="true"-->
+      <!--          (focus)="onFocus()"-->
+      <!--          (blur)="onBlur()"-->
+      <!--          [matDatepickerFilter]="dateFilter"-->
+      <!--          [tabindex]="state.isReadonly ? -1 : 0"-->
+      <!--        />-->
+    }
+    @case ('textarea') {
+      <textarea
+        matInput
+        [formControl]="control"
+        [placeholder]="placeholder ?? ''"
+        [readonly]="state.isReadonly"
+        [rows]="textareaRows ?? 3"
+        [style]="!resizable ? 'resize: none;' : ''"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        [tabindex]="state.isReadonly ? -1 : 0"
+      ></textarea>
+    }
+  }
+  <mat-datepicker #DatePicker (closed)="onDatePickerClose()" [restoreFocus]="false">
+    <mat-datepicker-actions>
+      <button class="text-error" mat-button matDatepickerCancel>انصراف</button>
+      <button class="text-primary" mat-button matDatepickerApply>ذخیره</button>
+    </mat-datepicker-actions>
+  </mat-datepicker>
+  <!-- Suffix Elements -->
+  <!--    <mat-icon-->
+  <!--      *ngIf="inputType === 'password'"-->
+  <!--      matSuffix-->
+  <!--      class="w-6 h-6 cursor-pointer select-none"-->
+  <!--      (click)="showPassword$.next(!state.showPassword)"-->
+  <!--    >-->
+  <!--      {{ state.showPassword ? 'visibility' : 'visibility_off' }}-->
+<!--    </mat-icon>-->
+@if (isLoading()) {
+  <div class="absolute bottom-0 left-0 right-0">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+}
+@if (clearable) {
+  <ui-icon
+    icon="close"
+    matSuffix
       class="clear-button {{
         control.value === '' ||
         control.value === undefined ||
@@ -178,45 +177,63 @@
       }} {{
         !isFocused() && controlType !== 'select' && controlType !== 'date' ? 'opacity-0 pointer-events-none' : ''
       }}"
-      size="1.5rem"
-      (mousedown)="$event.preventDefault()"
-      (onClick)="onClearClick($event)"
-    ></ui-icon>
-    <ui-icon
-      *ngIf="controlType === 'date' || controlType === 'datetime'"
-      class="date-toggle-button"
-      matSuffix
-      (onClick)="openDatePicker($event)"
+    size="1.5rem"
+    (mousedown)="$event.preventDefault()"
+    (onClick)="onClearClick($event)"
+  ></ui-icon>
+}
+@if (controlType === 'date' || controlType === 'datetime') {
+  <ui-icon
+    class="date-toggle-button"
+    matSuffix
+    (onClick)="openDatePicker($event)"
     >
-      <mat-icon class="w-6 h-6 text-primary-600" matDatepickerToggleIcon svgIcon="calendar"></mat-icon>
-    </ui-icon>
-    <span matPrefix *ngIf="prefix" class="text-sm font-medium opacity-70">{{ prefix }}</span>
-    <span matSuffix *ngIf="suffix" class="text-sm font-medium opacity-70">{{ suffix }}</span>
-    <mat-icon matSuffix *ngIf="suffixIcon" class="w-6 h-6" [svgIcon]="suffixIcon"></mat-icon>
-    <mat-icon
-      (click)="passwordVisibility()"
-      matSuffix
-      *ngIf="inputType === 'password-eye'"
-      [svgIcon]="(showPassword$ | async) ? 'eye' : 'eye-slash'"
-    ></mat-icon>
-    <mat-icon
-      *ngIf="controlType === 'select' && !state.isReadonly"
-      class="w-4 text-inherit"
-      matSuffix
-      svgIcon="dropdown"
-    ></mat-icon>
-    <div *ngIf="controlType === 'input' && inputType === 'number'" class="numeric-control" matSuffix>
-      <ui-icon class="text-primary h-4" icon="numeric-up" size="0.75rem" (onClick)="onNumericUp()"></ui-icon>
-      <ui-icon class="text-primary h-4" icon="numeric-down" size="0.75rem" (onClick)="onNumericDown()"></ui-icon>
-    </div>
-    <div *ngIf="!hideSuffix" class="empty:hidden" matSuffix>
-      <ng-content select="[slot=suffix]"></ng-content>
-    </div>
-  </mat-form-field>
-  <!-- Error, we are not using mat-error because of the limitations -->
-  <ui-control-error *ngIf="!hideError && !invisibleError" [control]="control"></ui-control-error>
-</ng-container>
+    <mat-icon class="w-6 h-6 text-primary-600" matDatepickerToggleIcon svgIcon="calendar"></mat-icon>
+  </ui-icon>
+}
+@if (prefix) {
+  <span matPrefix class="text-sm font-medium opacity-70">{{ prefix }}</span>
+}
+@if (suffix) {
+  <span matSuffix class="text-sm font-medium opacity-70">{{ suffix }}</span>
+}
+@if (suffixIcon) {
+  <mat-icon matSuffix class="w-6 h-6" [svgIcon]="suffixIcon"></mat-icon>
+}
+@if (inputType === 'password-eye') {
+  <mat-icon
+    (click)="passwordVisibility()"
+    matSuffix
+    [svgIcon]="(showPassword$ | async) ? 'eye' : 'eye-slash'"
+  ></mat-icon>
+}
+@if (controlType === 'select' && !state.isReadonly) {
+  <mat-icon
+    class="w-4 text-inherit"
+    matSuffix
+    svgIcon="dropdown"
+  ></mat-icon>
+}
+@if (controlType === 'input' && inputType === 'number') {
+  <div class="numeric-control" matSuffix>
+    <ui-icon class="text-primary h-4" icon="numeric-up" size="0.75rem" (onClick)="onNumericUp()"></ui-icon>
+    <ui-icon class="text-primary h-4" icon="numeric-down" size="0.75rem" (onClick)="onNumericDown()"></ui-icon>
+  </div>
+}
+@if (!hideSuffix) {
+  <div class="empty:hidden" matSuffix>
+    <ng-content select="[slot=suffix]"></ng-content>
+  </div>
+}
+</mat-form-field>
+<!-- Error, we are not using mat-error because of the limitations -->
+@if (!hideError && !invisibleError) {
+  <ui-control-error [control]="control"></ui-control-error>
+}
+}
 
-<div class="absolute bottom-6 left-0 right-0" *ngIf="loading">
-  <mat-progress-bar class="w-full" color="primary" mode="indeterminate"></mat-progress-bar>
-</div>
+@if (loading) {
+  <div class="absolute bottom-6 left-0 right-0">
+    <mat-progress-bar class="w-full" color="primary" mode="indeterminate"></mat-progress-bar>
+  </div>
+}

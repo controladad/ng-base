@@ -10,7 +10,7 @@ import {
   signal, ViewChild, AfterViewInit
 } from '@angular/core';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
-import { NgIf, NgStyle } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import { BASE_ICONS, CacBase } from '../../../../configs';
 import { Subscription } from 'rxjs';
 
@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss'],
   standalone: true,
-  imports: [MatIconModule, NgIf, NgStyle],
+  imports: [MatIconModule, NgStyle],
 })
 export class IconComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('MatIcon') matIcon!: MatIcon;

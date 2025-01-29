@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
-import { NgIf } from '@angular/common';
+
 import { IconComponent } from '../../../ui';
 
 export interface SnackbarData {
@@ -15,7 +15,7 @@ export interface SnackbarData {
 @Component({
   selector: 'ui-snackbar',
   standalone: true,
-  imports: [NgIf, IconComponent],
+  imports: [IconComponent],
   templateUrl: './snackbar-base.component.html',
   styleUrls: ['./snackbar-base.component.scss'],
 })

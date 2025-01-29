@@ -3,13 +3,14 @@
   class="ui-icon relative {{ disabled ? 'disabled' : '' }} w-full h-full {{ wrapperClass }}"
   [class.is-clickable]="isClickable()"
   (click)="onClickEvent($event)"
->
-  <mat-icon
-    #MatIcon
-    class="{{ iconClass ?? '' }}"
-    [ngStyle]="{ width: size, height: size }"
-    *ngIf="!!icon"
-    [svgIcon]="icon"
-  ></mat-icon>
+  >
+  @if (!!icon) {
+    <mat-icon
+      #MatIcon
+      class="{{ iconClass ?? '' }}"
+      [ngStyle]="{ width: size, height: size }"
+      [svgIcon]="icon"
+    ></mat-icon>
+  }
   <ng-content></ng-content>
 </div>

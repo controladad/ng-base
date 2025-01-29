@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TableColumnData } from '../table.component';
 import { SortModel } from '../../../../classes';
-import { NgIf } from '@angular/common';
+
 import { IconComponent } from '../../../ui';
 
 @Component({
@@ -9,7 +9,7 @@ import { IconComponent } from '../../../ui';
   templateUrl: './table-sort.component.html',
   styleUrls: ['./table-sort.component.scss'],
   standalone: true,
-  imports: [NgIf, IconComponent],
+  imports: [IconComponent],
 })
 export class TableSortComponent<T> implements OnInit {
   @Input() column!: TableColumnData<T>;

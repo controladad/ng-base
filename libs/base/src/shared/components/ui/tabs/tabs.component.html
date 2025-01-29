@@ -1,16 +1,22 @@
 <div>
   <mat-tab-group (selectedTabChange)="currentIndex = $event.index" mat-stretch-tabs="true" mat-align-tabs="center">
-    <mat-tab [label]="tab.label" *ngFor="let tab of tabs(); let index = index">
-      <ng-template *ngIf="hasIcon" mat-tab-label>
-        <mat-icon
-          class="w-4 h-4 mx-2 {{ index === currentIndex ? 'text-primary' : 'text-gray-700' }}"
-          [svgIcon]="tab.icon ?? 'tabicon'"
-        ></mat-icon>
-        {{ tab.label }}
-      </ng-template>
-      <ng-container *ngFor="let content of contents; let i = index">
-        <ng-container *ngIf="i === index" [ngTemplateOutlet]="content"></ng-container>
-      </ng-container>
-    </mat-tab>
+    @for (tab of tabs(); track tab; let index = $index) {
+      <mat-tab [label]="tab.label">
+        @if (hasIcon) {
+          <ng-template mat-tab-label>
+            <mat-icon
+              class="w-4 h-4 mx-2 {{ index === currentIndex ? 'text-primary' : 'text-gray-700' }}"
+              [svgIcon]="tab.icon ?? 'tabicon'"
+            ></mat-icon>
+            {{ tab.label }}
+          </ng-template>
+        }
+        @for (content of contents; track content; let i = $index) {
+          @if (i === index) {
+            <ng-container [ngTemplateOutlet]="content"></ng-container>
+          }
+        }
+      </mat-tab>
+    }
   </mat-tab-group>
 </div>

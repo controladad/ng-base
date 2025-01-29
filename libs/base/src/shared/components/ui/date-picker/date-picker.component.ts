@@ -7,7 +7,7 @@ import {
   MatDatepickerModule,
 } from '@angular/material/datepicker';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DatePipe, NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet } from '@angular/common';
+import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import { ButtonComponent } from '../button';
 import { MatIconModule } from '@angular/material/icon';
 import { format } from 'date-fns';
@@ -27,10 +27,7 @@ export const DATE_FORMAT = 'yyyy/MM/dd';
     MatIconModule,
     FieldComponent,
     MatMenuModule,
-    NgSwitchCase,
     NgTemplateOutlet,
-    NgSwitch,
-    NgIf,
   ],
   providers: [
     {

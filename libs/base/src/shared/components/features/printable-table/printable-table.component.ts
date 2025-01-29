@@ -11,8 +11,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { NgFor } from '@angular/common';
-import { NgLetDirective } from '../../../directives';
+
 import { of, Subject, switchMap, take, combineLatest } from 'rxjs';
 import { AlxPrintDirective, AlxPrintModule } from '@al00x/printer';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -26,7 +25,7 @@ export interface PrintableTableData {
 @Component({
   selector: 'feature-printable-table',
   standalone: true,
-  imports: [NgFor, NgLetDirective, AlxPrintModule],
+  imports: [AlxPrintModule],
   templateUrl: './printable-table.component.html',
   styleUrls: ['./printable-table.component.scss'],
 })

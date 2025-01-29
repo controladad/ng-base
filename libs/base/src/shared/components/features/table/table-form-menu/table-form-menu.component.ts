@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, Output, signal, ViewChild } 
 import { BottomControlsComponent } from '../../bottom-controls';
 import { FormBuilderComponent } from '../../form-builder';
 import { IconComponent, ButtonClickEvent } from '../../../ui';
-import { NgIf } from '@angular/common';
+
 import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { TableFormOptions, TableMenu, TableOptions } from '../table.interfaces';
 import { Subject, Subscription, take } from 'rxjs';
@@ -14,7 +14,7 @@ type MenuCloseReason = 'success' | 'cancel' | undefined;
 @Component({
   selector: 'feature-table-form-menu',
   standalone: true,
-  imports: [BottomControlsComponent, FormBuilderComponent, IconComponent, NgIf, MatMenuModule, A11yModule],
+  imports: [BottomControlsComponent, FormBuilderComponent, IconComponent, MatMenuModule, A11yModule],
   templateUrl: './table-form-menu.component.html',
   styleUrls: ['./table-form-menu.component.scss'],
 })

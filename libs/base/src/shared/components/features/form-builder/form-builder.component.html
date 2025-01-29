@@ -1,30 +1,29 @@
-<ng-container *ngIf="!_options.allowAutocomplete">
+@if (!_options.allowAutocomplete) {
   <!-- These inputs prevent firefox/chrome from autocompleting fields, and yes, this is the only solution I've found -->
   <input tabindex="-1" type="text" style="opacity: 0; position: absolute" />
   <input tabindex="-1" type="password" style="opacity: 0; position: absolute" />
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-</ng-container>
+}
+
+@let isDesktop = screenDetector.isDesktop$ | async;
 
 <div
-  *ngLet="screenDetector.isDesktop$ | async as isDesktop"
   class="ui-form-builder"
   [style]="'grid-template-columns: repeat(' + (isDesktop ? _options.cols : 1) + ', minmax(0, 1fr))'"
   [style.width]="_options.width"
   [style.gap]="_options.gap"
   #Wrapper
->
+  >
   <input #TabIndexEntry class="absolute opacity-0 pointer-events-none" readonly type="text" autocomplete="off" />
-  <ng-container *ngFor="let input of inputItems(); trackBy: trackBy">
-    <ng-container
-      *ngIf="!$any(_options.hiddenKeys())[$any(input.key)] && !$any(_options.invisibleKeys())[$any(input.key)]"
-    >
+  @for (input of inputItems(); track trackBy($index, input)) {
+    @if (!$any(_options.hiddenKeys())[$any(input.key)] && !$any(_options.invisibleKeys())[$any(input.key)]) {
       <feature-control-builder
         [options]="input"
         [class]="input.class$Value()"
         [style]="input.styles$Value()"
         [allowAutocomplete]="_options.allowAutocomplete"
       ></feature-control-builder>
-    </ng-container>
-  </ng-container>
+    }
+  }
   <!--  <input #TabIndexExit class="absolute opacity-0" readonly (focus)="onTabIndexEndFocus()" />-->
 </div>

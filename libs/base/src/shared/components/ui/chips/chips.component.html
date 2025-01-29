@@ -1,15 +1,17 @@
-<ui-icon
-  *ngIf="icon"
-  class="ui-chips-icon"
-  size="1.5rem"
-  [icon]="icon"
-></ui-icon>
+@if (icon) {
+  <ui-icon
+    class="ui-chips-icon"
+    size="1.5rem"
+    [icon]="icon"
+  ></ui-icon>
+}
 <ng-content></ng-content>
-<ui-icon
-  *ngIf="closable"
-  class="ui-chips-close-btn"
-  wrapperClass="ui-chips-close-icon-wrapper"
-  size="1.5rem"
-  icon="close"
-  (onClick)="onCloseClick($event)"
-></ui-icon>
+@if (closable) {
+  <ui-icon
+    class="ui-chips-close-btn"
+    wrapperClass="ui-chips-close-icon-wrapper"
+    size="1.5rem"
+    icon="close"
+    (onClick)="onCloseClick($event)"
+  ></ui-icon>
+}

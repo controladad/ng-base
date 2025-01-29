@@ -37,10 +37,7 @@ import {
 } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {
-  formatNumber,
-  NgIf, NgTemplateOutlet
-} from '@angular/common';
+import { formatNumber, NgTemplateOutlet } from '@angular/common';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
@@ -181,7 +178,6 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
     MatTableModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    NgIf,
     MatBadgeModule,
     PaginationComponent,
     MatCheckboxModule,
@@ -199,8 +195,8 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
     TableColDefaultComponent,
     TableColActionComponent,
     NgTemplateOutlet,
-    TableHeaderComponent,
-  ],
+    TableHeaderComponent
+],
   providers: [],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],

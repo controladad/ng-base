@@ -17,7 +17,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgStyle, NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { pipe, tap, UnaryFunction } from 'rxjs';
 import { ActionTypes, RoleService, startWithTap } from '../../../../core';
@@ -48,11 +48,10 @@ export type ButtonThemeType = 'primary' | 'secondary' | 'tertiary' | 'error' | '
     MatProgressSpinnerModule,
     NgTemplateOutlet,
     MatIconModule,
-    NgIf,
     NgStyle,
     MatTooltipModule,
-    IconComponent,
-  ],
+    IconComponent
+],
 })
 export class ButtonComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('Button', { read: ElementRef }) btnElement?: ElementRef<HTMLButtonElement>;

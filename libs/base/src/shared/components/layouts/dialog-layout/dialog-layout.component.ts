@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { NgIf } from '@angular/common';
+
 import { MatDialogRef } from '@angular/material/dialog';
 import { AbstractControl } from '@angular/forms';
 import { ButtonClickEvent, IconComponent } from '../../ui';
@@ -9,7 +9,7 @@ import { ActionTypes } from '../../../../core';
 @Component({
   selector: 'feature-dialog-layout',
   standalone: true,
-  imports: [IconComponent, NgIf, BottomControlsComponent, IconComponent],
+  imports: [IconComponent, BottomControlsComponent, IconComponent],
   templateUrl: './dialog-layout.component.html',
   styleUrls: ['./dialog-layout.component.scss'],
 })

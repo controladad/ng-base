@@ -11,9 +11,9 @@ import {
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AsyncPipe, NgIf, NgTemplateOutlet } from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { ControlErrorComponent } from '../control-error';
-import { createMask, InputMaskDirective, NgLetDirective } from '../../../directives';
+import { createMask, InputMaskDirective } from '../../../directives';
 import { formControl, FormControlExtended } from '../../../forms';
 import { MatInputModule } from '@angular/material/input';
 
@@ -23,13 +23,11 @@ import { MatInputModule } from '@angular/material/input';
   imports: [
     ReactiveFormsModule,
     InputMaskDirective,
-    NgIf,
     AsyncPipe,
     ControlErrorComponent,
     NgTemplateOutlet,
     MatInputModule,
-    NgLetDirective,
-  ],
+],
   templateUrl: './license-plate.component.html',
   styleUrls: ['./license-plate.component.scss'],
 })

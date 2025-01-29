@@ -25,49 +25,54 @@
 </div>
 
 <ng-template #Paginator>
-  <div
-    *ngIf="!(autoHide && totalPages() === 1)"
-    class="flex relative text-gray-caption text-base justify-center items-center gap-2"
-  >
-    <ui-button
-      appearance="text"
-      theme="custom"
-      class="navigate-button"
-      padding="0.25rem"
-      (onClick)="previous()"
-      [disabled]="page() === 1"
-    >
-      <mat-icon svgIcon="chevron-left"></mat-icon>
-      <span>قبلی</span>
-    </ui-button>
-    <div class="flex gap-2">
-      <ng-container *ngFor="let item of pagesArray(); index as index">
-        <p class="ellipsis-gap" *ngIf="item.number === totalPages() && showRightEllipsis()">...</p>
-        <div
-          role="button"
-          tabindex="-1"
-          [ngClass]="page() === item.number ? 'selected-page' : ''"
-          class="page-item"
-          (click)="onSelect(item)"
-          (keydown)="onSelect(item)"
+  @if (!(autoHide && totalPages() === 1)) {
+    <div
+      class="flex relative text-gray-caption text-base justify-center items-center gap-2"
+      >
+      <ui-button
+        appearance="text"
+        theme="custom"
+        class="navigate-button"
+        padding="0.25rem"
+        (onClick)="previous()"
+        [disabled]="page() === 1"
         >
-          <p class="pointer-events-none">{{ item.number | number: '2.0-0' }}</p>
-        </div>
-        <p class="ellipsis-gap" *ngIf="item.number === 1 && showLeftEllipsis()">...</p>
-      </ng-container>
+        <mat-icon svgIcon="chevron-left"></mat-icon>
+        <span>قبلی</span>
+      </ui-button>
+      <div class="flex gap-2">
+        @for (item of pagesArray(); track item; let index = $index) {
+          @if (item.number === totalPages() && showRightEllipsis()) {
+            <p class="ellipsis-gap">...</p>
+          }
+          <div
+            role="button"
+            tabindex="-1"
+            [ngClass]="page() === item.number ? 'selected-page' : ''"
+            class="page-item"
+            (click)="onSelect(item)"
+            (keydown)="onSelect(item)"
+            >
+            <p class="pointer-events-none">{{ item.number | number: '2.0-0' }}</p>
+          </div>
+          @if (item.number === 1 && showLeftEllipsis()) {
+            <p class="ellipsis-gap">...</p>
+          }
+        }
+      </div>
+      <ui-button
+        appearance="text"
+        theme="custom"
+        class="navigate-button"
+        (onClick)="next()"
+        padding="0.25rem"
+        [disabled]="page() === totalPages()"
+        >
+        <span>بعدی</span>
+        <mat-icon svgIcon="chevron-right"></mat-icon>
+      </ui-button>
     </div>
-    <ui-button
-      appearance="text"
-      theme="custom"
-      class="navigate-button"
-      (onClick)="next()"
-      padding="0.25rem"
-      [disabled]="page() === totalPages()"
-    >
-      <span>بعدی</span>
-      <mat-icon svgIcon="chevron-right"></mat-icon>
-    </ui-button>
-  </div>
+  }
 </ng-template>
 
 <ng-template #SizeSelect>
@@ -79,7 +84,7 @@
       [control]="currentSizeControl"
       [hideError]="true"
       [searchable]="false"
-    >
+      >
     </ui-field>
     <span class="text-outline">تعداد نمایش در هر صفحه</span>
   </div>

@@ -1,7 +1,7 @@
 <div
   class="ui-button-inherit-parent"
   [matTooltip]="insufficientPermission() ? 'You have insufficient permission.' : ''"
->
+  >
   <button
     #Button
     mat-flat-button
@@ -14,25 +14,32 @@
     [class.content-align-start]="align === 'start'"
     [class.content-align-center]="align === 'center' || align === undefined"
     [class.content-align-end]="align === 'end'"
-  >
+    >
     <div class="ui-button-content" [class.loading]="loading()">
-      <ng-container *ngIf="iconPosition === 'prefix'" [ngTemplateOutlet]="Icon"></ng-container>
+      @if (iconPosition === 'prefix') {
+        <ng-container [ngTemplateOutlet]="Icon"></ng-container>
+      }
       <div class="ui-button-content-portal">
         <ng-content></ng-content>
       </div>
-      <ng-container *ngIf="iconPosition === 'suffix'" [ngTemplateOutlet]="Icon"></ng-container>
-      <div *ngIf="loading()" class="ui-button-loading-spinner">
-        <mat-spinner color="primary" diameter="16" class="mx-2"></mat-spinner>
-      </div>
+      @if (iconPosition === 'suffix') {
+        <ng-container [ngTemplateOutlet]="Icon"></ng-container>
+      }
+      @if (loading()) {
+        <div class="ui-button-loading-spinner">
+          <mat-spinner color="primary" diameter="16" class="mx-2"></mat-spinner>
+        </div>
+      }
     </div>
   </button>
 </div>
 
 <ng-template #Icon>
-  <ui-icon
-    class="transition-colors"
-    *ngIf="!!icon"
-    [icon]="icon"
-    [style]="'width:' + iconSize + ';height:' + iconSize"
-  ></ui-icon>
+  @if (!!icon) {
+    <ui-icon
+      class="transition-colors"
+      [icon]="icon"
+      [style]="'width:' + iconSize + ';height:' + iconSize"
+    ></ui-icon>
+  }
 </ng-template>

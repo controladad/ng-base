@@ -12,12 +12,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Observable, of, Subscription, map } from 'rxjs';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import type { FormBuilderInputItem, FormBuilderInputOption } from './form-builder.types';
 import { FormBuilder } from './form-builder';
 import { ScreenDetectorService } from '@al00x/screen-detector';
-import { NgLetDirective } from '../../../directives';
 import { ControlBuilderComponent } from './control-builder.component';
 
 @Component({
@@ -25,11 +24,8 @@ import { ControlBuilderComponent } from './control-builder.component';
   standalone: true,
   imports: [
     AsyncPipe,
-    NgForOf,
-    NgIf,
-    NgLetDirective,
-    ControlBuilderComponent,
-  ],
+    ControlBuilderComponent
+],
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss'],
 })

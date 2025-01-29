@@ -6,13 +6,17 @@
     [disabled]="!filterModel?.hasFilter()"
     (onClick)="clearFilters()"
     >حذف فیلترها</ui-button
-  >
-  <div class="flex-auto flex flex-row-reverse items-center gap-2.5 overflow-auto">
-    <ui-chips *ngFor="let item of filterModel?.filtersArray() ?? []" [closable]="true" (onClose)="removeFilter(item)">
-      <ui-icon *ngIf="item?.icon?.length" [icon]="item?.icon"></ui-icon>
-      <span>{{ item.formatted?.prefix }}</span>
-      <span>{{ item.formatted?.text }}</span>
-      <span>{{ item.formatted?.suffix }}</span>
-    </ui-chips>
+    >
+    <div class="flex-auto flex flex-row-reverse items-center gap-2.5 overflow-auto">
+      @for (item of filterModel?.filtersArray() ?? []; track item) {
+        <ui-chips [closable]="true" (onClose)="removeFilter(item)">
+          @if (item?.icon?.length) {
+            <ui-icon [icon]="item?.icon"></ui-icon>
+          }
+          <span>{{ item.formatted?.prefix }}</span>
+          <span>{{ item.formatted?.text }}</span>
+          <span>{{ item.formatted?.suffix }}</span>
+        </ui-chips>
+      }
+    </div>
   </div>
-</div>

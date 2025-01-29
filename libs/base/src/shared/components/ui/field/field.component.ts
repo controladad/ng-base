@@ -24,7 +24,7 @@ import { DateFilterFn, MatDatepicker, MatDatepickerModule } from '@angular/mater
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { AsyncPipe, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { createMask, InputMaskDirective, InputmaskOptions } from '../../../directives';
 import {
   ItemRecords$,
@@ -63,17 +63,13 @@ export type FieldFloatLabelType = 'always' | 'auto';
     MatChipsModule,
     MatProgressBarModule,
     AsyncPipe,
-    NgIf,
-    NgSwitchDefault,
-    NgSwitchCase,
-    NgSwitch,
     InputMaskDirective,
     SelectOptionsComponent,
     OptionsTriggerDirective,
     IconComponent,
     MatProgressSpinnerModule,
-    ControlErrorComponent,
-  ],
+    ControlErrorComponent
+],
 })
 export class FieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   readonly destroyRef = inject(DestroyRef);

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { NgIf } from '@angular/common';
+
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./switch.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatSlideToggleModule, NgIf, FormsModule, ReactiveFormsModule],
+  imports: [MatSlideToggleModule, FormsModule, ReactiveFormsModule],
 })
 export class SwitchComponent {
   @Input() control: FormControl = new FormControl(false);
