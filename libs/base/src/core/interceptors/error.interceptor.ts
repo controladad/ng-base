@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { AuthStore } from '../states';
 import { ErrorHelper } from '../helpers';
+import { CacBase } from '../../configs';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private auth: AuthStore) {}
+  private readonly auth = inject(CacBase.config.states.auth);
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(

@@ -1,11 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { formBuilder, FormBuilderComponent } from '../form-builder';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonClickEvent, ButtonComponent } from '../../ui';
-import { AuthStore, AuthStoreLoginModel } from '../../../../core';
-import { Observable } from 'rxjs';
 import { formControl } from '../../../forms';
+import { CacBase } from '../../../../configs';
 
 interface LoginFormGroup {
   username: string;
@@ -14,9 +13,11 @@ interface LoginFormGroup {
 }
 
 export interface LoginFormOptions {
-  loginFn?: (model: AuthStoreLoginModel) => Observable<any>;
   hideRememberMe?: boolean;
-  routeTo?: string;
+  // give null or false to disable navigation
+  routeTo?: string | null | false;
+  beforeLoginAction?: () => void;
+  afterLoginAction?: () => void;
 }
 
 @Component({
@@ -27,6 +28,9 @@ export interface LoginFormOptions {
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
+  private readonly auth = inject(CacBase.config.states.auth);
+  private readonly router = inject(Router);
+
   @Input() options: LoginFormOptions = {};
 
   formBuilder = formBuilder<LoginFormGroup>({
@@ -58,11 +62,6 @@ export class LoginFormComponent implements OnInit {
     },
   });
 
-  constructor(
-    private authStore: AuthStore,
-    private router: Router,
-  ) {}
-
   ngOnInit() {
     if (this.options.hideRememberMe) {
       this.formBuilder.hide('rememberMe');
@@ -78,9 +77,13 @@ export class LoginFormComponent implements OnInit {
       rememberMe: this.formBuilder.inputs.rememberMe.control.value,
     };
 
-    (this.options.loginFn ? this.options.loginFn(model) : this.authStore.login(model)).pipe(e.pipe()).subscribe({
+    this.options?.beforeLoginAction?.();
+    this.auth.login(model).pipe(e.pipe()).subscribe({
       next: () => {
-        this.router.navigate([this.options.routeTo ?? '/']);
+        if (this.options.routeTo !== false && this.options.routeTo !== null) {
+          this.router.navigate([this.options.routeTo ?? '/']);
+        }
+        this.options?.afterLoginAction?.();
       },
     });
   }

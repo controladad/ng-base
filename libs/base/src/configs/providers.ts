@@ -8,12 +8,10 @@ import {
   ApiInterceptor,
   TokenInterceptor,
   ErrorInterceptor,
-  DATEFNS_PERSIAN_DATE_FORMATS,
-  DatefnsJalaliDateAdapter,
+  DatefnsJalaliDateAdapter, DeepPartial, _DummyAppBaseStore, _DummyAuthBaseStore
 } from '../core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { API_BASEURL, ENVIRONMENT } from './tokens';
-import { faIR } from 'date-fns-jalali/locale';
 import { setupGlobalServices, setupProdMode } from './globals';
 import { registerIcons } from './icons';
 import { CacBase } from './base-config';
@@ -22,6 +20,7 @@ import { loadTranslations } from '@angular/localize';
 import { enUS } from 'date-fns/locale';
 import localeEn from '@angular/common/locales/en';
 import { registerLocaleData } from '@angular/common';
+import { getStore } from '@ngneat/elf';
 
 export const provideEnvironment = (env: any) => ({ provide: ENVIRONMENT, useValue: env }) as Provider;
 
@@ -61,7 +60,7 @@ interface CacBaseProviderConfigLocalization {
 }
 
 export interface CacBaseProviderConfig {
-  config?: Partial<typeof CacBase.config>;
+  config?: DeepPartial<typeof CacBase.config>;
 
   initializeFn?: () => void;
   interceptorOnly?: boolean;
@@ -96,16 +95,34 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
       : (env['prod'] ?? env['production'])) ?? false;
 
   const langs = config?.localization?.langs ?? ['en'];
-  const currentLang = localStorage.getItem('lang') ?? langs[0];
+  CacBase.defaultLang = langs[0];
+  const appStore = getStore<any>(CacBase.generateStoreKey('app')) ?? new _DummyAppBaseStore().store;
+
+  let currentLang = appStore?.getValue()?.lang as string | undefined;
+  if (!currentLang || !langs.includes(currentLang)) {
+    currentLang = CacBase.defaultLang;
+  }
+
   const currentData = {
     dateLocale: enUS,
     // dateFormats: DateF,
     localeData: localeEn,
     ...config?.localization?.localesData?.[currentLang],
   };
-  localStorage.setItem('lang', currentLang);
+  appStore?.update((v) => ({
+    ...v,
+    lang: currentLang
+  }))
 
   CacBase.updateConfig(config?.config ?? {});
+
+  // We are doing this here to prevent circular dependency
+  if (!CacBase.config.states.auth) {
+    CacBase.config.states.auth = _DummyAuthBaseStore;
+  }
+  if (!CacBase.config.states.app) {
+    CacBase.config.states.app = _DummyAppBaseStore;
+  }
 
   if (currentData.dateLocale) {
     providers.push({ provide: MAT_DATE_LOCALE, useValue: currentData.dateLocale });

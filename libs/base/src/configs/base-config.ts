@@ -1,11 +1,15 @@
-import { deepMerge } from '../core';
+import { deepMerge, DeepPartial } from '../core';
 import type {
   DialogExtendedConfig,
   TableOptions,
 } from '../shared';
 
 export class CacBase {
+  // Do not change this variable manually, it's automatically updated via the provider.
+  static defaultLang = 'en';
+
   static config = {
+    applicationName: '',
     components: {
       dialog: {
         defaults: {
@@ -27,6 +31,14 @@ export class CacBase {
         },
       } as TableOptions<any>,
     },
+    states: {
+      // apply the name of application to storage keys
+      applyPrefixToKeys: true,
+      // Provide auth store service here
+      auth: null as any,
+      // Provide app store service here
+      app: null as any,
+    },
     validators: {
       phone: {
         min: 11,
@@ -42,7 +54,11 @@ export class CacBase {
     },
   };
 
-  static updateConfig(obj: Partial<typeof this.config>) {
+  static updateConfig(obj: DeepPartial<typeof this.config>) {
     this.config = deepMerge(this.config, obj);
+  }
+
+  static generateStoreKey(key: string) {
+    return `${this.config.states.applyPrefixToKeys && this.config.applicationName.length ? `${this.config.applicationName}_` : ''}${key}`;
   }
 }
