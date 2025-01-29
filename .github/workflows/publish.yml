@@ -36,7 +36,7 @@ jobs:
         shell: bash
 
       - name: Copy static files
-        run: cp ./README.md ./libs/base/README.md
+        run: cp ./README.md ./libs/base/README.md && npm run extract-tailwind
         shell: bash
 
       - name: Publish packages
