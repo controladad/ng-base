@@ -13,14 +13,14 @@
         "outputPath": "dist/apps/playground",
         "index": "apps/playground/src/index.html",
         "browser": "apps/playground/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": ["zone.js", "@angular/localize/init"],
         "tsConfig": "apps/playground/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
             "input": "apps/playground/public",
-            "output": "assets"
+            "output": "/"
           },
           {
             "input": "libs/base/src/assets",
