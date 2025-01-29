@@ -12,11 +12,12 @@ export class AuthStore extends AuthBaseStore<AuthStoreProps, AuthStoreLoginModel
   constructor() {
     super({
       loginApi: () => of({} as any).pipe(tap(() => console.log('HOOP!'))),
+      meApi: () => of(undefined as any).pipe(tap(() => console.log('Loo!'))),
     });
   }
 
   override login(model: AuthStoreLoginModel) {
-    return of({} as any).pipe(tap(() => console.log('HOOP!')))
+    return of({} as any).pipe(tap(() => console.log('Pre-HOOP!')))
     // return super.login(model);
   }
 }

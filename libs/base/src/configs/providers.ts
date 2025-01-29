@@ -116,11 +116,13 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
 
   CacBase.updateConfig(config?.config ?? {});
 
-  // We are doing this here to prevent circular dependency
+  // We are setting default values here instead to prevent circular dependency
   if (!CacBase.config.states.auth) {
+    // @ts-ignore
     CacBase.config.states.auth = _DummyAuthBaseStore;
   }
   if (!CacBase.config.states.app) {
+    // @ts-ignore
     CacBase.config.states.app = _DummyAppBaseStore;
   }
 

@@ -2,10 +2,11 @@ import { createStore, Store, withProps } from '@ngneat/elf';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { localStorageStrategy, persistState, StateStorage } from '@ngneat/elf-persist-state';
 import { CacBase } from '../../configs';
+import { Signal } from '@angular/core';
 
 export class BaseStore<T extends object> {
   public state$;
-  public signal;
+  public signal!: Signal<T | undefined>;
   public store: Store<any, T>;
 
   constructor(public storeOpts: {
@@ -25,7 +26,10 @@ export class BaseStore<T extends object> {
 
     this.store = store;
     this.state$ = this.store.pipe();
-    this.signal = toSignal(this.state$);
+
+    try {
+      this.signal = toSignal(this.state$);
+    } catch { /* empty */ }
   }
 
   get state() {
