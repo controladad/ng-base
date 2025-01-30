@@ -10,7 +10,13 @@
     "base.feature.dialog.open": "باز کردن دیالوگ",
     "base.feature.dialog.cancelButtonDefault": "انصراف",
     "base.feature.dialog.saveButtonDefault": "ذخیره",
-    "base.feature.dialog.insufficientPermission": "شما دسترسی برای انجام این فعالیت را ندارید."
-
+    "base.feature.dialog.insufficientPermission": "شما دسترسی برای انجام این فعالیت را ندارید.",
+    "base.feature.dialog.currentPassword": "رمز عبور فعلی",
+    "base.feature.dialog.newPassword": "رمز عبور جدید",
+    "base.feature.dialog.newPasswordRepeat": "تکرار رمز عبور جدید",
+    "base.feature.dialog.changePasswordTitle": "تغییر رمز عبور",
+    "base.feature.dialog.changePasswordSubTitle": "رمز عبور خود را تغییر دهید .",
+    "base.feature.dialog.changePasswordSubmitButton": "تغییر رمز عبور",
+    "base.feature.dialog.changePasswordCancelButton": "لغو"
   }
 }
