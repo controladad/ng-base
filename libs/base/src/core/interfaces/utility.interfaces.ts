@@ -24,4 +24,7 @@ export type Singleton<T> = T extends any[] ? T[number] : T;
 
 export type AtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 
-export type BlobNamed = Blob & { name?: string };
+// Apply partial to nested object
+export type DeepPartial<T> = T extends object ? {
+    [P in keyof T]?: DeepPartial<T[P]>;
+} : T;

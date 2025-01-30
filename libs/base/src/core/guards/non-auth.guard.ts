@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthStore } from '../states';
+import { CacBase } from '../../configs';
 
 export const NonAuthGuard: CanActivateFn = () => {
   const router = inject(Router);
-  const auth = inject(AuthStore);
+  const auth = inject(CacBase.config.states.auth);
   return !auth.isAuthenticated() ? true : router.createUrlTree(['/']);
 };

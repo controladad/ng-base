@@ -4,8 +4,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouteExtended, RouteItem, RoutePermission, RoutesExtended } from '../interfaces';
 import { Location } from '@angular/common';
 import { arraySafeAt, includes, isRouteExtended, resolveRouteChildren } from '../helpers';
-import { AuthStore } from '../states';
 import { RoleApiService } from './api';
+import { CacBase } from '../../configs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ import { RoleApiService } from './api';
 export class RouteHelperService {
   private router = inject(Router);
   private location = inject(Location);
-  private auth = inject(AuthStore);
+  private auth = inject(CacBase.config.states.auth);
   private roleApi = inject(RoleApiService);
 
   private _initialized = false;

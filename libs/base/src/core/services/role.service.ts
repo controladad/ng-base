@@ -1,15 +1,17 @@
 import { computed, inject, Injectable } from '@angular/core';
-import { AuthStore } from '../states';
 import { ActionTypes, dedupe, flatten, getAllActions, subset } from '../helpers';
 import { RouteHelperService } from './route-helper.service';
 import { ItemRecord } from '../interfaces';
 import { PermissionFlatten, RoleApiService } from './api';
+import { CacBase } from '../../configs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoleService {
   private roleApi = inject(RoleApiService);
+  private auth = inject(CacBase.config.states.auth);
+  private routeHelper = inject(RouteHelperService);
 
   public permissions = this.roleApi.permissions;
 
@@ -95,11 +97,6 @@ export class RoleService {
 
     return requiredActions.length > 0 ? (subset(allowedAction, requiredActions) ? allowedAction : []) : allowedAction;
   });
-
-  constructor(
-    private auth: AuthStore,
-    private routeHelper: RouteHelperService,
-  ) {}
 
   hasPermission(permission: string) {
     if (this.auth.isSuper()) return true;

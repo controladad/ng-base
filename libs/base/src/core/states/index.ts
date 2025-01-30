@@ -1,3 +1,3 @@
 export * from './_base.store';
-export * from './app.store';
-export * from './auth.store';
+export * from './app-base.store';
+export * from './auth-base.store';

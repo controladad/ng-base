@@ -1,8 +1,8 @@
 import { Component, DestroyRef, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
 import { combineLatest, retry, timer } from 'rxjs';
 import { LoaderScreenComponent } from '../../ui';
-import { AuthStore } from '../../../../core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CacBase } from '../../../../configs';
 
 @Component({
   selector: 'feature-initialization-protection',
@@ -13,6 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class InitializeProtectionComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
+  private readonly auth = inject(CacBase.config.states.auth);
 
   refreshed = signal(false);
   errored = signal(false);
@@ -20,8 +21,6 @@ export class InitializeProtectionComponent implements OnInit {
   @Input() refreshInterval?: number;
 
   @Output() onRefreshSuccessful = new EventEmitter();
-
-  constructor(private auth: AuthStore) {}
 
   ngOnInit() {
     combineLatest([this.auth.refresh(this.refreshInterval)])

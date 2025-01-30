@@ -1,4 +1,5 @@
 :host {
+  display: block;
   width: auto;
   height: auto;
   min-width: 64px;
@@ -51,5 +52,13 @@
       @apply justify-start;
       height: 100% !important;
     }
+  }
+}
+
+:host ::ng-deep .feature-image-uploader.is-disabled {
+  @apply cursor-default;
+
+  .ngx-file-drop__drop-zone {
+    @apply border-0 #{!important};
   }
 }

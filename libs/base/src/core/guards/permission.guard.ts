@@ -2,12 +2,12 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { RoleService, RouteHelperService } from '../services';
 import { of } from 'rxjs';
-import { AuthStore } from '../states';
+import { CacBase } from '../../configs';
 
 export const PermissionGuard: CanActivateFn = (route) => {
   const roleService = inject(RoleService);
   const routeHelper = inject(RouteHelperService);
-  const auth = inject(AuthStore);
+  const auth = inject(CacBase.config.states.auth);
   const router = inject(Router);
 
   routeHelper.getRoutePermissions(route);
