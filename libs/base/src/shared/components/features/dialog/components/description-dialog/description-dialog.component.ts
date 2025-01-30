@@ -24,7 +24,9 @@ export interface DescriptionDialogResult {
 })
 export class DescriptionDialogComponent extends BaseDialogComponent<DescriptionDialogData, DescriptionDialogResult> {
   control = formControl<string | undefined>(undefined);
-
+  TITLE_DEFAULT_TEXT = $localize`:@@base.feature.dialog.description.title:توضیحات`
+  SUBTITLE_DEFAULT_TEXT = $localize`:@@base.feature.dialog.decription.subtitle:لطفا توضیح خود را وارد کرده و دکمه ذخیره را فشار دهید.`
+  SUBMIT_DEFAULT_TEXT = $localize`:@@base.feature.dialog.description.submitButton:ذخیره`
   constructor() {
     super();
 

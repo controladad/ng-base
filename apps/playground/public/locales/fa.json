@@ -17,6 +17,9 @@
     "base.feature.dialog.changePasswordTitle": "تغییر رمز عبور",
     "base.feature.dialog.changePasswordSubTitle": "رمز عبور خود را تغییر دهید .",
     "base.feature.dialog.changePasswordSubmitButton": "تغییر رمز عبور",
-    "base.feature.dialog.changePasswordCancelButton": "لغو"
+    "base.feature.dialog.changePasswordCancelButton": "لغو",
+    "base.feature.dialog.description.title": "توضیحات",
+    "base.feature.dialog.decription.subtitle": "لطفا توضیح خود را وارد کرده و دکمه ذخیره را فشار دهید.",
+    "base.feature.dialog.description.submitButton": "ذخیره"
   }
 }
