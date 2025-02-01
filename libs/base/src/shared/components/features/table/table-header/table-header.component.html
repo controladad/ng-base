@@ -7,20 +7,25 @@
     [items]="bulkActions"
     [searchable]="false"
     label="عمل مورد نیاز"
+    i18n-label="عمل مورد نیاز@@base.feature.table.header.bulkActionLabel"
     placeholder="انتخاب"
+    i18n-placeholder="انتخاب@@base.feature.table.header.bulkActionPlaceholder"
     [hideError]="true"
   ></ui-field>
   <ui-button
     class="h-12"
     (onClick)="onBulkAction.emit({ value: bulkActionControl.value, e: $event })"
     [disabled]="!bulkActionControl.value || !options.selectionModel!.hasSelection()"
+    i18n="@@base.feature.table.header.bulkActionApply"
     >اعمال</ui-button
   >
   @if (options.selectionModel?.selectedCount() ?? 0) {
-    <span class="font-medium"
-    ><span class="mx-1">{{ options.selectionModel?.selectedCount() }}</span> از
-    <span class="mx-1">{{ totalItems }}</span> انتخاب شده است</span
-  >
+    <span class="font-medium">
+      <span class="mx-1">{{ options.selectionModel?.selectedCount() }}</span>
+       <span i18n="@@base.feature.table.header.selection.XoutOfI">از</span>
+      <span class="mx-1">{{ totalItems }}</span> 
+      <span i18n="@@base.feature.table.header.selection.isSelected">انتخاب شده است</span>
+      </span>
   }
 }
 
@@ -35,7 +40,10 @@
   icon="excel-file"
   action="export"
 >
-  <span class="mr-1">خروجی اکسل</span>
+  <span class="mr-1"
+  i18n="@@base.feature.table.header.exportExcel">
+    خروجی اکسل
+  </span>
 </ui-button>
 }
 
@@ -48,7 +56,10 @@
   icon="print"
   action="print"
 >
-  <span class="mr-1">پرینت</span>
+  <span class="mr-1"
+  i18n="@@base.feature.table.header.print">
+    پرینت
+  </span>
 </ui-button>
 }
 @if(options.events?.add) {

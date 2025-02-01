@@ -81,13 +81,13 @@ export class TableFilterMenuComponent<T> implements OnInit, AfterViewInit {
         label:
           filter.label ??
           (filter.type === 'contains'
-            ? 'دارای مقدار...'
+            ? $localize`:@@base.feature.table.filters.contains:دارای مقدار`
             : filter.type === 'equal'
-              ? 'برابر با...'
+              ? $localize`:@@base.feature.table.filters.equals:برابر با`
               : filter.type === 'greater'
-                ? 'بیشتر از...'
+                ? $localize`:@@base.feature.table.filters.greaterThan:بیشتر از`
                 : filter.type === 'lower'
-                  ? 'کمتر از...'
+                  ? $localize`:@@base.feature.table.filters.lowerThan:کمتر از`
                   : ''),
         type: filter.controlType,
         inputType: filter.inputType,
