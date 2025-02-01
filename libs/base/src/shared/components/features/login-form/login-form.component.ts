@@ -69,8 +69,6 @@ export class LoginFormComponent implements OnInit {
   }
 
   login(e: ButtonClickEvent) {
-    if (!this.formBuilder.validate()) return;
-
     const model = {
       username: this.formBuilder.inputs.username.control.value,
       password: this.formBuilder.inputs.password.control.value,

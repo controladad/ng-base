@@ -12,6 +12,7 @@ export interface FormBuilderInputOption<T> {
   invisible?: boolean;
   // It will make the input hidden, dus its also disabled
   hidden?: boolean;
+  width?: string;
   label?: string;
   colspan?: number;
   floatLabel?: 'auto' | 'always';
@@ -23,6 +24,7 @@ export interface FormBuilderInputOption<T> {
   mask?: FieldMaskType;
   prefixIcon?: string;
   suffixIcon?: string;
+  hideSuffix?: boolean;
   suffix?: string;
   class?: string;
   hideError?: boolean;

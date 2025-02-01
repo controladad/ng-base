@@ -50,6 +50,7 @@
           [maskType]="input.mask"
           [suffixIcon]="input.suffixIcon"
           [prefixIcon]="input.prefixIcon"
+          [hideSuffix]="input.hideSuffix ?? false"
           [suffix]="input.suffix"
           [autoComplete]="input.autocomplete === undefined ? allowAutocomplete! : $any(input.autocomplete)"
           [clearable]="input.clearable!"

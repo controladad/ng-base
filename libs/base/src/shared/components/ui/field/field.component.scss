@@ -10,7 +10,7 @@
 }
 
 .ui-field-label {
-  @apply text-sm mb-2 font-medium;
+  @apply text-sm mb-2 font-medium select-none;
   .required-star {
     @apply text-error;
   }
@@ -21,6 +21,11 @@
 
   border-radius: var(--mdc-outlined-text-field-container-shape);
 
+  .mat-mdc-form-field-icon-suffix,
+  .mat-mdc-form-field-icon-prefix {
+    padding: 0px 6px 0px 6px !important;
+  }
+
   &.mat-form-field-disabled,
   &.is-readonly {
     .mat-mdc-form-field-icon-suffix,
@@ -30,10 +35,10 @@
       }
     }
     input {
-      color: rgba(0, 0, 0, 0.65) !important;
+      color: rgba(0, 0, 0, 0.75) !important;
     }
     textarea {
-      color: rgba(0, 0, 0, 0.65) !important;
+      color: rgba(0, 0, 0, 0.75) !important;
     }
   }
 
@@ -76,7 +81,7 @@
     padding-bottom: 8px !important;
     min-width: 5rem !important;
     width: auto !important;
-    font-weight: 500 !important;
+    font-weight: 400 !important;
   }
 
   &.type-textarea {
@@ -133,6 +138,10 @@
   }
   .mdc-notched-outline__notch {
     @apply pe-0 ps-0 #{!important};
+  }
+
+  .ql-toolbar {
+    padding-top: 32px !important;
   }
 
   // Styled Properties
@@ -219,7 +228,7 @@ input[type='password'] {
 
 .numeric-field-fix {
   unicode-bidi: plaintext !important;
-  text-align: end !important;
+  //text-align: end !important;
 }
 
 .clear-button {

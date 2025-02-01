@@ -13,7 +13,7 @@
       class="{{ this.control.disabled ? 'pointer-events-none opacity-70' : '' }}"
       (change)="onValueChange($event)"
       >
-      @for (item of currentItems(); track item) {
+      @for (item of currentItems(); track item.value) {
         <mat-radio-button
           class="ms-6"
           [class.pointer-events-none]="readonly"
@@ -40,7 +40,7 @@
 </div>
 @if (control.invalid && control.touched) {
   <p class="text-error-500 text-xs mt-3 {{ label ? 'mr-[6.25rem]' : '' }}">
-    این فیلد الزامی می باشد.
+    This field is required.
   </p>
 }
 

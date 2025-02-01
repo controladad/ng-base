@@ -118,7 +118,10 @@ export class FormBuilderComponent<T, U = T> implements OnInit, AfterViewInit, On
           hidden$Value: toSignal(rawOption.hidden$ ?? of(false)),
           styles$Value: toSignal(
             this.screenDetector.state$.pipe(
-              map((state) => ({ gridColumn: state.md ? `span ${colspan} / span ${colspan}` : 1 })),
+              map((state) => ({
+                gridColumn: state.md ? `span ${colspan} / span ${colspan}` : 1,
+                width: rawOption.width ?? 'auto',
+              })),
             ),
           ),
         };

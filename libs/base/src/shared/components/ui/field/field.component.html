@@ -14,8 +14,8 @@
   [class.infix-flex]="controlType === 'datetime'"
   [class.align-left]="align === 'left'"
   [class.align-right]="align === 'right'"
-  [class.ui-field-outlined]="appearance === 'outlined'"
-  [class.ui-field-compact]="appearance === 'compact'"
+  [class.ui-field-outlined]="appearance === 'outlined' && controlType !== 'rich-text'"
+  [class.ui-field-compact]="appearance === 'compact' || controlType === 'rich-text'"
   [class.ui-field-simple]="appearance === 'simple'"
   [class.is-readonly]="state.isReadonly"
   [class.hide-error]="hideError"
@@ -24,13 +24,13 @@
   [hideRequiredMarker]="true"
   [class.loading]="loading"
   [title]="control.displayText ?? (control.value !== null && control.value !== undefined ? control.value : '')"
-  [floatLabel]="overrideFloatLabel() ?? floatLabel ?? 'auto'"
+  [floatLabel]="currentFloatLabel()"
   (click)="onFormFieldClick()"
   >
   @if (label) {
     <mat-label class="ui-field-label">
       {{ label }}
-      @if (hasStar() && (control.enabled$ | async)) {
+      @if (hasStar()) {
         <span class="required-star">*</span>
       }
     </mat-label>
@@ -46,6 +46,7 @@
         #InputElement
         [class.numeric-field-fix]="maskType === 'time' || (inputType === 'number' && control.value)"
         matInput
+        [min]="min"
         [formControl]="control"
         [placeholder]="placeholder ?? ''"
         [readonly]="state.isReadonly"
@@ -64,6 +65,17 @@
         (blur)="onBlur()"
         [tabindex]="state.isReadonly ? -1 : 0"
         />
+    }
+    @case ('rich-text') {
+      <input matInput [formControl]="control" class="hidden" readonly tabindex="-1" />
+      <quill-editor
+        [formControl]="control"
+        class="bg-white min-h-92 w-full"
+        format="html"
+        [dir]="'ltr'"
+        [placeholder]="placeholder || 'Write Here'"
+        [modules]="{toolbar: {}}">
+      </quill-editor>
     }
     @case ('select') {
       <input matInput [formControl]="control" class="hidden" readonly tabindex="-1" />
@@ -87,7 +99,7 @@
         [categories]="categories"
         [menuClass]="menuClass"
         (onSelect)="onSelect.emit($event)"
-        (onMultiSelect)="onSelectOptionsMultiple($event)"
+        (onMultipleSelect)="multipleSelect($event)"
       ></ui-select-options>
     }
     @case ('date') {
@@ -145,8 +157,8 @@
   }
   <mat-datepicker #DatePicker (closed)="onDatePickerClose()" [restoreFocus]="false">
     <mat-datepicker-actions>
-      <button class="text-error" mat-button matDatepickerCancel>انصراف</button>
-      <button class="text-primary" mat-button matDatepickerApply>ذخیره</button>
+      <button class="text-error" mat-button matDatepickerCancel>Cancel</button>
+      <button class="text-primary" mat-button matDatepickerApply>Save</button>
     </mat-datepicker-actions>
   </mat-datepicker>
   <!-- Suffix Elements -->

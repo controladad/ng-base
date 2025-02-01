@@ -1,6 +1,6 @@
 <div>
   <mat-tab-group (selectedTabChange)="currentIndex = $event.index" mat-stretch-tabs="true" mat-align-tabs="center">
-    @for (tab of tabs(); track tab; let index = $index) {
+    @for (tab of tabs(); track tab.label; let index = $index) {
       <mat-tab [label]="tab.label">
         @if (hasIcon) {
           <ng-template mat-tab-label>
@@ -11,7 +11,7 @@
             {{ tab.label }}
           </ng-template>
         }
-        @for (content of contents; track content; let i = $index) {
+        @for (content of contents; track $index; let i = $index) {
           @if (i === index) {
             <ng-container [ngTemplateOutlet]="content"></ng-container>
           }

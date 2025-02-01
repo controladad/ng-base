@@ -16,7 +16,7 @@
             [formControl]="filterControl"
             (keydown)="onFilterKeyDown($event)"
             class="unicode-normal"
-            [placeholder]="optional ? 'مقداری را اضافه یا جستجو کنید...' : 'جستجو در موارد ...'"
+            [placeholder]="optional ? 'Add or search a value...' : 'Search in Items ...'"
             />
         </div>
       }
@@ -26,7 +26,7 @@
           @let items = categories$ | async;
           <div class="w-full h-16 overflow-auto">
             <ui-chips-group [control]="categoryControl" [toggleable]="true" class="mx-4">
-              @for (item of items; track item) {
+              @for (item of items; track item.value) {
                 <ui-chips class="min-w-[5rem] py-1" appearance="outlined" [value]="item.value">{{
                   item.label
                 }}</ui-chips>
@@ -38,7 +38,7 @@
 
       @if (multiple) {
         <p class="pt-2 pb-2 px-5 text-xs text-primary">
-          {{ _selectionModel.selectedCount() }} مورد انتخاب شده
+          {{ _selectionModel.selectedCount() }} Selected option
         </p>
       }
 
@@ -47,7 +47,7 @@
       }
 
       @if (_showingOptionalValue()) {
-        <span class="ps-3 pb-2 text-xs">انتخاب مقدار اختیاری:</span>
+        <span class="ps-3 pb-2 text-xs">Select an optional value:</span>
       }
 
       <div #Container class="flex flex-col overflow-auto min-h-[7rem] max-h-[18rem]">
@@ -63,7 +63,7 @@
                 (keydown.enter)="close()"
                 mat-menu-item
                 >
-                در حال بارگذاری...
+                Loading...
               </div>
             </div>
           } @else {
@@ -76,11 +76,11 @@
                   (keydown.enter)="close()"
                   mat-menu-item
                   >
-                  آیتمی موجود نیست.
+                  No items were found.
                 </div>
               </div>
             } @else {
-              @for (item of state.items; track item; let index = $index) {
+              @for (item of state.items; track item.value; let index = $index) {
                 <button
                   mat-button
                   class="option-item"
