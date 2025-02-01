@@ -32,10 +32,10 @@ export class ErrorHelper {
   static parseApiErrorObject(error: any): APIError | undefined {
     if (!error) return undefined;
     if (typeof error === 'object') {
-      if ('error' in error) {
+      if ('error' in error && typeof error.error === 'string') {
         return error.error;
       }
-      if ('errors' in error) {
+      if ('errors' in error && typeof error.errors === 'object') {
         const message = this.extractMessageFromObjectRecord(error.errors);
         return message
           ? {

@@ -8,4 +8,4 @@ export * from './observable.helper';
 export * from './array.helper';
 export * from './role.helper';
 export * from './regex.helper';
-export * from './request.helper';
+export * from './providers.helper';

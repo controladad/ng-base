@@ -1,4 +1,3 @@
-export * from './ng-let.directive';
 export * from './ui-radio-compare-with.directive';
 export * from './permission-hide.directive';
 export * from './for-number.directive';

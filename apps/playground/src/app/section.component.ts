@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { RouteHelperService } from '@controladad/ng-base';
 
 @Component({
   selector: 'app-test-section',
@@ -16,4 +17,10 @@ import { Component, Input } from '@angular/core';
 })
 export class SectionComponent {
   @Input() title = '';
+
+  routeHelper = inject(RouteHelperService);
+
+  constructor() {
+    console.log(this.routeHelper.routeParts())
+  }
 }

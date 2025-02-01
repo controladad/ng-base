@@ -1,14 +1,12 @@
-import { map, Observable } from 'rxjs';
-import { APIPaginatedData } from '../models';
 import {
-  DataGetFn,
-  DataGetFnResponse,
+  APIPaginatedData,
+  DataGetFn, DataGetFnResponse,
   DataGetOptions,
   DataGetRequest,
   DataGetResponse,
-  DataSortDirection,
-} from '../interfaces';
-import { toPascalCase } from '../helpers';
+  DataSortDirection, toPascalCase
+} from '@controladad/ng-base';
+import { map, Observable } from 'rxjs';
 
 const PAGE_INDEX_PARAM = 'Pagination.Page';
 const PAGE_SIZE_PARAM = 'Pagination.AmountOfListPerPage';

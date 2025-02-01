@@ -12,8 +12,10 @@ import {
 import { AbstractControl } from '@angular/forms';
 
 import { ButtonClickEvent, ButtonComponent } from '../../ui';
-import { ActionTypes, RoleService } from '../../../../core';
+import { ActionTypes } from '../../../../core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
+// TODO: Fix Permissions & Role
 
 @Component({
   selector: 'feature-bottom-controls',
@@ -40,8 +42,6 @@ export class BottomControlsComponent implements OnInit, OnChanges {
   @Output() onSubmit = new EventEmitter<ButtonClickEvent>();
 
   insufficientPermission = signal(false);
-
-  constructor(private roleService: RoleService) {}
 
   ngOnInit(): void {
     this.setPermissionState();
@@ -86,6 +86,6 @@ export class BottomControlsComponent implements OnInit, OnChanges {
   }
 
   private setPermissionState() {
-    this.insufficientPermission.set(this.actionType ? !this.roleService.hasActionPermission(this.actionType) : false);
+    // this.insufficientPermission.set(this.actionType ? !this.roleService.hasActionPermission(this.actionType) : false);
   }
 }

@@ -13,15 +13,21 @@ export type RouteExtended = Omit<Route, 'children'> & {
   permissions?: string | { name?: string; key: string | string[] };
   // Guest = Non-Authenticated Users
   visibleToGuest?: boolean;
+  permittedRoles?: string[];
 };
 
 export type RoutesExtended = RouteExtended[];
 
 export interface RouteItem {
   path: string;
+  level: number;
   label?: string;
   icon?: { active?: string; default: string };
+  parent?: RouteItem;
   children?: RouteItem[];
   permission?: RoutePermission;
   visibleToGuest?: boolean;
+  isPlaceholder?: boolean;
+  permittedRoles?: string[],
+  hidden?: boolean;
 }

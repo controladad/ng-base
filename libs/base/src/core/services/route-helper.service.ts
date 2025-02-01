@@ -3,9 +3,10 @@ import { ActivatedRouteSnapshot, NavigationEnd, ResolveStart, Router, Routes } f
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouteExtended, RouteItem, RoutePermission, RoutesExtended } from '../interfaces';
 import { Location } from '@angular/common';
-import { arraySafeAt, includes, isRouteExtended, resolveRouteChildren } from '../helpers';
-import { RoleApiService } from './api';
+import { isRouteExtended } from '../helpers';
 import { CacBase } from '../../configs';
+
+// TODO: Fix Permissions
 
 @Injectable({
   providedIn: 'root',
@@ -14,218 +15,291 @@ export class RouteHelperService {
   private router = inject(Router);
   private location = inject(Location);
   private auth = inject(CacBase.config.states.auth);
-  private roleApi = inject(RoleApiService);
 
   private _initialized = false;
   private _allRoutes = signal<RouteItem[]>([]);
   private _currentRoutePermissionTree = signal<RoutePermission[] | undefined>(undefined);
 
   path = signal<string>('/');
-  parentPath = signal<string | null>(null);
-  childPath = signal<string | null>(null);
+  routeParts = signal<string[]>([]);
 
   allRoutes = this._allRoutes.asReadonly();
   currentRoutePermissionTree = this._currentRoutePermissionTree.asReadonly();
 
-  routes = computed<RouteItem[]>(() => {
-    const list = this.allRoutes();
-    const perms = this.auth.permissionKeysSignal()?.map((t) => t.toLowerCase()) ?? [];
-    const isLoggedIn = this.auth.isLoggedIn();
+  routes = computed(() => this.filterRoutes(this.allRoutes()));
 
-    if (this.auth.isSuper()) return list;
+  routeItems = computed(() => {
+    return this.getRouteItems();
+  });
 
-    return list
-      .filter((t) =>
-        isLoggedIn
-          ? t.permission
-            ? includes(
-                perms,
-                t.permission.keys.map((t) => t.toLowerCase()),
-              )
-            : true
-          : !!t.visibleToGuest,
-      )
-      .map((t) => ({
-        ...t,
-        children: t.children?.filter((child) =>
-          isLoggedIn
-            ? child.permission
-              ? includes(
-                  perms,
-                  child.permission?.keys.map((t) => t.toLowerCase()),
-                )
-              : true
-            : !!child.visibleToGuest,
-        ),
-      }));
-    //.filter((t) => (t.children?.length ?? 0) > 0);
-  });
-  parentIndex = computed(() => {
-    const parent = this.parentPath();
-    const child = this.childPath();
-    const index = this.routes().findIndex((t) => t.path === parent || t.path === `${parent}/${child}`);
-    return index >= 0 ? index : null;
-  });
-  parentItem = computed(() => arraySafeAt(this.routes(), this.parentIndex()));
-  routeChildrenItems = computed<RouteItem[]>(() => this.parentItem()?.children ?? []);
-  childIndex = computed(() => {
-    const index = this.routeChildrenItems()?.findIndex((t) => t.path === this.childPath());
-    return index >= 0 ? index : null;
-  });
-  childItem = computed(() => arraySafeAt(this.routeChildrenItems(), this.childIndex()));
+  urls = computed(() => this.getUrls(this.routes()));
 
   constructor() {
+    this.setupRouterEvents();
+    this.updateConfig();
+  }
+
+  private setupRouterEvents() {
     this.router.events.pipe(takeUntilDestroyed()).subscribe((e) => {
       if (e instanceof ResolveStart) {
         this.getRoutePermissions(e.state.root);
-
         this.resolveRoutePath(e.url);
       } else if (e instanceof NavigationEnd) {
         if (!this._initialized) {
           this._initialized = true;
           this.getRoutePermissions(this.router.routerState.snapshot.root);
         }
-
         this.resolveRoutePath(e.urlAfterRedirects);
       }
     });
-
-    this.updateConfig();
   }
 
-  updateConfig() {
+  private updateConfig() {
     this._allRoutes.set(this.parseRouteConfig(this.router.config) ?? []);
     this.resolveRoutePath(this.location.path());
   }
 
   getRoutePermissions(state?: ActivatedRouteSnapshot | null) {
     const permsTree: RoutePermission[] = [];
-    let route = state?.root ?? null;
-    let lastPermissionName: string | undefined;
-    while (route) {
-      const perm = (route?.routeConfig as RouteExtended)?.permissions;
-      if (perm) {
-        lastPermissionName = (typeof perm === 'string' ? perm : perm.name) ?? lastPermissionName;
-        let keys: string[] | undefined;
-        if (lastPermissionName && (typeof perm !== 'string' ? !perm.key : true)) {
-          keys = this.roleApi.getPermissionKeysByAction(lastPermissionName, 'read');
-        } else if (typeof perm !== 'string') {
-          keys = perm!.key instanceof Array ? perm!.key : [perm!.key];
-        }
-        permsTree.push({
-          name: lastPermissionName!,
-          keys: keys ?? [],
-        });
-      }
-      route = route.firstChild;
-    }
+    // let route = state?.root ?? null;
+    // let lastPermissionName: string | undefined;
+
+    // while (route) {
+    //   const perm = (route?.routeConfig as RouteExtended)?.permissions;
+    //   if (perm) {
+    //     lastPermissionName = (typeof perm === 'string' ? perm : perm.name) ?? lastPermissionName;
+    //     let keys: string[] | undefined;
+    //
+    //     if (lastPermissionName && (typeof perm !== 'string' ? !perm.key : true)) {
+    //       keys = this.roleApi.getPermissionKeysByAction(lastPermissionName, 'read');
+    //     } else if (typeof perm !== 'string') {
+    //       keys = perm!.key instanceof Array ? perm!.key : [perm!.key];
+    //     }
+    //
+    //     permsTree.push({
+    //       name: lastPermissionName!,
+    //       keys: keys ?? [],
+    //     });
+    //   }
+    //   route = route.firstChild;
+    // }
 
     this._currentRoutePermissionTree.set(permsTree);
     return permsTree;
   }
 
-  navigateByParent(route: RouteItem, childRoute?: RouteItem) {
-    const path = route.path;
-    let childPath: string | undefined = undefined;
-    const navigatePath: string[] = [path];
-
-    if (childRoute) {
-      childPath = childRoute.path;
-    } else {
-      childPath = route.children?.at(0)?.path;
-    }
-
-    if (childPath) {
-      navigatePath.push(childPath);
-    }
-
-    return this.router.navigate(navigatePath);
+  navigate(pathOrItem: string | string[] | RouteItem) {
+    const pathArray = Array.isArray(pathOrItem)
+      ? pathOrItem
+      : typeof pathOrItem === 'object'
+        ? this.buildRouteTree(pathOrItem)
+        : pathOrItem.split('/');
+    pathArray.unshift('/');
+    return this.router.navigate(pathArray);
   }
 
-  navigateByChild(route: RouteItem | string) {
-    const path = (typeof route === 'string' ? route : route.path).split('/');
-    return this.router.navigate([this.parentPath(), ...path]);
+  private getRoutesAtLevel(level: number): RouteItem[] {
+    let currentRoutes = this.routes();
+    if (currentRoutes.length === 0) return [];
+
+    for (let i = 0; i < level; i++) {
+      currentRoutes = currentRoutes[0].children || [];
+    }
+    return currentRoutes;
   }
 
-  getFirstAllowedRoute() {
-    const allowedRoutes = this.routes();
-    const firstParent = allowedRoutes.at(0);
-    const firstChild = firstParent?.children?.at(0);
-    return firstParent && firstChild ? `${firstParent.path}/${firstChild.path}` : null;
+  private buildRouteTree(item: RouteItem | undefined): string[] {
+    const routeParts = [];
+    while (item) {
+      if (item.path && item.path.length) {
+        routeParts.unshift(item.path);
+      }
+      item = item.parent;
+    }
+    routeParts.unshift('/');
+    return routeParts;
+  }
+
+  private buildRouteUrl(item: RouteItem | undefined): string {
+    const tree = this.buildRouteTree(item);
+    tree.shift();
+    return tree.join('/');
+  }
+
+  // if no url parameter is provided, the current url will be used
+  getRouteItemAtLevel(level: number, url?: string): RouteItem | undefined {
+    return (url ? this.getRouteItems(url) : this.routeItems())[level];
+  }
+
+  // if no url parameter is provided, the current url will be used
+  getRouteChildrenAtLevel(level: number, url?: string) {
+    return this.getRouteItemAtLevel(level, url)?.children ?? [];
+  }
+
+  // if no url parameter is provided, the current url will be used
+  getRoutePathAtLevel(level: number, url?: string): string | undefined {
+    return (url ? this.getRouteParts(url) : this.routeParts())[level];
+  }
+
+  getFirstAllowedRoute(): string | null {
+    const findFirstAllowedChild = (routes: RouteItem[]): string | null => {
+      for (const route of routes) {
+        if (route.children?.length) {
+          const childPath = findFirstAllowedChild(route.children);
+          if (childPath) return `${route.path}/${childPath}`;
+        }
+        return route.path;
+      }
+      return null;
+    };
+
+    return findFirstAllowedChild(this.routes());
   }
 
   private resolveRoutePath(urlPath: string) {
-    const urlCleaned = urlPath.startsWith('/') ? urlPath.substring(1) : urlPath;
-    this.path.set(urlCleaned);
-    const split = urlCleaned.split('/');
-    const parentRoute = split.length ? split[0] : null;
-    const childRoute = split.length > 1 ? split[1] : null;
-    this.parentPath.set(parentRoute);
-    this.childPath.set(childRoute);
+    this.path.set(this.cleanupRouteUrl(urlPath));
+    this.routeParts.set(this.getRouteParts(urlPath));
+  }
+
+  private cleanupRouteUrl(url: string) {
+    return url.startsWith('/') ? url.substring(1) : url;
+  }
+
+  private getRouteParts(url: string) {
+    return this.cleanupRouteUrl(url).split('/').filter(Boolean);
   }
 
   private parseRouteConfig(config: RoutesExtended | Routes): RouteItem[] | null {
-    const mainEntry = config.find((t) => (isRouteExtended(t) ? t.layout === 'main' : null));
-    if (!mainEntry) return null;
-
-    const parentRoutes: RouteItem[] = [];
-    for (const route of (mainEntry.children ?? []) as RoutesExtended) {
-      if (route.redirectTo || !route.path) continue;
-
-      const children = this.getRouteChildren(route);
-
-      if (!children.length) continue;
-
-      parentRoutes.push({
-        ...this.routeToRouteItem(route),
-        children,
-      });
-    }
-
-    return parentRoutes;
+    const mainEntry = config.find((t) => isRouteExtended(t) && t.layout === 'main') as RouteExtended;
+    return mainEntry ? this.getRouteChildren(mainEntry) : null;
   }
 
-  private getRouteChildren(route: RouteExtended) {
-    const transformer = (children: RouteExtended[] | undefined) => {
-      const result: RouteItem[] = [];
-      for (const item of children ?? []) {
-        if (item.path === '' && item.children) {
-          result.push(...transformer(item.children));
-        // } else if (!!item.view && !!item.path && (item.remoteName ? this.plugins.isAvailable(item.remoteName) : true)) {
-        } else if (!!item.view && !!item.path) {
-          result.push(this.routeToRouteItem(item));
-        }
+  private getRouteChildren(route: RouteExtended): RouteItem[] {
+    const processRoute = (item: RouteExtended, level = 0, parent?: RouteItem): RouteItem | null => {
+      if (item.redirectTo || (!item.path && !item.children) || !item.view) return null;
+
+      const routeItem = this.routeToRouteItem(item, level, parent);
+      if (item.children) {
+        routeItem.children = item.children
+          .map((t) => processRoute(t, level + 1, routeItem))
+          .filter((child): child is RouteItem => child !== null);
       }
-      return result;
+
+      return routeItem;
     };
 
-    return transformer(resolveRouteChildren(route));
+    return (route.children ?? []).map((t) => processRoute(t)).filter((item): item is RouteItem => item !== null);
   }
 
-  private routeToRouteItem(route: RouteExtended): RouteItem {
-    let permissionName: string | undefined = undefined;
-    let permissionKey: string[] | undefined = undefined;
-    if (route.permissions) {
-      permissionName = typeof route.permissions === 'string' ? route.permissions : route.permissions.name;
-      const rawKey = typeof route.permissions === 'string' ? undefined : route.permissions.key;
-      permissionKey =
-        !rawKey && !!permissionName
-          ? this.roleApi.getPermissionKeysByAction(permissionName, 'read')
-          : typeof rawKey === 'string'
-            ? [rawKey]
-            : rawKey;
-    }
+  private routeToRouteItem(route: RouteExtended, level: number, parent?: RouteItem): RouteItem {
+    const { permissionName, permissionKey } = this.extractPermissions(route);
 
     return {
       path: route.path!,
-      icon: route.view?.icon
-        ? typeof route.view.icon === 'string'
-          ? { default: route.view.icon }
-          : route.view.icon
-        : undefined,
+      level,
+      icon: this.extractIcon(route),
       label: route.view?.label,
       permission: permissionName && permissionKey ? { name: permissionName, keys: permissionKey } : undefined,
       visibleToGuest: route.visibleToGuest,
+      children: [],
+      parent,
+      isPlaceholder: !route.component && !route.loadComponent,
+      permittedRoles: route.permittedRoles,
+      hidden: !route.view,
     };
+  }
+
+  private extractPermissions(route: RouteExtended): { permissionName?: string; permissionKey?: string[] } {
+    // if (!route.permissions) return {};
+    //
+    // const permissionName = typeof route.permissions === 'string' ? route.permissions : route.permissions.name;
+    // const rawKey = typeof route.permissions === 'string' ? undefined : route.permissions.key;
+    //
+    // const permissionKey =
+    //   !rawKey && permissionName
+    //     ? this.roleApi.getPermissionKeysByAction(permissionName, 'read')
+    //     : typeof rawKey === 'string'
+    //     ? [rawKey]
+    //     : rawKey;
+    //
+    // return { permissionName, permissionKey };
+    return { permissionName: undefined, permissionKey: undefined };
+  }
+
+  private extractIcon(route: RouteExtended) {
+    return route.view?.icon
+      ? typeof route.view.icon === 'string'
+        ? { default: route.view.icon }
+        : route.view.icon
+      : undefined;
+  }
+
+  // if no route parameter is provided, the current route will be used
+  private getRouteItems(route?: string) {
+    const parts = route ? this.getRouteParts(route) : this.routeParts();
+    let currentItems = this.routes();
+    const items: RouteItem[] = [];
+
+    parts.forEach((part) => {
+      const item = currentItems.find((r) => r.path === part);
+      if (item) {
+        items.push(item);
+        currentItems = item.children || [];
+        item.children?.forEach((r) => items.push(r));
+      }
+    });
+
+    return items;
+  }
+
+  private filterRoutes(routes: RouteItem[]): RouteItem[] {
+    return routes;
+
+    // const filteredRoutes: RouteItem[] = [];
+    // const mappedRoutes = (this.auth.permissionKeysSignal() ?? []).map(x => x.permissions);
+    // const userPermissions = mappedRoutes.length ? mappedRoutes.reduce((prev, cur) => prev.concat(cur)) : [];
+    // routes.forEach(route => {
+    //   if (!route.permittedRoles || route.permittedRoles.find(x => userPermissions.includes(x))) {
+    //     const filteredChildren = route.children ? this.filterRoutes(route.children) : undefined;
+    //     filteredRoutes.push({...route, children: filteredChildren});
+    //   }
+    // });
+    // return filteredRoutes;
+
+    // const perms = this.auth.permissionKeysSignal()?.map(t => t.toLowerCase()) ?? [];
+    // const isLoggedIn = this.auth.isLoggedIn();
+
+    // const filterRoute = (route: RouteItem): RouteItem | null => {
+    //   const isVisible = isLoggedIn
+    //     ? route.permission
+    //       ? includes(perms, route.permission.keys.map(t => t.toLowerCase()))
+    //       : true
+    //     : !!route.visibleToGuest;
+
+    //   if (!isVisible) return null;
+
+    //   const filteredChildren = route.children
+    //     ?.map(filterRoute)
+    //     .filter((child): child is RouteItem => child !== null) ?? [];
+
+    //   return { ...route, children: filteredChildren };
+    // };
+
+    // return routes.map(filterRoute).filter((route): route is RouteItem => route !== null);
+  }
+
+  private getUrls(routeItems: RouteItem[]): string[] {
+    const urls: string[] = [];
+    routeItems.forEach((item) => {
+      urls.push(`/${item.path}`);
+      (item.children ?? [])?.map((child) => {
+        urls.push(`/${item.path}/${child.path}`);
+        if (child.children) {
+          const grandChidRoutes = this.getUrls(child.children);
+          urls.push(...grandChidRoutes);
+        }
+      });
+    });
+    return urls;
   }
 }

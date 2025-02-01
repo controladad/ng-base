@@ -1,4 +1,4 @@
-import type { AppBaseStore, AuthBaseStore, DeepPartial } from '../core';
+import type { AppBaseStore, AuthBaseStore, DataGetFn, DeepPartial } from '../core';
 import type {
   DialogExtendedConfig,
   TableOptions,
@@ -21,9 +21,6 @@ export class CacBase {
           panelClass: ['ui-dialog-default-panel'],
           autoFocus: false,
         } as DialogExtendedConfig<any>,
-      },
-      icon: {
-        strokeWidth: 1.9,
       },
       table: {
         pagination: {

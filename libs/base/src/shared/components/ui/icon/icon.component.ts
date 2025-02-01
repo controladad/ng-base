@@ -7,12 +7,19 @@ import {
   Output,
   EventEmitter,
   OnInit,
-  signal, ViewChild, AfterViewInit
+  signal,
+  ViewChild,
+  AfterViewInit,
+  InjectionToken,
 } from '@angular/core';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { NgStyle } from '@angular/common';
-import { BASE_ICONS, CacBase } from '../../../../configs';
+import { BASE_ICONS } from '../../../../configs';
 import { Subscription } from 'rxjs';
+import { componentWithDefaults } from '../../../../core';
+
+export type IconComponentType = InstanceType<typeof IconComponent>
+export const IconComponentInjection = new InjectionToken<Partial<IconComponentType>>('IconComponent');
 
 @Component({
   selector: 'ui-icon',
@@ -27,13 +34,23 @@ export class IconComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() icon?: BASE_ICONS | string;
   @Input() disabled = false;
   @Input() size = '1.5rem';
-  @Input() strokeWidth = CacBase.config.components.icon.strokeWidth;
+  @Input() strokeWidth = 1.9;
   @Input() iconClass?: string;
   @Input() wrapperClass?: string;
   @Output() onClick = new EventEmitter<MouseEvent>();
+
   @HostBinding('class.pointer-events-none') pointerEventsNone = false;
+  @HostBinding('style.width') thisWidth = '';
+  @HostBinding('style.height') thisHeight = '';
 
   isClickable = signal(false);
+
+  constructor() {
+    componentWithDefaults(this, IconComponentInjection);
+
+    this.thisWidth = this.size;
+    this.thisHeight = this.size;
+  }
 
   ngOnInit() {
     this.isClickable.set(this.onClick.observed);
@@ -45,12 +62,16 @@ export class IconComponent implements OnInit, OnChanges, AfterViewInit {
     fetchSub.add(() => {
       const svgElement = this.matIcon._elementRef.nativeElement.children.item(0) as SVGElement;
       svgElement.style.strokeWidth = `${this.strokeWidth}`;
-    })
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['disabled']) {
       this.pointerEventsNone = this.disabled;
+    }
+    if (changes['size']) {
+      this.thisWidth = this.size;
+      this.thisHeight = this.size;
     }
   }
 

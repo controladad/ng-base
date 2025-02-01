@@ -1,10 +1,9 @@
 import { map, Observable, tap } from 'rxjs';
-import { GetApiAdapter, GetApiAdapterOptionsToQueryParam, GetApiRequest } from '../../adapters';
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { getFormattedDate, toPascalCase } from '../../helpers';
-import { DataGetOptions, DataGetRequest, ItemRecord } from '../../interfaces';
-import { ENVIRONMENT } from '../../../configs';
+import { getFormattedDate, toPascalCase } from '../helpers';
+import { DataGetOptions, DataGetRequest, ItemRecord } from '../interfaces';
+import { ENVIRONMENT } from '../../configs';
 
 type ResponseType = 'json' | 'text' | 'blob' | undefined;
 interface ApiOptions {
@@ -28,6 +27,18 @@ class Endpoint {
     }
     return path;
   }
+}
+
+function GetApiAdapter<T>(s: string, options: DataGetOptions<any> | undefined) {
+  return null as any;
+}
+
+function GetApiRequest<T>(s: any, p: any) {
+  return null as any;
+}
+
+function GetApiAdapterOptionsToQueryParam(param: {pagination: undefined}) {
+  return null as any;
 }
 
 export class BaseApi<ENTITY, CREATE = any, UPDATE = any> {

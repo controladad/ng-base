@@ -20,7 +20,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgStyle, NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { pipe, tap, UnaryFunction } from 'rxjs';
-import { ActionTypes, RoleService, startWithTap } from '../../../../core';
+import { ActionTypes, startWithTap } from '../../../../core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { IconComponent } from '../icon';
@@ -35,6 +35,8 @@ export interface ButtonClickEvent {
 export type ButtonAppearanceType = 'stroked' | 'filled' | 'text';
 
 export type ButtonThemeType = 'primary' | 'secondary' | 'tertiary' | 'error' | 'custom';
+
+// TODO: Fix Permissions
 
 @Component({
   selector: 'ui-button',
@@ -95,7 +97,7 @@ export class ButtonComponent implements OnInit, AfterViewInit, OnChanges {
   loading = signal(false);
   insufficientPermission = signal(false);
 
-  constructor(private role: RoleService) {
+  constructor() {
     toObservable(this.insufficientPermission)
       .pipe(takeUntilDestroyed())
       .subscribe(() => {
@@ -190,9 +192,9 @@ export class ButtonComponent implements OnInit, AfterViewInit, OnChanges {
   private checkPermission() {
     if (!this.action && !this.permission) return;
 
-    this.insufficientPermission.set(
-      this.permission ? !this.role.hasPermission(this.permission) : !this.role.hasActionPermission(this.action),
-    );
+    // this.insufficientPermission.set(
+    //   this.permission ? !this.role.hasPermission(this.permission) : !this.role.hasActionPermission(this.action),
+    // );
   }
 
   private setDisabledClass() {

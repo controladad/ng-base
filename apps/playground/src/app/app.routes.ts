@@ -1,9 +1,14 @@
 import { Route } from '@angular/router';
+import { RouteExtended } from '@controladad/ng-base';
 
-export const appRoutes: Route[] = [
+export const appRoutes: RouteExtended[] = [
   {
     path: 'button',
     loadComponent: () => import('./ui/button-page/button.component').then((m) => m.ButtonPageComponent),
+  },
+  {
+    path: 'icon',
+    loadComponent: () => import('./ui/icon-page/icon-page.component').then((m) => m.IconPageComponent),
   },
   {
     path: 'checkbox',
@@ -24,5 +29,54 @@ export const appRoutes: Route[] = [
   {
     path: 'login',
     loadComponent: () => import('./features/login-page/login-page.component').then((m) => m.LoginPageComponent),
+  },
+  {
+    path: 'one',
+    layout: 'main',
+    loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
+    children: [
+      {
+        path: 'two',
+        loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
+        children: [
+          {
+            path: 'three',
+            loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
+          },
+          {
+            path: 'triple',
+            loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
+          }
+        ]
+      },
+      {
+        path: 'duo',
+        loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
+        children: [
+          {
+            path: 'trou',
+            loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
+          },
+          {
+            path: 'triip',
+            loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
+          }
+        ]
+      },
+      {
+        path: 'nii',
+        loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
+        children: [
+          {
+            path: 'toobl',
+            loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
+          },
+          {
+            path: 'tiii',
+            loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
+          }
+        ]
+      }
+    ]
   }
 ];
