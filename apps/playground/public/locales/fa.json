@@ -66,6 +66,6 @@
     "base.ui.pagination.perPageCount": "تعداد نمایش در هر صفحه",
     "base.ui.pagination.totalCount": "تعداد کل: ",
     "base.ui.radio.error": "این فیلد الزامی می باشد.",
-    "base.ui.radio.loading": " Loading... ",
+    "base.ui.radio.loading": " Loading... "
   }
 }
