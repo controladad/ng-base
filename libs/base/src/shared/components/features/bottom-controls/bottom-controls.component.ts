@@ -26,7 +26,7 @@ export class BottomControlsComponent implements OnInit, OnChanges {
   @ViewChild('SubmitButton') submitButton!: ButtonComponent;
 
   @Input() cancelText?: string;
-  @Input() submitText = 'ذخیره';
+  @Input() submitText = $localize`:@@base.ui.field.apply:ذخیره`;
   @Input() submitClass?: string;
   @Input() cancelClass?: string;
   @Input() cancelRoute?: string[];

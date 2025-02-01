@@ -211,8 +211,8 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
   readonly ADD_TEXT = $localize`:@@base.feature.table.addText:اضافه کردن`;
   readonly EDIT_TEXT = $localize`:@@base.feature.table.editText:تغییر دادن`;
   readonly NEW_TEXT = $localize`:@@base.feature.table.newText:جدید`;
-  readonly TRUE_TEXT = $localize`:@@base.feature.table.TrueText:بله`;
-  readonly FALSE_TEXT = $localize`:@@base.feature.table.falseText:خیر`;
+  readonly TRUE_TEXT = $localize`:@@base.values.trueText:بله`;
+  readonly FALSE_TEXT = $localize`:@@base.values.falseText:خیر`;
   readonly ACTIVE_TEXT = $localize`:@@base.feature.table.activeText:فعال`;
   readonly INACTIVE_TEXT = $localize`:@@base.feature.table.inactiveText:غیرفعال`;
   

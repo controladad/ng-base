@@ -1,13 +1,13 @@
 import { AbstractControl } from '@angular/forms';
 
 const CONTROL_ERROR = {
-  required: 'این فیلد الزامی می باشد.',
-  email: 'این ایمیل درست نیست.',
-  codeMelli: 'کد ملی نامعتبر است.',
-  unmatched: 'مقدار این فیلد مطابقت ندارد.',
-  passwordLength: 'پسورد باید ۸ کاراکتر یا بیشتر باشد.',
-  passwordChars: 'پسورد باید شامل حروف و اعداد باشد.',
-  default: 'مقدار این فیلد اشتباه میباشد.',
+  required: $localize`:@@base.errors.control.required:این فیلد الزامی می باشد.`,
+  email: $localize`:@@base.errors.control.email:این ایمیل درست نیست.`,
+  codeMelli: $localize`:@@base.errors.control.nationalCode:کد ملی نامعتبر است.`,
+  unmatched: $localize`:@@base.errors.control.unmatched:مقدار این فیلد مطابقت ندارد.`,
+  passwordLength: $localize`:@@base.errors.control.passwordLength:پسورد باید ۸ کاراکتر یا بیشتر باشد.`,
+  passwordChars: $localize`:@@base.errors.control.passwordChars:پسورد باید شامل حروف و اعداد باشد.`,
+  default: $localize`:@@base.errors.control.default:مقدار این فیلد اشتباه میباشد.`,
 } as const;
 
 export function getControlErrorMessage(control: AbstractControl, customMessage?: string) {

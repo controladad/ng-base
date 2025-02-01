@@ -38,13 +38,13 @@ export class DialogService {
   }
 
   deletePrompt(multiple?: boolean) {
-    const itemName = multiple ? 'موارد' : 'مورد';
+    const itemName = multiple ? $localize`:@@base.feature.dialog.item:موارد` : $localize`:@@base.feature.dialog.item:مورد`;
 
     return this.prompt({
       title: `آیا از حذف ${itemName} انتخاب شده مطمئن هستید؟`,
       message: `با حذف ${itemName} انتخاب شده دیگر قادر به بازگردانی آن‌ها نخواهید بود. آیا حذف اطلاعات را تایید مکنید؟`,
-      yesButtonText: 'بله، تایید می‌کنم.',
-      noButtonText: 'خیر، لغو گردد.',
+      yesButtonText: $localize`:@@base.feature.dialog.input.yesButton:بله، تایید می‌کنم.`,
+      noButtonText: $localize`:@@base.feature.dialog.input.noButton:خیر، لغو گردد.`,
     }).setActionType('delete');
   }
 

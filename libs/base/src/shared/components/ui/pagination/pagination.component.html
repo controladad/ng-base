@@ -38,7 +38,7 @@
         [disabled]="page() === 1"
         >
         <mat-icon svgIcon="chevron-left"></mat-icon>
-        <span>قبلی</span>
+        <span i18n="@@base.ui.pagination.previous">قبلی</span>
       </ui-button>
       <div class="flex gap-2">
         @for (item of pagesArray(); track item.number; let index = $index) {
@@ -68,7 +68,7 @@
         padding="0.25rem"
         [disabled]="page() === totalPages()"
         >
-        <span>بعدی</span>
+        <span i18n="@@base.ui.pagination.next">بعدی</span>
         <mat-icon svgIcon="chevron-right"></mat-icon>
       </ui-button>
     </div>
