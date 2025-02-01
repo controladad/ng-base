@@ -30,8 +30,8 @@ import {
   ItemRecords$,
   getDurationInHHMM,
   getHHMMInDuration,
-  getJalaliDate,
-  parseJalaliDate,
+  getFormattedDate,
+  parseDate,
 } from '../../../../core';
 import { SelectOptionsComponent, OptionsTriggerDirective } from '../select-options';
 import { IconComponent } from '../icon';
@@ -298,10 +298,10 @@ function getInputMask(type: FieldMaskType | 'datetime') {
         placeholder: '____/__/__ , __:__',
         parser: (v: string) => {
           if (v.includes('_')) return v;
-          return parseJalaliDate(v, 'yyyy/MM/dd , HH:mm');
+          return parseDate(v, 'yyyy/MM/dd , HH:mm');
         },
         formatter: (v: Date | string) => {
-          return getJalaliDate(v, 'yyyy/MM/dd , HH:mm');
+          return getFormattedDate(v, 'yyyy/MM/dd , HH:mm');
         },
       });
   }

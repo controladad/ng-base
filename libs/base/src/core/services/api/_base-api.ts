@@ -2,7 +2,7 @@ import { map, Observable, tap } from 'rxjs';
 import { GetApiAdapter, GetApiAdapterOptionsToQueryParam, GetApiRequest } from '../../adapters';
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { getJalaliDate, toPascalCase } from '../../helpers';
+import { getFormattedDate, toPascalCase } from '../../helpers';
 import { DataGetOptions, DataGetRequest, ItemRecord } from '../../interfaces';
 import { ENVIRONMENT } from '../../../configs';
 
@@ -190,7 +190,7 @@ export class BaseApi<ENTITY, CREATE = any, UPDATE = any> {
     const a = document.createElement('a');
     a.setAttribute('target', '_blank');
     a.href = `${this.environment.apiBaseUrl}/${this.dropSlash(exportUrl)}`;
-    a.download = `${filename ? filename : 'export'}_${getJalaliDate(new Date(), 'yyyy-MM-dd_HH-mm-ss')}`;
+    a.download = `${filename ? filename : 'export'}_${getFormattedDate(new Date(), 'yyyy-MM-dd_HH-mm-ss')}`;
     a.style.display = 'none';
     document.body.appendChild(a);
     a.click();

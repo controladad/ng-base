@@ -12,6 +12,9 @@ export class CacBase {
 
   static config = {
     applicationName: '',
+    localization: {
+      forceDateFns: undefined as 'jalali' | 'georgian' | undefined,
+    },
     components: {
       dialog: {
         defaults: {

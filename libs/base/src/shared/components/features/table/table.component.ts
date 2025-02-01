@@ -57,20 +57,18 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableFilterBarComponent } from './table-filter-bar/table-filter-bar.component';
 import { TableFormMenuComponent } from './table-form-menu/table-form-menu.component';
-import { DataGetRequest, DataGetResponse, effectDep, ItemRecord, ItemToId, objectToId } from '../../../../core';
+import { DataGetRequest, DataGetResponse, DateFns, effectDep, ItemRecord, objectToId } from '../../../../core';
 import { SelectionModel, SortModel, TableFilterModel } from '../../../classes';
 import {
   ButtonClickEvent,
   PaginationComponent,
   SkeletonComponent,
 } from '../../ui';
-import * as dateFns from 'date-fns-jalali';
 import { PrintableTableComponent } from '../printable-table';
 import { ForNumberDirective } from '../../../directives';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
-import { formControl } from '../../../forms';
 import {
   TABLE_COL_SELECTION_PROP,
   TableColSelectionComponent
@@ -889,13 +887,13 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
       case 'date':
         return (value: any) => {
           if (this.isValueEmpty(value)) return this.EMPTY_VALUE;
-          return dateFns.format(new Date(value), 'yyyy/MM/dd');
+          return DateFns().format(new Date(value), 'yyyy/MM/dd');
         };
 
       case 'datetime':
         return (value: any) => {
           if (this.isValueEmpty(value)) return this.EMPTY_VALUE;
-          const format = dateFns.format(new Date(value), 'yyyy/MM/dd HH:mm').split(' ');
+          const format = DateFns().format(new Date(value), 'yyyy/MM/dd HH:mm').split(' ');
           return `تاریخ ${format[0]} \n ساعت ${format[1]}`;
         };
 
