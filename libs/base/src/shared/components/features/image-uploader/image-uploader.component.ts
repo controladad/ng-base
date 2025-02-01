@@ -67,7 +67,7 @@ export class ImageUploaderComponent<INPUT, OPTION> implements OnInit, OnDestroy 
   updateValues() {
     const currentValue = this.control.value;
     if (!this.fetchFn) {
-      throw new Error('No fetchFn provided');
+      throw new Error($localize`:@@base.feature.imageUploader.noFetchFnError:No fetchFn provided`);
     }
     if (currentValue && currentValue.length) {
       if (currentValue.startsWith('http')) {
@@ -105,7 +105,7 @@ export class ImageUploaderComponent<INPUT, OPTION> implements OnInit, OnDestroy 
     if (this.disabled || this.control.disabled) return;
 
     if (!this.uploadFn) {
-      throw new Error('No uploadFn provided');
+      throw new Error($localize`:@@base.feature.imageUploader.noUploadFnError:No uploadFn provided`);
     }
 
     this.control.markAsTouched();

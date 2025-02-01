@@ -24,6 +24,8 @@
     "base.feature.dialog.input.title": "آیا از حذف این مورد مطمئن هستید؟",
     "base.feature.dialog.input.message": "با حذف مورد انتخاب شده دیگر قادر به بازگردانی آن‌ها نخواهید بود.",
     "base.feature.dialog.input.noButton": "خیر، لغو گردد",
-    "base.feature.dialog.input.yesButton": "بله، تایید می‌کنم"
+    "base.feature.dialog.input.yesButton": "بله، تایید می‌کنم",
+    "base.feature.imageUploader.noFetchFnError": "No fetchFn provided",
+    "base.feature.imageUploader.noUploadFnError": "No uploadFn provided"
   }
 }
