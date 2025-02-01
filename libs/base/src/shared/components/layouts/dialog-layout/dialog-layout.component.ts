@@ -29,8 +29,8 @@ export class DialogLayoutComponent {
   // Use this event only if you need to handle
   @Output() onCancel = new EventEmitter();
 
-  fallbackSubmitText = $localize`:@@base.feature.dialog.saveButtonDefault:ذخیره`; // Fallback for submit button
-  fallbackCancelText = $localize`:@@base.feature.dialog.cancelButtonDefault:انصراف`;
+  SUBMIT_DEFAULT_TEXT = $localize`:@@base.feature.dialog.saveButtonDefault:ذخیره`; // Fallback for submit button
+  CANCEL_DEFAULT_TEXT = $localize`:@@base.feature.dialog.cancelButtonDefault:انصراف`;
   // ActionType is being set by the BaseDialog.setActionType, or you can call the setActionType from this component directly.
   protected actionType = signal<ActionTypes | undefined>(undefined);
 

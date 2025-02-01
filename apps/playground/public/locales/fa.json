@@ -20,6 +20,10 @@
     "base.feature.dialog.changePasswordCancelButton": "لغو",
     "base.feature.dialog.description.title": "توضیحات",
     "base.feature.dialog.decription.subtitle": "لطفا توضیح خود را وارد کرده و دکمه ذخیره را فشار دهید.",
-    "base.feature.dialog.description.submitButton": "ذخیره"
+    "base.feature.dialog.description.submitButton": "ذخیره",
+    "base.feature.dialog.input.title": "آیا از حذف این مورد مطمئن هستید؟",
+    "base.feature.dialog.input.message": "با حذف مورد انتخاب شده دیگر قادر به بازگردانی آن‌ها نخواهید بود.",
+    "base.feature.dialog.input.noButton": "خیر، لغو گردد",
+    "base.feature.dialog.input.yesButton": "بله، تایید می‌کنم"
   }
 }

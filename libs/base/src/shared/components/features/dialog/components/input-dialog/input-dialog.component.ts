@@ -54,10 +54,10 @@ export class InputDialogComponent<T, U> extends BaseDialogComponent<InputDialogD
 
     this.dialogInvoker
       .open<PromptDialogComponent, PromptDialogData, PromptDialogResult>(PromptDialogComponent, {
-        title: 'آیا از حذف این مورد مطمئن هستید؟',
-        message: 'با حذف مورد انتخاب شده دیگر قادر به بازگردانی آن‌ها نخواهید بود.',
-        noButtonText: 'خیر، لغو گردد',
-        yesButtonText: 'بله، تایید می‌کنم.',
+        title: $localize`:@@base.feature.dialog.input.title:آیا از حذف این مورد مطمئن هستید؟`,
+        message: $localize`:@@base.feature.dialog.input.message:با حذف مورد انتخاب شده دیگر قادر به بازگردانی آن‌ها نخواهید بود.`,
+        noButtonText: $localize`:@@base.feature.dialog.input.noButton:خیر، لغو گردد`,
+        yesButtonText: $localize`:@@base.feature.dialog.input.yesButton:بله، تایید می‌کنم.`,
       })
       .setActionType('delete')
       .action(() => this._boundDeleteAction!(null))
