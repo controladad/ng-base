@@ -66,6 +66,12 @@
     "base.ui.pagination.perPageCount": "تعداد نمایش در هر صفحه",
     "base.ui.pagination.totalCount": "تعداد کل: ",
     "base.ui.radio.error": "این فیلد الزامی می باشد.",
-    "base.ui.radio.loading": " Loading... "
+    "base.ui.radio.loading": " Loading... ",
+    "base.ui.select.searchOrAddValue": "مقداری را اضافه یا جستجو کنید...",
+    "base.ui.select.search": "جستجو در موارد ...",
+    "base.ui.select.nItemsSelected": "مورد انتخاب شده",
+    "base.ui.select.chooseOptionalValue": "انتخاب مقدار اختیاری:",
+    "base.ui.select.loading": "در حال بارگذاری..",
+    "base.ui.select.noItemsAvailable": "آیتمی موجود نیست."
   }
 }

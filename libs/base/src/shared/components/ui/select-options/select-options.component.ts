@@ -80,6 +80,14 @@ const FILTER_DEBOUNCE_MAX = 250;
 export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDestroy {
   destroyRef = inject(DestroyRef);
 
+
+  readonly SEARCH_OR_ADD_TEXT = $localize`:@@base.ui.select.searchOrAddValue:مقداری را اضافه یا جستجو کنید...`
+  readonly SEARCH_TEXT = $localize`:@@base.ui.select.search:جستجو در موارد ...`
+  readonly N_ITEMS_SELECTED_TEXT = $localize`:@@base.ui.select.nItemsSelected:مورد انتخاب شده`
+  readonly CHOOSE_OPTIONAL_VALUE_TEXT = $localize`:@@base.ui.select.chooseOptionalValue:انتخاب مقدار اختیاری:`
+  readonly LOADING_TEXT = $localize`:@@base.ui.select.loading:در حال بارگذاری..`
+  readonly NO_ITEMS_AVAILABLE_TEXT = $localize`:@@base.ui.select.noItemsAvailable:آیتمی موجود نیست.`
+
   @ViewChild('Trigger') trigger!: MatMenuTrigger;
   @ViewChild('Wrapper') wrapperEl!: ElementRef<HTMLDivElement>;
   @ViewChild('FilterInput') filterInputEl?: ElementRef<HTMLInputElement>;
