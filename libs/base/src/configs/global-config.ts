@@ -6,7 +6,7 @@ export interface CacBaseLocalizationConfig {
   localesPath?: string;
   localesData?: { [p: string]: { dateLocale?: any; dateFormats?: any; localeData?: any } };
 
-  forceDateFnsLib: 'jalali' | 'georgian' | undefined,
+  forceDateFnsLib?: 'jalali' | 'georgian' | undefined,
 }
 
 export class CacGlobalConfig {
@@ -15,7 +15,6 @@ export class CacGlobalConfig {
   static applicationName = '';
   static localization: CacBaseLocalizationConfig = {
     langs: ['en'],
-    forceDateFnsLib: undefined as 'jalali' | 'georgian' | undefined,
   };
   // applies application name to store keys, for example if your store key is `auth`, it will become `app_name_auth`
   static applyPrefixToStorageKeys = true;
