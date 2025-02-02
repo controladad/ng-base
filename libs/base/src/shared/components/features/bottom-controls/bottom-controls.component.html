@@ -6,14 +6,14 @@
   [disabled]="disabled || insufficientPermission()"
   [matTooltip]="insufficientPermission() ? 'You do not have permission for this action.' : ''"
   >{{ submitText }}</ui-button
+>
+@if (!hideCancel && !!cancelText) {
+  <ui-button
+    [appearance]="'stroked'"
+    class="no-btn {{ cancelClass ?? '' }}"
+    [route]="cancelRoute"
+    (onClick)="onCancelClick()"
+    >{{ cancelText }}</ui-button
   >
-  @if (!hideCancel && !!cancelText) {
-    <ui-button
-      [appearance]="'stroked'"
-      class="no-btn {{ cancelClass ?? '' }}"
-      [route]="cancelRoute"
-      (onClick)="onCancelClick()"
-      >{{ cancelText }}</ui-button
-      >
-    }
-    <ng-content></ng-content>
+}
+<ng-content></ng-content>

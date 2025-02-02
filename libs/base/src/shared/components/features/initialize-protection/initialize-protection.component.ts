@@ -2,7 +2,7 @@ import { Component, DestroyRef, EventEmitter, inject, Input, OnInit, Output, sig
 import { combineLatest, retry, timer } from 'rxjs';
 import { LoaderScreenComponent } from '../../ui';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CacBase } from '../../../../configs';
+import { CacGlobalConfig } from '../../../../configs';
 
 @Component({
   selector: 'feature-initialization-protection',
@@ -13,7 +13,7 @@ import { CacBase } from '../../../../configs';
 })
 export class InitializeProtectionComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
-  private readonly auth = inject(CacBase.config.states.auth);
+  private readonly auth = inject(CacGlobalConfig.config.states.auth);
 
   refreshed = signal(false);
   errored = signal(false);

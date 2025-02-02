@@ -11,7 +11,7 @@ import {
   DatefnsJalaliDateAdapter, DeepPartial, _DummyAppBaseStore, _DummyAuthBaseStore
 } from './core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { CacBase, API_BASEURL, ENVIRONMENT, registerIcons } from './configs';
+import { CacGlobalConfig, API_BASEURL, ENVIRONMENT, registerIcons } from './configs';
 import { setupGlobalServices, setupProdMode } from './globals';
 import { DateFnsAdapter } from '@angular/material-date-fns-adapter';
 import { loadTranslations } from '@angular/localize';
@@ -58,7 +58,7 @@ interface CacBaseProviderConfigLocalization {
 }
 
 export interface CacBaseProviderConfig {
-  config?: DeepPartial<typeof CacBase.config>;
+  config?: DeepPartial<typeof CacGlobalConfig.config>;
 
   initializeFn?: () => void;
   interceptorOnly?: boolean;
@@ -92,24 +92,24 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
         : env[config.isProd]
       : (env['prod'] ?? env['production'])) ?? false;
 
-  CacBase.updateConfig(config?.config ?? {});
+  CacGlobalConfig.updateConfig(config?.config ?? {});
   // We are setting default values here instead to prevent circular dependency
-  if (!CacBase.config.states.auth) {
+  if (!CacGlobalConfig.config.states.auth) {
     // @ts-ignore
-    CacBase.config.states.auth = _DummyAuthBaseStore;
+    CacGlobalConfig.config.states.auth = _DummyAuthBaseStore;
   }
-  if (!CacBase.config.states.app) {
+  if (!CacGlobalConfig.config.states.app) {
     // @ts-ignore
-    CacBase.config.states.app = _DummyAppBaseStore;
+    CacGlobalConfig.config.states.app = _DummyAppBaseStore;
   }
 
   const langs = config?.localization?.langs ?? ['en'];
-  CacBase.defaultLang = langs[0];
-  const appStore = getStore<any>(CacBase.generateStoreKey('app')) ?? new _DummyAppBaseStore().store;
+  CacGlobalConfig.defaultLang = langs[0];
+  const appStore = getStore<any>(CacGlobalConfig.generateStoreKey('app')) ?? new _DummyAppBaseStore().store;
 
   let currentLang = appStore?.getValue()?.lang as string | undefined;
   if (!currentLang || !langs.includes(currentLang)) {
-    currentLang = CacBase.defaultLang;
+    currentLang = CacGlobalConfig.defaultLang;
   }
 
   const currentData = {

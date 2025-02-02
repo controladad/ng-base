@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { select } from '@ngneat/elf';
 import { BaseStore } from './_base.store';
-import { CacBase } from '../../configs';
+import { CacGlobalConfig } from '../../configs';
 
 export interface AppBaseStoreProps {
   rememberMe?: boolean;
@@ -30,7 +30,7 @@ export class AppBaseStore<T extends AppBaseStoreProps> extends BaseStore<T> {
   }
 
   lang() {
-    return this.get().lang ?? CacBase.defaultLang;
+    return this.get().lang ?? CacGlobalConfig.defaultLang;
   }
 
   setLang(value: string) {

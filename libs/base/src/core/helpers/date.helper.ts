@@ -1,17 +1,17 @@
 import * as jalali from 'date-fns-jalali';
 import * as dateFns from 'date-fns';
 import { getStore } from '@ngneat/elf';
-import { CacBase } from '../../configs';
+import { CacGlobalConfig } from '../../configs';
 
 let _cachedDateFns: typeof dateFns;
 // Get DateFns library based on current language
 export function DateFns(): typeof dateFns {
   if (_cachedDateFns) return _cachedDateFns;
 
-  if (CacBase.config.localization.forceDateFns === 'jalali') _cachedDateFns = jalali as any;
-  else if (CacBase.config.localization.forceDateFns === 'georgian') _cachedDateFns = dateFns;
+  if (CacGlobalConfig.config.localization.forceDateFns === 'jalali') _cachedDateFns = jalali as any;
+  else if (CacGlobalConfig.config.localization.forceDateFns === 'georgian') _cachedDateFns = dateFns;
   else {
-    const store = getStore<any>(CacBase.generateStoreKey('app'));
+    const store = getStore<any>(CacGlobalConfig.generateStoreKey('app'));
     _cachedDateFns = (store?.getValue().lang === 'fa' ? jalali : dateFns) as any;
   }
 

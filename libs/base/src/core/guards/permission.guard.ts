@@ -2,14 +2,14 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { RouteHelperService } from '../services';
 import { of } from 'rxjs';
-import { CacBase } from '../../configs';
+import { CacGlobalConfig } from '../../configs';
 
 // TODO: Fix Permissions
 
 export const PermissionGuard: CanActivateFn = (route) => {
   // const roleService = inject(RoleService);
   const routeHelper = inject(RouteHelperService);
-  const auth = inject(CacBase.config.states.auth);
+  const auth = inject(CacGlobalConfig.config.states.auth);
   const router = inject(Router);
 
   routeHelper.getRoutePermissions(route);

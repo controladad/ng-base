@@ -1,19 +1,48 @@
 import { AbstractControl, Validators as AngularValidators } from '@angular/forms';
 import { debounceTime, Subscription, take } from 'rxjs';
-import { RegexIP, RegexPassword } from '../../core';
-import { CacBase } from '../../configs';
-import { inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { inject, InjectionToken } from '@angular/core';
 
-// @ts-ignore
+const RegexIP = new RegExp(`^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}$`);
+const RegexPassword = new RegExp(`^(?=.*\\d)(?=.*[A-Za-z])(?=.*[a-zA-Z]).*$`);
+
+const VALIDATORS_DEFAULTS = {
+  phone: {
+    min: 11,
+    max: 11,
+  },
+  nationalCode: {
+    min: 10,
+    max: 10,
+  },
+  password: {
+    regex: RegexPassword,
+    min: 8,
+  },
+};
+
+export const ValidatorsConfig = new InjectionToken<Partial<typeof VALIDATORS_DEFAULTS>>('Validators');
+
+function withDefault<T>(input: T | undefined, defaultValue: T) {
+  return input !== undefined ? input : defaultValue;
+}
+
 export class Validators extends AngularValidators {
-  static nationalCode(control: AbstractControl) {
-    return Validators.number(
-      CacBase.config.validators.nationalCode.min,
-      CacBase.config.validators.nationalCode.max,
-    )(control) !== null
-      ? { codeMelli: { value: control.value } }
-      : null;
+  private static config() {
+    const value = inject(ValidatorsConfig);
+    return {
+      ...VALIDATORS_DEFAULTS,
+      ...value,
+    };
+  }
+
+  static nationalCode(min?: number, max?: number) {
+    const config = this.config();
+    const minValue = withDefault(min, config.nationalCode.min);
+    const maxValue = withDefault(max, config.nationalCode.max);
+
+    return (control: AbstractControl) => {
+      return Validators.number(minValue, maxValue)(control) !== null ? { codeMelli: { value: control.value } } : null;
+    };
   }
 
   static clone(controller: AbstractControl) {
@@ -58,14 +87,17 @@ export class Validators extends AngularValidators {
     };
   }
 
-  static password(regex?: RegExp, minLength?: number) {
+  static password(minLength?: number, regex?: RegExp) {
+    const config = this.config();
+    const minValue = withDefault(minLength, config.password.min);
+    const regexValue = withDefault(regex, config.password.regex);
+
     return (control: AbstractControl) => {
       const value = control?.value ?? '';
       if (!value || value === '') return null;
 
-      const tested = (regex ?? new RegExp(RegexPassword, 'gm')).test(value);
-      const length =
-        (value.length ?? 0) >= (minLength !== undefined ? minLength : CacBase.config.validators.password.min);
+      const tested = regexValue.test(value);
+      const length = (value.length ?? 0) >= minValue;
       return !tested
         ? { passwordChars: { value: control.value } }
         : !length
@@ -75,14 +107,12 @@ export class Validators extends AngularValidators {
   }
 
   static phone(min?: number, max?: number) {
-    const felan = inject(HttpClient);
+    const config = this.config();
+    const minValue = withDefault(min, config.phone.min);
+    const maxValue = withDefault(max, config.phone.max);
+
     return (control: AbstractControl) => {
-      return Validators.number(
-        min === undefined ? CacBase.config.validators.phone.min : min,
-        max === undefined ? CacBase.config.validators.phone.max : max,
-      )(control) !== null
-        ? { phoneNumber: { value: control.value } }
-        : null;
+      return Validators.number(minValue, maxValue)(control) !== null ? { phoneNumber: { value: control.value } } : null;
     };
   }
 

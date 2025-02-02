@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { BaseStore } from './_base.store';
 import { flatten } from '../helpers';
 import { localStorageStrategy, sessionStorageStrategy, StateStorage } from '@ngneat/elf-persist-state';
-import { CacBase } from '../../configs';
+import { CacGlobalConfig } from '../../configs';
 
 export interface AuthBaseStoreProps<USER> {
   token?: string;
@@ -18,7 +18,7 @@ export interface AuthBaseStoreLoginModel {
 
 function storage() {
   // We are directly accessing the store to prevent circular dependencies
-  const store = getStore<any>(CacBase.generateStoreKey('app'));
+  const store = getStore<any>(CacGlobalConfig.generateStoreKey('app'));
   const rememberMe = store?.getValue().rememberMe ?? false;
   if (rememberMe) {
     return localStorageStrategy;
@@ -41,7 +41,7 @@ export const AuthStorageEngine: StateStorage = {
 
 export class AuthBaseStore<T extends AuthBaseStoreProps<any>, L extends AuthBaseStoreLoginModel> extends BaseStore<T> {
   protected router = inject(Router);
-  protected app = inject(CacBase.config.states.app);
+  protected app = inject(CacGlobalConfig.config.states.app);
 
   constructor(
     public opts: {

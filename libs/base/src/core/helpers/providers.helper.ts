@@ -1,7 +1,6 @@
 import { inject, InjectionToken } from '@angular/core';
 
-// multi is enabled by default
-export function provide<T>(token: InjectionToken<T>, value: T | (() => T), multi = true) {
+export function provide<T>(token: InjectionToken<T>, value: T | (() => T), multi = false) {
   if (typeof value === 'function') {
     return { provide: token, useFactory: value, multi };
   } else {
@@ -9,8 +8,10 @@ export function provide<T>(token: InjectionToken<T>, value: T | (() => T), multi
   }
 }
 
-export function componentWithDefaults<T>(component: any, token: InjectionToken<T>, defaultValues: Partial<T> = {}) {
-  const values = inject(token) as T[];
+export function componentWithDefaultConfig<T>(component: any, token: InjectionToken<T>, defaultValues: Partial<T> = {}) {
+  const valuesInjected = inject(token) as T[] | T;
+  const values = valuesInjected instanceof Array ? valuesInjected : [valuesInjected];
+
   let defaults = {
     ...defaultValues
   };

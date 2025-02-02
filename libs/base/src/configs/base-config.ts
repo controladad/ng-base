@@ -1,12 +1,8 @@
 import type { AppBaseStore, AuthBaseStore, DeepPartial } from '../core';
-import type {
-  DialogExtendedConfig,
-  TableOptions,
-} from '../shared';
 
 // TODO: Assigning to states causes typescript error..?
 
-export class CacBase {
+export class CacGlobalConfig {
   // Do not change this variable manually, it's automatically updated via the provider.
   static defaultLang = 'en';
 
@@ -15,24 +11,6 @@ export class CacBase {
     localization: {
       forceDateFns: undefined as 'jalali' | 'georgian' | undefined,
     },
-    components: {
-      dialog: {
-        defaults: {
-          panelClass: ['ui-dialog-default-panel'],
-          autoFocus: false,
-        } as DialogExtendedConfig<any>,
-      },
-      table: {
-        pagination: {
-          size: 10,
-        },
-        view: {
-          title: '',
-          itemName: 'آیتم',
-          actionsText: 'عمليات',
-        },
-      } as TableOptions<any>,
-    },
     states: {
       // apply the name of application to storage keys
       applyPrefixToKeys: true,
@@ -40,19 +18,6 @@ export class CacBase {
       auth: null as unknown as typeof AuthBaseStore,
       // Provide app store service here
       app: null as unknown as typeof AppBaseStore,
-    },
-    validators: {
-      phone: {
-        min: 11,
-        max: 11,
-      },
-      nationalCode: {
-        min: 10,
-        max: 10,
-      },
-      password: {
-        min: 8,
-      },
     },
   };
 

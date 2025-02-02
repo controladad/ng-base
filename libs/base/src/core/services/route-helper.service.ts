@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouteExtended, RouteItem, RoutePermission, RoutesExtended } from '../interfaces';
 import { Location } from '@angular/common';
 import { isRouteExtended } from '../helpers';
-import { CacBase } from '../../configs';
+import { CacGlobalConfig } from '../../configs';
 
 // TODO: Fix Permissions
 
@@ -14,7 +14,7 @@ import { CacBase } from '../../configs';
 export class RouteHelperService {
   private router = inject(Router);
   private location = inject(Location);
-  private auth = inject(CacBase.config.states.auth);
+  private auth = inject(CacGlobalConfig.config.states.auth);
 
   private _initialized = false;
   private _allRoutes = signal<RouteItem[]>([]);
