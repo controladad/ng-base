@@ -5,7 +5,7 @@
   }
 </p>
 <div class="h-full flex flex-col">
-  @for (item of items() ?? []; track item) {
+  @for (item of items() ?? []; track item.value) {
     <mat-checkbox
       class="checkbox"
       [checked]="checkedItems[item.value]"

@@ -9,30 +9,10 @@
   &.mat-mdc-slide-toggle .mdc-switch .mdc-switch__handle {
     @apply rounded-full;
   }
-  &.mat-mdc-slide-toggle .mdc-switch .mdc-switch__handle-track {
-    width: calc(100% - 26px);
-  }
 
   &.noIcon {
     &.mat-mdc-slide-toggle .mdc-switch .mdc-switch__handle .mdc-switch__icons {
       display: none !important;
-    }
-  }
-
-  &:not(.checked) {
-    &.mat-mdc-slide-toggle .mdc-switch .mdc-switch__handle {
-      width: 1.6rem !important;
-      height: 1.6rem !important;
-      right: -1px !important;
-      left: auto !important;
-    }
-  }
-  &.checked {
-    &.mat-mdc-slide-toggle .mdc-switch .mdc-switch__handle {
-      width: 1.6rem !important;
-      height: 1.6rem !important;
-      right: auto !important;
-      left: -1px !important;
     }
   }
 }

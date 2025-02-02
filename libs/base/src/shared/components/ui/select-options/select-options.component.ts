@@ -90,7 +90,7 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
   @Input() control: FormControlExtended = formControl(null);
   @Input() items?: ItemRecords$<T, any> | undefined;
   @Input() requiredCharactersForFilter = 1;
-  @Input() filterStrategy: 'startWith' | 'includes' = 'startWith';
+  @Input() filterStrategy: 'startWith' | 'includes' = 'includes';
   // Can select a value that doesn't exist in the list.
   @Input() optional?: boolean;
   @Input() searchable?: boolean;
@@ -102,7 +102,7 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
   @Output() menuClosed = new EventEmitter();
   @Output() onSelect = new EventEmitter<T>();
   @Output() onKeydown = new EventEmitter<KeyboardEvent>();
-  @Output() onMultiSelect = new EventEmitter<T[]>();
+  @Output() onMultipleSelect = new EventEmitter<ItemRecord<T>[]>();
 
   originalItems$ = new BehaviorSubject<ItemRecord<T>[] | undefined>(undefined);
   categories$ = new BehaviorSubject<ItemRecord<string | number>[] | undefined>(undefined);
@@ -200,7 +200,7 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
 
           if (this.multiple && term.length === 0) {
             result?.unshift({
-              label: 'انتخاب همه موارد',
+              label: 'Select All',
               value: undefined as never,
               type: 'selectAll',
             });
@@ -331,7 +331,7 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
       this._selectionModel.toggle(item);
       const items = this._selectionModel.selected() as any;
       this.currentItemControl.setValue(items);
-      this.onMultiSelect.emit(items);
+      this.onMultipleSelect.emit(items);
     } else {
       if (item.optional) {
         this._recentOptionalItems = [item];
@@ -464,6 +464,8 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
       this._selectionModel.toggleAll();
       this.currentItemControl.setValue(this._selectionModel.selected() as any);
     }
+
+    this.onMultipleSelect.emit(this._selectionModel.selected());
   }
 
   private scrollToFocusedIndex() {

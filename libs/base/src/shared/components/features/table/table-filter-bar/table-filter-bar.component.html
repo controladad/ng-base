@@ -8,7 +8,7 @@
     >حذف فیلترها</ui-button
     >
     <div class="flex-auto flex flex-row-reverse items-center gap-2.5 overflow-auto">
-      @for (item of filterModel?.filtersArray() ?? []; track item) {
+      @for (item of filterModel?.filtersArray() ?? []; track item.prop) {
         <ui-chips [closable]="true" (onClose)="removeFilter(item)">
           @if (item?.icon?.length) {
             <ui-icon [icon]="item?.icon"></ui-icon>

@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, Input } from '@angular/core';
-import { AsyncPipe, NgStyle} from '@angular/common';
+import { AsyncPipe, NgStyle } from '@angular/common';
 import { CheckboxComponent, FieldComponent, LicensePlateComponent, RadioComponent, SwitchComponent } from '../../ui';
-import type { FormBuilderInputOption } from './form-builder.types';
+import { FormBuilderInputOption } from './form-builder.types';
 import { ScreenDetectorService } from '@al00x/screen-detector';
 
 @Component({
