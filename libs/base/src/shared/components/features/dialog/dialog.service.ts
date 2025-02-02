@@ -29,7 +29,10 @@ export interface InputDialogExtended<T, U> extends DialogExtended<InputDialogCom
 })
 export class DialogService {
   constructor(private dialog: DialogInvokerService) {}
-
+  readonly DELETE_TITLE_PRE = $localize`:@@base.feature.dialog.delete.titleBeforeItemName:آیا از حذف `
+  readonly DELETE_TITLE_AFTER = $localize`:@@base.feature.dialog.delete.titleAfterItemName: انتخاب شده مطمئن هستید؟`
+  readonly DELETE_CAPTION_PRE = $localize`:@@base.feature.dialog.delete.captionBeforeItemName:با حذف `
+  readonly DELETE_CAPTION_AFTER = $localize`:@@base.feature.dialog.delete.captionAfterItemName:انتخاب شده دیگر قادر به بازگردانی آن‌ها نخواهید بود. آیا حذف اطلاعات را تایید میکنید؟`
   prompt(data: PromptDialogData) {
     return this.dialog.open<PromptDialogComponent, PromptDialogData, PromptDialogResult>(PromptDialogComponent, data, {
       width: '85vw',
@@ -41,8 +44,8 @@ export class DialogService {
     const itemName = multiple ? $localize`:@@base.feature.dialog.item:موارد` : $localize`:@@base.feature.dialog.item:مورد`;
 
     return this.prompt({
-      title: `آیا از حذف ${itemName} انتخاب شده مطمئن هستید؟`,
-      message: `با حذف ${itemName} انتخاب شده دیگر قادر به بازگردانی آن‌ها نخواهید بود. آیا حذف اطلاعات را تایید مکنید؟`,
+      title: `${this.DELETE_TITLE_PRE} ${itemName} ${this.DELETE_TITLE_AFTER}`,
+      message: `${this.DELETE_CAPTION_PRE} ${itemName} ${this.DELETE_CAPTION_AFTER}`,
       yesButtonText: $localize`:@@base.feature.dialog.input.yesButton:بله، تایید می‌کنم.`,
       noButtonText: $localize`:@@base.feature.dialog.input.noButton:خیر، لغو گردد.`,
     }).setActionType('delete');
