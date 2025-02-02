@@ -12,26 +12,26 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
-import { ControlErrorComponent } from '../control-error';
+import { CacControlErrorComponent } from '../control-error';
 import { createMask, InputMaskDirective } from '../../../directives';
 import { formControl, FormControlExtended } from '../../../forms';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'ui-license-plate',
+  selector: 'cac-license-plate',
   standalone: true,
   imports: [
     ReactiveFormsModule,
     InputMaskDirective,
     AsyncPipe,
-    ControlErrorComponent,
+    CacControlErrorComponent,
     NgTemplateOutlet,
     MatInputModule,
 ],
   templateUrl: './license-plate.component.html',
   styleUrls: ['./license-plate.component.scss'],
 })
-export class LicensePlateComponent implements OnChanges, OnDestroy, OnInit {
+export class CacLicensePlateComponent implements OnChanges, OnDestroy, OnInit {
   @ViewChild('input') inputEl?: ElementRef<HTMLInputElement>;
   @Input() control: FormControlExtended = formControl<string | undefined>(undefined);
   @Input() label?: string;

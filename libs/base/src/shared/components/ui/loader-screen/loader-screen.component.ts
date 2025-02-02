@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { ButtonComponent } from '../button';
+import { CacButtonComponent } from '../button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
-  selector: 'ui-loader-screen',
+  selector: 'cac-loader-screen',
   standalone: true,
-  imports: [ButtonComponent, MatProgressSpinnerModule],
+  imports: [CacButtonComponent, MatProgressSpinnerModule],
   templateUrl: './loader-screen.component.html',
   styleUrls: ['./loader-screen.component.scss'],
   animations: [
@@ -23,7 +23,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ]),
   ],
 })
-export class LoaderScreenComponent {
+export class CacLoaderScreenComponent {
   @Input() show = false;
   @Input() errored = false;
   @Input() hideSpinner = false;

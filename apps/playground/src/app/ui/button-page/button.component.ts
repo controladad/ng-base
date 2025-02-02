@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '@controladad/ng-base';
+import { CacButtonComponent } from '@controladad/ng-base';
 import { SectionComponent } from '../../section.component';
 
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [ButtonComponent, SectionComponent],
+  imports: [CacButtonComponent, SectionComponent],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })

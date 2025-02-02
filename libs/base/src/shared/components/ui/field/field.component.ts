@@ -34,10 +34,10 @@ import {
   parseDate,
   ItemRecord
 } from '../../../../core';
-import { SelectOptionsComponent, OptionsTriggerDirective } from '../select-options';
-import { IconComponent } from '../icon';
+import { CacSelectOptionsComponent, OptionsTriggerDirective } from '../select-options';
+import { CacIconComponent } from '../icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ControlErrorComponent } from '../control-error';
+import { CacControlErrorComponent } from '../control-error';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { QuillModule } from 'ngx-quill';
 import { DateAdapter } from '@angular/material/core';
@@ -53,7 +53,7 @@ export type FieldFloatLabelType = 'always' | 'auto';
 // TODO: Remove inputmask package & replace it with a ESM package & update mask directive to support it
 
 @Component({
-  selector: 'ui-field',
+  selector: 'cac-field',
   templateUrl: './field.component.html',
   styleUrls: ['./field.component.scss'],
   standalone: true,
@@ -68,24 +68,24 @@ export type FieldFloatLabelType = 'always' | 'auto';
     MatProgressBarModule,
     AsyncPipe,
     InputMaskDirective,
-    SelectOptionsComponent,
+    CacSelectOptionsComponent,
     OptionsTriggerDirective,
-    IconComponent,
+    CacIconComponent,
     MatProgressSpinnerModule,
-    ControlErrorComponent,
+    CacControlErrorComponent,
     QuillModule
 ],
   providers: [
     { provide: DateAdapter, useClass: CustomDateAdapter },
   ],
 })
-export class FieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   readonly destroyRef = inject(DestroyRef);
 
   @ViewChild('MatFormField') formField!: MatFormField;
   @ViewChild('InputElement') inputElement?: ElementRef<HTMLInputElement>;
   @ViewChild('SelectElement') selectElement?: ElementRef<HTMLInputElement>;
-  @ViewChild('Options') selectOptions?: SelectOptionsComponent<any>;
+  @ViewChild('Options') selectOptions?: CacSelectOptionsComponent<any>;
   @ViewChild('DatePicker') datepickerElement?: MatDatepicker<any>;
 
   // Primary Inputs

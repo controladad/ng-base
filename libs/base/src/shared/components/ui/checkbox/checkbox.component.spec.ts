@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CheckboxComponent } from './checkbox.component';
+import { CacCheckboxComponent } from './checkbox.component';
 
-describe('CheckboxComponent', () => {
-  let component: CheckboxComponent;
-  let fixture: ComponentFixture<CheckboxComponent>;
+describe('CacCheckboxComponent', () => {
+  let component: CacCheckboxComponent;
+  let fixture: ComponentFixture<CacCheckboxComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CheckboxComponent],
+      imports: [CacCheckboxComponent],
     });
-    fixture = TestBed.createComponent(CheckboxComponent);
+    fixture = TestBed.createComponent(CacCheckboxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

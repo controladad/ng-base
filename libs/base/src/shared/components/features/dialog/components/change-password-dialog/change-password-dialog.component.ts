@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { DialogLayoutComponent } from '../../../../layouts';
-import { FormBuilderComponent, formBuilder } from '../../../form-builder';
-import { BaseDialogComponent } from '../_base-dialog.component';
+import { CacDialogLayoutComponent } from '../../../../layouts';
+import { CacFormBuilderComponent, formBuilder } from '../../../form-builder';
+import { CacBaseDialogComponent } from '../_base-dialog.component';
 import { ButtonClickEvent } from '../../../../ui';
 import { formControl, Validators } from '../../../../../forms';
 
@@ -13,14 +13,14 @@ export type ChangePasswordDialogResult = {
 };
 
 @Component({
-  selector: 'feature-change-password-dialog',
+  selector: 'cac-change-password-dialog',
   standalone: true,
-  imports: [DialogLayoutComponent, FormBuilderComponent],
+  imports: [CacDialogLayoutComponent, CacFormBuilderComponent],
   templateUrl: './change-password-dialog.component.html',
   styleUrl: './change-password-dialog.component.scss',
 })
-export class ChangePasswordDialogComponent
-  extends BaseDialogComponent<ChangePasswordDialogData, ChangePasswordDialogResult>
+export class CacChangePasswordDialogComponent
+  extends CacBaseDialogComponent<ChangePasswordDialogData, ChangePasswordDialogResult>
 {
   formBuilder = formBuilder({
     cols: 1,

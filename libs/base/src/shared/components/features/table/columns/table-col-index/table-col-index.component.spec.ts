@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableColIndexComponent } from './table-col-index.component';
+import { CacTableColIndexComponent } from './table-col-index.component';
 
-describe('TableColIndexComponent', () => {
-  let component: TableColIndexComponent;
-  let fixture: ComponentFixture<TableColIndexComponent>;
+describe('CacTableColIndexComponent', () => {
+  let component: CacTableColIndexComponent;
+  let fixture: ComponentFixture<CacTableColIndexComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableColIndexComponent]
+      imports: [CacTableColIndexComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TableColIndexComponent);
+    fixture = TestBed.createComponent(CacTableColIndexComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

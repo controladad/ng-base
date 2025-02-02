@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableComponent } from './table.component';
+import { CacTableComponent } from './table.component';
 
-describe('TableComponent', () => {
-  let component: TableComponent<any>;
-  let fixture: ComponentFixture<TableComponent<any>>;
+describe('CacTableComponent', () => {
+  let component: CacTableComponent<any>;
+  let fixture: ComponentFixture<CacTableComponent<any>>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TableComponent],
+      imports: [CacTableComponent],
     });
-    fixture = TestBed.createComponent(TableComponent);
+    fixture = TestBed.createComponent(CacTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

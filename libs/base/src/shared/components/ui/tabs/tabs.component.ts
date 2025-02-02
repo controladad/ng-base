@@ -21,14 +21,14 @@ export interface TabItem {
 }
 
 @Component({
-  selector: 'ui-tabs',
+  selector: 'cac-tabs',
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
   standalone: true,
   imports: [MatTabsModule, MatIconModule, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TabsComponent implements AfterViewInit {
+export class CacTabsComponent implements AfterViewInit {
   @Input() tabs: WritableSignal<TabItem[]> = signal([]);
   @Input() hasIcon = true;
   @ContentChildren('content') allBody?: QueryList<TemplateRef<ElementRef>>;

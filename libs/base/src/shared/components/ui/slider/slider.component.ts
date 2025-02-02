@@ -8,14 +8,14 @@ export interface RangeFormGroup {
 }
 
 @Component({
-  selector: 'ui-slider',
+  selector: 'cac-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss'],
   imports: [MatSliderModule, ReactiveFormsModule],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SliderComponent {
+export class CacSliderComponent {
   @Input() type: 'basic' | 'range' = 'basic';
   @Input() control: FormControl = new FormControl();
   @Input() formGroup: FormGroup<RangeFormGroup> = new FormGroup({ start: new FormControl(), end: new FormControl() });

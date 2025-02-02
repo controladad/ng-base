@@ -19,13 +19,13 @@ import { UiRadioCompareWithDirective, UiRadioCompareWithFn } from '../../../dire
 import { ItemRecord, ItemRecords$ } from '../../../../core';
 
 @Component({
-  selector: 'ui-radio',
+  selector: 'cac-radio',
   standalone: true,
   imports: [ReactiveFormsModule, MatRadioModule, UiRadioCompareWithDirective, MatIconModule],
   templateUrl: './radio.component.html',
   styleUrls: ['./radio.component.scss'],
 })
-export class RadioComponent<T> implements OnInit, OnChanges {
+export class CacRadioComponent<T> implements OnInit, OnChanges {
   @ViewChild('RadioGroup') radioGroup!: UiRadioCompareWithDirective<any>;
 
   @Input() control = new FormControl<T | null | undefined>(null);

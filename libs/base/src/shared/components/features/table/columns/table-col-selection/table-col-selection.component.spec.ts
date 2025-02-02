@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableColSelectionComponent } from './table-col-selection.component';
+import { CacTableColSelectionComponent } from './table-col-selection.component';
 
-describe('TableColSelectionComponent', () => {
-  let component: TableColSelectionComponent;
-  let fixture: ComponentFixture<TableColSelectionComponent>;
+describe('CacTableColSelectionComponent', () => {
+  let component: CacTableColSelectionComponent;
+  let fixture: ComponentFixture<CacTableColSelectionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableColSelectionComponent]
+      imports: [CacTableColSelectionComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TableColSelectionComponent);
+    fixture = TestBed.createComponent(CacTableColSelectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

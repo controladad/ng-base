@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Directive, ElementRef, Host, Input, OnInit, Optional, Self } from '@angular/core';
 import { ActionTypes } from '../../core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { ButtonComponent } from '../components';
+import { CacButtonComponent } from '../components';
 
 // TODO: Fix Permissions
 
@@ -17,7 +17,7 @@ export class PermissionHideDirective implements OnInit {
   constructor(
     private host: ElementRef<HTMLElement>,
     private cdr: ChangeDetectorRef,
-    @Host() @Self() @Optional() private hostButton?: ButtonComponent,
+    @Host() @Self() @Optional() private hostButton?: CacButtonComponent,
   ) {
     // toObservable(this.role.currentUserAllowedActions)
     //   .pipe(takeUntilDestroyed())

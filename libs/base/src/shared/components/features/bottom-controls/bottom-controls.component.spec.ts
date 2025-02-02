@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BottomControlsComponent } from './bottom-controls.component';
+import { CacBottomControlsComponent } from './bottom-controls.component';
 
-describe('BottomControlsComponent', () => {
-  let component: BottomControlsComponent;
-  let fixture: ComponentFixture<BottomControlsComponent>;
+describe('CacBottomControlsComponent', () => {
+  let component: CacBottomControlsComponent;
+  let fixture: ComponentFixture<CacBottomControlsComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BottomControlsComponent],
+      imports: [CacBottomControlsComponent],
     });
-    fixture = TestBed.createComponent(BottomControlsComponent);
+    fixture = TestBed.createComponent(CacBottomControlsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

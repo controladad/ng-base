@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseDialogComponent } from '../_base-dialog.component';
-import { DatePickerComponent } from '../../../../ui';
+import { CacBaseDialogComponent } from '../_base-dialog.component';
+import { CacDatePickerComponent } from '../../../../ui';
 import { DateRange } from '@angular/material/datepicker';
 
 export interface CalendarsDialogResult {
@@ -8,13 +8,13 @@ export interface CalendarsDialogResult {
 }
 
 @Component({
-  selector: 'feature-calendar-dialog',
+  selector: 'cac-calendar-dialog',
   standalone: true,
-  imports: [DatePickerComponent],
+  imports: [CacDatePickerComponent],
   templateUrl: './calendar-dialog.component.html',
   styleUrl: './calendar-dialog.component.scss',
 })
-export class CalendarDialogComponent extends BaseDialogComponent<null, CalendarsDialogResult> {
+export class CacCalendarDialogComponent extends CacBaseDialogComponent<null, CalendarsDialogResult> {
   onSave(range: DateRange<Date | null> | Date) {
     this.submit({ range: range as DateRange<Date | null> });
   }

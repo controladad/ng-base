@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogLayoutComponent } from './dialog-layout.component';
+import { CacDialogLayoutComponent } from './dialog-layout.component';
 
-describe('DialogLayoutComponent', () => {
-  let component: DialogLayoutComponent;
-  let fixture: ComponentFixture<DialogLayoutComponent>;
+describe('CacDialogLayoutComponent', () => {
+  let component: CacDialogLayoutComponent;
+  let fixture: ComponentFixture<CacDialogLayoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DialogLayoutComponent],
+      imports: [CacDialogLayoutComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DialogLayoutComponent);
+    fixture = TestBed.createComponent(CacDialogLayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

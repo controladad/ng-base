@@ -11,9 +11,9 @@
           <span class="text-white text-xs">{{ col.hint }}</span>
         }
       </div>
-      <feature-table-sort class="ms-1" #Sort [column]="col" [sortModel]="options.sortModel!"></feature-table-sort>
+      <cac-table-sort class="ms-1" #Sort [column]="col" [sortModel]="options.sortModel!"></cac-table-sort>
 
-      <feature-table-filter [column]="col" [filterModel]="options.filterModel!"></feature-table-filter>
+      <cac-table-filter [column]="col" [filterModel]="options.filterModel!"></cac-table-filter>
     </div>
   </th>
   <td
@@ -60,16 +60,16 @@
         </button>
       }
       @case ('plate') {
-        <ui-license-plate
+        <cac-license-plate
           class="absolute scale-50 min-w-[19rem] pointer-events-none"
           style="transform-origin: top right"
           [value]="row.data[col.prop].rawValue"
           [hideError]="true"
-        ></ui-license-plate>
+        ></cac-license-plate>
         <div class="w-44 h-6"></div>
       }
       @case ('button') {
-        <ui-button
+        <cac-button
           class="button-type-col {{ dynamicClass }}"
           padding="0"
           appearance="text"
@@ -82,7 +82,7 @@
               row: row,
             }"
           ></ng-container>
-        </ui-button>
+        </cac-button>
       }
       @default {
         <!-- text & number -->

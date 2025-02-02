@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DatePickerComponent } from './date-picker.component';
+import { CacDatePickerComponent } from './date-picker.component';
 
-describe('DatePickerComponent', () => {
-  let component: DatePickerComponent;
-  let fixture: ComponentFixture<DatePickerComponent>;
+describe('CacDatePickerComponent', () => {
+  let component: CacDatePickerComponent;
+  let fixture: ComponentFixture<CacDatePickerComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DatePickerComponent],
+      declarations: [CacDatePickerComponent],
     });
-    fixture = TestBed.createComponent(DatePickerComponent);
+    fixture = TestBed.createComponent(CacDatePickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

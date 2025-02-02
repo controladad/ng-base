@@ -1,17 +1,17 @@
 @if (icon) {
-  <ui-icon
+  <cac-icon
     class="ui-chips-icon"
     size="1.5rem"
     [icon]="icon"
-  ></ui-icon>
+  ></cac-icon>
 }
 <ng-content></ng-content>
 @if (closable) {
-  <ui-icon
+  <cac-icon
     class="ui-chips-close-btn"
     wrapperClass="ui-chips-close-icon-wrapper"
     size="1.5rem"
     icon="close"
     (onClick)="onCloseClick($event)"
-  ></ui-icon>
+  ></cac-icon>
 }

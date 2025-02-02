@@ -4,7 +4,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { formControl } from '../../../forms';
 
 @Component({
-  selector: 'ui-control-error',
+  selector: 'cac-control-error',
   standalone: true,
   imports: [AsyncPipe],
   templateUrl: './control-error.component.html',
@@ -22,6 +22,6 @@ import { formControl } from '../../../forms';
     ]),
   ],
 })
-export class ControlErrorComponent {
+export class CacControlErrorComponent {
   @Input() control = formControl();
 }

@@ -1,9 +1,9 @@
 <div role="presentation" #Wrapper (click)="onClick()" class="ui-snackbar-panel {{ data.panelClass ?? '' }}">
   {{ data.message }}
   @if (data.action) {
-    <ui-icon (onClick)="onAction()" class="ml-auto text-primary-400">
+    <cac-icon (onClick)="onAction()" class="ml-auto text-primary-400">
       {{ data.action }}
-    </ui-icon>
+    </cac-icon>
   }
   @if (data.code) {
     <span class="absolute text-sm font-bold end-3.5 top-1.5 opacity-80">

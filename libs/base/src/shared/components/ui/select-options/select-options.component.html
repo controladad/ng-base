@@ -25,13 +25,13 @@
         <div>
           @let items = categories$ | async;
           <div class="w-full h-16 overflow-auto">
-            <ui-chips-group [control]="categoryControl" [toggleable]="true" class="mx-4">
+            <cac-chips-group [control]="categoryControl" [toggleable]="true" class="mx-4">
               @for (item of items; track item.value) {
-                <ui-chips class="min-w-[5rem] py-1" appearance="outlined" [value]="item.value">{{
+                <cac-chips class="min-w-[5rem] py-1" appearance="outlined" [value]="item.value">{{
                   item.label
-                }}</ui-chips>
+                }}</cac-chips>
               }
-            </ui-chips-group>
+            </cac-chips-group>
           </div>
         </div>
       }
@@ -111,17 +111,17 @@
                     </span>
                     <div class="flex-1"><!-- --></div>
                     @if (multiple && item.type === undefined) {
-                      <ui-checkbox
+                      <cac-checkbox
                         class="pointer-events-none"
                         [checked]="_selectionModel.selectedIds()[item.label]"
-                      ></ui-checkbox>
+                      ></cac-checkbox>
                     }
                     @if (item.type === 'selectAll') {
-                      <ui-checkbox
+                      <cac-checkbox
                         class="pointer-events-none"
                         [checked]="_selectionModel.allSelected()"
                         [indeterminate]="_selectionModel.indeterminate()"
-                      ></ui-checkbox>
+                      ></cac-checkbox>
                     }
                   </div>
                 </button>

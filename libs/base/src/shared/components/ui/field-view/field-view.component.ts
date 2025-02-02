@@ -4,13 +4,13 @@ import { Observable, of, Subscription, tap } from 'rxjs';
 import { FormControlExtended } from '../../../forms';
 
 @Component({
-  selector: 'ui-field-view',
+  selector: 'cac-field-view',
   standalone: true,
   imports: [],
   templateUrl: './field-view.component.html',
   styleUrls: ['./field-view.component.scss'],
 })
-export class FieldViewComponent implements OnChanges, OnDestroy {
+export class CacFieldViewComponent implements OnChanges, OnDestroy {
   @Input() control?: FormControlExtended;
   @Input() value?: any;
   @Input() items?: ItemRecords$<any, any>;

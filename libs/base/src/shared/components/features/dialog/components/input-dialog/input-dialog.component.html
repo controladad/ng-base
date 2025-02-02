@@ -1,4 +1,4 @@
-<feature-dialog-layout
+<cac-dialog-layout
   [title]="data.title"
   [subtitle]="data.subtitle"
   (onSubmit)="onSave($event)"
@@ -9,20 +9,20 @@
   [submitClass]="data.addButtonClass"
   >
   <div class="mt-5 w-full flex flex-col pb-1">
-    <feature-form-builder #FormBuilder [options]="data.formBuilder"></feature-form-builder>
+    <cac-form-builder #FormBuilder [options]="data.formBuilder"></cac-form-builder>
     <div [innerHTML]="data.footerHtmlContent"></div>
   </div>
 
   <ng-container slot="bottom">
     @if (data.deleteButton && _boundDeleteAction) {
-      <ui-button
+      <cac-button
         class="absolute w-auto inline-flex mt-0 start-0"
         theme="error"
         appearance="stroked"
         action="delete"
         (onClick)="onDelete()"
-        >حذف</ui-button
+        >حذف</cac-button
         >
       }
     </ng-container>
-  </feature-dialog-layout>
+  </cac-dialog-layout>

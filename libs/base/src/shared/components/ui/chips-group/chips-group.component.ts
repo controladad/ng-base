@@ -13,22 +13,22 @@ import {
 import { EventEmitter } from '@angular/core';
 import { startWith, Subscription } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ChipsComponent } from '../chips';
+import { CacChipsComponent } from '../chips';
 import { formControl, FormControlExtended } from '../../../forms';
 import { SelectionModel } from '../../../classes';
 
 @Component({
-  selector: 'ui-chips-group',
+  selector: 'cac-chips-group',
   templateUrl: './chips-group.component.html',
   styleUrls: ['./chips-group.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
 })
-export class ChipsGroupComponent<T> implements OnInit, AfterContentInit {
+export class CacChipsGroupComponent<T> implements OnInit, AfterContentInit {
   readonly destroyRef = inject(DestroyRef);
 
-  @ContentChildren(ChipsComponent) contentChildrenChips!: QueryList<ChipsComponent<T>>;
+  @ContentChildren(CacChipsComponent) contentChildrenChips!: QueryList<CacChipsComponent<T>>;
 
   @Input() toggleable = false;
   @Input() multiple = false;

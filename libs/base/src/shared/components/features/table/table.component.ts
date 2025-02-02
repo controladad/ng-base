@@ -55,28 +55,28 @@ import {
   TableStateParams
 } from './table.interfaces';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TableFilterBarComponent } from './table-filter-bar/table-filter-bar.component';
-import { TableFormMenuComponent } from './table-form-menu/table-form-menu.component';
+import { CacTableFilterBarComponent } from './table-filter-bar/table-filter-bar.component';
+import { CacTableFormMenuComponent } from './table-form-menu/table-form-menu.component';
 import { DataGetRequest, DataGetResponse, DateFns, effectDep, ItemRecord, objectToId } from '../../../../core';
 import { SelectionModel, SortModel, TableFilterModel } from '../../../classes';
 import {
   ButtonClickEvent,
-  PaginationComponent,
-  SkeletonComponent,
+  CacPaginationComponent,
+  CacSkeletonComponent,
 } from '../../ui';
-import { PrintableTableComponent } from '../printable-table';
+import { CacPrintableTableComponent } from '../printable-table';
 import { ForNumberDirective } from '../../../directives';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
 import {
   TABLE_COL_SELECTION_PROP,
-  TableColSelectionComponent
+  CacTableColSelectionComponent
 } from './columns/table-col-selection/table-col-selection.component';
-import { TABLE_COL_INDEX_PROP, TableColIndexComponent } from './columns/table-col-index/table-col-index.component';
-import { TableColDefaultComponent } from './columns/table-col-default/table-col-default.component';
-import { TABLE_COL_ACTION_PROP, TableColActionComponent } from './columns/table-col-action/table-col-action.component';
-import { TableHeaderComponent } from './table-header/table-header.component';
+import { TABLE_COL_INDEX_PROP, CacTableColIndexComponent } from './columns/table-col-index/table-col-index.component';
+import { CacTableColDefaultComponent } from './columns/table-col-default/table-col-default.component';
+import { TABLE_COL_ACTION_PROP, CacTableColActionComponent } from './columns/table-col-action/table-col-action.component';
+import { CacTableHeaderComponent } from './table-header/table-header.component';
 import { CacBase } from '../../../../configs';
 
 interface TableRowData {
@@ -138,10 +138,10 @@ export class TablePaginationMismatchError extends Error {
 // TODO: Refactor using TableService
 
 export class TableClass<T extends object> {
-  private _initFn?: (ref: TableComponent<T>) => void;
+  private _initFn?: (ref: CacTableComponent<T>) => void;
 
   public items$ = new BehaviorSubject<T[] | undefined>(undefined);
-  public ref?: TableComponent<T>;
+  public ref?: CacTableComponent<T>;
 
   constructor(public options?: TableOptions<T>) {}
 
@@ -154,7 +154,7 @@ export class TableClass<T extends object> {
     this.ref?.setOptions();
   }
 
-  setRef(ref: TableComponent<T>) {
+  setRef(ref: CacTableComponent<T>) {
     this.ref = ref;
     this._initFn?.(ref);
   }
@@ -170,36 +170,36 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
 }
 
 @Component({
-  selector: 'feature-table',
+  selector: 'cac-table',
   standalone: true,
   imports: [
     MatTableModule,
     MatButtonModule,
     MatProgressSpinnerModule,
     MatBadgeModule,
-    PaginationComponent,
+    CacPaginationComponent,
     MatCheckboxModule,
     MatMenuModule,
     MatIconModule,
-    TableFilterBarComponent,
-    PrintableTableComponent,
+    CacTableFilterBarComponent,
+    CacPrintableTableComponent,
     NgxSkeletonLoaderModule,
     ForNumberDirective,
-    SkeletonComponent,
+    CacSkeletonComponent,
     MatProgressBarModule,
-    TableFormMenuComponent,
-    TableColSelectionComponent,
-    TableColIndexComponent,
-    TableColDefaultComponent,
-    TableColActionComponent,
+    CacTableFormMenuComponent,
+    CacTableColSelectionComponent,
+    CacTableColIndexComponent,
+    CacTableColDefaultComponent,
+    CacTableColActionComponent,
     NgTemplateOutlet,
-    TableHeaderComponent
+    CacTableHeaderComponent
 ],
   providers: [],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent<T extends object> implements OnInit, OnChanges, AfterViewInit, AfterContentInit, OnDestroy {
+export class CacTableComponent<T extends object> implements OnInit, OnChanges, AfterViewInit, AfterContentInit, OnDestroy {
   readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
 
@@ -216,12 +216,12 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
 
   readonly TABLE_DEFAULTS = TABLE_DEFAULT_GENERATOR();
 
-  @ViewChild('Pagination') pagination?: PaginationComponent;
-  @ViewChild('FormMenu') tableFormMenu!: TableFormMenuComponent;
+  @ViewChild('Pagination') pagination?: CacPaginationComponent;
+  @ViewChild('FormMenu') tableFormMenu!: CacTableFormMenuComponent;
   @ViewChild('MenuTriggerAddButton') menuTriggerAddButton?: MatMenuTrigger;
-  @ViewChild('PrintableTable') printableTable!: PrintableTableComponent;
+  @ViewChild('PrintableTable') printableTable!: CacPrintableTableComponent;
   @ViewChild('Table') tableElement!: ElementRef<HTMLElement>;
-  @ViewChild('ActionCol') actionCol!: TableColActionComponent;
+  @ViewChild('ActionCol') actionCol!: CacTableColActionComponent;
 
   @Input('options') rawOptions: TableClass<T> | TableOptions<T> = this.TABLE_DEFAULTS as TableOptions<T>;
 

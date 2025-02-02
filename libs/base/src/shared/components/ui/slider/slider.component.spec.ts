@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import SliderComponent from './slider.component';
+import { CacSliderComponent } from './slider.component';
 
-describe('SliderComponent', () => {
-  let component: SliderComponent;
-  let fixture: ComponentFixture<SliderComponent>;
+describe('CacSliderComponent', () => {
+  let component: CacSliderComponent;
+  let fixture: ComponentFixture<CacSliderComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SliderComponent],
+      declarations: [CacSliderComponent],
     });
-    fixture = TestBed.createComponent(SliderComponent);
+    fixture = TestBed.createComponent(CacSliderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

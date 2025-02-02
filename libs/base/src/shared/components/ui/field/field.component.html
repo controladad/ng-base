@@ -88,7 +88,7 @@
         [placeholder]="placeholder ?? ''"
         [readonly]="true"
         />
-      <ui-select-options
+      <cac-select-options
         #Options
         [control]="control"
         [items]="items"
@@ -100,7 +100,7 @@
         [menuClass]="menuClass"
         (onSelect)="onSelect.emit($event)"
         (onMultipleSelect)="multipleSelect($event)"
-      ></ui-select-options>
+      ></cac-select-options>
     }
     @case ('date') {
       <input
@@ -176,7 +176,7 @@
   </div>
 }
 @if (clearable) {
-  <ui-icon
+  <cac-icon
     icon="close"
     matSuffix
       class="clear-button {{
@@ -194,16 +194,16 @@
     size="1.5rem"
     (mousedown)="$event.preventDefault()"
     (onClick)="onClearClick($event)"
-  ></ui-icon>
+  ></cac-icon>
 }
 @if (controlType === 'date' || controlType === 'datetime') {
-  <ui-icon
+  <cac-icon
     class="date-toggle-button"
     matSuffix
     (onClick)="openDatePicker($event)"
     >
     <mat-icon class="w-6 h-6 text-primary-600" matDatepickerToggleIcon svgIcon="calendar"></mat-icon>
-  </ui-icon>
+  </cac-icon>
 }
 @if (prefix) {
   <span matPrefix class="text-sm font-medium opacity-70">{{ prefix }}</span>
@@ -230,8 +230,8 @@
 }
 @if (controlType === 'input' && inputType === 'number') {
   <div class="numeric-control" matSuffix>
-    <ui-icon class="text-primary h-4" icon="numeric-up" size="0.75rem" (onClick)="onNumericUp()"></ui-icon>
-    <ui-icon class="text-primary h-4" icon="numeric-down" size="0.75rem" (onClick)="onNumericDown()"></ui-icon>
+    <cac-icon class="text-primary h-4" icon="numeric-up" size="0.75rem" (onClick)="onNumericUp()"></cac-icon>
+    <cac-icon class="text-primary h-4" icon="numeric-down" size="0.75rem" (onClick)="onNumericDown()"></cac-icon>
   </div>
 }
 @if (!hideSuffix) {
@@ -242,7 +242,7 @@
 </mat-form-field>
 <!-- Error, we are not using mat-error because of the limitations -->
 @if (!hideError && !invisibleError) {
-  <ui-control-error [control]="control"></ui-control-error>
+  <cac-control-error [control]="control"></cac-control-error>
 }
 }
 

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { SectionComponent } from '../../section.component';
-import { ChipsComponent, ChipsGroupComponent } from '@controladad/ng-base';
+import { CacChipsComponent, CacChipsGroupComponent } from '@controladad/ng-base';
 
 @Component({
   selector: 'app-chips-page',
-  imports: [SectionComponent, ChipsComponent, ChipsGroupComponent],
+  imports: [SectionComponent, CacChipsComponent, CacChipsGroupComponent],
   templateUrl: './chips-page.component.html',
   styleUrl: './chips-page.component.scss',
 })
