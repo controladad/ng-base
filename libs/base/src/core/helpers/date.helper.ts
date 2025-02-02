@@ -1,9 +1,26 @@
 import * as jalali from 'date-fns-jalali';
 import * as dateFns from 'date-fns';
+import { getStore } from '@ngneat/elf';
+import { CacBase } from '../../configs';
+
+let _cachedDateFns: typeof dateFns;
+// Get DateFns library based on current language
+export function DateFns(): typeof dateFns {
+  if (_cachedDateFns) return _cachedDateFns;
+
+  if (CacBase.config.localization.forceDateFns === 'jalali') _cachedDateFns = jalali as any;
+  else if (CacBase.config.localization.forceDateFns === 'georgian') _cachedDateFns = dateFns;
+  else {
+    const store = getStore<any>(CacBase.generateStoreKey('app'));
+    _cachedDateFns = (store?.getValue().lang === 'fa' ? jalali : dateFns) as any;
+  }
+
+  return _cachedDateFns;
+}
 
 export function getDatesIntervalInHHMMSS(start: Date, end: Date, showSymbol?: boolean) {
-  const hours = Math.abs(dateFns.differenceInHours(start, end));
-  const duration = dateFns.intervalToDuration({ start, end });
+  const hours = Math.abs(DateFns().differenceInHours(start, end));
+  const duration = DateFns().intervalToDuration({ start, end });
 
   const result = {
     hours,
@@ -21,12 +38,12 @@ export function getDatesIntervalInHHMMSS(start: Date, end: Date, showSymbol?: bo
   };
 }
 
-export function getJalaliDate(date: string | Date | undefined, format = 'yyyy/MM/dd') {
-  return !date ? '' : jalali.format(typeof date === 'string' ? new Date(date) : date, format);
+export function getFormattedDate(date: string | Date | undefined, format = 'yyyy/MM/dd') {
+  return !date ? '' : DateFns().format(typeof date === 'string' ? new Date(date) : date, format);
 }
 
-export function parseJalaliDate(date: string, format: string) {
-  return jalali.parse(date, format, new Date());
+export function parseDate(date: string, format: string) {
+  return DateFns().parse(date, format, new Date());
 }
 
 export function getDurationInHHMM(minutes: number) {

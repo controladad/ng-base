@@ -1,7 +1,9 @@
 import { ChangeDetectorRef, Directive, ElementRef, Host, Input, OnInit, Optional, Self } from '@angular/core';
-import { ActionTypes, RoleService } from '../../core';
+import { ActionTypes } from '../../core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { ButtonComponent } from '../components';
+
+// TODO: Fix Permissions
 
 @Directive({
   selector: '[uiPermissionHide]',
@@ -13,16 +15,15 @@ export class PermissionHideDirective implements OnInit {
   @Input() uiPermissionHideKey?: string;
 
   constructor(
-    private role: RoleService,
     private host: ElementRef<HTMLElement>,
     private cdr: ChangeDetectorRef,
     @Host() @Self() @Optional() private hostButton?: ButtonComponent,
   ) {
-    toObservable(this.role.currentUserAllowedActions)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => {
-        this.updateView();
-      });
+    // toObservable(this.role.currentUserAllowedActions)
+    //   .pipe(takeUntilDestroyed())
+    //   .subscribe(() => {
+    //     this.updateView();
+    //   });
   }
 
   ngOnInit() {
@@ -43,7 +44,8 @@ export class PermissionHideDirective implements OnInit {
 
     if (!actions && !permission) return;
 
-    const hasPermission = permission ? this.role.hasPermission(permission) : this.role.hasActionPermission(actions);
+    // const hasPermission = permission ? this.role.hasPermission(permission) : this.role.hasActionPermission(actions);
+    const hasPermission = true;
 
     if ((this.uiPermissionHide || this.uiPermissionHide === '') && !hasPermission) {
       this.host.nativeElement.classList.add(

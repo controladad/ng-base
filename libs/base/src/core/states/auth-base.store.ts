@@ -3,7 +3,6 @@ import { getStore, select } from '@ngneat/elf';
 import { filter, interval, Observable, of, startWith, switchMap, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { BaseStore } from './_base.store';
-import { AppBaseStore } from './app-base.store';
 import { flatten } from '../helpers';
 import { localStorageStrategy, sessionStorageStrategy, StateStorage } from '@ngneat/elf-persist-state';
 import { CacBase } from '../../configs';
@@ -42,7 +41,7 @@ export const AuthStorageEngine: StateStorage = {
 
 export class AuthBaseStore<T extends AuthBaseStoreProps<any>, L extends AuthBaseStoreLoginModel> extends BaseStore<T> {
   protected router = inject(Router);
-  protected app = inject(AppBaseStore);
+  protected app = inject(CacBase.config.states.app);
 
   constructor(
     public opts: {

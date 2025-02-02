@@ -1,6 +1,6 @@
 import { computed, signal } from '@angular/core';
 import { BehaviorSubject, debounceTime, Subject } from 'rxjs';
-import { DataFilterTypes, DataGetRequest, getFromItemRecord, getJalaliDate, ItemRecords$ } from '../../core';
+import { DataFilterTypes, DataGetRequest, getFromItemRecord, getFormattedDate, ItemRecords$ } from '../../core';
 import { FormBuilderInputType, TableColumnData, TableColumnFilter, TableFilterOptions } from '../components';
 import { BooleanValues } from '../data';
 
@@ -178,9 +178,9 @@ export class FilterModel {
     const value = filterValue.value;
     if (value instanceof Date) {
       if (filterValue.controlType === 'datetime') {
-        return getJalaliDate(value, 'HH:mm ,yyyy/MM/dd');
+        return getFormattedDate(value, 'HH:mm ,yyyy/MM/dd');
       }
-      return getJalaliDate(value);
+      return getFormattedDate(value);
     }
     if (filterValue.displayText && filterValue.displayText.length) {
       return filterValue.displayText instanceof Array ? filterValue.displayText.join(', ') : filterValue.displayText;

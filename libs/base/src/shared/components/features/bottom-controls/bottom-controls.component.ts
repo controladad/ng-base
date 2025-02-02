@@ -12,8 +12,10 @@ import {
 import { AbstractControl } from '@angular/forms';
 
 import { ButtonClickEvent, ButtonComponent } from '../../ui';
-import { ActionTypes, RoleService } from '../../../../core';
+import { ActionTypes } from '../../../../core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
+// TODO: Fix Permissions & Role
 
 @Component({
   selector: 'feature-bottom-controls',
@@ -40,8 +42,7 @@ export class BottomControlsComponent implements OnInit, OnChanges {
   @Output() onSubmit = new EventEmitter<ButtonClickEvent>();
 
   insufficientPermission = signal(false);
-  fallbackInsufficientPermissionText = $localize`:@@base.feature.dialog.insufficientPermission:شما دسترسی برای انجام این فعالیت را ندارید.`;
-  constructor(private roleService: RoleService) {}
+  INSUFFICIENT_PERMISSION_TEXT = $localize`:@@base.feature.dialog.insufficientPermission:شما دسترسی برای انجام این فعالیت را ندارید.`;
 
   ngOnInit(): void {
     this.setPermissionState();
@@ -86,6 +87,6 @@ export class BottomControlsComponent implements OnInit, OnChanges {
   }
 
   private setPermissionState() {
-    this.insufficientPermission.set(this.actionType ? !this.roleService.hasActionPermission(this.actionType) : false);
+    // this.insufficientPermission.set(this.actionType ? !this.roleService.hasActionPermission(this.actionType) : false);
   }
 }

@@ -94,6 +94,17 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
         : env[config.isProd]
       : (env['prod'] ?? env['production'])) ?? false;
 
+  CacBase.updateConfig(config?.config ?? {});
+  // We are setting default values here instead to prevent circular dependency
+  if (!CacBase.config.states.auth) {
+    // @ts-ignore
+    CacBase.config.states.auth = _DummyAuthBaseStore;
+  }
+  if (!CacBase.config.states.app) {
+    // @ts-ignore
+    CacBase.config.states.app = _DummyAppBaseStore;
+  }
+
   const langs = config?.localization?.langs ?? ['en'];
   CacBase.defaultLang = langs[0];
   const appStore = getStore<any>(CacBase.generateStoreKey('app')) ?? new _DummyAppBaseStore().store;
@@ -113,18 +124,6 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
     ...v,
     lang: currentLang
   }))
-
-  CacBase.updateConfig(config?.config ?? {});
-
-  // We are setting default values here instead to prevent circular dependency
-  if (!CacBase.config.states.auth) {
-    // @ts-ignore
-    CacBase.config.states.auth = _DummyAuthBaseStore;
-  }
-  if (!CacBase.config.states.app) {
-    // @ts-ignore
-    CacBase.config.states.app = _DummyAppBaseStore;
-  }
 
   if (currentData.dateLocale) {
     providers.push({ provide: MAT_DATE_LOCALE, useValue: currentData.dateLocale });

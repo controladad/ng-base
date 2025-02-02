@@ -41,7 +41,6 @@ import {
   arraysEqual,
   ItemRecord,
   ItemRecords$,
-  RoleService,
 } from '../../../../core';
 import { SelectionModel } from '../../../classes';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -58,6 +57,8 @@ interface SelectItem<T> extends ItemRecord<T> {
 const FILTER_DEBOUNCE_MIN = 50;
 // Max is used when the given items are Observable
 const FILTER_DEBOUNCE_MAX = 250;
+
+// TODO: Fix role & permissions
 
 @Component({
   selector: 'ui-select-options',
@@ -142,7 +143,7 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
   currentFocusIndex = signal(-1);
   protected _showingOptionalValue = signal(false);
 
-  constructor(private role: RoleService) {
+  constructor() {
     this.currentItemControl.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((item) => {
       if (this.multiple) {
         this.control.setDisplayText((item as any)?.map((t: ItemRecord<T>) => t.label)?.join(', ') ?? '');
@@ -168,7 +169,8 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
         debounceTime(10),
         map(() => {
           const originalItems = this.originalItems$.value;
-          let items = originalItems ? this.role.filterItemRecords(originalItems) : undefined;
+          // let items = originalItems ? this.role.filterItemRecords(originalItems) : undefined;
+          let items = originalItems;
           items = items?.concat(this._recentOptionalItems);
           if (this.categoryControl.value !== undefined && this.categoryControl.value !== null) {
             items = items?.filter((t) => t.category === this.categoryControl.value);

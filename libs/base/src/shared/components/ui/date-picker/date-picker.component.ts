@@ -10,9 +10,9 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import { ButtonComponent } from '../button';
 import { MatIconModule } from '@angular/material/icon';
-import { format } from 'date-fns';
 import { FieldComponent } from '../field';
 import { formControl } from '../../../forms';
+import { DateFns } from '../../../../core';
 
 export const DATE_FORMAT = 'yyyy/MM/dd';
 
@@ -84,7 +84,7 @@ export class DatePickerComponent {
     const year = date.getFullYear();
     const day = date.getDate();
     const month = date.getMonth() + 1;
-    return format(new Date(year, month, day), DATE_FORMAT);
+    return DateFns().format(new Date(year, month, day), DATE_FORMAT);
   }
 
   inputDateManually(control: FormControl, type?: 'first' | 'second') {
