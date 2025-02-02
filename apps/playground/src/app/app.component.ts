@@ -20,6 +20,8 @@ export class AppComponent {
 
     console.log(DateFns().format(new Date(), 'yyyy-MM-dd'))
 
+    // dialog$.prompt({ title: 'Hello', message: 'Yo!' })
+
     // setTimeout(() => {
     //   DriverRepository.api.getAll().subscribe((v) => {
     //     console.log(v);

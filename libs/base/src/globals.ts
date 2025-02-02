@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DialogService, SnackbarService } from '../shared';
+import { DialogService, SnackbarService } from './shared';
 import { enableElfProdMode } from '@ngneat/elf';
 
 export function setupGlobalServices() {

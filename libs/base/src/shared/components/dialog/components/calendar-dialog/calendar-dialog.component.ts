@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CacBaseDialogComponent } from '../_base-dialog.component';
-import { CacDatePickerComponent } from '../../../../ui';
+import { CacDatePickerComponent } from '../../../ui';
 import { DateRange } from '@angular/material/datepicker';
 
 export interface CalendarsDialogResult {

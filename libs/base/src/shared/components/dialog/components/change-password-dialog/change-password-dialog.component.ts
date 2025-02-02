@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { CacDialogLayoutComponent } from '../../../../layouts';
-import { CacFormBuilderComponent, formBuilder } from '../../../form-builder';
+import { CacDialogLayoutComponent } from '../../../layouts';
 import { CacBaseDialogComponent } from '../_base-dialog.component';
-import { ButtonClickEvent } from '../../../../ui';
-import { formControl, Validators } from '../../../../../forms';
+import { ButtonClickEvent } from '../../../ui';
+import { formControl, Validators } from '../../../../forms';
+import { formBuilder, CacFormBuilderComponent } from '../../../features';
 
 export interface ChangePasswordDialogData {}
 
@@ -31,7 +31,7 @@ export class CacChangePasswordDialogComponent
         inputType: 'password-eye',
       },
       newPassword: {
-        control: formControl<string>(undefined, [Validators.required, Validators.password]),
+        control: formControl<string>(undefined, [Validators.required, Validators.password()]),
         label: 'رمز عبور جدید',
         inputType: 'password-eye',
       },

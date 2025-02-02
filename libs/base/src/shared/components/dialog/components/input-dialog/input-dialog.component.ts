@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 
-import { FormBuilder, CacFormBuilderComponent } from '../../../form-builder';
-import { CacDialogLayoutComponent } from '../../../../layouts';
-import { ButtonClickEvent, CacButtonComponent } from '../../../../ui';
+import { CacDialogLayoutComponent } from '../../../layouts';
+import { ButtonClickEvent, CacButtonComponent } from '../../../ui';
 import { CacBaseDialogComponent, DialogAction, DialogActionEvent } from '../_base-dialog.component';
 import { Subject } from 'rxjs';
 import { DialogInvokerService } from '../../dialog-invoker.service';
 import { CacPromptDialogComponent, PromptDialogData, PromptDialogResult } from '../prompt-dialog/prompt-dialog.component';
+import { FormBuilder, CacFormBuilderComponent } from '../../../features';
 
 export interface InputDialogData<T, U> {
   title: string;

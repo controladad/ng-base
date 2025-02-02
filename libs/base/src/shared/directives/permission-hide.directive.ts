@@ -1,9 +1,16 @@
-import { ChangeDetectorRef, Directive, ElementRef, Host, Input, OnInit, Optional, Self } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Directive,
+  ElementRef,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ActionTypes } from '../../core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { CacButtonComponent } from '../components';
 
 // TODO: Fix Permissions
+
+// Removed the code for accessing button permission inputs, caused Circular Dependency
 
 @Directive({
   selector: '[uiPermissionHide]',
@@ -17,7 +24,6 @@ export class PermissionHideDirective implements OnInit {
   constructor(
     private host: ElementRef<HTMLElement>,
     private cdr: ChangeDetectorRef,
-    @Host() @Self() @Optional() private hostButton?: CacButtonComponent,
   ) {
     // toObservable(this.role.currentUserAllowedActions)
     //   .pipe(takeUntilDestroyed())
@@ -34,12 +40,14 @@ export class PermissionHideDirective implements OnInit {
     let actions: ActionTypes | ActionTypes[] | undefined;
     let permission: string | undefined;
 
-    if (this.hostButton) {
-      actions = this.hostButton.action;
-      permission = this.hostButton.permission;
-    }
+    // if (this.hostButton) {
+    //   actions = this.hostButton.action;
+    //   permission = this.hostButton.permission;
+    // }
 
+    // eslint-disable-next-line prefer-const
     actions = actions ?? this.uiPermissionHideAction;
+    // eslint-disable-next-line prefer-const
     permission = permission ?? this.uiPermissionHideKey;
 
     if (!actions && !permission) return;

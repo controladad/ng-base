@@ -16,7 +16,7 @@ import {
   ElementRef,
   inject,
   DestroyRef,
-  TrackByFunction,
+  TrackByFunction, InjectionToken
 } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import {
@@ -60,9 +60,10 @@ import { CacTableFormMenuComponent } from './table-form-menu/table-form-menu.com
 import { DataGetRequest, DataGetResponse, DateFns, effectDep, ItemRecord, objectToId } from '../../../../core';
 import { SelectionModel, SortModel, TableFilterModel } from '../../../classes';
 import {
-  ButtonClickEvent,
+  ButtonClickEvent, 
+  CacIconComponent,
   CacPaginationComponent,
-  CacSkeletonComponent,
+  CacSkeletonComponent
 } from '../../ui';
 import { CacPrintableTableComponent } from '../printable-table';
 import { ForNumberDirective } from '../../../directives';
@@ -77,7 +78,6 @@ import { TABLE_COL_INDEX_PROP, CacTableColIndexComponent } from './columns/table
 import { CacTableColDefaultComponent } from './columns/table-col-default/table-col-default.component';
 import { TABLE_COL_ACTION_PROP, CacTableColActionComponent } from './columns/table-col-action/table-col-action.component';
 import { CacTableHeaderComponent } from './table-header/table-header.component';
-import { CacBase } from '../../../../configs';
 
 interface TableRowData {
   value: any;
@@ -110,7 +110,7 @@ export interface TableColumnData<T> extends TableColumn<T> {
   isHidden: boolean;
 }
 
-const TABLE_DEFAULT_GENERATOR = () =>
+const TABLE_DEFAULT_GENERATOR = (defaultConfig?: Partial<TableOptions<any>>) =>
   ({
     itemToIdFn: objectToId,
     actions: [],
@@ -118,10 +118,12 @@ const TABLE_DEFAULT_GENERATOR = () =>
     selectionModel: new SelectionModel<any>(0, true, [], objectToId),
     sortModel: new SortModel(),
     filterModel: new TableFilterModel(),
-    ...CacBase.config.components.table,
+    ...defaultConfig,
     columns: {},
     itemsFn: undefined,
   }) as TableOptions<any>;
+
+export const TABLE_COMPONENT_CONFIG = new InjectionToken<Partial<TableOptions<any>>>('TableComponent');
 
 export class TablePaginationMismatchError extends Error {
   constructor() {
@@ -202,6 +204,7 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
 export class CacTableComponent<T extends object> implements OnInit, OnChanges, AfterViewInit, AfterContentInit, OnDestroy {
   readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly config = inject(TABLE_COMPONENT_CONFIG);
 
   readonly ACTIVE_STRING_VALUE = 'Active';
 
@@ -214,7 +217,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
   readonly ACTIVE_TEXT = 'فعال';
   readonly INACTIVE_TEXT = 'غیرفعال';
 
-  readonly TABLE_DEFAULTS = TABLE_DEFAULT_GENERATOR();
+  readonly TABLE_DEFAULTS = TABLE_DEFAULT_GENERATOR(this.config);
 
   @ViewChild('Pagination') pagination?: CacPaginationComponent;
   @ViewChild('FormMenu') tableFormMenu!: CacTableFormMenuComponent;

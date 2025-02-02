@@ -4,7 +4,7 @@ import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonClickEvent, CacButtonComponent } from '../../ui';
 import { formControl } from '../../../forms';
-import { CacBase } from '../../../../configs';
+import { AuthBaseStore } from '../../../../core';
 
 interface LoginFormGroup {
   username: string;
@@ -28,7 +28,7 @@ export interface LoginFormOptions {
   styleUrls: ['./login-form.component.scss'],
 })
 export class CacLoginFormComponent implements OnInit {
-  private readonly auth = inject(CacBase.config.states.auth);
+  private readonly auth = inject(AuthBaseStore);
   private readonly router = inject(Router);
 
   @Input() options: LoginFormOptions = {};

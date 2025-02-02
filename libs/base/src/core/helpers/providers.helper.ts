@@ -1,16 +1,32 @@
 import { inject, InjectionToken } from '@angular/core';
 
-// multi is enabled by default
-export function provide<T>(token: InjectionToken<T>, value: T | (() => T), multi = true) {
+function isClass(obj: any) {
+  const isCtorClass = obj.constructor
+      && obj.constructor.toString().substring(0, 5) === 'class'
+  if(obj.prototype === undefined) {
+    return isCtorClass
+  }
+  const isPrototypeCtorClass = obj.prototype.constructor
+    && obj.prototype.constructor.toString
+    && obj.prototype.constructor.toString().substring(0, 5) === 'class'
+  return isCtorClass || isPrototypeCtorClass
+}
+
+export function provide<T>(token: InjectionToken<T>, value: T | (() => T), multi = false) {
+  // @ts-ignore
   if (typeof value === 'function') {
     return { provide: token, useFactory: value, multi };
+  } else if (isClass(value)) {
+    return { provide: token, useClass: value, multi };
   } else {
     return { provide: token, useValue: value, multi };
   }
 }
 
-export function componentWithDefaults<T>(component: any, token: InjectionToken<T>, defaultValues: Partial<T> = {}) {
-  const values = inject(token) as T[];
+export function componentWithDefaultConfig<T>(component: any, token: InjectionToken<T>, defaultValues: Partial<T> = {}) {
+  const valuesInjected = inject(token) as T[] | T;
+  const values = valuesInjected instanceof Array ? valuesInjected : [valuesInjected];
+
   let defaults = {
     ...defaultValues
   };

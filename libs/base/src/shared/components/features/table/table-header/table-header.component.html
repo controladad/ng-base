@@ -29,6 +29,7 @@
 @if (options.export) {
   <cac-button
   uiPermissionHide
+  [uiPermissionHideAction]="'export'"
   class="h-12"
   appearance="text"
   (onClick)="onExport.emit($event)"
@@ -39,21 +40,23 @@
 </cac-button>
 }
 
-@if(options.export) {
+@if(options.print) {
   <cac-button
-  uiPermissionHide
-  class="h-12"
-  appearance="text"
-  (onClick)="onPrint.emit($event)"
-  icon="print"
-  action="print"
->
+    uiPermissionHide
+    [uiPermissionHideAction]="'print'"
+    class="h-12"
+    appearance="text"
+    (onClick)="onPrint.emit($event)"
+    icon="print"
+    action="print"
+  >
   <span class="mr-1">پرینت</span>
 </cac-button>
 }
 @if(options.events?.add) {
   <cac-button
   uiPermissionHide
+  [uiPermissionHideAction]="'create'"
   #MenuTriggerAddButton="matMenuTrigger"
   [matMenuTriggerFor]="null"
   class="h-12"

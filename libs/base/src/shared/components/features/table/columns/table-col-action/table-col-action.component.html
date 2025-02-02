@@ -13,6 +13,8 @@
             @case ('icon') {
               <cac-button
                 uiPermissionHide
+                [uiPermissionHideAction]="action.actionType"
+                [uiPermissionHideKey]="data.permission"
                 [icon]="action.content"
                 [disabled]="$any(data.disabled$ ? (data.disabled$ | async) : data.disabled)"
                 [matBadge]="action.badge ? action.badge(row.originalItem) : ''"
@@ -35,6 +37,8 @@
             @case ('button') {
               <cac-button
                 uiPermissionHide
+                [uiPermissionHideAction]="action.actionType"
+                [uiPermissionHideKey]="data.permission"
                 [class]="action.class"
                 [appearance]="action.appearance ?? 'filled'"
                 [theme]="action.theme ?? 'primary'"

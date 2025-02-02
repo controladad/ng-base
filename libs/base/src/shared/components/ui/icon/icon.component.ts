@@ -16,10 +16,10 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { NgStyle } from '@angular/common';
 import { BASE_ICONS } from '../../../../configs';
 import { Subscription } from 'rxjs';
-import { componentWithDefaults } from '../../../../core';
+import { componentWithDefaultConfig } from '../../../../core';
 
 export type IconComponentType = InstanceType<typeof CacIconComponent>
-export const IconComponentInjection = new InjectionToken<Partial<IconComponentType>>('IconComponent');
+export const ICON_COMPONENT_CONFIG = new InjectionToken<Partial<IconComponentType>>('IconComponent');
 
 @Component({
   selector: 'cac-icon',
@@ -46,7 +46,7 @@ export class CacIconComponent implements OnInit, OnChanges, AfterViewInit {
   isClickable = signal(false);
 
   constructor() {
-    componentWithDefaults(this, IconComponentInjection);
+    componentWithDefaultConfig(this, ICON_COMPONENT_CONFIG);
 
     this.thisWidth = this.size;
     this.thisHeight = this.size;

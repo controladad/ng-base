@@ -32,7 +32,7 @@ import {
   getHHMMInDuration,
   getFormattedDate,
   parseDate,
-  ItemRecord
+  ItemRecord,
 } from '../../../../core';
 import { CacSelectOptionsComponent, OptionsTriggerDirective } from '../select-options';
 import { CacIconComponent } from '../icon';
@@ -40,8 +40,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CacControlErrorComponent } from '../control-error';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { QuillModule } from 'ngx-quill';
-import { DateAdapter } from '@angular/material/core';
-import { CustomDateAdapter } from './date-adapter';
 import { formControl, FormControlExtended } from '../../../forms';
 
 export type FieldInputType = 'text' | 'password' | 'password-eye' | 'number' | 'number-nobtn' | 'time';
@@ -73,10 +71,7 @@ export type FieldFloatLabelType = 'always' | 'auto';
     CacIconComponent,
     MatProgressSpinnerModule,
     CacControlErrorComponent,
-    QuillModule
-],
-  providers: [
-    { provide: DateAdapter, useClass: CustomDateAdapter },
+    QuillModule,
   ],
 })
 export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, OnChanges {
@@ -127,7 +122,7 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
   @Input() hideSuffix = false;
   @Input() dateFilter: DateFilterFn<any> = () => true;
   @Input() menuClass?: string;
-  @Input() min = 0
+  @Input() min = 0;
 
   @Output() onSelect = new EventEmitter<T>();
 
@@ -312,5 +307,5 @@ function getInputMask(type: FieldMaskType | 'datetime') {
           return getFormattedDate(v, 'yyyy/MM/dd , HH:mm');
         },
       });
-    }
+  }
 }
