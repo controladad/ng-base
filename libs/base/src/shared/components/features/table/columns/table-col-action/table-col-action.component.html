@@ -11,7 +11,7 @@
           @let data = row.actions[index];
           @switch (action.type) {
             @case ('icon') {
-              <ui-button
+              <cac-button
                 uiPermissionHide
                 [uiPermissionHideAction]="action.actionType"
                 [uiPermissionHideKey]="data.permission"
@@ -27,7 +27,7 @@
                 iconSize="1.375rem"
                 matBadgeColor="warn"
                 matBadgePosition="before"
-              ></ui-button>
+              ></cac-button>
             }
             @case ('text') {
               <div class="cursor-pointer">
@@ -35,7 +35,7 @@
               </div>
             }
             @case ('button') {
-              <ui-button
+              <cac-button
                 uiPermissionHide
                 [uiPermissionHideAction]="action.actionType"
                 [uiPermissionHideKey]="data.permission"
@@ -51,7 +51,7 @@
                 matBadgePosition="before"
               >
                 {{ action.content }}
-              </ui-button>
+              </cac-button>
             }
             @default {
               {{ action.content }}

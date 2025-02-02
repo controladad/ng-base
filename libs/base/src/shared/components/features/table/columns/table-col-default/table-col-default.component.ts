@@ -1,24 +1,24 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { TableColBase } from '../_table_col_base';
+import { CacTableColBase } from '../_table_col_base';
 import { TableColumnData, TableRow } from '../../table.component';
 import { AsyncPipe, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { ButtonComponent, LicensePlateComponent } from '../../../../ui';
+import { CacButtonComponent, CacLicensePlateComponent } from '../../../../ui';
 import { MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderCellDef } from '@angular/material/table';
-import { TableFilterComponent } from '../../table-filter/table-filter.component';
-import { TableSortComponent } from '../../table-sort/table-sort.component';
+import { CacTableFilterComponent } from '../../table-filter/table-filter.component';
+import { CacTableSortComponent } from '../../table-sort/table-sort.component';
 import { TypeofPipe } from '../../../../../pipes';
 
 @Component({
-  selector: 'feature-table-col-default',
+  selector: 'cac-table-col-default',
   imports: [
     AsyncPipe,
-    ButtonComponent,
-    LicensePlateComponent,
+    CacButtonComponent,
+    CacLicensePlateComponent,
     MatCell,
     MatCellDef,
     MatHeaderCell,
-    TableFilterComponent,
-    TableSortComponent,
+    CacTableFilterComponent,
+    CacTableSortComponent,
     MatColumnDef,
     NgStyle,
     NgTemplateOutlet,
@@ -29,7 +29,7 @@ import { TypeofPipe } from '../../../../../pipes';
   styleUrl: './table-col-default.component.scss',
   standalone: true,
 })
-export class TableColDefaultComponent extends TableColBase implements OnInit {
+export class CacTableColDefaultComponent extends CacTableColBase implements OnInit {
   @Input() col!: TableColumnData<any>;
 
   @Output() onRowClick = new EventEmitter<TableRow<any>>();

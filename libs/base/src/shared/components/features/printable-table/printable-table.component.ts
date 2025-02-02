@@ -23,13 +23,13 @@ export interface PrintableTableData {
 }
 
 @Component({
-  selector: 'feature-printable-table',
+  selector: 'cac-printable-table',
   standalone: true,
   imports: [AlxPrintModule],
   templateUrl: './printable-table.component.html',
   styleUrls: ['./printable-table.component.scss'],
 })
-export class PrintableTableComponent implements OnChanges, AfterViewInit {
+export class CacPrintableTableComponent implements OnChanges, AfterViewInit {
   readonly destroyRef = inject(DestroyRef);
 
   @ViewChild('Printer') printer!: AlxPrintDirective;

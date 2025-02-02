@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { LoginFormComponent } from '@controladad/ng-base';
+import { CacLoginFormComponent } from '@controladad/ng-base';
 
 @Component({
   selector: 'app-login-page',
-  imports: [LoginFormComponent],
+  imports: [CacLoginFormComponent],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
 })

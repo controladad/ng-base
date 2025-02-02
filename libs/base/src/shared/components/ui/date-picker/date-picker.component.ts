@@ -8,24 +8,24 @@ import {
 } from '@angular/material/datepicker';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe, NgTemplateOutlet } from '@angular/common';
-import { ButtonComponent } from '../button';
+import { CacButtonComponent } from '../button';
 import { MatIconModule } from '@angular/material/icon';
-import { FieldComponent } from '../field';
+import { CacFieldComponent } from '../field';
 import { formControl } from '../../../forms';
 import { DateFns } from '../../../../core';
 
 export const DATE_FORMAT = 'yyyy/MM/dd';
 
 @Component({
-  selector: 'ui-date-picker',
+  selector: 'cac-date-picker',
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
   imports: [
     MatDatepickerModule,
     ReactiveFormsModule,
-    ButtonComponent,
+    CacButtonComponent,
     MatIconModule,
-    FieldComponent,
+    CacFieldComponent,
     MatMenuModule,
     NgTemplateOutlet,
   ],
@@ -39,7 +39,7 @@ export const DATE_FORMAT = 'yyyy/MM/dd';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DatePickerComponent {
+export class CacDatePickerComponent {
   @Input() type: 'calendar' | 'date-picker' | 'input' = 'calendar';
   @Input() mode: 'one-day' | 'range' = 'range';
   @Input() title = 'Date';

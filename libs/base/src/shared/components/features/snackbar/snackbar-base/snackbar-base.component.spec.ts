@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SnackbarBaseComponent } from './snackbar-base.component';
+import { CacSnackbarBaseComponent } from './snackbar-base.component';
 
-describe('SnackbarBaseComponent', () => {
-  let component: SnackbarBaseComponent;
-  let fixture: ComponentFixture<SnackbarBaseComponent>;
+describe('CacSnackbarBaseComponent', () => {
+  let component: CacSnackbarBaseComponent;
+  let fixture: ComponentFixture<CacSnackbarBaseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SnackbarBaseComponent],
+      imports: [CacSnackbarBaseComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SnackbarBaseComponent);
+    fixture = TestBed.createComponent(CacSnackbarBaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

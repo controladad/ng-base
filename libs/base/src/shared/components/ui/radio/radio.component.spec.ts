@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RadioComponent } from './radio.component';
+import { CacRadioComponent } from './radio.component';
 
-describe('RadioComponent', () => {
-  let component: RadioComponent;
-  let fixture: ComponentFixture<RadioComponent>;
+describe('CacRadioComponent', () => {
+  let component: CacRadioComponent<any>;
+  let fixture: ComponentFixture<CacRadioComponent<any>>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RadioComponent],
+      imports: [CacRadioComponent],
     });
-    fixture = TestBed.createComponent(RadioComponent);
+    fixture = TestBed.createComponent(CacRadioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

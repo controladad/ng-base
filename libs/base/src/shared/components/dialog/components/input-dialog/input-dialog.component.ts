@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 
-import { DialogLayoutComponent } from '../../../layouts';
-import { ButtonClickEvent, ButtonComponent } from '../../../ui';
-import { BaseDialogComponent, DialogAction, DialogActionEvent } from '../_base-dialog.component';
+import { CacDialogLayoutComponent } from '../../../layouts';
+import { ButtonClickEvent, CacButtonComponent } from '../../../ui';
+import { CacBaseDialogComponent, DialogAction, DialogActionEvent } from '../_base-dialog.component';
 import { Subject } from 'rxjs';
 import { DialogInvokerService } from '../../dialog-invoker.service';
-import { PromptDialogComponent, PromptDialogData, PromptDialogResult } from '../prompt-dialog/prompt-dialog.component';
-import { FormBuilder, FormBuilderComponent } from '../../../features';
+import { CacPromptDialogComponent, PromptDialogData, PromptDialogResult } from '../prompt-dialog/prompt-dialog.component';
+import { FormBuilder, CacFormBuilderComponent } from '../../../features';
 
 export interface InputDialogData<T, U> {
   title: string;
@@ -21,17 +21,17 @@ export interface InputDialogData<T, U> {
 }
 
 @Component({
-  selector: 'feature-input-dialog',
+  selector: 'cac-input-dialog',
   standalone: true,
   imports: [
-    DialogLayoutComponent,
-    FormBuilderComponent,
-    ButtonComponent
+    CacDialogLayoutComponent,
+    CacFormBuilderComponent,
+    CacButtonComponent,
 ],
   templateUrl: './input-dialog.component.html',
   styleUrls: ['./input-dialog.component.scss'],
 })
-export class InputDialogComponent<T, U> extends BaseDialogComponent<InputDialogData<T, U>, any> {
+export class CacInputDialogComponent<T, U> extends CacBaseDialogComponent<InputDialogData<T, U>, any> {
   readonly dialogInvoker = inject(DialogInvokerService);
 
   protected _boundDeleteAction?: DialogAction<null, any>;
@@ -53,7 +53,7 @@ export class InputDialogComponent<T, U> extends BaseDialogComponent<InputDialogD
     if (!this._boundDeleteAction) return;
 
     this.dialogInvoker
-      .open<PromptDialogComponent, PromptDialogData, PromptDialogResult>(PromptDialogComponent, {
+      .open<CacPromptDialogComponent, PromptDialogData, PromptDialogResult>(CacPromptDialogComponent, {
         title: 'آیا از حذف این مورد مطمئن هستید؟',
         message: 'با حذف مورد انتخاب شده دیگر قادر به بازگردانی آن‌ها نخواهید بود.',
         noButtonText: 'خیر، لغو گردد',

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InitializeProtectionComponent } from './initialize-protection.component';
+import { CacInitializeProtectionComponent } from './initialize-protection.component';
 
-describe('InitializeProtectionComponent', () => {
-  let component: InitializeProtectionComponent;
-  let fixture: ComponentFixture<InitializeProtectionComponent>;
+describe('CacInitializeProtectionComponent', () => {
+  let component: CacInitializeProtectionComponent;
+  let fixture: ComponentFixture<CacInitializeProtectionComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [InitializeProtectionComponent],
+      imports: [CacInitializeProtectionComponent],
     });
-    fixture = TestBed.createComponent(InitializeProtectionComponent);
+    fixture = TestBed.createComponent(CacInitializeProtectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

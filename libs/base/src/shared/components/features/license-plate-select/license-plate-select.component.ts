@@ -1,26 +1,26 @@
 import { Component, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-  LicensePlateComponent,
+  CacLicensePlateComponent,
   OptionsTriggerDirective,
-  SelectOptionsComponent,
+  CacSelectOptionsComponent,
 } from '../../ui';
 import { ItemRecords$ } from '../../../../core';
 import { formControl } from '../../../forms';
 
 @Component({
-  selector: 'feature-license-plate-select',
+  selector: 'cac-license-plate-select',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    LicensePlateComponent,
-    SelectOptionsComponent,
+    CacLicensePlateComponent,
+    CacSelectOptionsComponent,
     OptionsTriggerDirective,
   ],
   templateUrl: './license-plate-select.component.html',
   styleUrls: ['./license-plate-select.component.scss'],
 })
-export class LicensePlateSelectComponent {
+export class CacLicensePlateSelectComponent {
   @Input() control = formControl<string | undefined>(undefined);
   @Input() mini = false;
   @Input() items?: ItemRecords$<string>;

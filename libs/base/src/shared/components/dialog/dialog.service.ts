@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import {
-  PromptDialogComponent,
+  CacPromptDialogComponent,
   PromptDialogData,
   PromptDialogResult,
 } from './components/prompt-dialog/prompt-dialog.component';
 import { DialogExtended, DialogInvokerService } from './dialog-invoker.service';
-import { InputDialogComponent, InputDialogData } from './components/input-dialog/input-dialog.component';
+import { CacInputDialogComponent, InputDialogData } from './components/input-dialog/input-dialog.component';
 import { DialogAction, DialogActionEvent } from './components/_base-dialog.component';
 import { merge, Observable, take } from 'rxjs';
 import {
-  DescriptionDialogComponent,
+  CacDescriptionDialogComponent,
   DescriptionDialogData,
   DescriptionDialogResult,
 } from './components/description-dialog/description-dialog.component';
 import {
-  ChangePasswordDialogComponent,
+  CacChangePasswordDialogComponent,
   ChangePasswordDialogResult,
 } from './components/change-password-dialog/change-password-dialog.component';
-import { CalendarDialogComponent, CalendarsDialogResult } from './components/calendar-dialog/calendar-dialog.component';
+import { CacCalendarDialogComponent, CalendarsDialogResult } from './components/calendar-dialog/calendar-dialog.component';
 
-export interface InputDialogExtended<T, U> extends DialogExtended<InputDialogComponent<T, U>, U> {
+export interface InputDialogExtended<T, U> extends DialogExtended<CacInputDialogComponent<T, U>, U> {
   deleteAction: <ACTION>(action: DialogAction<null, ACTION>) => InputDialogExtended<T, U>;
   onDelete: () => Observable<DialogActionEvent<any, any>>;
 }
@@ -31,7 +31,7 @@ export class DialogService {
   constructor(private dialog: DialogInvokerService) {}
 
   prompt(data: PromptDialogData) {
-    return this.dialog.open<PromptDialogComponent, PromptDialogData, PromptDialogResult>(PromptDialogComponent, data, {
+    return this.dialog.open<CacPromptDialogComponent, PromptDialogData, PromptDialogResult>(CacPromptDialogComponent, data, {
       width: '85vw',
       maxWidth: '46rem',
     });
@@ -49,7 +49,7 @@ export class DialogService {
   }
 
   input<T, U>(data: InputDialogData<T, U>, width?: string) {
-    const dialog = this.dialog.open<InputDialogComponent<T, U>, InputDialogData<T, U>, U>(InputDialogComponent, data, {
+    const dialog = this.dialog.open<CacInputDialogComponent<T, U>, InputDialogData<T, U>, U>(CacInputDialogComponent, data, {
       width: width,
       minHeight: '17rem',
       maxWidth: '90vw',
@@ -75,8 +75,8 @@ export class DialogService {
   }
 
   description(data: DescriptionDialogData) {
-    return this.dialog.open<DescriptionDialogComponent, DescriptionDialogData, DescriptionDialogResult>(
-      DescriptionDialogComponent,
+    return this.dialog.open<CacDescriptionDialogComponent, DescriptionDialogData, DescriptionDialogResult>(
+      CacDescriptionDialogComponent,
       data,
       {
         minWidth: '40rem',
@@ -85,13 +85,13 @@ export class DialogService {
   }
 
   changePassword() {
-    return this.dialog.open<ChangePasswordDialogComponent, null, ChangePasswordDialogResult>(
-      ChangePasswordDialogComponent,
+    return this.dialog.open<CacChangePasswordDialogComponent, null, ChangePasswordDialogResult>(
+      CacChangePasswordDialogComponent,
     );
   }
 
   calendar() {
-    return this.dialog.open<CalendarDialogComponent, null, CalendarsDialogResult>(CalendarDialogComponent, null, {
+    return this.dialog.open<CacCalendarDialogComponent, null, CalendarsDialogResult>(CacCalendarDialogComponent, null, {
       width: '25rem',
       maxWidth: '90vw',
     });

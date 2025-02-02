@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableColDefaultComponent } from './table-col-default.component';
+import { CacTableColDefaultComponent } from './table-col-default.component';
 
-describe('TableColDefaultComponent', () => {
-  let component: TableColDefaultComponent;
-  let fixture: ComponentFixture<TableColDefaultComponent>;
+describe('CacTableColDefaultComponent', () => {
+  let component: CacTableColDefaultComponent;
+  let fixture: ComponentFixture<CacTableColDefaultComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableColDefaultComponent]
+      imports: [CacTableColDefaultComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TableColDefaultComponent);
+    fixture = TestBed.createComponent(CacTableColDefaultComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

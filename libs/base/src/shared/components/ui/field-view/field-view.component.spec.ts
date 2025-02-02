@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FieldViewComponent } from './field-view.component';
+import { CacFieldViewComponent } from './field-view.component';
 
-describe('FieldViewComponent', () => {
-  let component: FieldViewComponent;
-  let fixture: ComponentFixture<FieldViewComponent>;
+describe('CacFieldViewComponent', () => {
+  let component: CacFieldViewComponent;
+  let fixture: ComponentFixture<CacFieldViewComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FieldViewComponent],
+      imports: [CacFieldViewComponent],
     });
-    fixture = TestBed.createComponent(FieldViewComponent);
+    fixture = TestBed.createComponent(CacFieldViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

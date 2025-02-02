@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LicensePlateSelectComponent } from './license-plate-select.component';
+import { CacLicensePlateSelectComponent } from './license-plate-select.component';
 
-describe('LicensePlateSelectComponent', () => {
-  let component: LicensePlateSelectComponent;
-  let fixture: ComponentFixture<LicensePlateSelectComponent>;
+describe('CacLicensePlateSelectComponent', () => {
+  let component: CacLicensePlateSelectComponent;
+  let fixture: ComponentFixture<CacLicensePlateSelectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LicensePlateSelectComponent],
+      imports: [CacLicensePlateSelectComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LicensePlateSelectComponent);
+    fixture = TestBed.createComponent(CacLicensePlateSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

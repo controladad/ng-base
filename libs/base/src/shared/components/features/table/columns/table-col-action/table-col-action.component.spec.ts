@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableColActionComponent } from './table-col-action.component';
+import { CacTableColActionComponent } from './table-col-action.component';
 
-describe('TableColActionComponent', () => {
-  let component: TableColActionComponent;
-  let fixture: ComponentFixture<TableColActionComponent>;
+describe('CacTableColActionComponent', () => {
+  let component: CacTableColActionComponent;
+  let fixture: ComponentFixture<CacTableColActionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableColActionComponent]
+      imports: [CacTableColActionComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TableColActionComponent);
+    fixture = TestBed.createComponent(CacTableColActionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

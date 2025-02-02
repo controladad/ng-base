@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 
-import { IconComponent } from '../../../ui';
+import { CacIconComponent } from '../../../ui';
 
 export interface SnackbarData {
   message: string;
@@ -13,13 +13,13 @@ export interface SnackbarData {
 }
 
 @Component({
-  selector: 'ui-snackbar',
+  selector: 'cac-snackbar',
   standalone: true,
-  imports: [IconComponent],
+  imports: [CacIconComponent],
   templateUrl: './snackbar-base.component.html',
   styleUrls: ['./snackbar-base.component.scss'],
 })
-export class SnackbarBaseComponent implements AfterViewInit {
+export class CacSnackbarBaseComponent implements AfterViewInit {
   @ViewChild('Wrapper') wrapperEl!: ElementRef<HTMLDivElement>;
 
   constructor(

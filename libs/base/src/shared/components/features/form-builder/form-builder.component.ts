@@ -17,19 +17,19 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import type { FormBuilderInputItem, FormBuilderInputOption } from './form-builder.types';
 import { FormBuilder } from './form-builder';
 import { ScreenDetectorService } from '@al00x/screen-detector';
-import { ControlBuilderComponent } from './control-builder.component';
+import { CacControlBuilderComponent } from './control-builder.component';
 
 @Component({
-  selector: 'feature-form-builder',
+  selector: 'cac-form-builder',
   standalone: true,
   imports: [
     AsyncPipe,
-    ControlBuilderComponent
+    CacControlBuilderComponent
 ],
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss'],
 })
-export class FormBuilderComponent<T, U = T> implements OnInit, AfterViewInit, OnDestroy {
+export class CacFormBuilderComponent<T, U = T> implements OnInit, AfterViewInit, OnDestroy {
   injector = inject(Injector);
   screenDetector = inject(ScreenDetectorService);
 

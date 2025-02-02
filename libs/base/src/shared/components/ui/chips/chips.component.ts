@@ -10,19 +10,19 @@ import {
   signal,
   SimpleChanges,
 } from '@angular/core';
-import { IconComponent } from '../icon';
+import { CacIconComponent } from '../icon';
 
 
 // TODO: activeClass property is not working
 
 @Component({
-  selector: 'ui-chips',
+  selector: 'cac-chips',
   standalone: true,
-  imports: [IconComponent],
+  imports: [CacIconComponent],
   templateUrl: './chips.component.html',
   styleUrls: ['./chips.component.scss'],
 })
-export class ChipsComponent<T> implements OnChanges {
+export class CacChipsComponent<T> implements OnChanges {
   @Input() closable = false;
   // active is used as a flag and has no behavioral significance
   @Input() active = false;

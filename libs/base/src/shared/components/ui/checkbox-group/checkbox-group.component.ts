@@ -12,13 +12,13 @@ import { formControl, FormControlExtended } from '../../../forms';
 // it should be like ui-chips-group in implementation
 
 @Component({
-  selector: 'ui-checkbox-group',
+  selector: 'cac-checkbox-group',
   standalone: true,
   imports: [MatCheckboxModule, ReactiveFormsModule, AsyncPipe],
   templateUrl: './checkbox-group.component.html',
   styleUrls: ['./checkbox-group.component.scss'],
 })
-export class CheckboxGroupComponent<T extends string | number> implements OnChanges, OnDestroy {
+export class CacCheckboxGroupComponent<T extends string | number> implements OnChanges, OnDestroy {
   readonly ERROR_TEXT = 'Select at least one item';
 
   @Input('items') rawItems?: ItemRecords$<T>;

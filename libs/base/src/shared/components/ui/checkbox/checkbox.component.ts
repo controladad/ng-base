@@ -5,13 +5,13 @@ import { AsyncPipe } from '@angular/common';
 import { formControl } from '../../../forms';
 
 @Component({
-  selector: 'ui-checkbox',
+  selector: 'cac-checkbox',
   standalone: true,
   imports: [MatCheckboxModule, ReactiveFormsModule, AsyncPipe],
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
 })
-export class CheckboxComponent implements OnChanges {
+export class CacCheckboxComponent implements OnChanges {
   @Input() control = formControl(false);
   @Input() label?: string;
   @Input() checked = this.control.value;

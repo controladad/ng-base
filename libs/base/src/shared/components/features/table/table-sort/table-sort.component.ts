@@ -2,16 +2,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { TableColumnData } from '../table.component';
 import { SortModel } from '../../../../classes';
 
-import { IconComponent } from '../../../ui';
+import { CacIconComponent } from '../../../ui';
 
 @Component({
-  selector: 'feature-table-sort',
+  selector: 'cac-table-sort',
   templateUrl: './table-sort.component.html',
   styleUrls: ['./table-sort.component.scss'],
   standalone: true,
-  imports: [IconComponent],
+  imports: [CacIconComponent],
 })
-export class TableSortComponent<T> implements OnInit {
+export class CacTableSortComponent<T> implements OnInit {
   @Input() column!: TableColumnData<T>;
   @Input() sortModel!: SortModel;
 

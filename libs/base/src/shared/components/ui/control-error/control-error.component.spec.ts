@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ControlErrorComponent } from './control-error.component';
+import { CacControlErrorComponent } from './control-error.component';
 
-describe('ControlErrorComponent', () => {
-  let component: ControlErrorComponent;
-  let fixture: ComponentFixture<ControlErrorComponent>;
+describe('CacControlErrorComponent', () => {
+  let component: CacControlErrorComponent;
+  let fixture: ComponentFixture<CacControlErrorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ControlErrorComponent],
+      imports: [CacControlErrorComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ControlErrorComponent);
+    fixture = TestBed.createComponent(CacControlErrorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PromptDialogComponent } from './prompt-dialog.component';
+import { CacPromptDialogComponent } from './prompt-dialog.component';
 
-describe('PromptDialogComponent', () => {
-  let component: PromptDialogComponent;
-  let fixture: ComponentFixture<PromptDialogComponent>;
+describe('CacPromptDialogComponent', () => {
+  let component: CacPromptDialogComponent;
+  let fixture: ComponentFixture<CacPromptDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PromptDialogComponent],
+      declarations: [CacPromptDialogComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PromptDialogComponent);
+    fixture = TestBed.createComponent(CacPromptDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

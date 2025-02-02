@@ -1,19 +1,19 @@
-<ui-button
+<cac-button
   #SubmitButton
   class="yes-btn {{ submitClass ?? '' }}"
   [class.cursor-not-allowed]="insufficientPermission()"
   (onClick)="onSubmitClick($event)"
   [disabled]="disabled || insufficientPermission()"
   [matTooltip]="insufficientPermission() ? 'You do not have permission for this action.' : ''"
-  >{{ submitText }}</ui-button
+  >{{ submitText }}</cac-button
 >
 @if (!hideCancel && !!cancelText) {
-  <ui-button
+  <cac-button
     [appearance]="'stroked'"
     class="no-btn {{ cancelClass ?? '' }}"
     [route]="cancelRoute"
     (onClick)="onCancelClick()"
-    >{{ cancelText }}</ui-button
+    >{{ cancelText }}</cac-button
   >
 }
 <ng-content></ng-content>

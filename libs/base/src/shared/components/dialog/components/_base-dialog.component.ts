@@ -2,7 +2,7 @@ import { Observable, pipe, Subject, Subscription, take, UnaryFunction } from 'rx
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AfterViewInit, ChangeDetectorRef, Component, inject, signal, ViewChild } from '@angular/core';
 import { ActionTypes } from '../../../../core';
-import { DialogLayoutComponent } from '../../layouts';
+import { CacDialogLayoutComponent } from '../../layouts';
 
 export interface BaseDialogData<RESULT, ACTION> {
   action?: DialogAction<RESULT, ACTION>;
@@ -17,16 +17,16 @@ export type DialogAction<INPUT, RESULT> = (value: INPUT) => Observable<RESULT>;
 export type DialogActionEvent<DIALOG, ACTION> = { dialogResult: DIALOG; actionResult: ACTION };
 
 @Component({
-  selector: 'ui-base-dialog',
+  selector: 'cac-base-dialog',
   template: '',
   standalone: true,
 })
-export class BaseDialogComponent<DATA, RESULT> implements AfterViewInit {
+export class CacBaseDialogComponent<DATA, RESULT> implements AfterViewInit {
   readonly cdr = inject(ChangeDetectorRef);
   protected dialog = inject(MatDialogRef<never, RESULT>);
   public data: DATA = inject(MAT_DIALOG_DATA);
 
-  @ViewChild(DialogLayoutComponent) dialogLayout?: DialogLayoutComponent;
+  @ViewChild(CacDialogLayoutComponent) dialogLayout?: CacDialogLayoutComponent;
 
   private _boundAction?: DialogAction<RESULT, any>;
 

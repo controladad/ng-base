@@ -14,8 +14,8 @@ import { distinctUntilChanged, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ScreenDetectorService } from '@al00x/screen-detector';
 import { MatIconModule } from '@angular/material/icon';
-import { FieldComponent } from '../field';
-import { ButtonComponent } from '../button';
+import { CacFieldComponent } from '../field';
+import { CacButtonComponent } from '../button';
 import { ItemRecord } from '../../../../core';
 import { formControl } from '../../../forms';
 
@@ -31,20 +31,20 @@ interface PageItem {
 }
 
 @Component({
-  selector: 'ui-pagination',
+  selector: 'cac-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
   standalone: true,
   imports: [
     NgClass,
     NgTemplateOutlet,
-    FieldComponent,
+    CacFieldComponent,
     DecimalPipe,
-    ButtonComponent,
+    CacButtonComponent,
     MatIconModule
 ],
 })
-export class PaginationComponent implements OnChanges {
+export class CacPaginationComponent implements OnChanges {
   protected _total = signal<number>(0);
   @Input() set total(value: number) {
     this._total.set(value);

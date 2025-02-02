@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarData, SnackbarBaseComponent } from './snackbar-base/snackbar-base.component';
+import { SnackbarData, CacSnackbarBaseComponent } from './snackbar-base/snackbar-base.component';
 import { APIError, ErrorHelper } from '../../../../core';
 
 @Injectable({
@@ -32,7 +32,7 @@ export class SnackbarService {
   }
 
   private open(message: string, options?: Omit<SnackbarData, 'message'>) {
-    const ref = this.snackbar.openFromComponent(SnackbarBaseComponent, {
+    const ref = this.snackbar.openFromComponent(CacSnackbarBaseComponent, {
       panelClass: `ui-snackbar-default`,
       data: { message, ...options } as SnackbarData,
       duration: options?.duration ?? this.DEFAULT_DURATION,

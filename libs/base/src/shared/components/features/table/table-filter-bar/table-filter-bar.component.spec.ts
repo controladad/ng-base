@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableFilterBarComponent } from './table-filter-bar.component';
+import { CacTableFilterBarComponent } from './table-filter-bar.component';
 
-describe('TableFilterBarComponent', () => {
-  let component: TableFilterBarComponent;
-  let fixture: ComponentFixture<TableFilterBarComponent>;
+describe('CacTableFilterBarComponent', () => {
+  let component: CacTableFilterBarComponent;
+  let fixture: ComponentFixture<CacTableFilterBarComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TableFilterBarComponent],
+      imports: [CacTableFilterBarComponent],
     });
-    fixture = TestBed.createComponent(TableFilterBarComponent);
+    fixture = TestBed.createComponent(CacTableFilterBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

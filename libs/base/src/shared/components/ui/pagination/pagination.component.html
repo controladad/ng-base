@@ -29,7 +29,7 @@
     <div
       class="flex relative text-gray-caption text-base justify-center items-center gap-2"
       >
-      <ui-button
+      <cac-button
         appearance="text"
         theme="custom"
         class="navigate-button"
@@ -39,7 +39,7 @@
         >
         <mat-icon svgIcon="chevron-left"></mat-icon>
         <span>Previous</span>
-      </ui-button>
+      </cac-button>
       <div class="flex gap-2">
         @for (item of pagesArray(); track item.number; let index = $index) {
           @if (item.number === totalPages() && showRightEllipsis()) {
@@ -60,7 +60,7 @@
           }
         }
       </div>
-      <ui-button
+      <cac-button
         appearance="text"
         theme="custom"
         class="navigate-button"
@@ -70,7 +70,7 @@
         >
         <span>Next</span>
         <mat-icon svgIcon="chevron-right"></mat-icon>
-      </ui-button>
+      </cac-button>
     </div>
   }
 </ng-template>
@@ -78,7 +78,7 @@
 <ng-template #SizeSelect>
   <div class="flex items-baseline gap-4">
     <span class="text-outline">Show</span>
-    <ui-field
+    <cac-field
       controlType="select"
       class="w-32 flex"
       [items]="pageSizesList"
@@ -86,7 +86,7 @@
       [hideError]="true"
       [searchable]="false"
       >
-    </ui-field>
+    </cac-field>
     <span class="text-outline">Per Page</span>
   </div>
 </ng-template>

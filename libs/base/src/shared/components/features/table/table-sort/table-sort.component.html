@@ -1,5 +1,5 @@
 @if (column.sortable) {
-  <ui-icon
+  <cac-icon
     (onClick)="onSortClick()"
     class="transition-all duration-300 {{
       sortModel.key() === key ? 'text-primary-600 scale-125' : 'text-surface-on-variant opacity-70'
@@ -7,5 +7,5 @@
     wrapperClass="hover:bg-secondary-50"
     [icon]="sortModel.key() === key ? (sortModel.direction() === 'asc' ? 'sort-up' : 'sort-down') : 'sort'"
     size="1.25rem"
-  ></ui-icon>
+  ></cac-icon>
 }

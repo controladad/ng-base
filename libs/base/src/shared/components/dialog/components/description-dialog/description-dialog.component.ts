@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { BaseDialogComponent } from '../_base-dialog.component';
-import { ButtonClickEvent, FieldComponent } from '../../../ui';
-import { DialogLayoutComponent } from '../../../layouts';
+import { CacBaseDialogComponent } from '../_base-dialog.component';
+import { ButtonClickEvent, CacFieldComponent } from '../../../ui';
+import { CacDialogLayoutComponent } from '../../../layouts';
 import { formControl } from '../../../../forms';
 
 export interface DescriptionDialogData {
@@ -16,13 +16,13 @@ export interface DescriptionDialogResult {
 }
 
 @Component({
-  selector: 'feature-description-dialog',
+  selector: 'cac-description-dialog',
   standalone: true,
-  imports: [DialogLayoutComponent, FieldComponent],
+  imports: [CacDialogLayoutComponent, CacFieldComponent],
   templateUrl: './description-dialog.component.html',
   styleUrls: ['./description-dialog.component.scss'],
 })
-export class DescriptionDialogComponent extends BaseDialogComponent<DescriptionDialogData, DescriptionDialogResult> {
+export class CacDescriptionDialogComponent extends CacBaseDialogComponent<DescriptionDialogData, DescriptionDialogResult> {
   control = formControl<string | undefined>(undefined);
 
   constructor() {

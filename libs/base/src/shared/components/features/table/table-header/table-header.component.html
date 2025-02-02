@@ -1,6 +1,6 @@
 <!-- Bulk Actions -->
 @if (options.bulkActions?.length) {
-  <ui-field
+  <cac-field
     class="w-full max-w-[12rem]"
     [control]="bulkActionControl"
     controlType="select"
@@ -9,12 +9,12 @@
     label="عمل مورد نیاز"
     placeholder="انتخاب"
     [hideError]="true"
-  ></ui-field>
-  <ui-button
+  ></cac-field>
+  <cac-button
     class="h-12"
     (onClick)="onBulkAction.emit({ value: bulkActionControl.value, e: $event })"
     [disabled]="!bulkActionControl.value || !options.selectionModel!.hasSelection()"
-    >اعمال</ui-button
+    >اعمال</cac-button
   >
   @if (options.selectionModel?.selectedCount() ?? 0) {
     <span class="font-medium"
@@ -27,7 +27,7 @@
 <div class="flex-auto"><!-- Spacer --></div>
 <!-- Other buttons -->
 @if (options.export) {
-  <ui-button
+  <cac-button
   uiPermissionHide
   [uiPermissionHideAction]="'export'"
   class="h-12"
@@ -37,24 +37,24 @@
   action="export"
 >
   <span class="mr-1">خروجی اکسل</span>
-</ui-button>
+</cac-button>
 }
 
 @if(options.print) {
-  <ui-button
-  uiPermissionHide
-  [uiPermissionHideAction]="'print'"
-  class="h-12"
-  appearance="text"
-  (onClick)="onPrint.emit($event)"
-  icon="print"
-  action="print"
->
+  <cac-button
+    uiPermissionHide
+    [uiPermissionHideAction]="'print'"
+    class="h-12"
+    appearance="text"
+    (onClick)="onPrint.emit($event)"
+    icon="print"
+    action="print"
+  >
   <span class="mr-1">پرینت</span>
-</ui-button>
+</cac-button>
 }
 @if(options.events?.add) {
-  <ui-button
+  <cac-button
   uiPermissionHide
   [uiPermissionHideAction]="'create'"
   #MenuTriggerAddButton="matMenuTrigger"
@@ -65,7 +65,7 @@
   action="create"
 >
   {{ options.view?.addButtonText ?? ADD_TEXT + ' ' + options.view?.itemName }}
-</ui-button>
+</cac-button>
 }
 
-<ui-button icon="refresh" class="h-12" appearance="text" [disabled]="loading" (onClick)="onRefresh.emit($event)"></ui-button>
+<cac-button icon="refresh" class="h-12" appearance="text" [disabled]="loading" (onClick)="onRefresh.emit($event)"></cac-button>

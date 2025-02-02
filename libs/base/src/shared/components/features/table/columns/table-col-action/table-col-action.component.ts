@@ -8,11 +8,11 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { TableColBase } from '../_table_col_base';
+import { CacTableColBase } from '../_table_col_base';
 import { MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderCellDef } from '@angular/material/table';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { AsyncPipe } from '@angular/common';
-import { ButtonClickEvent, ButtonComponent } from '../../../../ui';
+import { ButtonClickEvent, CacButtonComponent } from '../../../../ui';
 import { PermissionHideDirective } from '../../../../../directives';
 import { MatBadge } from '@angular/material/badge';
 import { TableAction } from '../../table.interfaces';
@@ -21,7 +21,7 @@ import { BehaviorSubject, Subject, take } from 'rxjs';
 export const TABLE_COL_ACTION_PROP = '___action';
 
 @Component({
-  selector: 'feature-table-col-action',
+  selector: 'cac-table-col-action',
   imports: [
     MatColumnDef,
     MatHeaderCell,
@@ -29,7 +29,7 @@ export const TABLE_COL_ACTION_PROP = '___action';
     MatCellDef,
     MatCell,
     MatMenuTrigger,
-    ButtonComponent,
+    CacButtonComponent,
     PermissionHideDirective,
     MatBadge,
     AsyncPipe,
@@ -38,7 +38,7 @@ export const TABLE_COL_ACTION_PROP = '___action';
   styleUrl: './table-col-action.component.scss',
   standalone: true,
 })
-export class TableColActionComponent extends TableColBase implements AfterViewInit {
+export class CacTableColActionComponent extends CacTableColBase implements AfterViewInit {
   override prop = TABLE_COL_ACTION_PROP;
 
   @ViewChildren('ActionColCells') actionColCells?: QueryList<ElementRef<HTMLDivElement>>;

@@ -3,22 +3,22 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 
-import { PaginationComponent } from './pagination.component';
+import { CacPaginationComponent } from './pagination.component';
 
-describe('PaginationComponent', () => {
-  let component: PaginationComponent;
-  let fixture: ComponentFixture<PaginationComponent>;
+describe('CacPaginationComponent', () => {
+  let component: CacPaginationComponent;
+  let fixture: ComponentFixture<CacPaginationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PaginationComponent, MatIcon],
+      declarations: [CacPaginationComponent, MatIcon],
       imports: [MatIconTestingModule],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PaginationComponent);
+    fixture = TestBed.createComponent(CacPaginationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

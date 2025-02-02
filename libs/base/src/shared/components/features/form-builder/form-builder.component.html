@@ -17,12 +17,12 @@
   <input #TabIndexEntry class="absolute opacity-0 pointer-events-none" readonly type="text" autocomplete="off" />
   @for (input of inputItems(); track trackBy($index, input)) {
     @if (!$any(_options.hiddenKeys())[$any(input.key)] && !$any(_options.invisibleKeys())[$any(input.key)]) {
-      <feature-control-builder
+      <cac-control-builder
         [options]="input"
         [class]="input.class$Value()"
         [style]="input.styles$Value()"
         [allowAutocomplete]="_options.allowAutocomplete"
-      ></feature-control-builder>
+      ></cac-control-builder>
     }
   }
   <!--  <input #TabIndexExit class="absolute opacity-0" readonly (focus)="onTabIndexEndFocus()" />-->

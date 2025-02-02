@@ -1,7 +1,7 @@
 import { inject, Injectable, InjectionToken } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/overlay';
-import { BaseDialogComponent, DialogAction, DialogActionEvent } from './components/_base-dialog.component';
+import { CacBaseDialogComponent, DialogAction, DialogActionEvent } from './components/_base-dialog.component';
 import { filter, map, Observable, take } from 'rxjs';
 import { ActionTypes } from '../../../core';
 
@@ -39,7 +39,7 @@ export class DialogInvokerService {
       ...config,
     });
 
-    const componentIns = ref.componentInstance as BaseDialogComponent<D, R>;
+    const componentIns = ref.componentInstance as CacBaseDialogComponent<D, R>;
     const extended: DialogExtended<T, R> = {
       ref,
       afterOpened: () => ref.afterOpened(),

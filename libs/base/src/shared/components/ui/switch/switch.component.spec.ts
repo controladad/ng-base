@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SwitchComponent } from './switch.component';
+import { CacSwitchComponent } from './switch.component';
 
-describe('SwitchComponent', () => {
-  let component: SwitchComponent;
-  let fixture: ComponentFixture<SwitchComponent>;
+describe('CacSwitchComponent', () => {
+  let component: CacSwitchComponent;
+  let fixture: ComponentFixture<CacSwitchComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SwitchComponent],
+      declarations: [CacSwitchComponent],
     });
-    fixture = TestBed.createComponent(SwitchComponent);
+    fixture = TestBed.createComponent(CacSwitchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

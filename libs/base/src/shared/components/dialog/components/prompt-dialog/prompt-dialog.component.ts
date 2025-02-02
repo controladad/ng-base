@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ButtonClickEvent } from '../../../ui';
-import { DialogLayoutComponent } from '../../../layouts';
-import { BaseDialogComponent } from '../_base-dialog.component';
+import { CacDialogLayoutComponent } from '../../../layouts';
+import { CacBaseDialogComponent } from '../_base-dialog.component';
 
 export interface PromptDialogData {
   title: string;
@@ -15,13 +15,13 @@ export interface PromptDialogData {
 export type PromptDialogResult = boolean;
 
 @Component({
-  selector: 'feature-prompt-dialog',
+  selector: 'cac-prompt-dialog',
   templateUrl: './prompt-dialog.component.html',
   styleUrls: ['./prompt-dialog.component.scss'],
   standalone: true,
-  imports: [DialogLayoutComponent],
+  imports: [CacDialogLayoutComponent],
 })
-export class PromptDialogComponent extends BaseDialogComponent<PromptDialogData, PromptDialogResult> {
+export class CacPromptDialogComponent extends CacBaseDialogComponent<PromptDialogData, PromptDialogResult> {
   onYes(e: ButtonClickEvent) {
     this.submit(true, e.pipe());
   }
