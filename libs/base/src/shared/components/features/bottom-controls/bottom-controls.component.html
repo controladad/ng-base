@@ -5,7 +5,7 @@
   [class.cursor-not-allowed]="insufficientPermission()"
   (onClick)="onSubmitClick($event)"
   [disabled]="disabled || insufficientPermission()"
-  [matTooltip]="insufficientPermission() ? fallbackInsufficientPermissionText : ''"
+  [matTooltip]="insufficientPermission() ? INSUFFICIENT_PERMISSION_TEXT : ''"
   >{{ submitText }}</ui-button
   >
   @if (!hideCancel && !!cancelText) {
