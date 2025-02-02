@@ -9,12 +9,10 @@ import {
   TokenInterceptor,
   ErrorInterceptor,
   DatefnsJalaliDateAdapter, DeepPartial, _DummyAppBaseStore, _DummyAuthBaseStore
-} from '../core';
+} from './core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { API_BASEURL, ENVIRONMENT } from './tokens';
+import { CacBase, API_BASEURL, ENVIRONMENT, registerIcons } from './configs';
 import { setupGlobalServices, setupProdMode } from './globals';
-import { registerIcons } from './icons';
-import { CacBase } from './base-config';
 import { DateFnsAdapter } from '@angular/material-date-fns-adapter';
 import { loadTranslations } from '@angular/localize';
 import { enUS } from 'date-fns/locale';

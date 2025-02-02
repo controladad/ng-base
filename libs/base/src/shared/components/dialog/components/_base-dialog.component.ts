@@ -1,8 +1,8 @@
 import { Observable, pipe, Subject, Subscription, take, UnaryFunction } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AfterViewInit, ChangeDetectorRef, Component, inject, signal, ViewChild } from '@angular/core';
-import { ActionTypes } from '../../../../../core';
-import { DialogLayoutComponent } from '../../../layouts';
+import { ActionTypes } from '../../../../core';
+import { DialogLayoutComponent } from '../../layouts';
 
 export interface BaseDialogData<RESULT, ACTION> {
   action?: DialogAction<RESULT, ACTION>;

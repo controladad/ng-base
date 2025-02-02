@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 
-import { FormBuilder, FormBuilderComponent } from '../../../form-builder';
-import { DialogLayoutComponent } from '../../../../layouts';
-import { ButtonClickEvent, ButtonComponent } from '../../../../ui';
+import { DialogLayoutComponent } from '../../../layouts';
+import { ButtonClickEvent, ButtonComponent } from '../../../ui';
 import { BaseDialogComponent, DialogAction, DialogActionEvent } from '../_base-dialog.component';
 import { Subject } from 'rxjs';
 import { DialogInvokerService } from '../../dialog-invoker.service';
 import { PromptDialogComponent, PromptDialogData, PromptDialogResult } from '../prompt-dialog/prompt-dialog.component';
+import { FormBuilder, FormBuilderComponent } from '../../../features';
 
 export interface InputDialogData<T, U> {
   title: string;

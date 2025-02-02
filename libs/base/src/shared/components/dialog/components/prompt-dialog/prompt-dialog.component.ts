@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ButtonClickEvent, ButtonComponent } from '../../../../ui';
-import { DialogLayoutComponent } from '../../../../layouts';
+import { ButtonClickEvent } from '../../../ui';
+import { DialogLayoutComponent } from '../../../layouts';
 import { BaseDialogComponent } from '../_base-dialog.component';
 
 export interface PromptDialogData {

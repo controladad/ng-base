@@ -3,8 +3,8 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { ComponentType } from '@angular/cdk/overlay';
 import { BaseDialogComponent, DialogAction, DialogActionEvent } from './components/_base-dialog.component';
 import { filter, map, Observable, take } from 'rxjs';
-import { ActionTypes } from '../../../../core';
-import { CacBase } from '../../../../configs';
+import { ActionTypes } from '../../../core';
+import { CacBase } from '../../../configs';
 
 export interface DialogExtended<T, R> {
   ref: MatDialogRef<T, R>;

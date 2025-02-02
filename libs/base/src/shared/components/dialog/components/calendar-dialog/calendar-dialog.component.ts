@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseDialogComponent } from '../_base-dialog.component';
-import { DatePickerComponent } from '../../../../ui';
+import { DatePickerComponent } from '../../../ui';
 import { DateRange } from '@angular/material/datepicker';
 
 export interface CalendarsDialogResult {

@@ -1,4 +1,4 @@
-import type { AppBaseStore, AuthBaseStore, DataGetFn, DeepPartial } from '../core';
+import type { AppBaseStore, AuthBaseStore, DeepPartial } from '../core';
 import type {
   DialogExtendedConfig,
   TableOptions,

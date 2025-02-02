@@ -13,7 +13,7 @@ import {
 } from '../../../../core';
 import { ButtonAppearanceType, ButtonClickEvent, ButtonThemeType, FieldInputType } from '../../ui';
 import { SelectionModel, SortModel, TableFilterModel } from '../../../classes';
-import { InputDialogExtended } from '../dialog';
+import type { InputDialogExtended } from '../../dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 
 export type TableColumnType =
