@@ -122,7 +122,7 @@ const TABLE_DEFAULT_GENERATOR = (defaultConfig?: Partial<TableOptions<any>>) =>
     itemsFn: undefined,
   }) as TableOptions<any>;
 
-export const TableComponentConfig = new InjectionToken<Partial<TableOptions<any>>>('TableComponent');
+export const TABLE_COMPONENT_CONFIG = new InjectionToken<Partial<TableOptions<any>>>('TableComponent');
 
 export class TablePaginationMismatchError extends Error {
   constructor() {
@@ -203,7 +203,7 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
 export class TableComponent<T extends object> implements OnInit, OnChanges, AfterViewInit, AfterContentInit, OnDestroy {
   readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
-  private readonly config = inject(TableComponentConfig);
+  private readonly config = inject(TABLE_COMPONENT_CONFIG);
 
   readonly ACTIVE_STRING_VALUE = 'Active';
 

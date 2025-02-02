@@ -8,8 +8,8 @@ let _cachedDateFns: typeof dateFns;
 export function DateFns(): typeof dateFns {
   if (_cachedDateFns) return _cachedDateFns;
 
-  if (CacGlobalConfig.config.localization.forceDateFns === 'jalali') _cachedDateFns = jalali as any;
-  else if (CacGlobalConfig.config.localization.forceDateFns === 'georgian') _cachedDateFns = dateFns;
+  if (CacGlobalConfig.localization.forceDateFnsLib === 'jalali') _cachedDateFns = jalali as any;
+  else if (CacGlobalConfig.localization.forceDateFnsLib === 'georgian') _cachedDateFns = dateFns;
   else {
     const store = getStore<any>(CacGlobalConfig.generateStoreKey('app'));
     _cachedDateFns = (store?.getValue().lang === 'fa' ? jalali : dateFns) as any;

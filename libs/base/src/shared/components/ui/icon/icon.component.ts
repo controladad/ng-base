@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
 import { componentWithDefaultConfig } from '../../../../core';
 
 export type IconComponentType = InstanceType<typeof IconComponent>
-export const IconComponentConfig = new InjectionToken<Partial<IconComponentType>>('IconComponent');
+export const ICON_COMPONENT_CONFIG = new InjectionToken<Partial<IconComponentType>>('IconComponent');
 
 @Component({
   selector: 'ui-icon',
@@ -46,7 +46,7 @@ export class IconComponent implements OnInit, OnChanges, AfterViewInit {
   isClickable = signal(false);
 
   constructor() {
-    componentWithDefaultConfig(this, IconComponentConfig);
+    componentWithDefaultConfig(this, ICON_COMPONENT_CONFIG);
 
     this.thisWidth = this.size;
     this.thisHeight = this.size;

@@ -1,8 +1,23 @@
 import { inject, InjectionToken } from '@angular/core';
 
+function isClass(obj: any) {
+  const isCtorClass = obj.constructor
+      && obj.constructor.toString().substring(0, 5) === 'class'
+  if(obj.prototype === undefined) {
+    return isCtorClass
+  }
+  const isPrototypeCtorClass = obj.prototype.constructor
+    && obj.prototype.constructor.toString
+    && obj.prototype.constructor.toString().substring(0, 5) === 'class'
+  return isCtorClass || isPrototypeCtorClass
+}
+
 export function provide<T>(token: InjectionToken<T>, value: T | (() => T), multi = false) {
+  // @ts-ignore
   if (typeof value === 'function') {
     return { provide: token, useFactory: value, multi };
+  } else if (isClass(value)) {
+    return { provide: token, useClass: value, multi };
   } else {
     return { provide: token, useValue: value, multi };
   }

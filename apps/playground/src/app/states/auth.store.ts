@@ -1,4 +1,4 @@
-import { AuthBaseStore, AuthBaseStoreLoginModel, AuthBaseStoreProps } from '@controladad/ng-base';
+import { _AuthBaseStore, AuthBaseStoreLoginModel, AuthBaseStoreProps } from '@controladad/ng-base';
 import { of, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -8,7 +8,7 @@ interface AuthStoreLoginModel extends AuthBaseStoreLoginModel {}
 @Injectable({
   providedIn: 'root',
 })
-export class AuthStore extends AuthBaseStore<AuthStoreProps, AuthStoreLoginModel> {
+export class AuthStore extends _AuthBaseStore<AuthStoreProps, AuthStoreLoginModel> {
   constructor() {
     super({
       loginApi: () => of({} as any).pipe(tap(() => console.log('HOOP!'))),

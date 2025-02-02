@@ -19,14 +19,14 @@ export interface DialogExtendedConfig<D> extends MatDialogConfig<D> {
   backdropBlur?: 'sm' | 'normal' | 'xl';
 }
 
-export const DialogInvokerConfig = new InjectionToken<Partial<DialogExtendedConfig<any>>>('DialogInvokerService');
+export const DIALOG_INVOKER_CONFIG = new InjectionToken<Partial<DialogExtendedConfig<any>>>('DialogInvokerService');
 
 @Injectable({
   providedIn: 'root',
 })
 export class DialogInvokerService {
   readonly dialog = inject(MatDialog);
-  private readonly config = inject(DialogInvokerConfig);
+  private readonly config = inject(DIALOG_INVOKER_CONFIG);
 
   open<T, D, R>(component: ComponentType<T>, data?: D, config?: DialogExtendedConfig<D>): DialogExtended<T, R> {
     const ref = this.dialog.open<T, D, R>(component, {

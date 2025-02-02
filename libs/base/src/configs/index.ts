@@ -1,3 +1,3 @@
 export * from './tokens';
 export * from './icons';
-export * from './base-config';
+export * from './global-config';
