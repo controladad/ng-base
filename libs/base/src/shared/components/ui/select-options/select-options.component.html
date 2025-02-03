@@ -25,20 +25,20 @@
         <div>
           @let items = categories$ | async;
           <div class="w-full h-16 overflow-auto">
-            <ui-chips-group [control]="categoryControl" [toggleable]="true" class="mx-4">
-              @for (item of items; track item) {
-                <ui-chips class="min-w-[5rem] py-1" appearance="outlined" [value]="item.value">{{
+            <cac-chips-group [control]="categoryControl" [toggleable]="true" class="mx-4">
+              @for (item of items; track item.value) {
+                <cac-chips class="min-w-[5rem] py-1" appearance="outlined" [value]="item.value">{{
                   item.label
-                }}</ui-chips>
+                }}</cac-chips>
               }
-            </ui-chips-group>
+            </cac-chips-group>
           </div>
         </div>
       }
 
       @if (multiple) {
         <p class="pt-2 pb-2 px-5 text-xs text-primary">
-          {{ _selectionModel.selectedCount() }} {{N_ITEMS_SELECTED_TEXT}}
+          {{ _selectionModel.selectedCount() }} {{ N_ITEMS_SELECTED_TEXT }}
         </p>
       }
 
@@ -47,7 +47,7 @@
       }
 
       @if (_showingOptionalValue()) {
-        <span class="ps-3 pb-2 text-xs">CHOOSE_OPTIONAL_VALUE_TEXT</span>
+        <span class="ps-3 pb-2 text-xs">{{ CHOOSE_OPTIONAL_VALUE_TEXT }}</span>
       }
 
       <div #Container class="flex flex-col overflow-auto min-h-[7rem] max-h-[18rem]">
@@ -63,7 +63,7 @@
                 (keydown.enter)="close()"
                 mat-menu-item
                 >
-                {{LOADING_TEXT}}.
+                {{ LOADING_TEXT }}
               </div>
             </div>
           } @else {
@@ -76,11 +76,11 @@
                   (keydown.enter)="close()"
                   mat-menu-item
                   >
-                  {{NO_ITEMS_AVAILABLE_TEXT}}
+                  {{ NO_ITEMS_AVAILABLE_TEXT }}
                 </div>
               </div>
             } @else {
-              @for (item of state.items; track item; let index = $index) {
+              @for (item of state.items; track item.value; let index = $index) {
                 <button
                   mat-button
                   class="option-item"
@@ -111,17 +111,17 @@
                     </span>
                     <div class="flex-1"><!-- --></div>
                     @if (multiple && item.type === undefined) {
-                      <ui-checkbox
+                      <cac-checkbox
                         class="pointer-events-none"
                         [checked]="_selectionModel.selectedIds()[item.label]"
-                      ></ui-checkbox>
+                      ></cac-checkbox>
                     }
                     @if (item.type === 'selectAll') {
-                      <ui-checkbox
+                      <cac-checkbox
                         class="pointer-events-none"
                         [checked]="_selectionModel.allSelected()"
                         [indeterminate]="_selectionModel.indeterminate()"
-                      ></ui-checkbox>
+                      ></cac-checkbox>
                     }
                   </div>
                 </button>

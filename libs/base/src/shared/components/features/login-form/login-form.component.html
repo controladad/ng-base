@@ -1,9 +1,9 @@
-<div class="flex flex-col justify-evenly p-2" (keydown.enter)="login(Button.createClickEvent(undefined))">
+<div class="flex flex-col justify-evenly p-2 mx-8" (keydown.enter)="login(Button.createClickEvent(undefined))">
   <img class="mx-auto" src="assets/base/images/cac-logo.png" alt="controladad-logo" />
   <h1 i18n="@@base.feature.login.title" class="text-3xl font-medium mt-12">Login</h1>
   <p i18n="@@base.feature.login.guide" class="mt-6 text-surface-on">Enter you username and password</p>
   <div class="mt-9">
-    <feature-form-builder #Form class="flex flex-col" [options]="formBuilder"></feature-form-builder>
+    <cac-form-builder #Form class="flex flex-col" [options]="formBuilder"></cac-form-builder>
   </div>
-  <ui-button i18n="@@base.feature.login.button" #Button class="h-14 mt-6" (onClick)="login($event)">Login</ui-button>
+  <cac-button i18n="@@base.feature.login.button" #Button class="h-14 mt-6" [disabled]="formBuilder.formGroup.invalid" (onClick)="login($event)">Login</cac-button>
 </div>

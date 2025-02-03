@@ -1,20 +1,20 @@
 import { ChangeDetectionStrategy, Component, computed, Input } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 
-import { TableFilterMenuComponent } from '../table-filter-menu/table-filter-menu.component';
-import { IconComponent } from '../../../ui';
+import { CacTableFilterMenuComponent } from '../table-filter-menu/table-filter-menu.component';
+import { CacIconComponent } from '../../../ui';
 import { TableColumnData } from '../table.component';
 import { TableFilterModel } from '../../../../classes';
 
 @Component({
-  selector: 'feature-table-filter',
+  selector: 'cac-table-filter',
   standalone: true,
-  imports: [IconComponent, MatMenuModule, TableFilterMenuComponent],
+  imports: [CacIconComponent, MatMenuModule, CacTableFilterMenuComponent],
   templateUrl: './table-filter.component.html',
   styleUrls: ['./table-filter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableFilterComponent<T> {
+export class CacTableFilterComponent<T> {
   @Input() column!: TableColumnData<T>;
   @Input() filterModel!: TableFilterModel;
 

@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { getFormattedDate, toPascalCase } from '../helpers';
 import { DataGetOptions, DataGetRequest, ItemRecord } from '../interfaces';
-import { ENVIRONMENT } from '../../configs';
+import { API_BASEURL } from '../../configs';
 
 type ResponseType = 'json' | 'text' | 'blob' | undefined;
 interface ApiOptions {
@@ -43,7 +43,7 @@ function GetApiAdapterOptionsToQueryParam(param: {pagination: undefined}) {
 
 export class BaseApi<ENTITY, CREATE = any, UPDATE = any> {
   readonly http = inject(HttpClient);
-  readonly environment = inject(ENVIRONMENT);
+  readonly apiBaseUrl = inject(API_BASEURL);
 
   protected endpoint: Endpoint;
   protected prefix: string;
@@ -200,7 +200,7 @@ export class BaseApi<ENTITY, CREATE = any, UPDATE = any> {
 
     const a = document.createElement('a');
     a.setAttribute('target', '_blank');
-    a.href = `${this.environment.apiBaseUrl}/${this.dropSlash(exportUrl)}`;
+    a.href = `${this.apiBaseUrl}/${this.dropSlash(exportUrl)}`;
     a.download = `${filename ? filename : 'export'}_${getFormattedDate(new Date(), 'yyyy-MM-dd_HH-mm-ss')}`;
     a.style.display = 'none';
     document.body.appendChild(a);

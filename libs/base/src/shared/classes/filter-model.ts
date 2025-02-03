@@ -1,7 +1,7 @@
 import { computed, signal } from '@angular/core';
 import { BehaviorSubject, debounceTime, Subject } from 'rxjs';
 import { DataFilterTypes, DataGetRequest, getFromItemRecord, getFormattedDate, ItemRecords$ } from '../../core';
-import { FormBuilderInputType, TableColumnData, TableColumnFilter, TableFilterOptions } from '../components';
+import type { FormBuilderInputType, TableColumnData, TableColumnFilter, TableFilterOptions } from '../components';
 import { BooleanValues } from '../data';
 
 export interface FilterValue {

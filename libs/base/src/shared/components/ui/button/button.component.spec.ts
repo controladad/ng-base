@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ButtonComponent } from './button.component';
+import { CacButtonComponent } from './button.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('UiButtonComponent', () => {
-  let component: ButtonComponent;
-  let fixture: ComponentFixture<ButtonComponent>;
+describe('CacButtonComponent', () => {
+  let component: CacButtonComponent;
+  let fixture: ComponentFixture<CacButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [ButtonComponent],
+      declarations: [CacButtonComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ButtonComponent);
+    fixture = TestBed.createComponent(CacButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

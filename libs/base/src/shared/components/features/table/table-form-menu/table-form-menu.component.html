@@ -16,21 +16,21 @@
         : EDIT_TEXT + ' ' + formOptions()!.itemName
       }}</span>
       <span class="text-sm font-normal mt-1" i18n="@@base.feature.table.formMenu.caption">Fill in The Details And Hit Save</span>
-      <ui-icon
+      <cac-icon
         class="absolute w-12 h-12 left-4 text-surface-on"
         size="1.5rem"
         icon="close"
         (onClick)="Controller.cancel()"
-      ></ui-icon>
+      ></cac-icon>
       <div class="overflow-auto flex-auto">
-        <feature-form-builder
+        <cac-form-builder
           #Form
           class="block mt-7"
           [options]="formOptions()!.formBuilder"
           [focusOnInit]="true"
-        ></feature-form-builder>
+        ></cac-form-builder>
       </div>
-      <feature-bottom-controls
+      <cac-bottom-controls
         #Controller
         [form]="formOptions()!.formBuilder.formGroup"
         [actionType]="formOptions()!.mode === 'edit' ? 'update' : 'create'"
@@ -43,7 +43,7 @@
         i18n-cancelText="Cancel@@base.feature.table.formMenu.cancelButton"
         (onSubmit)="onFormMenuSubmit($event)"
         (onCancel)="onFormMenuCancel()"
-      ></feature-bottom-controls>
+      ></cac-bottom-controls>
     </div>
   }
 </mat-menu>

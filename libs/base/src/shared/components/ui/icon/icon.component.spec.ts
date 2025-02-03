@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IconComponent } from './icon.component';
+import { CacIconComponent } from './icon.component';
 
-describe('IconComponent', () => {
-  let component: IconComponent;
-  let fixture: ComponentFixture<IconComponent>;
+describe('CacIconComponent', () => {
+  let component: CacIconComponent;
+  let fixture: ComponentFixture<CacIconComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [IconComponent],
+      declarations: [CacIconComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IconComponent);
+    fixture = TestBed.createComponent(CacIconComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

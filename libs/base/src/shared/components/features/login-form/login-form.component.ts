@@ -1,10 +1,10 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { formBuilder, FormBuilderComponent } from '../form-builder';
+import { formBuilder, CacFormBuilderComponent } from '../form-builder';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ButtonClickEvent, ButtonComponent } from '../../ui';
+import { ButtonClickEvent, CacButtonComponent } from '../../ui';
 import { formControl } from '../../../forms';
-import { CacBase } from '../../../../configs';
+import { AuthBaseStore } from '../../../../core';
 
 interface LoginFormGroup {
   username: string;
@@ -21,14 +21,14 @@ export interface LoginFormOptions {
 }
 
 @Component({
-  selector: 'feature-login-form',
+  selector: 'cac-login-form',
   standalone: true,
-  imports: [FormBuilderComponent, ButtonComponent],
+  imports: [CacFormBuilderComponent, CacButtonComponent],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })
-export class LoginFormComponent implements OnInit {
-  private readonly auth = inject(CacBase.config.states.auth);
+export class CacLoginFormComponent implements OnInit {
+  private readonly auth = inject(AuthBaseStore);
   private readonly router = inject(Router);
 
   @Input() options: LoginFormOptions = {};
@@ -69,8 +69,6 @@ export class LoginFormComponent implements OnInit {
   }
 
   login(e: ButtonClickEvent) {
-    if (!this.formBuilder.validate()) return;
-
     const model = {
       username: this.formBuilder.inputs.username.control.value,
       password: this.formBuilder.inputs.password.control.value,

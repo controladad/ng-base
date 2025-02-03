@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectOptionsComponent } from './select-options.component';
+import { CacSelectOptionsComponent } from './select-options.component';
 
-describe('SelectOptionsComponent', () => {
-  let component: SelectOptionsComponent<any>;
-  let fixture: ComponentFixture<SelectOptionsComponent<any>>;
+describe('CacSelectOptionsComponent', () => {
+  let component: CacSelectOptionsComponent<any>;
+  let fixture: ComponentFixture<CacSelectOptionsComponent<any>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SelectOptionsComponent],
+      imports: [CacSelectOptionsComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SelectOptionsComponent);
+    fixture = TestBed.createComponent(CacSelectOptionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

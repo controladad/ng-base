@@ -1,6 +1,6 @@
 <!-- Bulk Actions -->
 @if (options.bulkActions?.length) {
-  <ui-field
+  <cac-field
     class="w-full max-w-[12rem]"
     [control]="bulkActionControl"
     controlType="select"
@@ -11,13 +11,13 @@
     placeholder="Choose an action"
     i18n-placeholder="Choose an action@@base.feature.table.header.bulkActionPlaceholder"
     [hideError]="true"
-  ></ui-field>
-  <ui-button
+  ></cac-field>
+  <cac-button
     class="h-12"
     (onClick)="onBulkAction.emit({ value: bulkActionControl.value, e: $event })"
     [disabled]="!bulkActionControl.value || !options.selectionModel!.hasSelection()"
     i18n="@@base.feature.table.header.bulkActionApply"
-    >Apply</ui-button
+    >Apply</cac-button
   >
   @if (options.selectionModel?.selectedCount() ?? 0) {
     <span class="font-medium">
@@ -32,8 +32,9 @@
 <div class="flex-auto"><!-- Spacer --></div>
 <!-- Other buttons -->
 @if (options.export) {
-  <ui-button
+  <cac-button
   uiPermissionHide
+  [uiPermissionHideAction]="'export'"
   class="h-12"
   appearance="text"
   (onClick)="onExport.emit($event)"
@@ -44,11 +45,11 @@
   i18n="@@base.feature.table.header.exportExcel">
     Export Excel
   </span>
-</ui-button>
+</cac-button>
 }
 
 @if(options.export) {
-  <ui-button
+  <cac-button
   uiPermissionHide
   class="h-12"
   appearance="text"
@@ -60,11 +61,12 @@
   i18n="@@base.feature.table.header.print">
     Print
   </span>
-</ui-button>
+</cac-button>
 }
 @if(options.events?.add) {
-  <ui-button
+  <cac-button
   uiPermissionHide
+  [uiPermissionHideAction]="'create'"
   #MenuTriggerAddButton="matMenuTrigger"
   [matMenuTriggerFor]="null"
   class="h-12"
@@ -73,7 +75,7 @@
   action="create"
 >
   {{ options.view?.addButtonText ?? ADD_TEXT + ' ' + options.view?.itemName }}
-</ui-button>
+</cac-button>
 }
 
-<ui-button icon="refresh" class="h-12" appearance="text" [disabled]="loading" (onClick)="onRefresh.emit($event)"></ui-button>
+<cac-button icon="refresh" class="h-12" appearance="text" [disabled]="loading" (onClick)="onRefresh.emit($event)"></cac-button>

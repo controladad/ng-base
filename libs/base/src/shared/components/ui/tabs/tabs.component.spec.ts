@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TabsComponent } from './tabs.component';
+import { CacTabsComponent } from './tabs.component';
 
-describe('TabsComponent', () => {
-  let component: TabsComponent;
-  let fixture: ComponentFixture<TabsComponent>;
+describe('CacTabsComponent', () => {
+  let component: CacTabsComponent;
+  let fixture: ComponentFixture<CacTabsComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TabsComponent],
+      declarations: [CacTabsComponent],
     });
-    fixture = TestBed.createComponent(TabsComponent);
+    fixture = TestBed.createComponent(CacTabsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

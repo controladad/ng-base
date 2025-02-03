@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginFormComponent } from './login-form.component';
+import { CacLoginFormComponent } from './login-form.component';
 
-describe('LoginFormComponent', () => {
-  let component: LoginFormComponent;
-  let fixture: ComponentFixture<LoginFormComponent>;
+describe('CacLoginFormComponent', () => {
+  let component: CacLoginFormComponent;
+  let fixture: ComponentFixture<CacLoginFormComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LoginFormComponent],
+      declarations: [CacLoginFormComponent],
     });
-    fixture = TestBed.createComponent(LoginFormComponent);
+    fixture = TestBed.createComponent(CacLoginFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

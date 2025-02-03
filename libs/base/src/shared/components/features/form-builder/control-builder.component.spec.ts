@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ControlBuilderComponent } from './control-builder.component';
+import { CacControlBuilderComponent } from './control-builder.component';
 
-describe('ControlBuilderComponent', () => {
-  let component: ControlBuilderComponent<any>;
-  let fixture: ComponentFixture<ControlBuilderComponent<any>>;
+describe('CacControlBuilderComponent', () => {
+  let component: CacControlBuilderComponent<any>;
+  let fixture: ComponentFixture<CacControlBuilderComponent<any>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ControlBuilderComponent],
+      imports: [CacControlBuilderComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ControlBuilderComponent);
+    fixture = TestBed.createComponent(CacControlBuilderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

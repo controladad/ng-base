@@ -3,13 +3,13 @@ import { MatCellDef, MatColumnDef, MatFooterCellDef, MatHeaderCellDef, MatTable 
 import { TableOptions } from '../table.interfaces';
 
 @Component({
-  selector: 'feature-base-table-col',
+  selector: 'cac-base-table-col',
   template: '',
   styles: [],
   standalone: true,
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
-export class TableColBase implements OnInit, OnDestroy {
+export class CacTableColBase implements OnInit, OnDestroy {
   @Input() prop!: string;
   @Input() options!: TableOptions<any>;
 

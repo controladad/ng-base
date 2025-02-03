@@ -29,7 +29,7 @@
     <div
       class="flex relative text-gray-caption text-base justify-center items-center gap-2"
       >
-      <ui-button
+      <cac-button
         appearance="text"
         theme="custom"
         class="navigate-button"
@@ -39,7 +39,7 @@
         >
         <mat-icon svgIcon="chevron-left"></mat-icon>
         <span i18n="@@base.ui.pagination.previous">Previous</span>
-      </ui-button>
+      </cac-button>
       <div class="flex gap-2">
         @for (item of pagesArray(); track item.number; let index = $index) {
           @if (item.number === totalPages() && showRightEllipsis()) {
@@ -53,14 +53,14 @@
             (click)="onSelect(item)"
             (keydown)="onSelect(item)"
             >
-            <p class="pointer-events-none">{{ item.number | number: '2.0-0' }}</p>
+            <p>{{ item.number | number: '2.0-0' }}</p>
           </div>
           @if (item.number === 1 && showLeftEllipsis()) {
             <p class="ellipsis-gap">...</p>
           }
         }
       </div>
-      <ui-button
+      <cac-button
         appearance="text"
         theme="custom"
         class="navigate-button"
@@ -70,14 +70,15 @@
         >
         <span i18n="@@base.ui.pagination.next">Next</span>
         <mat-icon svgIcon="chevron-right"></mat-icon>
-      </ui-button>
+      </cac-button>
     </div>
   }
 </ng-template>
 
 <ng-template #SizeSelect>
   <div class="flex items-baseline gap-4">
-    <ui-field
+    <span class="text-outline">Show</span>
+    <cac-field
       controlType="select"
       class="w-32 flex"
       [items]="pageSizesList"
@@ -85,7 +86,7 @@
       [hideError]="true"
       [searchable]="false"
       >
-    </ui-field>
+    </cac-field>
     <span class="text-outline" i18n="@@base.ui.pagination.perPageCount">Items per page</span>
   </div>
 </ng-template>

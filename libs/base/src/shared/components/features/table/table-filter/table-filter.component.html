@@ -1,5 +1,5 @@
 @if (column.filterable) {
-  <ui-icon
+  <cac-icon
     #FilterMenuTrigger="matMenuTrigger"
     [matMenuTriggerFor]="null"
     class="transition-all duration-300 {{
@@ -8,10 +8,10 @@
     wrapperClass="hover:bg-secondary-50"
     [icon]="isActive() ? 'filter-filled' : 'filter'"
     size="1rem"
-  ></ui-icon>
-  <feature-table-filter-menu
+  ></cac-icon>
+  <cac-table-filter-menu
     [column]="column"
     [filterModel]="filterModel"
     [trigger]="FilterMenuTrigger"
-  ></feature-table-filter-menu>
+  ></cac-table-filter-menu>
 }

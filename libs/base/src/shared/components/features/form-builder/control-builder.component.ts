@@ -1,25 +1,25 @@
 import { Component, computed, inject, input, Input } from '@angular/core';
-import { AsyncPipe, NgStyle} from '@angular/common';
-import { CheckboxComponent, FieldComponent, LicensePlateComponent, RadioComponent, SwitchComponent } from '../../ui';
-import type { FormBuilderInputOption } from './form-builder.types';
+import { AsyncPipe, NgStyle } from '@angular/common';
+import { CacCheckboxComponent, CacFieldComponent, CacLicensePlateComponent, CacRadioComponent, CacSwitchComponent } from '../../ui';
+import { FormBuilderInputOption } from './form-builder.types';
 import { ScreenDetectorService } from '@al00x/screen-detector';
 
 @Component({
-  selector: 'feature-control-builder',
+  selector: 'cac-control-builder',
   standalone: true,
   imports: [
-    RadioComponent,
+    CacRadioComponent,
     NgStyle,
-    CheckboxComponent,
-    SwitchComponent,
-    LicensePlateComponent,
-    FieldComponent,
+    CacCheckboxComponent,
+    CacSwitchComponent,
+    CacLicensePlateComponent,
+    CacFieldComponent,
     AsyncPipe,
   ],
   templateUrl: './control-builder.component.html',
   styleUrl: './control-builder.component.scss',
 })
-export class ControlBuilderComponent<T> {
+export class CacControlBuilderComponent<T> {
   screenDetector = inject(ScreenDetectorService);
 
   @Input() class?: string;

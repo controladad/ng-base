@@ -9,8 +9,8 @@
   }
   <hr />
   <div class="h-16 w-full flex flex-row items-center justify-end">
-    <ui-button [appearance]="'text'" (onClick)="cancel()">Cancel</ui-button>
-    <ui-button [appearance]="'text'" (onClick)="submit()">Save</ui-button>
+    <cac-button [appearance]="'text'" (onClick)="cancel()">Cancel</cac-button>
+    <cac-button [appearance]="'text'" (onClick)="submit()">Save</cac-button>
   </div>
 </div>
 
@@ -50,34 +50,34 @@
     @switch (mode) {
       @case ('range') {
         <div class="w-full flex flex-row p-2 items-center justify-between">
-          <ui-field
+          <cac-field
             (keyup)="inputDateManually(dateRangeGroup.controls.start, 'first')"
             [prefixIcon]="undefined"
             class="w-[45%] text-xs"
             placeholder="yy/mm/dd"
             [control]="dateRangeGroup.controls.start"
             label="Start date"
-          ></ui-field>
-          <ui-field
+          ></cac-field>
+          <cac-field
             (keyup)="inputDateManually(dateRangeGroup.controls.end, 'second')"
             [prefixIcon]="undefined"
             class="w-[45%] text-xs"
             placeholder="yy/mm/dd"
             [control]="dateRangeGroup.controls.end"
             label="End date"
-          ></ui-field>
+          ></cac-field>
         </div>
       }
       @case ('one-day') {
         <div class="p-2 flex items-center justify-center">
-          <ui-field
+          <cac-field
             (keyup)="inputDateManually(oneDayFormControl)"
             [prefixIcon]="undefined"
             [control]="oneDayFormControl"
             class="bg-transparent"
             label="Date"
             placeholder="Date"
-          ></ui-field>
+          ></cac-field>
         </div>
       }
   }

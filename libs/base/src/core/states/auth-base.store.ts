@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { BaseStore } from './_base.store';
 import { flatten } from '../helpers';
 import { localStorageStrategy, sessionStorageStrategy, StateStorage } from '@ngneat/elf-persist-state';
-import { CacBase } from '../../configs';
+import { CacGlobalConfig } from '../../configs';
+import { AppBaseStore } from './app-base.store';
 
 export interface AuthBaseStoreProps<USER> {
   token?: string;
@@ -18,7 +19,7 @@ export interface AuthBaseStoreLoginModel {
 
 function storage() {
   // We are directly accessing the store to prevent circular dependencies
-  const store = getStore<any>(CacBase.generateStoreKey('app'));
+  const store = getStore<any>(CacGlobalConfig.generateStoreKey('app'));
   const rememberMe = store?.getValue().rememberMe ?? false;
   if (rememberMe) {
     return localStorageStrategy;
@@ -39,9 +40,10 @@ export const AuthStorageEngine: StateStorage = {
   },
 };
 
-export class AuthBaseStore<T extends AuthBaseStoreProps<any>, L extends AuthBaseStoreLoginModel> extends BaseStore<T> {
+// This should be extended for customization
+export class _AuthBaseStore<T extends AuthBaseStoreProps<any>, L extends AuthBaseStoreLoginModel> extends BaseStore<T> {
   protected router = inject(Router);
-  protected app = inject(CacBase.config.states.app);
+  protected app = inject(AppBaseStore);
 
   constructor(
     public opts: {
@@ -168,11 +170,11 @@ export class AuthBaseStore<T extends AuthBaseStoreProps<any>, L extends AuthBase
   }
 }
 
-// This dummy is used to make service out of the AuthBaseStore
+// This is dummy, used to make service out of the `_AuthBaseStore`, for extension, `_AuthBaseStore` should be used
 @Injectable({
   providedIn: 'root',
 })
-export class _DummyAuthBaseStore extends AuthBaseStore<AuthBaseStoreProps<any>, AuthBaseStoreLoginModel> {
+export class AuthBaseStore extends _AuthBaseStore<AuthBaseStoreProps<any>, AuthBaseStoreLoginModel> {
   constructor() {
     super();
   }

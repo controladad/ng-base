@@ -7,5 +7,4 @@ export * from './object.helper';
 export * from './observable.helper';
 export * from './array.helper';
 export * from './role.helper';
-export * from './regex.helper';
 export * from './providers.helper';

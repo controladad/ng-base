@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormBuilderComponent } from './form-builder.component';
+import { CacFormBuilderComponent } from './form-builder.component';
 
-describe('FormBuilderComponent', () => {
-  let component: FormBuilderComponent<any>;
-  let fixture: ComponentFixture<FormBuilderComponent<any>>;
+describe('CacFormBuilderComponent', () => {
+  let component: CacFormBuilderComponent<any>;
+  let fixture: ComponentFixture<CacFormBuilderComponent<any>>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormBuilderComponent],
+      imports: [CacFormBuilderComponent],
     });
-    fixture = TestBed.createComponent(FormBuilderComponent);
+    fixture = TestBed.createComponent(CacFormBuilderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

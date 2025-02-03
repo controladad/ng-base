@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChipsGroupComponent } from './chips-group.component';
+import { CacChipsGroupComponent } from './chips-group.component';
 
-describe('ChipsGroupComponent', <T>() => {
-  let component: ChipsGroupComponent<T>;
-  let fixture: ComponentFixture<ChipsGroupComponent<T>>;
+describe('CacChipsGroupComponent', <T>() => {
+  let component: CacChipsGroupComponent<T>;
+  let fixture: ComponentFixture<CacChipsGroupComponent<T>>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ChipsGroupComponent],
+      declarations: [CacChipsGroupComponent],
     });
-    fixture = TestBed.createComponent(ChipsGroupComponent<T>);
+    fixture = TestBed.createComponent(CacChipsGroupComponent<T>);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

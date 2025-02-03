@@ -1,9 +1,0 @@
-<feature-dialog-layout
-  [title]="data.title ?? TITLE_DEFAULT_TEXT"
-  [subtitle]="data.subtitle ?? SUBTITLE_DEFAULT_TEXT"
-  [form]="control"
-  [submitBtn]="data.submitBtn ?? SUBMIT_DEFAULT_TEXT"
-  (onSubmit)="onSubmit($event)"
->
-  <ui-field class="mt-4" [control]="control" controlType="textarea" [textareaRows]="5"></ui-field>
-</feature-dialog-layout>

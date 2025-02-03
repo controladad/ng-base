@@ -11,9 +11,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { TableColumnData } from '../table.component';
-import { FormBuilder, formBuilder, FormBuilderComponent } from '../../form-builder';
+import { FormBuilder, formBuilder, CacFormBuilderComponent } from '../../form-builder';
 
-import { BottomControlsComponent } from '../../bottom-controls';
+import { CacBottomControlsComponent } from '../../bottom-controls';
 import { TableFilterModel } from '../../../../classes';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
@@ -21,16 +21,16 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { formControl, FormControlExtended } from '../../../../forms';
 
 @Component({
-  selector: 'feature-table-filter-menu',
+  selector: 'cac-table-filter-menu',
   standalone: true,
-  imports: [FormBuilderComponent, BottomControlsComponent, MatMenuModule, A11yModule],
+  imports: [CacFormBuilderComponent, CacBottomControlsComponent, MatMenuModule, A11yModule],
   templateUrl: './table-filter-menu.component.html',
   styleUrls: ['./table-filter-menu.component.scss'],
 })
-export class TableFilterMenuComponent<T> implements OnInit, AfterViewInit {
+export class CacTableFilterMenuComponent<T> implements OnInit, AfterViewInit {
   destroyRef = inject(DestroyRef);
 
-  @ViewChild('Form') formBuilder!: FormBuilderComponent<any>;
+  @ViewChild('Form') formBuilder!: CacFormBuilderComponent<any>;
   @ViewChild('FilterMenu') menu!: MatMenu;
 
   @Input() column!: TableColumnData<T>;

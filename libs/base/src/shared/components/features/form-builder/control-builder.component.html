@@ -1,42 +1,42 @@
 @if (input(); as input) {
   @switch (input.type) {
     @case ('radio') {
-      <ui-radio
+      <cac-radio
         [control]="input.control"
         [label]="input.label"
         [items]="input.items ?? []"
         class="{{ class }}"
         [ngStyle]="style"
-      ></ui-radio>
+      ></cac-radio>
     }
     @case ('checkbox') {
-      <ui-checkbox
+      <cac-checkbox
         [label]="input.label ?? ''"
         [control]="$any(input.control)"
         class="{{ class }}"
         [ngStyle]="style"
-      ></ui-checkbox>
+      ></cac-checkbox>
     }
     @case ('switch') {
-      <ui-switch
+      <cac-switch
         [control]="input.control"
         [label]="input.label"
         class="{{ class }}"
         [ngStyle]="style"
-      ></ui-switch>
+      ></cac-switch>
     }
     @case ('plate') {
-      <ui-license-plate
+      <cac-license-plate
         [control]="input.control"
         class="{{ class }}"
         [ngStyle]="style"
         [style.align-self]="'center'"
         [mini]="true"
-      ></ui-license-plate>
+      ></cac-license-plate>
     }
     @default {
       <div class="flex gap-2" [ngStyle]="style">
-        <ui-field
+        <cac-field
           style="width: 100%; height: 100%"
           class="{{ class }}"
           [control]="input.control"
@@ -50,6 +50,7 @@
           [maskType]="input.mask"
           [suffixIcon]="input.suffixIcon"
           [prefixIcon]="input.prefixIcon"
+          [hideSuffix]="input.hideSuffix ?? false"
           [suffix]="input.suffix"
           [autoComplete]="input.autocomplete === undefined ? allowAutocomplete! : $any(input.autocomplete)"
           [clearable]="input.clearable!"
@@ -61,7 +62,7 @@
           [categories]="input.categories"
           [showIcons]="input.showIcons ?? false"
           [menuClass]="input.menuClass"
-        ></ui-field>
+        ></cac-field>
       </div>
     }
   }

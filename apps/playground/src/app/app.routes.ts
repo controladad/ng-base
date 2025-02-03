@@ -1,10 +1,13 @@
-import { Route } from '@angular/router';
 import { RouteExtended } from '@controladad/ng-base';
 
 export const appRoutes: RouteExtended[] = [
   {
     path: 'button',
     loadComponent: () => import('./ui/button-page/button.component').then((m) => m.ButtonPageComponent),
+  },
+  {
+    path: 'field',
+    loadComponent: () => import('./ui/field-page/field-page.component').then((m) => m.FieldPageComponent),
   },
   {
     path: 'icon',

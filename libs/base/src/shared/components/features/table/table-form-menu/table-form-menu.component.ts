@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, Output, signal, ViewChild } from '@angular/core';
-import { BottomControlsComponent } from '../../bottom-controls';
-import { FormBuilderComponent } from '../../form-builder';
-import { IconComponent, ButtonClickEvent } from '../../../ui';
+import { CacBottomControlsComponent } from '../../bottom-controls';
+import { CacFormBuilderComponent } from '../../form-builder';
+import { CacIconComponent, ButtonClickEvent } from '../../../ui';
 
 import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { TableFormOptions, TableMenu, TableOptions } from '../table.interfaces';
@@ -12,19 +12,19 @@ import { A11yModule } from '@angular/cdk/a11y';
 type MenuCloseReason = 'success' | 'cancel' | undefined;
 
 @Component({
-  selector: 'feature-table-form-menu',
+  selector: 'cac-table-form-menu',
   standalone: true,
-  imports: [BottomControlsComponent, FormBuilderComponent, IconComponent, MatMenuModule, A11yModule],
+  imports: [CacBottomControlsComponent, CacFormBuilderComponent, CacIconComponent, MatMenuModule, A11yModule],
   templateUrl: './table-form-menu.component.html',
   styleUrls: ['./table-form-menu.component.scss'],
 })
-export class TableFormMenuComponent implements OnDestroy {
+export class CacTableFormMenuComponent implements OnDestroy {
   readonly EDIT_TEXT = $localize`:@@base.feature.table.formMenu.editText:Edit`;
   readonly NEW_TEXT = $localize`:@@base.feature.table.formMenu.newText:New`;
   readonly ADD_TEXT = $localize`:@@base.feature.table.formMenu.addText:Add`;
 
   @ViewChild('MenuForm') menuForm!: MatMenu;
-  @ViewChild('Form') formBuilder?: FormBuilderComponent<any>;
+  @ViewChild('Form') formBuilder?: CacFormBuilderComponent<any>;
 
   @Input() options!: TableOptions<any>;
 

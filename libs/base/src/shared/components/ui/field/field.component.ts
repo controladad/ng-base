@@ -32,16 +32,18 @@ import {
   getHHMMInDuration,
   getFormattedDate,
   parseDate,
+  ItemRecord,
 } from '../../../../core';
-import { SelectOptionsComponent, OptionsTriggerDirective } from '../select-options';
-import { IconComponent } from '../icon';
+import { CacSelectOptionsComponent, OptionsTriggerDirective } from '../select-options';
+import { CacIconComponent } from '../icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ControlErrorComponent } from '../control-error';
+import { CacControlErrorComponent } from '../control-error';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { QuillModule } from 'ngx-quill';
 import { formControl, FormControlExtended } from '../../../forms';
 
 export type FieldInputType = 'text' | 'password' | 'password-eye' | 'number' | 'number-nobtn' | 'time';
-export type FieldControlType = 'input' | 'date' | 'datetime' | 'textarea' | 'select';
+export type FieldControlType = 'input' | 'date' | 'datetime' | 'textarea' | 'select' | 'rich-text';
 export type FieldAppearanceType = 'outlined' | 'simple' | 'compact';
 export type FieldMaskType = 'time';
 export type FieldFloatLabelType = 'always' | 'auto';
@@ -49,7 +51,7 @@ export type FieldFloatLabelType = 'always' | 'auto';
 // TODO: Remove inputmask package & replace it with a ESM package & update mask directive to support it
 
 @Component({
-  selector: 'ui-field',
+  selector: 'cac-field',
   templateUrl: './field.component.html',
   styleUrls: ['./field.component.scss'],
   standalone: true,
@@ -64,20 +66,21 @@ export type FieldFloatLabelType = 'always' | 'auto';
     MatProgressBarModule,
     AsyncPipe,
     InputMaskDirective,
-    SelectOptionsComponent,
+    CacSelectOptionsComponent,
     OptionsTriggerDirective,
-    IconComponent,
+    CacIconComponent,
     MatProgressSpinnerModule,
-    ControlErrorComponent
-],
+    CacControlErrorComponent,
+    QuillModule,
+  ],
 })
-export class FieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   readonly destroyRef = inject(DestroyRef);
 
   @ViewChild('MatFormField') formField!: MatFormField;
   @ViewChild('InputElement') inputElement?: ElementRef<HTMLInputElement>;
   @ViewChild('SelectElement') selectElement?: ElementRef<HTMLInputElement>;
-  @ViewChild('Options') selectOptions?: SelectOptionsComponent<any>;
+  @ViewChild('Options') selectOptions?: CacSelectOptionsComponent<any>;
   @ViewChild('DatePicker') datepickerElement?: MatDatepicker<any>;
 
   // Primary Inputs
@@ -119,6 +122,7 @@ export class FieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, OnCh
   @Input() hideSuffix = false;
   @Input() dateFilter: DateFilterFn<any> = () => true;
   @Input() menuClass?: string;
+  @Input() min = 0;
 
   @Output() onSelect = new EventEmitter<T>();
 
@@ -126,12 +130,11 @@ export class FieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, OnCh
   itemsUpdateSub = new Subscription();
   showPassword$ = new BehaviorSubject(false);
   inputMask?: InputmaskOptions<any>;
-
-  overrideFloatLabel = signal<FieldFloatLabelType | undefined>(undefined);
   isLoading = signal(false);
   isFocused = signal(false);
   isMenuOpen = signal(false);
   hasStar = signal(false);
+  currentFloatLabel = signal(this.floatLabel ?? 'auto');
 
   protected tempControl = formControl();
 
@@ -244,11 +247,6 @@ export class FieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, OnCh
     this.numericAddToValue(-1);
   }
 
-  protected onSelectOptionsMultiple(v: any[]) {
-    // In multiple, floatLabel doesn't move on select, so we need to override it
-    this.overrideFloatLabel.set(v && v.length ? 'always' : undefined);
-  }
-
   protected openDatePicker(e: MouseEvent) {
     e.stopPropagation();
     this.isMenuOpen.set(true);
@@ -267,13 +265,18 @@ export class FieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, OnCh
     if (isNaN(currentValue)) {
       this.control.setValue(value);
       return;
+    } else {
+      currentValue += value;
+      this.control.setValue(currentValue);
     }
-    currentValue += value;
-    this.control.setValue(currentValue);
   }
 
   protected passwordVisibility() {
     this.showPassword$.next(!this.showPassword$.value);
+  }
+
+  multipleSelect(selectedItems: ItemRecord<T>[]) {
+    this.currentFloatLabel.set(selectedItems?.length || this.floatLabel === 'always' ? 'always' : 'auto');
   }
 }
 

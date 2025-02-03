@@ -1,19 +1,19 @@
 import { Component, DestroyRef, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
 import { combineLatest, retry, timer } from 'rxjs';
-import { LoaderScreenComponent } from '../../ui';
+import { CacLoaderScreenComponent } from '../../ui';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CacBase } from '../../../../configs';
+import { AuthBaseStore } from '../../../../core';
 
 @Component({
-  selector: 'feature-initialization-protection',
+  selector: 'cac-initialization-protection',
   standalone: true,
-  imports: [LoaderScreenComponent],
+  imports: [CacLoaderScreenComponent],
   templateUrl: './initialize-protection.component.html',
   styleUrls: ['./initialize-protection.component.scss'],
 })
-export class InitializeProtectionComponent implements OnInit {
+export class CacInitializeProtectionComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
-  private readonly auth = inject(CacBase.config.states.auth);
+  private readonly auth = inject(AuthBaseStore);
 
   refreshed = signal(false);
   errored = signal(false);

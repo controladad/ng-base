@@ -15,7 +15,7 @@
     <div class="flex items-center gap-2 mt-2 flex-wrap">
       <ng-content select="[slot=header-start]"></ng-content>
 
-      <feature-table-header
+      <cac-table-header
         [options]="options()"
         [totalItems]="totalItems()"
         [loading]="loading()"
@@ -25,7 +25,7 @@
         (onPrint)="onPrint($event)"
         (onBulkAction)="onBulkActionApply($event.value, $event.e)"
         (onRefresh)="onRefresh()"
-      ></feature-table-header>
+      ></cac-table-header>
 
       <ng-content select="[slot=header]"></ng-content>
     </div>
@@ -36,38 +36,38 @@
     <ng-container [ngTemplateOutlet]="TableSkeletonLoader"></ng-container>
     <!-- Current Filters Bar -->
     @if (hasFilter()) {
-      <feature-table-filter-bar [filterModel]="options().filterModel!"></feature-table-filter-bar>
+      <cac-table-filter-bar [filterModel]="options().filterModel!"></cac-table-filter-bar>
     }
 
     <div #Table class="table-container {{ loading() ? 'opacity-50' : '' }}">
       <!-- Table -->
       <table [dataSource]="dataSource" [trackBy]="trackByItem" mat-table class="table">
         <!-- Selection (Checkbox) Define -->
-        <feature-table-col-selection
+        <cac-table-col-selection
           [options]="options()"
           (onSelect)="onItemSelection($event.row.originalItem, $event.state)"
           (onSelectAll)="onHeaderSelection($event)"
-        ></feature-table-col-selection>
+        ></cac-table-col-selection>
 
         <!-- Index Define -->
-        <feature-table-col-index [options]="options()" [startIndex]="Pagination.startIndex()"></feature-table-col-index>
+        <cac-table-col-index [options]="options()" [startIndex]="Pagination.startIndex()"></cac-table-col-index>
 
         <!-- Other cols define -->
         @for (col of columns(); track col.prop) {
-          <feature-table-col-default
+          <cac-table-col-default
             [options]="options()"
             [col]="col"
             (onRowClick)="onRowClick($any($event))"
-          ></feature-table-col-default>
+          ></cac-table-col-default>
         }
 
         <!-- Actions Define -->
-        <feature-table-col-action
+        <cac-table-col-action
           #ActionCol
           [options]="options()"
           [actions]="actions()"
           (onAction)="onAction($event.row, $event.action, $event.trigger, $event.clickEvent)"
-        ></feature-table-col-action>
+        ></cac-table-col-action>
 
         <!-- Columns registration -->
         <tr mat-header-row *matHeaderRowDef="columnsLabels()"></tr>
@@ -85,28 +85,28 @@
       <ng-content select="[slot=footer]"></ng-content>
     </div>
   </div>
-  <ui-pagination
+  <cac-pagination
     #Pagination
     [size]="paginationOptions().size"
     [total]="totalItems()"
     [autoHide]="paginationOptions().autoHide ?? false"
     (onUpdate)="onPaginate()"
     class="block px-8 {{ !paginationOptions() ? 'hidden' : '' }}"
-  ></ui-pagination>
+  ></cac-pagination>
 </div>
 
 <!-- Menu used for the Add/Edit action -->
-<feature-table-form-menu #FormMenu [options]="options()"></feature-table-form-menu>
+<cac-table-form-menu #FormMenu [options]="options()"></cac-table-form-menu>
 
 <!-- Print -->
-<feature-printable-table #PrintableTable></feature-printable-table>
+<cac-printable-table #PrintableTable></cac-printable-table>
 
 <ng-template #TableSkeletonLoader>
   <div class="table-loader {{ loading() ? 'is-visible' : '' }}">
     @if (hasFilter()) {
-      <feature-table-filter-bar
+      <cac-table-filter-bar
         class="{{ !isFirstLoad() ? 'opacity-0 pointer-events-none' : '' }}"
-      ></feature-table-filter-bar>
+      ></cac-table-filter-bar>
     }
 
     @if (loading()) {
@@ -128,7 +128,7 @@
             }}"
               >
               <td>
-                <ui-skeleton class="bg-inherit"></ui-skeleton>
+                <cac-skeleton class="bg-inherit"></cac-skeleton>
               </td>
             </tr>
           </tbody>

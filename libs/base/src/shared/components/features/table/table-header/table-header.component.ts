@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ButtonClickEvent, ButtonComponent, FieldComponent } from '../../../ui';
+import { ButtonClickEvent, CacButtonComponent, CacFieldComponent } from '../../../ui';
 import { TableBulkAction, TableOptions } from '../table.interfaces';
 import { PermissionHideDirective } from '../../../../directives';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -7,12 +7,12 @@ import { formControl } from '../../../../forms';
 import { ItemRecord } from '../../../../../core';
 
 @Component({
-  selector: 'feature-table-header',
-  imports: [ButtonComponent, FieldComponent, PermissionHideDirective, MatMenuTrigger],
+  selector: 'cac-table-header',
+  imports: [CacButtonComponent, CacFieldComponent, PermissionHideDirective, MatMenuTrigger],
   templateUrl: './table-header.component.html',
   styleUrl: './table-header.component.scss',
 })
-export class TableHeaderComponent {
+export class CacTableHeaderComponent {
   @Input() options!: TableOptions<any>;
   @Input() loading = false;
   @Input() totalItems = 0;

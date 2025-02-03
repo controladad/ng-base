@@ -1,0 +1,29 @@
+<cac-dialog-layout
+  [title]="data.title"
+  [subtitle]="data.subtitle"
+  (onSubmit)="onSave($event)"
+  (onCancel)="onCancel()"
+  (onError)="FormBuilder.scrollToErrored()"
+  [form]="data.formBuilder.formGroup"
+  [submitBtn]="data.addButtonText"
+  [submitClass]="data.addButtonClass"
+  >
+  <div class="mt-5 w-full flex flex-col pb-1">
+    <cac-form-builder #FormBuilder [options]="data.formBuilder"></cac-form-builder>
+    <div [innerHTML]="data.footerHtmlContent"></div>
+  </div>
+
+  <ng-container slot="bottom">
+    @if (data.deleteButton && _boundDeleteAction) {
+      <cac-button
+        class="absolute w-auto inline-flex mt-0 start-0"
+        theme="error"
+        appearance="stroked"
+        action="delete"
+        (onClick)="onDelete()"
+        i18n="@@base.feature.dialog.input.deleteButton"
+        >Delete</cac-button
+        >
+      }
+    </ng-container>
+  </cac-dialog-layout>

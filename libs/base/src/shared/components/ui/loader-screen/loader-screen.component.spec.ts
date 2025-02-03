@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoaderScreenComponent } from './loader-screen.component';
+import { CacLoaderScreenComponent } from './loader-screen.component';
 
-describe('LoaderScreenComponent', () => {
-  let component: LoaderScreenComponent;
-  let fixture: ComponentFixture<LoaderScreenComponent>;
+describe('CacLoaderScreenComponent', () => {
+  let component: CacLoaderScreenComponent;
+  let fixture: ComponentFixture<CacLoaderScreenComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [LoaderScreenComponent],
+      imports: [CacLoaderScreenComponent],
     });
-    fixture = TestBed.createComponent(LoaderScreenComponent);
+    fixture = TestBed.createComponent(CacLoaderScreenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

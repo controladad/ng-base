@@ -9,15 +9,15 @@ import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { FieldComponent } from './field.component';
+import { CacFieldComponent } from './field.component';
 
-describe('FieldComponent', () => {
-  let component: FieldComponent<any>;
-  let fixture: ComponentFixture<FieldComponent<any>>;
+describe('CacFieldComponent', () => {
+  let component: CacFieldComponent<any>;
+  let fixture: ComponentFixture<CacFieldComponent<any>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FieldComponent, MatIcon],
+      declarations: [CacFieldComponent, MatIcon],
       imports: [
         NoopAnimationsModule,
         MatInputModule,
@@ -32,7 +32,7 @@ describe('FieldComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FieldComponent);
+    fixture = TestBed.createComponent(CacFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

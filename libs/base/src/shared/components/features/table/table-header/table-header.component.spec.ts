@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableHeaderComponent } from './table-header.component';
+import { CacTableHeaderComponent } from './table-header.component';
 
-describe('TableHeaderComponent', () => {
-  let component: TableHeaderComponent;
-  let fixture: ComponentFixture<TableHeaderComponent>;
+describe('CacTableHeaderComponent', () => {
+  let component: CacTableHeaderComponent;
+  let fixture: ComponentFixture<CacTableHeaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableHeaderComponent]
+      imports: [CacTableHeaderComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TableHeaderComponent);
+    fixture = TestBed.createComponent(CacTableHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

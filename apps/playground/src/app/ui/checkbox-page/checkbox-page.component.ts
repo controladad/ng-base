@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { SectionComponent } from '../../section.component';
-import { CheckboxComponent, CheckboxGroupComponent, ItemRecord } from '@controladad/ng-base';
+import { CacCheckboxComponent, CacCheckboxGroupComponent, ItemRecord } from '@controladad/ng-base';
 
 @Component({
   selector: 'app-checkbox-page',
   standalone: true,
-  imports: [SectionComponent, CheckboxComponent, CheckboxGroupComponent],
+  imports: [SectionComponent, CacCheckboxComponent, CacCheckboxGroupComponent],
   templateUrl: './checkbox-page.component.html',
   styleUrl: './checkbox-page.component.scss',
 })

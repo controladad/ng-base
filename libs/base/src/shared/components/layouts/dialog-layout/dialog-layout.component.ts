@@ -2,18 +2,18 @@ import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 
 import { MatDialogRef } from '@angular/material/dialog';
 import { AbstractControl } from '@angular/forms';
-import { ButtonClickEvent, IconComponent } from '../../ui';
-import { BottomControlsComponent } from '../../features/bottom-controls';
+import { ButtonClickEvent, CacIconComponent } from '../../ui';
+import { CacBottomControlsComponent } from '../../features/bottom-controls';
 import { ActionTypes } from '../../../../core';
 
 @Component({
-  selector: 'feature-dialog-layout',
+  selector: 'cac-dialog-layout',
   standalone: true,
-  imports: [IconComponent, BottomControlsComponent, IconComponent],
+  imports: [CacIconComponent, CacBottomControlsComponent],
   templateUrl: './dialog-layout.component.html',
   styleUrls: ['./dialog-layout.component.scss'],
 })
-export class DialogLayoutComponent {
+export class CacDialogLayoutComponent {
   @Input() title = '';
   @Input() subtitle?: string;
   @Input() submitBtn?: string;
@@ -35,7 +35,7 @@ export class DialogLayoutComponent {
   // ActionType is being set by the BaseDialog.setActionType, or you can call the setActionType from this component directly.
   protected actionType = signal<ActionTypes | undefined>(undefined);
 
-  constructor(public dialogRef: MatDialogRef<DialogLayoutComponent>) {}
+  constructor(public dialogRef: MatDialogRef<CacDialogLayoutComponent>) {}
 
   onCancelClick() {
     this.closeDialog();

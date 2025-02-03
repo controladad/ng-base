@@ -188,7 +188,7 @@ export class FormBuilder<T, U = T> implements FormBuilderOptions<T> {
   }
 
   setHidden(state: boolean, ...keys: (keyof T)[]) {
-    const current = this.hiddenKeysArray();
+    const current = [...this.hiddenKeysArray()];
 
     for (const key of keys) {
       const index = current.indexOf(key);
@@ -205,7 +205,7 @@ export class FormBuilder<T, U = T> implements FormBuilderOptions<T> {
   }
 
   setInvisible(state: boolean, ...keys: (keyof T)[]) {
-    const current = this.invisibleKeysArray();
+    const current = [...this.invisibleKeysArray()];
 
     for (const key of keys) {
       const index = current.indexOf(key);

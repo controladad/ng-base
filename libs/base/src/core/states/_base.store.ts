@@ -1,7 +1,7 @@
 import { createStore, Store, withProps } from '@ngneat/elf';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { localStorageStrategy, persistState, StateStorage } from '@ngneat/elf-persist-state';
-import { CacBase } from '../../configs';
+import { CacGlobalConfig } from '../../configs';
 import { Signal } from '@angular/core';
 
 export class BaseStore<T extends object> {
@@ -17,7 +17,7 @@ export class BaseStore<T extends object> {
     // defaults to localStorage
     storageStrategy?: StateStorage;
   }) {
-    const key = storeOpts.exactKey ? storeOpts.key : CacBase.generateStoreKey(storeOpts.key);
+    const key = storeOpts.exactKey ? storeOpts.key : CacGlobalConfig.generateStoreKey(storeOpts.key);
     const store = createStore({ name: key }, withProps<T>(storeOpts.default ?? {} as never));
     persistState(store, {
       key: key,

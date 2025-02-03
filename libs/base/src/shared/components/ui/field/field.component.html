@@ -14,8 +14,8 @@
   [class.infix-flex]="controlType === 'datetime'"
   [class.align-left]="align === 'left'"
   [class.align-right]="align === 'right'"
-  [class.ui-field-outlined]="appearance === 'outlined'"
-  [class.ui-field-compact]="appearance === 'compact'"
+  [class.ui-field-outlined]="appearance === 'outlined' && controlType !== 'rich-text'"
+  [class.ui-field-compact]="appearance === 'compact' || controlType === 'rich-text'"
   [class.ui-field-simple]="appearance === 'simple'"
   [class.is-readonly]="state.isReadonly"
   [class.hide-error]="hideError"
@@ -24,13 +24,13 @@
   [hideRequiredMarker]="true"
   [class.loading]="loading"
   [title]="control.displayText ?? (control.value !== null && control.value !== undefined ? control.value : '')"
-  [floatLabel]="overrideFloatLabel() ?? floatLabel ?? 'auto'"
+  [floatLabel]="currentFloatLabel()"
   (click)="onFormFieldClick()"
   >
   @if (label) {
     <mat-label class="ui-field-label">
       {{ label }}
-      @if (hasStar() && (control.enabled$ | async)) {
+      @if (hasStar()) {
         <span class="required-star">*</span>
       }
     </mat-label>
@@ -46,6 +46,7 @@
         #InputElement
         [class.numeric-field-fix]="maskType === 'time' || (inputType === 'number' && control.value)"
         matInput
+        [min]="min"
         [formControl]="control"
         [placeholder]="placeholder ?? ''"
         [readonly]="state.isReadonly"
@@ -65,6 +66,17 @@
         [tabindex]="state.isReadonly ? -1 : 0"
         />
     }
+    @case ('rich-text') {
+      <input matInput [formControl]="control" class="hidden" readonly tabindex="-1" />
+      <quill-editor
+        [formControl]="control"
+        class="bg-white min-h-92 w-full"
+        format="html"
+        [dir]="'ltr'"
+        [placeholder]="placeholder || 'Write Here'"
+        [modules]="{toolbar: {}}">
+      </quill-editor>
+    }
     @case ('select') {
       <input matInput [formControl]="control" class="hidden" readonly tabindex="-1" />
       <input
@@ -76,7 +88,7 @@
         [placeholder]="placeholder ?? ''"
         [readonly]="true"
         />
-      <ui-select-options
+      <cac-select-options
         #Options
         [control]="control"
         [items]="items"
@@ -87,8 +99,8 @@
         [categories]="categories"
         [menuClass]="menuClass"
         (onSelect)="onSelect.emit($event)"
-        (onMultiSelect)="onSelectOptionsMultiple($event)"
-      ></ui-select-options>
+        (onMultipleSelect)="multipleSelect($event)"
+      ></cac-select-options>
     }
     @case ('date') {
       <input
@@ -146,7 +158,7 @@
   <mat-datepicker #DatePicker (closed)="onDatePickerClose()" [restoreFocus]="false">
     <mat-datepicker-actions>
       <button class="text-error" mat-button matDatepickerCancel i18n="@@base.ui.field.cancel">Cancel</button>
-      <button class="text-primary" mat-button matDatepickerApply i18n="@@base.ui.field.apply">Sav</button>
+      <button class="text-primary" mat-button matDatepickerApply i18n="@@base.ui.field.apply">Save</button>
     </mat-datepicker-actions>
   </mat-datepicker>
   <!-- Suffix Elements -->
@@ -164,7 +176,7 @@
   </div>
 }
 @if (clearable) {
-  <ui-icon
+  <cac-icon
     icon="close"
     matSuffix
       class="clear-button {{
@@ -182,16 +194,16 @@
     size="1.5rem"
     (mousedown)="$event.preventDefault()"
     (onClick)="onClearClick($event)"
-  ></ui-icon>
+  ></cac-icon>
 }
 @if (controlType === 'date' || controlType === 'datetime') {
-  <ui-icon
+  <cac-icon
     class="date-toggle-button"
     matSuffix
     (onClick)="openDatePicker($event)"
     >
     <mat-icon class="w-6 h-6 text-primary-600" matDatepickerToggleIcon svgIcon="calendar"></mat-icon>
-  </ui-icon>
+  </cac-icon>
 }
 @if (prefix) {
   <span matPrefix class="text-sm font-medium opacity-70">{{ prefix }}</span>
@@ -218,8 +230,8 @@
 }
 @if (controlType === 'input' && inputType === 'number') {
   <div class="numeric-control" matSuffix>
-    <ui-icon class="text-primary h-4" icon="numeric-up" size="0.75rem" (onClick)="onNumericUp()"></ui-icon>
-    <ui-icon class="text-primary h-4" icon="numeric-down" size="0.75rem" (onClick)="onNumericDown()"></ui-icon>
+    <cac-icon class="text-primary h-4" icon="numeric-up" size="0.75rem" (onClick)="onNumericUp()"></cac-icon>
+    <cac-icon class="text-primary h-4" icon="numeric-down" size="0.75rem" (onClick)="onNumericDown()"></cac-icon>
   </div>
 }
 @if (!hideSuffix) {
@@ -230,7 +242,7 @@
 </mat-form-field>
 <!-- Error, we are not using mat-error because of the limitations -->
 @if (!hideError && !invisibleError) {
-  <ui-control-error [control]="control"></ui-control-error>
+  <cac-control-error [control]="control"></cac-control-error>
 }
 }
 

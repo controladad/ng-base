@@ -11,23 +11,23 @@ import {
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
-import { ButtonClickEvent, ButtonComponent } from '../../ui';
+import { ButtonClickEvent, CacButtonComponent } from '../../ui';
 import { ActionTypes } from '../../../../core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 // TODO: Fix Permissions & Role
 
 @Component({
-  selector: 'feature-bottom-controls',
+  selector: 'cac-bottom-controls',
   standalone: true,
-  imports: [ButtonComponent, MatTooltipModule],
+  imports: [CacButtonComponent, MatTooltipModule],
   templateUrl: './bottom-controls.component.html',
   styleUrls: ['./bottom-controls.component.scss'],
 })
-export class BottomControlsComponent implements OnInit, OnChanges {
-  @ViewChild('SubmitButton') submitButton!: ButtonComponent;
+export class CacBottomControlsComponent implements OnInit, OnChanges {
+  @ViewChild('SubmitButton') submitButton!: CacButtonComponent;
 
-  @Input() cancelText?: string;
+  @Input() cancelText? = $localize`:@@base.ui.field.cancel:Cancel`
   @Input() submitText = $localize`:@@base.ui.field.apply:Save`;
   @Input() submitClass?: string;
   @Input() cancelClass?: string;

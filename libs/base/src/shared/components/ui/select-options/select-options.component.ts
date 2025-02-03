@@ -36,7 +36,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { CheckboxComponent } from '../checkbox';
+import { CacCheckboxComponent } from '../checkbox';
 import {
   arraysEqual,
   ItemRecord,
@@ -44,8 +44,8 @@ import {
 } from '../../../../core';
 import { SelectionModel } from '../../../classes';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { ChipsGroupComponent } from '../chips-group';
-import { ChipsComponent } from '../chips';
+import { CacChipsGroupComponent } from '../chips-group';
+import { CacChipsComponent } from '../chips';
 import { formControl, FormControlExtended, isFormControlExtended } from '../../../forms';
 
 interface SelectItem<T> extends ItemRecord<T> {
@@ -61,7 +61,7 @@ const FILTER_DEBOUNCE_MAX = 250;
 // TODO: Fix role & permissions
 
 @Component({
-  selector: 'ui-select-options',
+  selector: 'cac-select-options',
   standalone: true,
   imports: [
     MatMenuModule,
@@ -69,16 +69,16 @@ const FILTER_DEBOUNCE_MAX = 250;
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     MatIconModule,
-    CheckboxComponent,
+    CacCheckboxComponent,
     MatButtonModule,
     MatButtonToggleModule,
-    ChipsGroupComponent,
-    ChipsComponent
+    CacChipsGroupComponent,
+    CacChipsComponent
 ],
   templateUrl: './select-options.component.html',
   styleUrls: ['./select-options.component.scss'],
 })
-export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDestroy {
+export class CacSelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDestroy {
   destroyRef = inject(DestroyRef);
 
 
@@ -98,7 +98,7 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
   @Input() control: FormControlExtended = formControl(null);
   @Input() items?: ItemRecords$<T, any> | undefined;
   @Input() requiredCharactersForFilter = 1;
-  @Input() filterStrategy: 'startWith' | 'includes' = 'startWith';
+  @Input() filterStrategy: 'startWith' | 'includes' = 'includes';
   // Can select a value that doesn't exist in the list.
   @Input() optional?: boolean;
   @Input() searchable?: boolean;
@@ -110,7 +110,7 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
   @Output() menuClosed = new EventEmitter();
   @Output() onSelect = new EventEmitter<T>();
   @Output() onKeydown = new EventEmitter<KeyboardEvent>();
-  @Output() onMultiSelect = new EventEmitter<T[]>();
+  @Output() onMultipleSelect = new EventEmitter<ItemRecord<T>[]>();
 
   originalItems$ = new BehaviorSubject<ItemRecord<T>[] | undefined>(undefined);
   categories$ = new BehaviorSubject<ItemRecord<string | number>[] | undefined>(undefined);
@@ -339,7 +339,7 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
       this._selectionModel.toggle(item);
       const items = this._selectionModel.selected() as any;
       this.currentItemControl.setValue(items);
-      this.onMultiSelect.emit(items);
+      this.onMultipleSelect.emit(items);
     } else {
       if (item.optional) {
         this._recentOptionalItems = [item];
@@ -472,6 +472,8 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
       this._selectionModel.toggleAll();
       this.currentItemControl.setValue(this._selectionModel.selected() as any);
     }
+
+    this.onMultipleSelect.emit(this._selectionModel.selected());
   }
 
   private scrollToFocusedIndex() {

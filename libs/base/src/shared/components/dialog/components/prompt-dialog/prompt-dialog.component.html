@@ -1,0 +1,12 @@
+<cac-dialog-layout
+  [title]="data.title"
+  [submitBtn]="data.yesButtonText"
+  [cancelBtn]="data.noButtonText"
+  submitClass="h-10 rounded-2 {{ data.yesButtonClassList ?? '' }}"
+  cancelClass="h-10 rounded-2 {{ data.noButtonClassList ?? '' }}"
+  (onSubmit)="onYes($event)"
+  (onCancel)="onNo()"
+>
+  <p class="text-base mt-4 font-normal text-gray-800">{{ data.message }}</p>
+  <div class="h-4"><!-- Spacer --></div>
+</cac-dialog-layout>

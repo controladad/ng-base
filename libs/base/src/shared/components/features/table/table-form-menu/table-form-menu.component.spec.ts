@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableFormMenuComponent } from './table-form-menu.component';
+import { CacTableFormMenuComponent } from './table-form-menu.component';
 
-describe('TableFormMenuComponent', () => {
-  let component: TableFormMenuComponent;
-  let fixture: ComponentFixture<TableFormMenuComponent>;
+describe('CacTableFormMenuComponent', () => {
+  let component: CacTableFormMenuComponent;
+  let fixture: ComponentFixture<CacTableFormMenuComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TableFormMenuComponent],
+      imports: [CacTableFormMenuComponent],
     });
-    fixture = TestBed.createComponent(TableFormMenuComponent);
+    fixture = TestBed.createComponent(CacTableFormMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

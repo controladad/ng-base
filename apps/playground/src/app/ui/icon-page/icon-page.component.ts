@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IconComponent } from '@controladad/ng-base';
+import { CacIconComponent } from '@controladad/ng-base';
 import { SectionComponent } from '../../section.component';
 
 @Component({
   selector: 'app-icon-page',
-  imports: [SectionComponent, IconComponent],
+  imports: [SectionComponent, CacIconComponent],
   templateUrl: './icon-page.component.html',
   styleUrl: './icon-page.component.scss',
 })

@@ -1,5 +1,5 @@
 import { AfterViewInit, DestroyRef, Directive, ElementRef, inject, Input, OnInit } from '@angular/core';
-import { SelectOptionsComponent } from './select-options.component';
+import { CacSelectOptionsComponent } from './select-options.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { fromEvent } from 'rxjs';
 export class OptionsTriggerDirective implements OnInit, AfterViewInit {
   destroyRef = inject(DestroyRef);
 
-  @Input() uiOptionsTriggerFor?: SelectOptionsComponent<any>;
+  @Input() uiOptionsTriggerFor?: CacSelectOptionsComponent<any>;
   @Input() selector: 'self' | 'input' = 'input';
   @Input() filter = false;
 

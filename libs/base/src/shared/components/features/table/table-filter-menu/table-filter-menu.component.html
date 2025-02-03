@@ -11,8 +11,8 @@
     >
     @if (form() && show()) {
       <span class="text-lg font-medium" i18n="@@base.feature.table.filters.filter">Filter {{ column.label }}</span>
-      <feature-form-builder class="mt-4" #Form [options]="form()!" [focusOnInit]="true"></feature-form-builder>
-      <feature-bottom-controls
+      <cac-form-builder class="mt-4" #Form [options]="form()!" [focusOnInit]="true"></cac-form-builder>
+      <cac-bottom-controls
         class="mt-4"
         submitText="Filter"
         i18n-submitText="Filter@@base.feature.table.filterMenu.submitButton"
@@ -21,7 +21,7 @@
         [form]="form()!.formGroup"
         (onSubmit)="submit()"
         (onCancel)="cancel()"
-      ></feature-bottom-controls>
+      ></cac-bottom-controls>
     }
   </div>
 </mat-menu>

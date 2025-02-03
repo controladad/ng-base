@@ -1,11 +1,11 @@
 <div class="flex flex-col w-full h-full pt-6 py-9 px-11 flex-auto overflow-hidden">
   @if (showCloseBtn) {
-    <ui-icon
+    <cac-icon
       class="absolute top-5 end-9 rounded-full text-gray-900 w-10 h-10"
       (onClick)="closeDialog()"
       size="1.75rem"
       icon="close"
-    ></ui-icon>
+    ></cac-icon>
   }
   <div class="flex flex-col">
     <p class="text-surface-on text-xl font-medium">{{ title }}</p>
@@ -17,7 +17,7 @@
     <ng-content></ng-content>
   </div>
   @if (!hideControls) {
-    <feature-bottom-controls
+    <cac-bottom-controls
       [form]="form"
       [actionType]="actionType()"
       [submitText]="submitBtn ?? SUBMIT_DEFAULT_TEXT"
@@ -29,6 +29,6 @@
       (onError)="onError.emit()"
       >
       <ng-content select="[slot=bottom]"></ng-content>
-    </feature-bottom-controls>
+    </cac-bottom-controls>
   }
 </div>

@@ -23,7 +23,7 @@ import { pipe, tap, UnaryFunction } from 'rxjs';
 import { ActionTypes, startWithTap } from '../../../../core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { IconComponent } from '../icon';
+import { CacIconComponent } from '../icon';
 
 export interface ButtonClickEvent {
   event: MouseEvent;
@@ -39,7 +39,7 @@ export type ButtonThemeType = 'primary' | 'secondary' | 'tertiary' | 'error' | '
 // TODO: Fix Permissions
 
 @Component({
-  selector: 'ui-button',
+  selector: 'cac-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   standalone: true,
@@ -52,10 +52,10 @@ export type ButtonThemeType = 'primary' | 'secondary' | 'tertiary' | 'error' | '
     MatIconModule,
     NgStyle,
     MatTooltipModule,
-    IconComponent
+    CacIconComponent
 ],
 })
-export class ButtonComponent implements OnInit, AfterViewInit, OnChanges {
+export class CacButtonComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('Button', { read: ElementRef }) btnElement?: ElementRef<HTMLButtonElement>;
 
   @Input() icon?: string;

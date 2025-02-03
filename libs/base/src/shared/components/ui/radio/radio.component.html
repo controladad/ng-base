@@ -13,7 +13,7 @@
       class="{{ this.control.disabled ? 'pointer-events-none opacity-70' : '' }}"
       (change)="onValueChange($event)"
       >
-      @for (item of currentItems(); track item) {
+      @for (item of currentItems(); track item.value) {
         <mat-radio-button
           class="ms-6"
           [class.pointer-events-none]="readonly"

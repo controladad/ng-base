@@ -14,20 +14,20 @@ import {
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgxFileDropEntry, NgxFileDropModule } from 'ngx-file-drop';
 import { AsyncPipe } from '@angular/common';
-import { ButtonComponent } from '../../ui';
+import { CacButtonComponent } from '../../ui';
 import { MatIcon } from '@angular/material/icon';
 import { Observable, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { formControl, FormControlExtended } from '../../../forms';
 
 @Component({
-  selector: 'feature-image-uploader',
+  selector: 'cac-image-uploader',
   templateUrl: './image-uploader.component.html',
   styleUrls: ['./image-uploader.component.scss'],
   standalone: true,
-  imports: [MatProgressSpinner, NgxFileDropModule, AsyncPipe, ButtonComponent, MatIcon],
+  imports: [MatProgressSpinner, NgxFileDropModule, AsyncPipe, CacButtonComponent, MatIcon],
 })
-export class ImageUploaderComponent<INPUT, OPTION> implements OnInit, OnDestroy {
+export class CacImageUploaderComponent<INPUT, OPTION> implements OnInit, OnDestroy {
   private readonly destroyRef = inject(DestroyRef);
 
   @Input() control: FormControlExtended = formControl<INPUT | null | undefined>();

@@ -1,23 +1,23 @@
 <div class="h-12 w-full bg-white flex flex-row-reverse items-center gap-2.5 px-1.5">
-  <ui-button
+  <cac-button
     appearance="text"
     class="text-primary-600 flex-none {{ !filterModel?.hasFilter() ? 'saturate-0' : '' }}"
     icon="trash"
     [disabled]="!filterModel?.hasFilter()"
     (onClick)="clearFilters()"
     i18n="@@base.feature.table.filters.removeFilters"
-    >Remove Filters</ui-button
+    >Remove Filters</cac-button
     >
     <div class="flex-auto flex flex-row-reverse items-center gap-2.5 overflow-auto">
-      @for (item of filterModel?.filtersArray() ?? []; track item) {
-        <ui-chips [closable]="true" (onClose)="removeFilter(item)">
+      @for (item of filterModel?.filtersArray() ?? []; track item.prop) {
+        <cac-chips [closable]="true" (onClose)="removeFilter(item)">
           @if (item?.icon?.length) {
-            <ui-icon [icon]="item?.icon"></ui-icon>
+            <cac-icon [icon]="item?.icon"></cac-icon>
           }
           <span>{{ item.formatted?.prefix }}</span>
           <span>{{ item.formatted?.text }}</span>
           <span>{{ item.formatted?.suffix }}</span>
-        </ui-chips>
+        </cac-chips>
       }
     </div>
   </div>

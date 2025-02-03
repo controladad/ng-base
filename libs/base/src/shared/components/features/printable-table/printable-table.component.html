@@ -3,15 +3,15 @@
   <table class="feature-printable-table">
     <thead>
       <tr>
-        @for (val of currentData?.header ?? []; track val) {
+        @for (val of currentData?.header ?? []; track $index) {
           <th #Headers>{{ val }}</th>
         }
       </tr>
     </thead>
     <tbody>
-      @for (row of currentData?.rows ?? []; track row) {
+      @for (row of currentData?.rows ?? []; track $index) {
         <tr #Rows>
-          @for (val of row; track val) {
+          @for (val of row; track $index) {
             <td #Cols>
               {{ val }}
             </td>
@@ -21,7 +21,7 @@
     </tbody>
   </table>
   <div class="mt-7 text-sm empty:hidden">
-    @for (item of currentData?.extra ?? []; track item) {
+    @for (item of currentData?.extra ?? []; track item.value) {
       <p #Extras>{{ item.label }} : {{ item.value }}</p>
     }
   </div>

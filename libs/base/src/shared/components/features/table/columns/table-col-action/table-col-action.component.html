@@ -11,8 +11,10 @@
           @let data = row.actions[index];
           @switch (action.type) {
             @case ('icon') {
-              <ui-button
+              <cac-button
                 uiPermissionHide
+                [uiPermissionHideAction]="action.actionType"
+                [uiPermissionHideKey]="data.permission"
                 [icon]="action.content"
                 [disabled]="$any(data.disabled$ ? (data.disabled$ | async) : data.disabled)"
                 [matBadge]="action.badge ? action.badge(row.originalItem) : ''"
@@ -25,7 +27,7 @@
                 iconSize="1.375rem"
                 matBadgeColor="warn"
                 matBadgePosition="before"
-              ></ui-button>
+              ></cac-button>
             }
             @case ('text') {
               <div class="cursor-pointer">
@@ -33,8 +35,10 @@
               </div>
             }
             @case ('button') {
-              <ui-button
+              <cac-button
                 uiPermissionHide
+                [uiPermissionHideAction]="action.actionType"
+                [uiPermissionHideKey]="data.permission"
                 [class]="action.class"
                 [appearance]="action.appearance ?? 'filled'"
                 [theme]="action.theme ?? 'primary'"
@@ -47,7 +51,7 @@
                 matBadgePosition="before"
               >
                 {{ action.content }}
-              </ui-button>
+              </cac-button>
             }
             @default {
               {{ action.content }}

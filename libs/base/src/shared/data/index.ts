@@ -1,4 +1,4 @@
-import { ItemRecord } from '../../core';
+import type { ItemRecord } from '../../core';
 
 export const ActiveValues: ItemRecord<boolean>[] = [
   { value: true, label: 'Active' },

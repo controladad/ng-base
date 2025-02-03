@@ -17,11 +17,11 @@
       @if (url()) {
         <img class="absolute w-full h-full object-contain" [src]="url()" alt="" />
         @if (!disabledState) {
-          <ui-button
+          <cac-button
             (onClick)="$event.event.stopPropagation(); onDelete()"
             class="border-primary-on-container bg-primary-container text-primary-on-container absolute bottom-2 end-2 w-6 h-6"
             icon="trash"
-          ></ui-button>
+          ></cac-button>
         }
       } @else {
         @if (isLoading()) {
