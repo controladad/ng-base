@@ -82,12 +82,12 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
   destroyRef = inject(DestroyRef);
 
 
-  readonly SEARCH_OR_ADD_TEXT = $localize`:@@base.ui.select.searchOrAddValue:مقداری را اضافه یا جستجو کنید...`
-  readonly SEARCH_TEXT = $localize`:@@base.ui.select.search:جستجو در موارد ...`
-  readonly N_ITEMS_SELECTED_TEXT = $localize`:@@base.ui.select.nItemsSelected:مورد انتخاب شده`
-  readonly CHOOSE_OPTIONAL_VALUE_TEXT = $localize`:@@base.ui.select.chooseOptionalValue:انتخاب مقدار اختیاری:`
-  readonly LOADING_TEXT = $localize`:@@base.ui.select.loading:در حال بارگذاری..`
-  readonly NO_ITEMS_AVAILABLE_TEXT = $localize`:@@base.ui.select.noItemsAvailable:آیتمی موجود نیست.`
+  readonly SEARCH_OR_ADD_TEXT = $localize`:@@base.ui.select.searchOrAddValue:Search Or Add A Value...`
+  readonly SEARCH_TEXT = $localize`:@@base.ui.select.search:Search In Items ...`
+  readonly N_ITEMS_SELECTED_TEXT = $localize`:@@base.ui.select.nItemsSelected:Item(s) Selected`
+  readonly CHOOSE_OPTIONAL_VALUE_TEXT = $localize`:@@base.ui.select.chooseOptionalValue:Choose Optional Value:`
+  readonly LOADING_TEXT = $localize`:@@base.ui.select.loading:Loading..`
+  readonly NO_ITEMS_AVAILABLE_TEXT = $localize`:@@base.ui.select.noItemsAvailable:No Matching Items Found.`
 
   @ViewChild('Trigger') trigger!: MatMenuTrigger;
   @ViewChild('Wrapper') wrapperEl!: ElementRef<HTMLDivElement>;
@@ -208,7 +208,7 @@ export class SelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDe
 
           if (this.multiple && term.length === 0) {
             result?.unshift({
-              label: 'انتخاب همه موارد',
+              label: $localize`:@@base.ui.select.selectAll:Select All`,
               value: undefined as never,
               type: 'selectAll',
             });

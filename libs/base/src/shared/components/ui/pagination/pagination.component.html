@@ -38,7 +38,7 @@
         [disabled]="page() === 1"
         >
         <mat-icon svgIcon="chevron-left"></mat-icon>
-        <span i18n="@@base.ui.pagination.previous">قبلی</span>
+        <span i18n="@@base.ui.pagination.previous">Previous</span>
       </ui-button>
       <div class="flex gap-2">
         @for (item of pagesArray(); track item.number; let index = $index) {
@@ -68,7 +68,7 @@
         padding="0.25rem"
         [disabled]="page() === totalPages()"
         >
-        <span i18n="@@base.ui.pagination.next">بعدی</span>
+        <span i18n="@@base.ui.pagination.next">Next</span>
         <mat-icon svgIcon="chevron-right"></mat-icon>
       </ui-button>
     </div>
@@ -86,10 +86,10 @@
       [searchable]="false"
       >
     </ui-field>
-    <span class="text-outline" i18n="@@base.ui.pagination.perPageCount">تعداد نمایش در هر صفحه</span>
+    <span class="text-outline" i18n="@@base.ui.pagination.perPageCount">Items per page</span>
   </div>
 </ng-template>
 
 <ng-template #TotalCountText>
-  <p class="text-xs font-medium whitespace-nowrap" i18n="@@base.ui.pagination.totalCount">تعداد کل: {{ _total() }}</p>
+  <p class="text-xs font-medium whitespace-nowrap" i18n="@@base.ui.pagination.totalCount">Total: {{ _total() }}</p>
 </ng-template>

@@ -10,14 +10,14 @@
     (keydown.escape)="cancel()"
     >
     @if (form() && show()) {
-      <span class="text-lg font-medium">فیلتر {{ column.label }}</span>
+      <span class="text-lg font-medium" i18n="@@base.feature.table.filters.filter">Filter {{ column.label }}</span>
       <feature-form-builder class="mt-4" #Form [options]="form()!" [focusOnInit]="true"></feature-form-builder>
       <feature-bottom-controls
         class="mt-4"
-        submitText="فیلتر"
-        i18n-submitText="فیلتر@@base.feature.table.filterMenu.submitButton"
-        cancelText="لغو"
-        i18n-cancelText="لغو@@base.feature.table.filterMenu.cancelButton"
+        submitText="Filter"
+        i18n-submitText="Filter@@base.feature.table.filterMenu.submitButton"
+        cancelText="Cancel"
+        i18n-cancelText="Cancel@@base.feature.table.filterMenu.cancelButton"
         [form]="form()!.formGroup"
         (onSubmit)="submit()"
         (onCancel)="cancel()"

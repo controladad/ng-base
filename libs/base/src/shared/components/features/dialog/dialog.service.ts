@@ -29,10 +29,10 @@ export interface InputDialogExtended<T, U> extends DialogExtended<InputDialogCom
 })
 export class DialogService {
   constructor(private dialog: DialogInvokerService) {}
-  readonly DELETE_TITLE_PRE = $localize`:@@base.feature.dialog.delete.titleBeforeItemName:آیا از حذف `
-  readonly DELETE_TITLE_AFTER = $localize`:@@base.feature.dialog.delete.titleAfterItemName: انتخاب شده مطمئن هستید؟`
-  readonly DELETE_CAPTION_PRE = $localize`:@@base.feature.dialog.delete.captionBeforeItemName:با حذف `
-  readonly DELETE_CAPTION_AFTER = $localize`:@@base.feature.dialog.delete.captionAfterItemName:انتخاب شده دیگر قادر به بازگردانی آن‌ها نخواهید بود. آیا حذف اطلاعات را تایید میکنید؟`
+  readonly DELETE_TITLE_PRE = $localize`:@@base.feature.dialog.delete.titleBeforeItemName:Are You Sure Deleteing: `
+  readonly DELETE_TITLE_AFTER = $localize`:@@base.feature.dialog.delete.titleAfterItemName:?`
+  readonly DELETE_CAPTION_PRE = $localize`:@@base.feature.dialog.delete.captionBeforeItemName:Deleting `
+  readonly DELETE_CAPTION_AFTER = $localize`:@@base.feature.dialog.delete.captionAfterItemName:Cannot Be Undone, Continue?`
   prompt(data: PromptDialogData) {
     return this.dialog.open<PromptDialogComponent, PromptDialogData, PromptDialogResult>(PromptDialogComponent, data, {
       width: '85vw',
@@ -41,13 +41,13 @@ export class DialogService {
   }
 
   deletePrompt(multiple?: boolean) {
-    const itemName = multiple ? $localize`:@@base.feature.dialog.item:موارد` : $localize`:@@base.feature.dialog.item:مورد`;
+    const itemName = multiple ? $localize`:@@base.feature.dialog.item:Items` : $localize`:@@base.feature.dialog.item:Item`;
 
     return this.prompt({
       title: `${this.DELETE_TITLE_PRE} ${itemName} ${this.DELETE_TITLE_AFTER}`,
       message: `${this.DELETE_CAPTION_PRE} ${itemName} ${this.DELETE_CAPTION_AFTER}`,
-      yesButtonText: $localize`:@@base.feature.dialog.input.yesButton:بله، تایید می‌کنم.`,
-      noButtonText: $localize`:@@base.feature.dialog.input.noButton:خیر، لغو گردد.`,
+      yesButtonText: $localize`:@@base.feature.dialog.input.yesButton:Yes, Continue.`,
+      noButtonText: $localize`:@@base.feature.dialog.input.noButton:No, Cancel.`,
     }).setActionType('delete');
   }
 

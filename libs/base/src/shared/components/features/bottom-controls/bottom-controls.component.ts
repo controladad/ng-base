@@ -28,7 +28,7 @@ export class BottomControlsComponent implements OnInit, OnChanges {
   @ViewChild('SubmitButton') submitButton!: ButtonComponent;
 
   @Input() cancelText?: string;
-  @Input() submitText = $localize`:@@base.ui.field.apply:ذخیره`;
+  @Input() submitText = $localize`:@@base.ui.field.apply:Save`;
   @Input() submitClass?: string;
   @Input() cancelClass?: string;
   @Input() cancelRoute?: string[];
@@ -42,7 +42,7 @@ export class BottomControlsComponent implements OnInit, OnChanges {
   @Output() onSubmit = new EventEmitter<ButtonClickEvent>();
 
   insufficientPermission = signal(false);
-  INSUFFICIENT_PERMISSION_TEXT = $localize`:@@base.feature.dialog.insufficientPermission:شما دسترسی برای انجام این فعالیت را ندارید.`;
+  INSUFFICIENT_PERMISSION_TEXT = $localize`:@@base.feature.dialog.insufficientPermission:You do not have permission to perform this action.`;
 
   ngOnInit(): void {
     this.setPermissionState();

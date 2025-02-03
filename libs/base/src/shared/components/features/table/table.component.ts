@@ -206,19 +206,19 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
   readonly ACTIVE_STRING_VALUE = 'Active';
 
   readonly EMPTY_VALUE = $localize`:@@base.feature.table.emptyValue:-`;
-  readonly ADD_TEXT = $localize`:@@base.feature.table.addText:اضافه کردن`;
-  readonly EDIT_TEXT = $localize`:@@base.feature.table.editText:تغییر دادن`;
-  readonly NEW_TEXT = $localize`:@@base.feature.table.newText:جدید`;
-  readonly TRUE_TEXT = $localize`:@@base.values.trueText:بله`;
-  readonly FALSE_TEXT = $localize`:@@base.values.falseText:خیر`;
-  readonly ACTIVE_TEXT = $localize`:@@base.feature.table.activeText:فعال`;
-  readonly INACTIVE_TEXT = $localize`:@@base.feature.table.inactiveText:غیرفعال`;
+  readonly ADD_TEXT = $localize`:@@base.feature.table.addText:Add`;
+  readonly EDIT_TEXT = $localize`:@@base.feature.table.editText:Edit`;
+  readonly NEW_TEXT = $localize`:@@base.feature.table.newText:New`;
+  readonly TRUE_TEXT = $localize`:@@base.values.trueText:Yes`;
+  readonly FALSE_TEXT = $localize`:@@base.values.falseText:No`;
+  readonly ACTIVE_TEXT = $localize`:@@base.feature.table.activeText:Active`;
+  readonly INACTIVE_TEXT = $localize`:@@base.feature.table.inactiveText:Inactive`;
   
-  readonly HOURS_TEXT = $localize`:@@base.feature.table.cellFormatting.hours:ساعت`;
-  readonly HOURS_AND_TEXT = $localize`:@@base.feature.table.cellFormatting.hoursAnd:ساعت و`;
-  readonly MINUTES_TEXT = $localize`:@@base.feature.table.cellFormatting.minutes:دقیقه`;
-  readonly DATE_TEXT = $localize`:@@base.feature.table.cellFormatting.date:تاریخ`;
-  readonly PLATE_COUNTRY_TEXT = $localize`:@@base.feature.table.cellFormatting.plateCountry:ایران`;
+  readonly HOURS_TEXT = $localize`:@@base.feature.table.cellFormatting.hours:hours`;
+  readonly HOURS_AND_TEXT = $localize`:@@base.feature.table.cellFormatting.hoursAnd:Hours and`;
+  readonly MINUTES_TEXT = $localize`:@@base.feature.table.cellFormatting.minutes:minutes`;
+  readonly DATE_TEXT = $localize`:@@base.feature.table.cellFormatting.date:Date`;
+  readonly PLATE_COUNTRY_TEXT = $localize`:@@base.feature.table.cellFormatting.plateCountry:Iran`;
 
 
   readonly TABLE_DEFAULTS = TABLE_DEFAULT_GENERATOR();
@@ -426,7 +426,7 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
         }
 
         const extra: ItemRecord<string | number>[] = [];
-        extra.push({ value: value.totalItems.toString(), label: $localize`:@@base.feature.table.extras.total:تعداد کل` });
+        extra.push({ value: value.totalItems.toString(), label: $localize`:@@base.feature.table.extras.total:Total` });
         if (typeof printOptions === 'object' && printOptions.extra) {
           extra.push(...printOptions.extra(value.result));
         }
@@ -952,7 +952,7 @@ export class TableComponent<T extends object> implements OnInit, OnChanges, Afte
               mode === 'create'
                 ? `${this.ADD_TEXT} ${this.options().view!.itemName} ${this.NEW_TEXT}`
                 : `${this.EDIT_TEXT} ${this.options().view!.itemName}`,
-            subtitle: $localize`:@@base.feature.table.createDialog.subtitle:مشخصات را وارد کنید و دکمه ذخیره را بزنید`,
+            subtitle: $localize`:@@base.feature.table.createDialog.subtitle:Fill in the details and click save`,
             deleteButton: true,
             formBuilder,
           })

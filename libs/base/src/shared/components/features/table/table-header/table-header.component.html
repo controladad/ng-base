@@ -6,10 +6,10 @@
     controlType="select"
     [items]="bulkActions"
     [searchable]="false"
-    label="عمل مورد نیاز"
-    i18n-label="عمل مورد نیاز@@base.feature.table.header.bulkActionLabel"
-    placeholder="انتخاب"
-    i18n-placeholder="انتخاب@@base.feature.table.header.bulkActionPlaceholder"
+    label="Action"
+    i18n-label="Action@@base.feature.table.header.bulkActionLabel"
+    placeholder="Choose an action"
+    i18n-placeholder="Choose an action@@base.feature.table.header.bulkActionPlaceholder"
     [hideError]="true"
   ></ui-field>
   <ui-button
@@ -17,14 +17,14 @@
     (onClick)="onBulkAction.emit({ value: bulkActionControl.value, e: $event })"
     [disabled]="!bulkActionControl.value || !options.selectionModel!.hasSelection()"
     i18n="@@base.feature.table.header.bulkActionApply"
-    >اعمال</ui-button
+    >Apply</ui-button
   >
   @if (options.selectionModel?.selectedCount() ?? 0) {
     <span class="font-medium">
       <span class="mx-1">{{ options.selectionModel?.selectedCount() }}</span>
-       <span i18n="@@base.feature.table.header.selection.XoutOfI">از</span>
+       <span i18n="@@base.feature.table.header.selection.XoutOfI">From</span>
       <span class="mx-1">{{ totalItems }}</span> 
-      <span i18n="@@base.feature.table.header.selection.isSelected">انتخاب شده است</span>
+      <span i18n="@@base.feature.table.header.selection.isSelected">Is selected</span>
       </span>
   }
 }
@@ -42,7 +42,7 @@
 >
   <span class="mr-1"
   i18n="@@base.feature.table.header.exportExcel">
-    خروجی اکسل
+    Export Excel
   </span>
 </ui-button>
 }
@@ -58,7 +58,7 @@
 >
   <span class="mr-1"
   i18n="@@base.feature.table.header.print">
-    پرینت
+    Print
   </span>
 </ui-button>
 }

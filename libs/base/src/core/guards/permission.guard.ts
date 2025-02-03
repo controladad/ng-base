@@ -21,6 +21,6 @@ export const PermissionGuard: CanActivateFn = (route) => {
   const firstRoute = routeHelper.getFirstAllowedRoute();
   if (firstRoute) return router.navigate([firstRoute]);
 
-  snackbar$.error($localize`:@@base.errors.permissionGuard.userAccessDenied:این کاربر به پنل دسترسی ندارد.`);
+  snackbar$.error($localize`:@@base.errors.permissionGuard.userAccessDenied:User access denied.`);
   return auth.logout();
 };

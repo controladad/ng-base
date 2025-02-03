@@ -28,8 +28,8 @@ export class CacBase {
         },
         view: {
           title: '',
-          itemName: 'آیتم',
-          actionsText: 'عمليات',
+          itemName: 'Item',
+          actionsText: 'Action',
         },
       } as TableOptions<any>,
     },

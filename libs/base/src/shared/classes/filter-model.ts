@@ -189,7 +189,7 @@ export class FilterModel {
       return getFromItemRecord(records, value)?.label ?? '';
     }
     if (typeof value === 'boolean') {
-      return value ? $localize`:@@base.values.trueText:بله` : $localize`:@@base.values.falseText:خیر`;
+      return value ? $localize`:@@base.values.trueText:Yes` : $localize`:@@base.values.falseText:No`;
     }
     if (typeof value === 'number') {
       return value.toString();

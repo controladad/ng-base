@@ -1,17 +1,17 @@
 import { APIError } from '../models';
 
 const SERVER_ERROR = {
-  0: $localize`:@@base.errors.server.0:اشکال در اتصال، اینترنت خود را چک کنید.`,
-  401: $localize`:@@base.errors.server.401:نشست شما منقضی شده، لطفا دوباره لاگین کنید.`,
-  403: $localize`:@@base.errors.server.403:شما دسترسی برای ادامه ندارید.`,
-  404: $localize`:@@base.errors.server.404:مقصد مورد نظر یافت نشد.`,
-  500: $localize`:@@base.errors.server.500:اشکالی در سرور رخ داده.`,
-  503: $localize`:@@base.errors.server.503:سرور غیر فعال میباشد.`,
-  default: $localize`:@@base.errors.server.default:ارور.`,
+  0: $localize`:@@base.errors.server.0:Error connecting, Check your network connection.`,
+  401: $localize`:@@base.errors.server.401:Your session has expired, please login again.`,
+  403: $localize`:@@base.errors.server.403:You do not have permission to continue.`,
+  404: $localize`:@@base.errors.server.404:The requested destination was not found.`,
+  500: $localize`:@@base.errors.server.500:An error occurred on the server.`,
+  503: $localize`:@@base.errors.server.503:The server is unavailable.`,
+  default: $localize`:@@base.errors.server.default:Error.`,
 } as const;
 
 const API_ERROR = {
-  1: $localize`:@@base.errors.api.default:نام کاربری یا رمز عبور صحیح نمیباشد`,
+  1: $localize`:@@base.errors.api.default:Username or Password is incorrect`,
 } as const;
 
 export class ErrorHelper {

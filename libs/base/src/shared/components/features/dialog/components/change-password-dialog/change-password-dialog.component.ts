@@ -27,17 +27,17 @@ export class ChangePasswordDialogComponent
     inputs: {
       oldPassword: {
         control: formControl<string>(undefined, Validators.required),
-        label: $localize`:@@base.feature.dialog.currentPassword:رمز عبور فعلی`,
+        label: $localize`:@@base.feature.dialog.currentPassword:Current Password`,
         inputType: 'password-eye',
       },
       newPassword: {
         control: formControl<string>(undefined, [Validators.required, Validators.password]),
-        label: $localize`:@@base.feature.dialog.newPassword:رمز عبور جدید`,
+        label: $localize`:@@base.feature.dialog.newPassword:New Password`,
         inputType: 'password-eye',
       },
       newPasswordRepeat: {
         control: formControl<string>(undefined, Validators.required),
-        label: $localize`:@@base.feature.dialog.newPasswordRepeat:تکرار رمز عبور جدید`,
+        label: $localize`:@@base.feature.dialog.newPasswordRepeat:Confirm New Password`,
         inputType: 'password-eye',
       },
     },
