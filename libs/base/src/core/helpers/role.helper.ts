@@ -30,19 +30,19 @@ export function permissionNameToKey(name: string, action: ActionTypes) {
 export function permissionActionToLabel(action: ActionTypes) {
   switch (action) {
     case 'create':
-      return 'افزودن';
+      return $localize`:@@base.permissions.crudActions.create:Add`;
     case 'update':
-      return 'ویرایش';
+      return $localize`:@@base.permissions.crudActions.update:Edit`;
     case 'read':
-      return 'دیدن صفحه';
+      return $localize`:@@base.permissions.crudActions.read:View Only`;
     case 'delete':
-      return 'حذف';
+      return $localize`:@@base.permissions.crudActions.delete:Delete`;
     case 'print':
-      return 'پرینت';
+      return $localize`:@@base.permissions.crudActions.print:Print`;
     case 'export':
-      return 'خروجی اکسل';
+      return $localize`:@@base.permissions.crudActions.export:Export excel`;
     case 'output':
-      return 'خروجی';
+      return $localize`:@@base.permissions.crudActions.output:Export`;
     case `other`:
       return '';
   }

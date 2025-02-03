@@ -24,7 +24,9 @@ export interface DescriptionDialogResult {
 })
 export class CacDescriptionDialogComponent extends CacBaseDialogComponent<DescriptionDialogData, DescriptionDialogResult> {
   control = formControl<string | undefined>(undefined);
-
+  TITLE_DEFAULT_TEXT = $localize`:@@base.feature.dialog.description.title:Description`
+  SUBTITLE_DEFAULT_TEXT = $localize`:@@base.feature.dialog.decription.subtitle:Enter Description And Hit Save.`
+  SUBMIT_DEFAULT_TEXT = $localize`:@@base.feature.dialog.description.submitButton:Save`
   constructor() {
     super();
 

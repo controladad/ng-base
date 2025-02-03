@@ -25,5 +25,5 @@ export class CacTableHeaderComponent {
   @Output() onRefresh = new EventEmitter<ButtonClickEvent>();
 
   bulkActionControl = formControl<TableBulkAction<any> | undefined>();
-  ADD_TEXT = 'اضافه کردن';
+  ADD_TEXT = $localize`:@@base.feature.table.header.addText:Add`;
 }

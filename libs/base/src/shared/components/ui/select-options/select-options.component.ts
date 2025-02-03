@@ -81,6 +81,14 @@ const FILTER_DEBOUNCE_MAX = 250;
 export class CacSelectOptionsComponent<T> implements OnChanges, AfterViewInit, OnDestroy {
   destroyRef = inject(DestroyRef);
 
+
+  readonly SEARCH_OR_ADD_TEXT = $localize`:@@base.ui.select.searchOrAddValue:Search Or Add A Value...`
+  readonly SEARCH_TEXT = $localize`:@@base.ui.select.search:Search In Items ...`
+  readonly N_ITEMS_SELECTED_TEXT = $localize`:@@base.ui.select.nItemsSelected:Item(s) Selected`
+  readonly CHOOSE_OPTIONAL_VALUE_TEXT = $localize`:@@base.ui.select.chooseOptionalValue:Choose Optional Value:`
+  readonly LOADING_TEXT = $localize`:@@base.ui.select.loading:Loading..`
+  readonly NO_ITEMS_AVAILABLE_TEXT = $localize`:@@base.ui.select.noItemsAvailable:No Matching Items Found.`
+
   @ViewChild('Trigger') trigger!: MatMenuTrigger;
   @ViewChild('Wrapper') wrapperEl!: ElementRef<HTMLDivElement>;
   @ViewChild('FilterInput') filterInputEl?: ElementRef<HTMLInputElement>;
@@ -200,7 +208,7 @@ export class CacSelectOptionsComponent<T> implements OnChanges, AfterViewInit, O
 
           if (this.multiple && term.length === 0) {
             result?.unshift({
-              label: 'Select All',
+              label: $localize`:@@base.ui.select.selectAll:Select All`,
               value: undefined as never,
               type: 'selectAll',
             });

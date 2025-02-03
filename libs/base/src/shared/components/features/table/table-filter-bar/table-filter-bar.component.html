@@ -5,7 +5,8 @@
     icon="trash"
     [disabled]="!filterModel?.hasFilter()"
     (onClick)="clearFilters()"
-    >حذف فیلترها</cac-button
+    i18n="@@base.feature.table.filters.removeFilters"
+    >Remove Filters</cac-button
     >
     <div class="flex-auto flex flex-row-reverse items-center gap-2.5 overflow-auto">
       @for (item of filterModel?.filtersArray() ?? []; track item.prop) {

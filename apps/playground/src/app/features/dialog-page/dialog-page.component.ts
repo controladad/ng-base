@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class DialogPageComponent {
   openDialog() {
-    dialog$
+    dialog$.prompt({message: '', title: '', })
   }
 }

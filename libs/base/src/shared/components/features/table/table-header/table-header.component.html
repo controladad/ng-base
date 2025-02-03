@@ -6,21 +6,26 @@
     controlType="select"
     [items]="bulkActions"
     [searchable]="false"
-    label="عمل مورد نیاز"
-    placeholder="انتخاب"
+    label="Action"
+    i18n-label="Action@@base.feature.table.header.bulkActionLabel"
+    placeholder="Choose an action"
+    i18n-placeholder="Choose an action@@base.feature.table.header.bulkActionPlaceholder"
     [hideError]="true"
   ></cac-field>
   <cac-button
     class="h-12"
     (onClick)="onBulkAction.emit({ value: bulkActionControl.value, e: $event })"
     [disabled]="!bulkActionControl.value || !options.selectionModel!.hasSelection()"
-    >اعمال</cac-button
+    i18n="@@base.feature.table.header.bulkActionApply"
+    >Apply</cac-button
   >
   @if (options.selectionModel?.selectedCount() ?? 0) {
-    <span class="font-medium"
-    ><span class="mx-1">{{ options.selectionModel?.selectedCount() }}</span> از
-    <span class="mx-1">{{ totalItems }}</span> انتخاب شده است</span
-  >
+    <span class="font-medium">
+      <span class="mx-1">{{ options.selectionModel?.selectedCount() }}</span>
+       <span i18n="@@base.feature.table.header.selection.XoutOfI">From</span>
+      <span class="mx-1">{{ totalItems }}</span> 
+      <span i18n="@@base.feature.table.header.selection.isSelected">Is selected</span>
+      </span>
   }
 }
 
@@ -36,21 +41,26 @@
   icon="excel-file"
   action="export"
 >
-  <span class="mr-1">خروجی اکسل</span>
+  <span class="mr-1"
+  i18n="@@base.feature.table.header.exportExcel">
+    Export Excel
+  </span>
 </cac-button>
 }
 
-@if(options.print) {
+@if(options.export) {
   <cac-button
-    uiPermissionHide
-    [uiPermissionHideAction]="'print'"
-    class="h-12"
-    appearance="text"
-    (onClick)="onPrint.emit($event)"
-    icon="print"
-    action="print"
-  >
-  <span class="mr-1">پرینت</span>
+  uiPermissionHide
+  class="h-12"
+  appearance="text"
+  (onClick)="onPrint.emit($event)"
+  icon="print"
+  action="print"
+>
+  <span class="mr-1"
+  i18n="@@base.feature.table.header.print">
+    Print
+  </span>
 </cac-button>
 }
 @if(options.events?.add) {

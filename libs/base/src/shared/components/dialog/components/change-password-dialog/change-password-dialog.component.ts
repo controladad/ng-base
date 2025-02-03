@@ -27,17 +27,17 @@ export class CacChangePasswordDialogComponent
     inputs: {
       oldPassword: {
         control: formControl<string>(undefined, Validators.required),
-        label: 'رمز عبور فعلی',
+        label: $localize`:@@base.feature.dialog.currentPassword:Current Password`,
         inputType: 'password-eye',
       },
       newPassword: {
         control: formControl<string>(undefined, [Validators.required, Validators.password()]),
-        label: 'رمز عبور جدید',
+        label: $localize`:@@base.feature.dialog.newPassword:New Password`,
         inputType: 'password-eye',
       },
       newPasswordRepeat: {
         control: formControl<string>(undefined, Validators.required),
-        label: 'تکرار رمز عبور جدید',
+        label: $localize`:@@base.feature.dialog.newPasswordRepeat:Confirm New Password`,
         inputType: 'password-eye',
       },
     },

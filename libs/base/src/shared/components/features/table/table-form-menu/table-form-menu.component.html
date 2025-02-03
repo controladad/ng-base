@@ -15,7 +15,7 @@
         ? ADD_TEXT + ' ' + formOptions()!.itemName + ' ' + NEW_TEXT
         : EDIT_TEXT + ' ' + formOptions()!.itemName
       }}</span>
-      <span class="text-sm font-normal mt-1">مشخصات را وارد کنید و دکمه ثبت را بزنید</span>
+      <span class="text-sm font-normal mt-1" i18n="@@base.feature.table.formMenu.caption">Fill in The Details And Hit Save</span>
       <cac-icon
         class="absolute w-12 h-12 left-4 text-surface-on"
         size="1.5rem"
@@ -37,8 +37,10 @@
         class="flex-row-reverse justify-start"
         submitClass="w-28"
         cancelClass="w-16"
-        submitText="ثبت"
-        cancelText="لغو"
+        submitText="Submit"
+        i18n-submitText="Submit@@base.feature.table.formMenu.submitButton"
+        cancelText="Cancel"
+        i18n-cancelText="Cancel@@base.feature.table.formMenu.cancelButton"
         (onSubmit)="onFormMenuSubmit($event)"
         (onCancel)="onFormMenuCancel()"
       ></cac-bottom-controls>

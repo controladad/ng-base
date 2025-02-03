@@ -9,7 +9,7 @@
       ></mat-spinner>
     }
     <div class="retry-panel" [class.show]="errored">
-      <p>An error occured, Please try again.</p>
+      <p i18n="@@base.ui.loaderScreen.error">Error Occurred</p>
       <cac-button class="mt-6 w-1/2" (onClick)="onRetry()">Retry</cac-button>
     </div>
   </div>

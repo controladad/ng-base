@@ -81,13 +81,13 @@ export class CacTableFilterMenuComponent<T> implements OnInit, AfterViewInit {
         label:
           filter.label ??
           (filter.type === 'contains'
-            ? 'دارای مقدار...'
+            ? $localize`:@@base.feature.table.filters.contains:Contains`
             : filter.type === 'equal'
-              ? 'برابر با...'
+              ? $localize`:@@base.feature.table.filters.equals:Equals`
               : filter.type === 'greater'
-                ? 'بیشتر از...'
+                ? $localize`:@@base.feature.table.filters.greaterThan:Greater Than`
                 : filter.type === 'lower'
-                  ? 'کمتر از...'
+                  ? $localize`:@@base.feature.table.filters.lowerThan:Less Than`
                   : ''),
         type: filter.controlType,
         inputType: filter.inputType,

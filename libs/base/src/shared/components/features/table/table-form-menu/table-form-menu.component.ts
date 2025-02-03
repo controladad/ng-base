@@ -19,9 +19,9 @@ type MenuCloseReason = 'success' | 'cancel' | undefined;
   styleUrls: ['./table-form-menu.component.scss'],
 })
 export class CacTableFormMenuComponent implements OnDestroy {
-  readonly EDIT_TEXT = 'تغییر دادن';
-  readonly NEW_TEXT = 'جدید';
-  readonly ADD_TEXT = 'اضافه';
+  readonly EDIT_TEXT = $localize`:@@base.feature.table.formMenu.editText:Edit`;
+  readonly NEW_TEXT = $localize`:@@base.feature.table.formMenu.newText:New`;
+  readonly ADD_TEXT = $localize`:@@base.feature.table.formMenu.addText:Add`;
 
   @ViewChild('MenuForm') menuForm!: MatMenu;
   @ViewChild('Form') formBuilder?: CacFormBuilderComponent<any>;

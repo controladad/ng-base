@@ -54,10 +54,10 @@ export class CacInputDialogComponent<T, U> extends CacBaseDialogComponent<InputD
 
     this.dialogInvoker
       .open<CacPromptDialogComponent, PromptDialogData, PromptDialogResult>(CacPromptDialogComponent, {
-        title: 'آیا از حذف این مورد مطمئن هستید؟',
-        message: 'با حذف مورد انتخاب شده دیگر قادر به بازگردانی آن‌ها نخواهید بود.',
-        noButtonText: 'خیر، لغو گردد',
-        yesButtonText: 'بله، تایید می‌کنم.',
+        title: $localize`:@@base.feature.dialog.input.title:Are You Sure Deleting This Item?`,
+        message: $localize`:@@base.feature.dialog.input.message:Deleting Cannot Be Undone, Confirm?`,
+        noButtonText: $localize`:@@base.feature.dialog.input.noButton:No, Cancel`,
+        yesButtonText: $localize`:@@base.feature.dialog.input.yesButton:Yes, Delete.`,
       })
       .setActionType('delete')
       .action(() => this._boundDeleteAction!(null))

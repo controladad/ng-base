@@ -16,7 +16,7 @@
             [formControl]="filterControl"
             (keydown)="onFilterKeyDown($event)"
             class="unicode-normal"
-            [placeholder]="optional ? 'Add or search a value...' : 'Search in Items ...'"
+            [placeholder]="optional ? SEARCH_OR_ADD_TEXT : SEARCH_TEXT"
             />
         </div>
       }
@@ -38,7 +38,7 @@
 
       @if (multiple) {
         <p class="pt-2 pb-2 px-5 text-xs text-primary">
-          {{ _selectionModel.selectedCount() }} Selected option
+          {{ _selectionModel.selectedCount() }} {{ N_ITEMS_SELECTED_TEXT }}
         </p>
       }
 
@@ -47,7 +47,7 @@
       }
 
       @if (_showingOptionalValue()) {
-        <span class="ps-3 pb-2 text-xs">Select an optional value:</span>
+        <span class="ps-3 pb-2 text-xs">{{ CHOOSE_OPTIONAL_VALUE_TEXT }}</span>
       }
 
       <div #Container class="flex flex-col overflow-auto min-h-[7rem] max-h-[18rem]">
@@ -63,7 +63,7 @@
                 (keydown.enter)="close()"
                 mat-menu-item
                 >
-                Loading...
+                {{ LOADING_TEXT }}
               </div>
             </div>
           } @else {
@@ -76,7 +76,7 @@
                   (keydown.enter)="close()"
                   mat-menu-item
                   >
-                  No items were found.
+                  {{ NO_ITEMS_AVAILABLE_TEXT }}
                 </div>
               </div>
             } @else {

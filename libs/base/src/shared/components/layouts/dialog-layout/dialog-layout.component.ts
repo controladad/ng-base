@@ -29,6 +29,9 @@ export class CacDialogLayoutComponent {
   // Use this event only if you need to handle
   @Output() onCancel = new EventEmitter();
 
+  SUBMIT_DEFAULT_TEXT = $localize`:@@base.feature.dialog.saveButtonDefault:Save`;
+  CANCEL_DEFAULT_TEXT = $localize`:@@base.feature.dialog.cancelButtonDefault:Cancel`;
+  
   // ActionType is being set by the BaseDialog.setActionType, or you can call the setActionType from this component directly.
   protected actionType = signal<ActionTypes | undefined>(undefined);
 

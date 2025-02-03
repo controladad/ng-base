@@ -27,8 +27,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class CacBottomControlsComponent implements OnInit, OnChanges {
   @ViewChild('SubmitButton') submitButton!: CacButtonComponent;
 
-  @Input() cancelText?: string = 'Cancel';
-  @Input() submitText = 'Save';
+  @Input() cancelText? = $localize`:@@base.ui.field.cancel:Cancel`
+  @Input() submitText = $localize`:@@base.ui.field.apply:Save`;
   @Input() submitClass?: string;
   @Input() cancelClass?: string;
   @Input() cancelRoute?: string[];
@@ -42,6 +42,7 @@ export class CacBottomControlsComponent implements OnInit, OnChanges {
   @Output() onSubmit = new EventEmitter<ButtonClickEvent>();
 
   insufficientPermission = signal(false);
+  INSUFFICIENT_PERMISSION_TEXT = $localize`:@@base.feature.dialog.insufficientPermission:You do not have permission to perform this action.`;
 
   ngOnInit(): void {
     this.setPermissionState();

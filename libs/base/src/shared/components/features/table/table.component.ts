@@ -208,14 +208,21 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
 
   readonly ACTIVE_STRING_VALUE = 'Active';
 
-  readonly EMPTY_VALUE = '-';
-  readonly ADD_TEXT = 'اضافه کردن';
-  readonly EDIT_TEXT = 'تغییر دادن';
-  readonly NEW_TEXT = 'جدید';
-  readonly TRUE_TEXT = 'بله';
-  readonly FALSE_TEXT = 'خیر';
-  readonly ACTIVE_TEXT = 'فعال';
-  readonly INACTIVE_TEXT = 'غیرفعال';
+  readonly EMPTY_VALUE = $localize`:@@base.feature.table.emptyValue:-`;
+  readonly ADD_TEXT = $localize`:@@base.feature.table.addText:Add`;
+  readonly EDIT_TEXT = $localize`:@@base.feature.table.editText:Edit`;
+  readonly NEW_TEXT = $localize`:@@base.feature.table.newText:New`;
+  readonly TRUE_TEXT = $localize`:@@base.values.trueText:Yes`;
+  readonly FALSE_TEXT = $localize`:@@base.values.falseText:No`;
+  readonly ACTIVE_TEXT = $localize`:@@base.feature.table.activeText:Active`;
+  readonly INACTIVE_TEXT = $localize`:@@base.feature.table.inactiveText:Inactive`;
+  
+  readonly HOURS_TEXT = $localize`:@@base.feature.table.cellFormatting.hours:hours`;
+  readonly HOURS_AND_TEXT = $localize`:@@base.feature.table.cellFormatting.hoursAnd:Hours and`;
+  readonly MINUTES_TEXT = $localize`:@@base.feature.table.cellFormatting.minutes:minutes`;
+  readonly DATE_TEXT = $localize`:@@base.feature.table.cellFormatting.date:Date`;
+  readonly PLATE_COUNTRY_TEXT = $localize`:@@base.feature.table.cellFormatting.plateCountry:Iran`;
+
 
   readonly TABLE_DEFAULTS = TABLE_DEFAULT_GENERATOR(this.config);
 
@@ -422,7 +429,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
         }
 
         const extra: ItemRecord<string | number>[] = [];
-        extra.push({ value: value.totalItems.toString(), label: 'تعداد کل' });
+        extra.push({ value: value.totalItems.toString(), label: $localize`:@@base.feature.table.extras.total:Total` });
         if (typeof printOptions === 'object' && printOptions.extra) {
           extra.push(...printOptions.extra(value.result));
         }
@@ -897,19 +904,19 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
         return (value: any) => {
           if (this.isValueEmpty(value)) return this.EMPTY_VALUE;
           const format = DateFns().format(new Date(value), 'yyyy/MM/dd HH:mm').split(' ');
-          return `تاریخ ${format[0]} \n ساعت ${format[1]}`;
+          return `${this.DATE_TEXT} ${format[0]} \n ${this.HOURS_TEXT} ${format[1]}`;
         };
 
       case 'minutes':
         return (value: any) => {
           const hours = Math.floor(value / 60);
           const minutes = value % 60;
-          return `${hours > 0 ? `${hours} ساعت و ` : ''}${minutes} دقیقه`;
+          return `${hours > 0 ? `${hours} ${this.HOURS_AND_TEXT} ` : ''}${minutes} ${this.MINUTES_TEXT}`;
         };
 
       case 'plate':
         return (value: any) => {
-          return `${value.slice(6)} ایران ${value.slice(3, 6)} ${value.slice(2, 3)} ${value.slice(0, 2)}`;
+          return `${value.slice(6)} ${this.PLATE_COUNTRY_TEXT} ${value.slice(3, 6)} ${value.slice(2, 3)} ${value.slice(0, 2)}`;
         };
 
       default:
@@ -948,7 +955,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
               mode === 'create'
                 ? `${this.ADD_TEXT} ${this.options().view!.itemName} ${this.NEW_TEXT}`
                 : `${this.EDIT_TEXT} ${this.options().view!.itemName}`,
-            subtitle: 'مشخصات را وارد کنید و دکمه ذخیره را بزنید',
+            subtitle: $localize`:@@base.feature.table.createDialog.subtitle:Fill in the details and click save`,
             deleteButton: true,
             formBuilder,
           })

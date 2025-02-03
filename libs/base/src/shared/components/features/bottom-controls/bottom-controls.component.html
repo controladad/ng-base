@@ -4,9 +4,9 @@
   [class.cursor-not-allowed]="insufficientPermission()"
   (onClick)="onSubmitClick($event)"
   [disabled]="disabled || insufficientPermission()"
-  [matTooltip]="insufficientPermission() ? 'You do not have permission for this action.' : ''"
-  >{{ submitText }}</cac-button
->
+  [matTooltip]="insufficientPermission() ? INSUFFICIENT_PERMISSION_TEXT : ''"
+  >{{ submitText }}</cac-button>
+
 @if (!hideCancel && !!cancelText) {
   <cac-button
     [appearance]="'stroked'"

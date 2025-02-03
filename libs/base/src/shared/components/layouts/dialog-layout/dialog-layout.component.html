@@ -20,8 +20,8 @@
     <cac-bottom-controls
       [form]="form"
       [actionType]="actionType()"
-      [submitText]="submitBtn ?? 'ذخیره'"
-      [cancelText]="cancelBtn ?? 'انصراف'"
+      [submitText]="submitBtn ?? SUBMIT_DEFAULT_TEXT"
+      [cancelText]="cancelBtn ?? CANCEL_DEFAULT_TEXT"
       [submitClass]="submitClass"
       [cancelClass]="cancelClass"
       (onSubmit)="onSubmit.emit($event)"

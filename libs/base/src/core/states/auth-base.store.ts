@@ -163,7 +163,7 @@ export class _AuthBaseStore<T extends AuthBaseStoreProps<any>, L extends AuthBas
   protected isForbiddenToEnter(state: T) {
     const perms = this.permissionKeys(state);
     if (perms?.length === 0) {
-      snackbar$.error('شما دسترسی به پنل را ندارید.');
+      snackbar$.error($localize`:@@base.errors.auth.yourAccessDenied:Your Access Denied.`);
       return true;
     }
     return false;

@@ -1,8 +1,8 @@
 <cac-dialog-layout
-  [title]="data.title ?? 'توضیحات'"
-  [subtitle]="data.subtitle ?? 'لطفا توضیح خود را وارد کرده و دکمه ذخیره را فشار دهید.'"
+  [title]="data.title ?? TITLE_DEFAULT_TEXT"
+  [subtitle]="data.subtitle ?? SUBTITLE_DEFAULT_TEXT"
   [form]="control"
-  [submitBtn]="data.submitBtn ?? 'ذخیره'"
+  [submitBtn]="data.submitBtn ?? SUBMIT_DEFAULT_TEXT"
   (onSubmit)="onSubmit($event)"
 >
   <cac-field class="mt-4" [control]="control" controlType="textarea" [textareaRows]="5"></cac-field>
