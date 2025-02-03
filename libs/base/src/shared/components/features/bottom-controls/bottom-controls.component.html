@@ -5,7 +5,7 @@
   (onClick)="onSubmitClick($event)"
   [disabled]="disabled || insufficientPermission()"
   [matTooltip]="insufficientPermission() ? INSUFFICIENT_PERMISSION_TEXT : ''"
-  >{{ submitText }}</cac-button
+  >{{ submitText }}</cac-button>
 
 @if (!hideCancel && !!cancelText) {
   <cac-button
