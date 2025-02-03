@@ -20,7 +20,7 @@ const VALIDATORS_DEFAULTS = {
   },
 };
 
-export const ValidatorsConfig = new InjectionToken<Partial<typeof VALIDATORS_DEFAULTS>>('Validators');
+export const VALIDATORS_CONFIG = new InjectionToken<Partial<typeof VALIDATORS_DEFAULTS>>('Validators');
 
 function withDefault<T>(input: T | undefined, defaultValue: T) {
   return input !== undefined ? input : defaultValue;
@@ -28,7 +28,7 @@ function withDefault<T>(input: T | undefined, defaultValue: T) {
 
 export class Validators extends AngularValidators {
   private static config() {
-    const value = inject(ValidatorsConfig);
+    const value = inject(VALIDATORS_CONFIG);
     return {
       ...VALIDATORS_DEFAULTS,
       ...value,
