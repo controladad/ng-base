@@ -6,6 +6,7 @@ import {
   EventEmitter,
   HostBinding,
   HostListener,
+  InjectionToken,
   Input,
   OnChanges,
   OnInit,
@@ -20,7 +21,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgStyle, NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { pipe, tap, UnaryFunction } from 'rxjs';
-import { ActionTypes, startWithTap } from '../../../../core';
+import { ActionTypes, componentWithDefaultConfig, startWithTap } from '../../../../core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CacIconComponent } from '../icon';
@@ -37,6 +38,9 @@ export type ButtonAppearanceType = 'stroked' | 'filled' | 'text';
 export type ButtonThemeType = 'primary' | 'secondary' | 'tertiary' | 'error' | 'custom';
 
 // TODO: Fix Permissions
+
+export type ButtonComponentType = InstanceType<typeof CacButtonComponent>
+export const BUTTON_COMPONENT_CONFIG = new InjectionToken<Partial<ButtonComponentType>>('CacButtonComponent');
 
 @Component({
   selector: 'cac-button',
@@ -98,6 +102,8 @@ export class CacButtonComponent implements OnInit, AfterViewInit, OnChanges {
   insufficientPermission = signal(false);
 
   constructor() {
+    componentWithDefaultConfig(this, BUTTON_COMPONENT_CONFIG);
+    
     toObservable(this.insufficientPermission)
       .pipe(takeUntilDestroyed())
       .subscribe(() => {
