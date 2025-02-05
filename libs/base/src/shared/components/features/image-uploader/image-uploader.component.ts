@@ -4,6 +4,7 @@ import {
   effect,
   EventEmitter,
   inject,
+  InjectionToken,
   input,
   Input,
   OnDestroy,
@@ -19,6 +20,10 @@ import { MatIcon } from '@angular/material/icon';
 import { Observable, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { formControl, FormControlExtended } from '../../../forms';
+import { componentWithDefaultConfig } from 'libs/base/src/core';
+
+export type ImageUploaderComponent = InstanceType<typeof CacImageUploaderComponent>
+export const IMAGE_UPLOADER_COMPONENT_CONFIG = new InjectionToken<Partial<ImageUploaderComponent>>('CacImageUploaderComponent');
 
 @Component({
   selector: 'cac-image-uploader',
@@ -49,6 +54,8 @@ export class CacImageUploaderComponent<INPUT, OPTION> implements OnInit, OnDestr
   private _objectUrls: string[] = [];
 
   constructor() {
+    componentWithDefaultConfig(this, IMAGE_UPLOADER_COMPONENT_CONFIG);
+
     effect(() => {
       const value = this.value();
       if (value) {

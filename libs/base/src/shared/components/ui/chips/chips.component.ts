@@ -4,6 +4,7 @@ import {
   EventEmitter,
   HostBinding,
   HostListener,
+  InjectionToken,
   Input,
   OnChanges,
   Output,
@@ -11,9 +12,13 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CacIconComponent } from '../icon';
+import { componentWithDefaultConfig } from 'libs/base/src/core';
 
 
 // TODO: activeClass property is not working
+
+export type ChipsComponentType = InstanceType<typeof CacChipsComponent>
+export const CHIP_COMPONENT_CONFIG = new InjectionToken<Partial<ChipsComponentType>>('CacChipsComponent');
 
 @Component({
   selector: 'cac-chips',
@@ -42,6 +47,8 @@ export class CacChipsComponent<T> implements OnChanges {
   private _active = signal(false);
 
   constructor() {
+    componentWithDefaultConfig(this, CHIP_COMPONENT_CONFIG);
+    
     effect(() => {
       this.activeClassBinding = this._active();
     });

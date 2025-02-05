@@ -1,8 +1,12 @@
 import {
   AuthBaseStore,
+  BUTTON_COMPONENT_CONFIG,
+  CHIP_COMPONENT_CONFIG,
+  CHIPS_GROUP_COMPONENT_CONFIG,
   DATEFNS_PERSIAN_DATE_FORMATS,
   DIALOG_INVOKER_CONFIG,
   ICON_COMPONENT_CONFIG,
+  IMAGE_UPLOADER_COMPONENT_CONFIG,
   provide, provideCacBase,
   TABLE_COMPONENT_CONFIG
 } from '@controladad/ng-base';
@@ -37,5 +41,18 @@ export const provideCac = () => [
   }),
   provide(TABLE_COMPONENT_CONFIG, {
     print: true,
+  }),
+  provide(BUTTON_COMPONENT_CONFIG, {
+    iconPosition: 'suffix',
+  }),
+  provide(CHIP_COMPONENT_CONFIG, {
+    closable: false,
+  }),
+  provide(CHIPS_GROUP_COMPONENT_CONFIG, {
+    toggleable: false,
+  }),
+  provide(IMAGE_UPLOADER_COMPONENT_CONFIG, {
+    label: 'Upload Image',
+    accept: '.png,.jpeg,.jpg',
   }),
 ];
