@@ -42,9 +42,9 @@ export const provideCac = () => [
   provide(TABLE_COMPONENT_CONFIG, {
     print: true,
   }),
-  provide(BUTTON_COMPONENT_CONFIG, {
-    iconPosition: 'suffix',
-  }),
+  // provide(BUTTON_COMPONENT_CONFIG, {
+  //   iconPosition: 'suffix',
+  // }),
   provide(CHIP_COMPONENT_CONFIG, {
     closable: false,
   }),

@@ -1,15 +1,15 @@
 import { inject, InjectionToken } from '@angular/core';
 
 function isClass(obj: any) {
-  const isCtorClass = obj.constructor
-      && obj.constructor.toString().substring(0, 5) === 'class'
-  if(obj.prototype === undefined) {
-    return isCtorClass
+  const isCtorClass = obj.constructor && obj.constructor.toString().substring(0, 5) === 'class';
+  if (obj.prototype === undefined) {
+    return isCtorClass;
   }
-  const isPrototypeCtorClass = obj.prototype.constructor
-    && obj.prototype.constructor.toString
-    && obj.prototype.constructor.toString().substring(0, 5) === 'class'
-  return isCtorClass || isPrototypeCtorClass
+  const isPrototypeCtorClass =
+    obj.prototype.constructor &&
+    obj.prototype.constructor.toString &&
+    obj.prototype.constructor.toString().substring(0, 5) === 'class';
+  return isCtorClass || isPrototypeCtorClass;
 }
 
 export function provide<T>(token: InjectionToken<T>, value: T | (() => T), multi = false) {
@@ -23,18 +23,28 @@ export function provide<T>(token: InjectionToken<T>, value: T | (() => T), multi
   }
 }
 
-export function componentWithDefaultConfig<T>(component: any, token: InjectionToken<T>, defaultValues: Partial<T> = {}) {
-  const valuesInjected = inject(token) as T[] | T;
+export function componentWithDefaultConfig<T>(
+  component: any,
+  token: InjectionToken<T>,
+  defaultValues: Partial<T> = {},
+) {
+  let valuesInjected: T[] | T;
+  try {
+    valuesInjected = inject(token);
+  } catch {
+    return;
+  }
+
   const values = valuesInjected instanceof Array ? valuesInjected : [valuesInjected];
 
   let defaults = {
-    ...defaultValues
+    ...defaultValues,
   };
-  for(const val of values) {
+  for (const val of values) {
     defaults = {
       ...defaults,
       ...val,
-    }
+    };
   }
 
   for (const key in defaults) {
