@@ -16,7 +16,7 @@ pre-push:
       run: npx nx build base
 
     - name: Release version
-      run: npx nx release patch --skip-publish
+      run: npx nx release minor --skip-publish
 
     - name: Publish tags
       run: git push --tags --no-verify

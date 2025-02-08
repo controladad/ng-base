@@ -17,7 +17,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CacChipsComponent } from '../chips';
 import { formControl, FormControlExtended } from '../../../forms';
 import { SelectionModel } from '../../../classes';
-import { componentWithDefaultConfig } from 'libs/base/src/core';
+import { componentWithDefaultConfig } from '../../../../core';
 
 export type ChipsGroupComponentOptions = InstanceType<typeof CacChipsGroupComponent>
 export const CHIPS_GROUP_COMPONENT_CONFIG = new InjectionToken<Partial<ChipsGroupComponentOptions>>('CacChipsGroupComponent');
@@ -47,7 +47,7 @@ export class CacChipsGroupComponent<T> implements OnInit, AfterContentInit {
 
   constructor() {
     componentWithDefaultConfig(this, CHIPS_GROUP_COMPONENT_CONFIG);
-    
+
     effect(() => {
       this.selectionModel.bindFormControl(this.control(), this.destroyRef);
     });

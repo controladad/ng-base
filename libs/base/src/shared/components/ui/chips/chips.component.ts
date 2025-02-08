@@ -12,7 +12,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CacIconComponent } from '../icon';
-import { componentWithDefaultConfig } from 'libs/base/src/core';
+import { componentWithDefaultConfig } from '../../../../core';
 
 
 // TODO: activeClass property is not working
@@ -48,7 +48,7 @@ export class CacChipsComponent<T> implements OnChanges {
 
   constructor() {
     componentWithDefaultConfig(this, CHIP_COMPONENT_CONFIG);
-    
+
     effect(() => {
       this.activeClassBinding = this._active();
     });

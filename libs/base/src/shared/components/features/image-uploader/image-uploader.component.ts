@@ -20,7 +20,7 @@ import { MatIcon } from '@angular/material/icon';
 import { Observable, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { formControl, FormControlExtended } from '../../../forms';
-import { componentWithDefaultConfig } from 'libs/base/src/core';
+import { componentWithDefaultConfig } from '../../../../core';
 
 export type ImageUploaderComponent = InstanceType<typeof CacImageUploaderComponent>
 export const IMAGE_UPLOADER_COMPONENT_CONFIG = new InjectionToken<Partial<ImageUploaderComponent>>('CacImageUploaderComponent');
