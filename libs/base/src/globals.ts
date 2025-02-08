@@ -14,9 +14,3 @@ export function setupProdMode(prod: boolean) {
 
   enableElfProdMode();
 }
-
-declare global {
-  let dialog$: DialogService;
-  let snackbar$: SnackbarService;
-  let http$: HttpClient;
-}

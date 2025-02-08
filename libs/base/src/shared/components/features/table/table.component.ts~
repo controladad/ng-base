@@ -60,7 +60,7 @@ import { CacTableFormMenuComponent } from './table-form-menu/table-form-menu.com
 import { DataGetRequest, DataGetResponse, DateFns, effectDep, ItemRecord, objectToId } from '../../../../core';
 import { SelectionModel, SortModel, TableFilterModel } from '../../../classes';
 import {
-  ButtonClickEvent,
+  ButtonClickEvent, 
   CacIconComponent,
   CacPaginationComponent,
   CacSkeletonComponent
@@ -78,7 +78,6 @@ import { TABLE_COL_INDEX_PROP, CacTableColIndexComponent } from './columns/table
 import { CacTableColDefaultComponent } from './columns/table-col-default/table-col-default.component';
 import { TABLE_COL_ACTION_PROP, CacTableColActionComponent } from './columns/table-col-action/table-col-action.component';
 import { CacTableHeaderComponent } from './table-header/table-header.component';
-import { DialogService } from '../../dialog';
 
 interface TableRowData {
   value: any;
@@ -205,7 +204,6 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
 export class CacTableComponent<T extends object> implements OnInit, OnChanges, AfterViewInit, AfterContentInit, OnDestroy {
   readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
-  private readonly dialog = inject(DialogService);
   private readonly config = inject(TABLE_COMPONENT_CONFIG);
 
   readonly ACTIVE_STRING_VALUE = 'Active';
@@ -218,7 +216,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
   readonly FALSE_TEXT = $localize`:@@base.values.falseText:No`;
   readonly ACTIVE_TEXT = $localize`:@@base.feature.table.activeText:Active`;
   readonly INACTIVE_TEXT = $localize`:@@base.feature.table.inactiveText:Inactive`;
-
+  
   readonly HOURS_TEXT = $localize`:@@base.feature.table.cellFormatting.hours:hours`;
   readonly HOURS_AND_TEXT = $localize`:@@base.feature.table.cellFormatting.hoursAnd:Hours and`;
   readonly MINUTES_TEXT = $localize`:@@base.feature.table.cellFormatting.minutes:minutes`;
@@ -951,7 +949,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
       openDialog: (formBuilder, value) => {
         formBuilder.reset(value);
 
-        return this.dialog
+        return dialog$
           .input({
             title:
               mode === 'create'

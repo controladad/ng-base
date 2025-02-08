@@ -7,6 +7,7 @@ import { flatten } from '../helpers';
 import { localStorageStrategy, sessionStorageStrategy, StateStorage } from '@ngneat/elf-persist-state';
 import { CacGlobalConfig } from '../../configs';
 import { AppBaseStore } from './app-base.store';
+import { SnackbarService } from '../../shared';
 
 export interface AuthBaseStoreProps<USER> {
   token?: string;
@@ -44,6 +45,7 @@ export const AuthStorageEngine: StateStorage = {
 export class _AuthBaseStore<T extends AuthBaseStoreProps<any>, L extends AuthBaseStoreLoginModel> extends BaseStore<T> {
   protected router = inject(Router);
   protected app = inject(AppBaseStore);
+  private readonly snackbar = inject(SnackbarService);
 
   constructor(
     public opts: {
@@ -163,14 +165,14 @@ export class _AuthBaseStore<T extends AuthBaseStoreProps<any>, L extends AuthBas
   protected isForbiddenToEnter(state: T) {
     const perms = this.permissionKeys(state);
     if (perms?.length === 0) {
-      snackbar$.error($localize`:@@base.errors.auth.yourAccessDenied:Your Access Denied.`);
+      this.snackbar.error($localize`:@@base.errors.auth.yourAccessDenied:Your Access Denied.`);
       return true;
     }
     return false;
   }
 }
 
-// This is dummy, used to make service out of the `_AuthBaseStore`, for extension, `_AuthBaseStore` should be used
+// This is dummy, used to make service out of the `_AuthBaseStore`. For extension, `_AuthBaseStore` should be used
 @Injectable({
   providedIn: 'root',
 })

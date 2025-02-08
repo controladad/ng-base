@@ -41,7 +41,7 @@ export class _AppBaseStore<T extends AppBaseStoreProps> extends BaseStore<T> {
   }
 }
 
-// This is dummy, used to make service out of the `_AppBaseStore`, for extension, `_AppBaseStore` should be used
+// This is dummy, used to make service out of the `_AppBaseStore`. For extension, `_AppBaseStore` should be used
 @Injectable({
   providedIn: 'root',
 })

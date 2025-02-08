@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 export interface StrapiOptions {
   search?: StrapiSearch[];
@@ -56,6 +57,8 @@ const StrapiIgnorableProps = ['attributes', 'data'];
   providedIn: 'root',
 })
 export class TableStrapiAdapter {
+  private readonly http = inject(HttpClient);
+
   createGetRequest<T>(
     url: string,
     mapFn?: (x: any) => StrapiPaginatedResponse<T>,
@@ -109,8 +112,8 @@ export class TableStrapiAdapter {
     const requestUrl = this.optionsToUrl(url, options);
     return (
       body
-        ? (http$.post<StrapiPaginatedResponse<T> | T[]>(requestUrl, body, requestOptions) as any)
-        : http$.get<StrapiPaginatedResponse<T> | T[]>(requestUrl)
+        ? (this.http.post<StrapiPaginatedResponse<T> | T[]>(requestUrl, body, requestOptions) as any)
+        : this.http.get<StrapiPaginatedResponse<T> | T[]>(requestUrl)
     ).pipe(map(mapFn ?? ((x) => x)));
   }
 

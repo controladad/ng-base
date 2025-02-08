@@ -26,7 +26,7 @@ module.exports = [
         'error',
         {
           type: 'attribute',
-          prefix: ['feature', 'ui'],
+          prefix: ['cac'],
           style: 'camelCase',
         },
       ],
@@ -34,7 +34,7 @@ module.exports = [
         'error',
         {
           type: 'element',
-          prefix: ['feature', 'ui'],
+          prefix: ['cac'],
           style: 'kebab-case',
         },
       ],
