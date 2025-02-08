@@ -1,5 +1,6 @@
 {
-  "locale": "en",
+  "locale": "fa",
+  "rtl": true,
   "translations": {
     "base.feature.login.title": "ورود",
     "base.feature.login.guide": "نام کاربری و رمز عبور خود را وارد کرده سپس دکمه ورود را کلیک کنید.",

@@ -117,6 +117,8 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
             .catch((e) => console.error(`Failed to load translations`, e));
           loadTranslations(json.translations);
           $localize.locale = currentLang;
+          document.documentElement.lang = currentLang;
+          document.documentElement.dir = json.rtl ? 'rtl' : 'ltr';
         }
 
         // const roleApi = inject(RoleApiService)
