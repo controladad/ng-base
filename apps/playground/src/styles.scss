@@ -2,9 +2,7 @@
 @use "themes/colors";
 @use "themes/material";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @include cac.scrollbar;
 
