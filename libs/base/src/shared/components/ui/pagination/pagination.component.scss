@@ -20,10 +20,10 @@
   //}
 
   &:hover {
-    @apply bg-primary-50 #{!important};
+    @apply bg-primary-50!;
   }
   &.selected-page {
-    @apply text-primary bg-primary-100 pointer-events-none #{!important};
+    @apply text-primary! bg-primary-100! pointer-events-none!;
   }
 }
 
@@ -34,7 +34,7 @@
     @apply rtl:rotate-180;
   }
   &.disabled {
-    @apply text-gray-500 #{!important};
+    @apply text-gray-500!;
   }
 }
 

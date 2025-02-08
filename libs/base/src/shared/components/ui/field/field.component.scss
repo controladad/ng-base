@@ -121,23 +121,23 @@
 
   &.mat-form-field-invalid {
     .mat-mdc-form-field-icon-suffix {
-      @apply text-error #{!important};
+      @apply text-error!;
     }
   }
   &.mat-focused:not(.mat-form-field-invalid) {
     .mat-mdc-form-field-icon-suffix {
-      @apply text-primary #{!important};
+      @apply text-primary!;
     }
     .clear-button {
-      @apply text-primary #{!important};
+      @apply text-primary!;
     }
   }
 
   .mdc-text-field {
-    @apply ps-3 pe-0.5 #{!important};
+    @apply ps-3! pe-0.5!;
   }
   .mdc-notched-outline__notch {
-    @apply pe-0 ps-0 #{!important};
+    @apply pe-0! ps-0!;
   }
 
   .ql-toolbar {

@@ -1,11 +1,11 @@
 .ui-snackbar-panel {
   &.is-message {
-    @apply bg-primary-400 text-surface #{!important};
+    @apply bg-primary-400! text-surface!;
   }
   &.is-error {
-    @apply bg-error text-error-100 #{!important};
+    @apply bg-error! text-error-100!;
   }
-  @apply rounded-6 #{!important};
+  @apply rounded-6!;
   //animation: snack-anim infinite ease-in-out alternate 1s;
   transition: all 0.15s ease;
   position: relative;

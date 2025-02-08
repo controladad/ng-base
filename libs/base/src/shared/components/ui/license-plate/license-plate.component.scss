@@ -16,7 +16,6 @@
     border-radius: 0.5rem;
     display: flex;
     flex-direction: row;
-    //background-color: rgb(255, 202, 19, var(--tw-bg-opacity));
     background-color: rgb(255, 255, 255, var(--tw-bg-opacity));
     font-size: 3.125rem;
     font-weight: 700;
@@ -94,7 +93,7 @@
 :host ::ng-deep .feature-license-plate-field {
   position: relative;
   .mat-mdc-text-field-wrapper {
-    @apply bg-white px-0 #{!important};
+    @apply bg-white! px-0!;
   }
   .mat-mdc-form-field-infix {
     padding: 0 !important;
@@ -112,16 +111,16 @@
 
   &.mat-focused:not(.mat-form-field-invalid) {
     .state-section {
-      @apply border-primary-500 border-l-2 #{!important};
+      @apply border-primary-500! border-l-2!;
     }
   }
   &.mat-form-field-invalid {
     .state-section {
-      @apply border-error-500 #{!important};
+      @apply border-error-500!;
     }
     &.mat-focused {
       .state-section {
-        @apply border-l-2 #{!important};
+        @apply border-l-2!;
       }
     }
   }

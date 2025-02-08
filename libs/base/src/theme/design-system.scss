@@ -44,7 +44,7 @@ mat-checkbox {
   }
   .mdc-checkbox__background {
     border-width: 1px !important;
-    @apply border-outline #{!important};
+    @apply border-outline!;
   }
   .mdc-label {
     @apply text-outline;
@@ -53,11 +53,11 @@ mat-checkbox {
 }
 
 mat-radio-button {
-  @apply cursor-pointer #{!important};
+  @apply cursor-pointer!;
   .mdc-form-field,
   .mdc-label {
     user-select: none;
-    @apply cursor-pointer #{!important};
+    @apply cursor-pointer!;
   }
 }
 
@@ -81,7 +81,7 @@ mat-tab-group {
   .mdc-tab--active {
     @apply bg-tertiary-50;
     .mdc-tab__text-label {
-      @apply text-primary-600 #{!important};
+      @apply text-primary-600!;
     }
   }
   .mdc-tab {
@@ -91,10 +91,10 @@ mat-tab-group {
 
 mat-progress-bar {
   .mdc-linear-progress__buffer-bar {
-    @apply bg-surface-container-highest #{!important};
+    @apply bg-surface-container-highest!;
   }
   .mdc-linear-progress__bar-inner {
-    @apply border-primary #{!important};
+    @apply border-primary!;
   }
 }
 
@@ -137,7 +137,7 @@ mat-calendar {
 
   .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
     > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
-    @apply bg-primary-100 #{!important};
+    @apply bg-primary-100!;
   }
   .cdk-keyboard-focused
     .mat-calendar-body-active
@@ -145,7 +145,7 @@ mat-calendar {
   .cdk-program-focused
     .mat-calendar-body-active
     > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
-    @apply bg-primary-50 #{!important};
+    @apply bg-primary-50!;
   }
 }
 
@@ -160,7 +160,7 @@ mat-calendar {
 }
 
 .mat-mdc-menu-panel {
-  @apply bg-surface-container-low rounded-3 shadow-3 border-outline-variant #{!important};
+  @apply bg-surface-container-low rounded-3! shadow-3! border-outline-variant!;
   @apply mt-1;
   min-width: 360px !important;
   max-width: unset !important;
@@ -171,13 +171,13 @@ mat-calendar {
 }
 
 .mat-button-toggle-group {
-  @apply border-outline rounded-1 #{!important};
+  @apply border-outline! rounded-1!;
 
   mat-button-toggle {
-    @apply text-secondary-on-container bg-transparent border-outline font-medium #{!important};
+    @apply text-secondary-on-container! bg-transparent! border-outline! font-medium!;
   }
   .mat-button-toggle-checked {
-    @apply bg-secondary-container #{!important};
+    @apply bg-secondary-container!;
   }
 }
 

@@ -22,15 +22,15 @@
     color: inherit !important;
   }
   .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background {
-    @apply bg-primary #{!important};
+    @apply bg-primary!;
     .mdc-checkbox__mixedmark {
-      @apply border-white #{!important};
+      @apply border-white!;
     }
   }
   .mdc-checkbox__native-control:enabled:indeterminate ~ .mdc-checkbox__background {
-    @apply bg-neutral-500 #{!important};
+    @apply bg-neutral-500!;
     .mdc-checkbox__mixedmark {
-      @apply border-white #{!important};
+      @apply border-white!;
     }
   }
 }

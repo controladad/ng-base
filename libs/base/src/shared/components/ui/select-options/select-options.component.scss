@@ -15,14 +15,14 @@
     @apply bg-primary-100 text-primary;
   }
   &.option-focused.option-selected {
-    @apply bg-surface-container-high text-primary-500 #{!important};
+    @apply bg-surface-container-high! text-primary-500!;
   }
 }
 
 ::ng-deep .options-menu {
   min-width: 320px !important;
   max-height: 460px !important;
-  @apply bg-white rounded-1 #{!important};
+  @apply bg-white! rounded-1!;
   @apply border border-outline-variant;
   box-shadow:
     0 2px 6px 2px #00000033,

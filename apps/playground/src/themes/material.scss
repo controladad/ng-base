@@ -4,19 +4,19 @@
 @include mat.core();
 
 .mat-elevation-z1 {
-  @apply shadow-1 #{!important};
+  @apply shadow-1!;
 }
 .mat-elevation-z2 {
-  @apply shadow-2 #{!important};
+  @apply shadow-2!;
 }
 .mat-elevation-z3 {
-  @apply shadow-3 #{!important};
+  @apply shadow-3!;
 }
 .mat-elevation-z4 {
-  @apply shadow-4 #{!important};
+  @apply shadow-4!;
 }
 .mat-elevation-z5 {
-  @apply shadow-5 #{!important};
+  @apply shadow-5!;
 }
 
 html {

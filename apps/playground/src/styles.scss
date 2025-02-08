@@ -1,7 +1,8 @@
 @use "index" as cac;
 @use "themes/colors";
-@use "themes/material";
+//@use "themes/material";
 
+@config "./tailwind.config.js";
 @import "tailwindcss";
 
 @include cac.scrollbar;

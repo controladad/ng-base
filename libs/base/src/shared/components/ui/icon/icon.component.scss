@@ -12,10 +12,10 @@
   &.is-clickable {
     @apply cursor-pointer;
     &:hover {
-      @apply bg-surface-bright brightness-90 drop-shadow-sm #{!important};
+      @apply bg-surface-bright! brightness-90! drop-shadow-sm!;
     }
     &:hover:active {
-      @apply bg-surface-container brightness-100 drop-shadow-none #{!important};
+      @apply bg-surface-container! brightness-100! drop-shadow-none!;
     }
   }
 
