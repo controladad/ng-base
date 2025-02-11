@@ -100,7 +100,7 @@
       filter: brightness(95%);
     }
     &.disabled {
-      @apply text-surface-on text-opacity-60 #{!important};
+      @apply text-outline opacity-50 #{!important};
     }
   }
   &.elevated {

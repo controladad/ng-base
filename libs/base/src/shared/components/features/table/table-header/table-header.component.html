@@ -23,7 +23,7 @@
     <span class="font-medium">
       <span class="mx-1">{{ options.selectionModel?.selectedCount() }}</span>
        <span i18n="@@base.feature.table.header.selection.XoutOfI">From</span>
-      <span class="mx-1">{{ totalItems }}</span> 
+      <span class="mx-1">{{ totalItems }}</span>
       <span i18n="@@base.feature.table.header.selection.isSelected">Is selected</span>
       </span>
   }
@@ -78,4 +78,6 @@
 </cac-button>
 }
 
-<cac-button icon="refresh" class="h-12" appearance="text" [disabled]="loading" (onClick)="onRefresh.emit($event)"></cac-button>
+<cac-button icon="refresh" class="h-12 refresh-button" appearance="text" [disabled]="loading" (onClick)="onRefresh.emit($event)">
+  <span class="refresh-button-text">Refresh</span>
+</cac-button>
