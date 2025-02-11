@@ -22,6 +22,8 @@ export class RouteHelperService {
 
   path = signal<string>('/');
   routeParts = signal<string[]>([]);
+  layout = signal<RouteExtended>(null as any);
+  layoutRootPath = signal<string>('/');
 
   allRoutes = this._allRoutes.asReadonly();
   currentRoutePermissionTree = this._currentRoutePermissionTree.asReadonly();
@@ -92,7 +94,7 @@ export class RouteHelperService {
     const pathArray = Array.isArray(pathOrItem)
       ? pathOrItem
       : typeof pathOrItem === 'object'
-        ? this.buildRouteTree(pathOrItem)
+        ? pathOrItem.fullPath.split('/')
         : pathOrItem.split('/');
     pathArray.unshift('/');
     return this.router.navigate(pathArray);
@@ -109,13 +111,7 @@ export class RouteHelperService {
   }
 
   private buildRouteTree(item: RouteItem | undefined): string[] {
-    const routeParts = [];
-    while (item) {
-      if (item.path && item.path.length) {
-        routeParts.unshift(item.path);
-      }
-      item = item.parent;
-    }
+    const routeParts = item?.fullPath.split('/') ?? [];
     routeParts.unshift('/');
     return routeParts;
   }
@@ -171,14 +167,20 @@ export class RouteHelperService {
 
   private parseRouteConfig(config: RoutesExtended | Routes): RouteItem[] | null {
     const mainEntry = config.find((t) => isRouteExtended(t) && t.layout === 'main') as RouteExtended;
+
+    this.layout.set(mainEntry);
+    this.layoutRootPath.set(mainEntry.path ? mainEntry.path.startsWith('/') ? mainEntry.path : `/${mainEntry.path}` : '/')
+
     return mainEntry ? this.getRouteChildren(mainEntry) : null;
   }
 
   private getRouteChildren(route: RouteExtended): RouteItem[] {
+    const rootPath = this.layoutRootPath();
+
     const processRoute = (item: RouteExtended, level = 0, parent?: RouteItem): RouteItem | null => {
       if (item.redirectTo || (!item.path && !item.children) || !item.view) return null;
 
-      const routeItem = this.routeToRouteItem(item, level, parent);
+      const routeItem = this.routeToRouteItem(item, level, parent, rootPath);
       if (item.children) {
         routeItem.children = item.children
           .map((t) => processRoute(t, level + 1, routeItem))
@@ -191,10 +193,11 @@ export class RouteHelperService {
     return (route.children ?? []).map((t) => processRoute(t)).filter((item): item is RouteItem => item !== null);
   }
 
-  private routeToRouteItem(route: RouteExtended, level: number, parent?: RouteItem): RouteItem {
+  private routeToRouteItem(route: RouteExtended, level: number, parent?: RouteItem, rootPath?: string): RouteItem {
     const { permissionName, permissionKey } = this.extractPermissions(route);
 
     return {
+      fullPath: `${parent?.fullPath ?? rootPath}/${route.path}`,
       path: route.path!,
       level,
       icon: this.extractIcon(route),

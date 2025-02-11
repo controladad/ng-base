@@ -22,5 +22,6 @@ export class SectionComponent {
 
   constructor() {
     console.log(this.routeHelper.routeParts())
+    console.log(this.routeHelper.routes())
   }
 }

@@ -21,6 +21,7 @@ export type RoutesExtended = RouteExtended[];
 
 export interface RouteItem {
   path: string;
+  fullPath: string;
   level: number;
   label?: string;
   icon?: { active?: string; default: string };

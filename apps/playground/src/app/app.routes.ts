@@ -40,14 +40,17 @@ export const appRoutes: RouteExtended[] = [
     children: [
       {
         path: 'two',
+        view: { label: 'Two' },
         loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
         children: [
           {
             path: 'three',
+            view: { label: 'Three' },
             loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
           },
           {
             path: 'triple',
+            view: { label: 'Triple' },
             loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
           }
         ]
