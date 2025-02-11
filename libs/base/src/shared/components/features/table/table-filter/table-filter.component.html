@@ -2,12 +2,13 @@
   <cac-icon
     #FilterMenuTrigger="matMenuTrigger"
     [matMenuTriggerFor]="null"
+    (onClick)="null"
     class="transition-all duration-300 {{
       isActive() ? 'text-primary-500 scale-125' : 'text-surface-on-variant opacity-70'
     }}"
     wrapperClass="hover:bg-secondary-50"
     [icon]="isActive() ? 'filter-filled' : 'filter'"
-    size="1rem"
+    size="1.125rem"
   ></cac-icon>
   <cac-table-filter-menu
     [column]="column"

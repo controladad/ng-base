@@ -25,7 +25,7 @@ export class TablePageComponent {
     showIndex: true,
     columns: {
       id: {  label: 'ردیف' },
-      name: { label: 'نام' },
+      name: { label: 'نام', filterable: true, sortable: true, },
       class: { label: 'کلاس'},
       team: { label: 'تیم'},
       car: { label: 'ماشین' },

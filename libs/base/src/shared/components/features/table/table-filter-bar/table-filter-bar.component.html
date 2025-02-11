@@ -1,12 +1,12 @@
 <div class="h-12 w-full bg-white flex flex-row-reverse items-center gap-2.5 px-1.5">
   <cac-button
     appearance="text"
-    class="text-primary-600 flex-none {{ !filterModel?.hasFilter() ? 'saturate-0' : '' }}"
+    class="text-primary-600 flex-none {{ !filterModel?.hasFilter() ? 'saturate-0 opacity-50' : '' }}"
     icon="trash"
     [disabled]="!filterModel?.hasFilter()"
     (onClick)="clearFilters()"
     i18n="@@base.feature.table.filters.removeFilters"
-    >Remove Filters</cac-button
+    >Clear Filters</cac-button
     >
     <div class="flex-auto flex flex-row-reverse items-center gap-2.5 overflow-auto">
       @for (item of filterModel?.filtersArray() ?? []; track item.prop) {
