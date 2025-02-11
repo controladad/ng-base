@@ -29,6 +29,7 @@
     "base.feature.dialog.input.noButton": "خیر، لغو گردد",
     "base.feature.dialog.input.yesButton": "بله، تایید می‌کنم",
     "base.feature.dialog.input.deleteButton": "حذف",
+    "base.feature.table.createDialog.subtitle": "مشخصات را وارد کنید و دکمه ذخیره را بزنید",
     "base.feature.dialog.delete.titleBeforeItemName": "آیا از حذف ",
     "base.feature.dialog.delete.titleAfterItemName": " انتخاب شده مطمئن هستید؟",
     "base.feature.dialog.delete.captionBeforeItemName": "با حذف ",
@@ -58,11 +59,6 @@
     "base.feature.table.header.print": "پرینت",
     "base.feature.table.header.addText": "اضافه کردن",
     "base.feature.table.emptyValue": "-",
-    "base.feature.table.addText": "اضافه کردن",
-    "base.feature.table.editText": "تغییر دادن",
-    "base.feature.table.newText": "جدید",
-    "base.feature.table.activeText": "فعال",
-    "base.feature.table.inactiveText": "غیرفعال",
     "base.feature.table.cellFormatting.total": "تعداد کل",
     "base.feature.table.cellFormatting.hours": "ساعت",
     "base.feature.table.cellFormatting.hoursAnd": "ساعت و",
@@ -70,7 +66,6 @@
     "base.feature.table.cellFormatting.date": "تاریخ",
     "base.feature.table.cellFormatting.plateCountry": "ایران",
     "base.feature.table.rowText": "ردیف",
-    "base.feature.table.createDialog.subtitle": "مشخصات را وارد کنید و دکمه ذخیره را بزنید",
     "base.ui.loaderScreen.error": "در بارگزاری مشکلی به وجود آمد، لطفا دوباره تلاش کنید.",
     "base.ui.pagination.perPageCount": "تعداد نمایش در هر صفحه",
     "base.ui.pagination.totalCount": "تعداد کل: ",
@@ -112,6 +107,12 @@
     "base.permissions.crudActions.export":"خروجی اکسل",
     "base.permissions.crudActions.output":"خروجی",
     "base.values.trueText": "بله",
-    "base.values.falseText": "خیر"
+    "base.values.falseText": "خیر",
+    "base.values.addText": "اضافه کردن",
+    "base.values.editText": "تغییر دادن",
+    "base.values.newText": "جدید",
+    "base.values.activeText": "فعال",
+    "base.values.inactiveText": "غیرفعال",
+    "base.values.item": "آیتم"
   }
 }

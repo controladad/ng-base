@@ -13,7 +13,6 @@ import {
 } from '../../../../core';
 import { ButtonAppearanceType, ButtonClickEvent, ButtonThemeType, FieldInputType } from '../../ui';
 import { SelectionModel, SortModel, TableFilterModel } from '../../../classes';
-import type { InputDialogExtended } from '../../dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 
 export type TableColumnType =
@@ -52,17 +51,19 @@ export type TableMenuParams = {
   openMenu: <T, U>(options: FormBuilder<T, U>, value?: Partial<T>) => TableMenu<T>;
 };
 
-export type TableDialogParams = {
-  openDialog: <T, U>(formBuilder: FormBuilder<T, U>, value?: Partial<T>) => InputDialogExtended<T, U>;
-};
+// export type TableDialogParams = {
+//   openDialog: <T, U>(formBuilder: FormBuilder<T, U>, value?: Partial<T>) => InputDialogExtended<T, U>;
+// };
 
 export type TableStateParams = {
   setLoader: (loading: boolean) => void;
   refresh: TableRefreshFn;
 };
 
-export type TableAddEvent = TableMenuParams & TableDialogParams;
-export type TableActionEvent = TableMenuParams & TableDialogParams;
+// export type TableAddEvent = TableMenuParams & TableDialogParams;
+export type TableAddEvent = TableMenuParams;
+// export type TableActionEvent = TableMenuParams & TableDialogParams;
+export type TableActionEvent = TableMenuParams;
 
 export type TableFilterOptions = {
   type: DataFilterTypes;

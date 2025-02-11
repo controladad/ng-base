@@ -87,9 +87,9 @@
   </div>
   <cac-pagination
     #Pagination
-    [size]="paginationOptions().size"
+    [size]="paginationOptions()?.size"
     [total]="totalItems()"
-    [autoHide]="paginationOptions().autoHide ?? false"
+    [autoHide]="paginationOptions()?.autoHide ?? false"
     (onUpdate)="onPaginate()"
     class="block px-8 {{ !paginationOptions() ? 'hidden' : '' }}"
   ></cac-pagination>

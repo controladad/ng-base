@@ -47,7 +47,6 @@ import {
   TableBulkAction,
   TableButtonEvent,
   TableColumn,
-  TableDialogParams,
   TableExportOutput,
   TableMenuParams,
   TableOptions, TablePagination,
@@ -69,7 +68,6 @@ import {
 import { SelectionModel, SortModel, TableFilterModel } from '../../../classes';
 import {
   ButtonClickEvent,
-  CacIconComponent,
   CacPaginationComponent,
   CacSkeletonComponent
 } from '../../ui';
@@ -86,7 +84,6 @@ import { TABLE_COL_INDEX_PROP, CacTableColIndexComponent } from './columns/table
 import { CacTableColDefaultComponent } from './columns/table-col-default/table-col-default.component';
 import { TABLE_COL_ACTION_PROP, CacTableColActionComponent } from './columns/table-col-action/table-col-action.component';
 import { CacTableHeaderComponent } from './table-header/table-header.component';
-import { DialogService } from '../../dialog';
 
 interface TableRowData {
   value: any;
@@ -127,6 +124,7 @@ const TABLE_DEFAULT_GENERATOR = (defaultConfig?: Partial<TableOptions<any>>) =>
     selectionModel: new SelectionModel<any>(0, true, [], objectToId),
     sortModel: new SortModel(),
     filterModel: new TableFilterModel(),
+    view: { itemName: $localize`:@@base.values.item:Item` },
     ...defaultConfig,
     columns: {},
     itemsFn: undefined,
@@ -147,6 +145,9 @@ export class TablePaginationMismatchError extends Error {
 // like showing the header and each row containing a skeleton
 // TODO: Add tooltip to action buttons
 // TODO: Refactor using TableService
+
+// TODO: idk what kind of circular dependency is happening on table filter menu...
+// TODO: Update dialog.crud to somehow support getting `itemName` from the table
 
 export class TableClass<T extends object> {
   private _initFn?: (ref: CacTableComponent<T>) => void;
@@ -213,19 +214,15 @@ export function table<T extends object>(options?: TableOptions<T>): TableClass<T
 export class CacTableComponent<T extends object> implements OnInit, OnChanges, AfterViewInit, AfterContentInit, OnDestroy {
   readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
-  private readonly dialog = inject(DialogService);
   private readonly config = injectOptional(TABLE_COMPONENT_CONFIG);
 
   readonly ACTIVE_STRING_VALUE = 'Active';
 
   readonly EMPTY_VALUE = $localize`:@@base.feature.table.emptyValue:-`;
-  readonly ADD_TEXT = $localize`:@@base.feature.table.addText:Add`;
-  readonly EDIT_TEXT = $localize`:@@base.feature.table.editText:Edit`;
-  readonly NEW_TEXT = $localize`:@@base.feature.table.newText:New`;
   readonly TRUE_TEXT = $localize`:@@base.values.trueText:Yes`;
   readonly FALSE_TEXT = $localize`:@@base.values.falseText:No`;
-  readonly ACTIVE_TEXT = $localize`:@@base.feature.table.activeText:Active`;
-  readonly INACTIVE_TEXT = $localize`:@@base.feature.table.inactiveText:Inactive`;
+  readonly ACTIVE_TEXT = $localize`:@@base.value.activeText:Active`;
+  readonly INACTIVE_TEXT = $localize`:@@base.value.inactiveText:Inactive`;
 
   readonly HOURS_TEXT = $localize`:@@base.feature.table.cellFormatting.hours:hours`;
   readonly HOURS_AND_TEXT = $localize`:@@base.feature.table.cellFormatting.hoursAnd:Hours and`;
@@ -275,7 +272,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
 
   // if undefined, pagination is disabled
   paginationOptions = computed(
-    () => (!this.options().pagination ? null : this.options().pagination) as TablePagination,
+    () => ((!this.options().pagination ? null : this.options().pagination)) as TablePagination | null,
   );
 
   hiddenCols = computed(() =>
@@ -563,7 +560,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
 
   protected onAction(item: T, action: TableAction<T>, trigger: MatMenuTrigger, e?: ButtonClickEvent) {
     const result = action.action(item, {
-      ...this.createTableDialogParam('edit'),
+      // ...this.createTableDialogParam('edit'),
       ...this.createTableMenuParam('edit', trigger),
     });
 
@@ -597,7 +594,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
   protected onAdd(e: ButtonClickEvent) {
     if (this.options().events?.add) {
       const result = this.options().events!.add!({
-        ...this.createTableDialogParam('create'),
+        // ...this.createTableDialogParam('create'),
         ...this.createTableMenuParam('create', this.menuTriggerAddButton!),
       });
 
@@ -953,26 +950,26 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
         }),
     } as TableMenuParams;
   }
-
-  private createTableDialogParam(mode: 'create' | 'edit') {
-    return {
-      openDialog: (formBuilder, value) => {
-        formBuilder.reset(value);
-
-        return this.dialog
-          .input({
-            title:
-              mode === 'create'
-                ? `${this.ADD_TEXT} ${this.options().view!.itemName} ${this.NEW_TEXT}`
-                : `${this.EDIT_TEXT} ${this.options().view!.itemName}`,
-            subtitle: $localize`:@@base.feature.table.createDialog.subtitle:Fill in the details and click save`,
-            deleteButton: true,
-            formBuilder,
-          })
-          .setActionType(mode === 'edit' ? 'update' : 'create');
-      },
-    } as TableDialogParams;
-  }
+  //
+  // private createTableDialogParam(mode: 'create' | 'edit') {
+  //   return {
+  //     openDialog: (formBuilder, value) => {
+  //       formBuilder.reset(value);
+  //
+  //       return this.dialog
+  //         .input({
+  //           title:
+  //             mode === 'create'
+  //               ? `${this.ADD_TEXT} ${this.options().view!.itemName} ${this.NEW_TEXT}`
+  //               : `${this.EDIT_TEXT} ${this.options().view!.itemName}`,
+  //           subtitle: $localize`:@@base.feature.table.createDialog.subtitle:Fill in the details and click save`,
+  //           deleteButton: true,
+  //           formBuilder,
+  //         })
+  //         .setActionType(mode === 'edit' ? 'update' : 'create');
+  //     },
+  //   } as TableDialogParams;
+  // }
 
   private subscribeToEventResult(result: void | Observable<any>, morePipe?: () => UnaryFunction<any, any>) {
     if (result instanceof Observable) {
