@@ -1,4 +1,5 @@
 import type { Route } from '@angular/router';
+import type { BASE_ICONS } from '../../configs';
 
 export interface RoutePermission {
   name: string;
@@ -8,7 +9,7 @@ export interface RoutePermission {
 export type RouteExtended = Omit<Route, 'children'> & {
   children?: RouteExtended[];
   layout?: 'main';
-  view?: { label?: string; icon?: string | { default: string; active: string } };
+  view?: { label?: string; icon?: BASE_ICONS | { default: string; active: string } };
   // when use string, it will be considered as the permission name
   permissions?: string | { name?: string; key: string | string[] };
   // Guest = Non-Authenticated Users
