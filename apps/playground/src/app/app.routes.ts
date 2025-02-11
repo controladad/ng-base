@@ -34,7 +34,7 @@ export const appRoutes: RouteExtended[] = [
     loadComponent: () => import('./features/login-page/login-page.component').then((m) => m.LoginPageComponent),
   },
   {
-    path: 'one',
+    path: '',
     layout: 'main',
     loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
     children: [

@@ -23,7 +23,7 @@ export class RouteHelperService {
   path = signal<string>('/');
   routeParts = signal<string[]>([]);
   layout = signal<RouteExtended>(null as any);
-  layoutRootPath = signal<string>('/');
+  layoutRootPath = signal<string>('');
 
   allRoutes = this._allRoutes.asReadonly();
   currentRoutePermissionTree = this._currentRoutePermissionTree.asReadonly();
@@ -91,11 +91,11 @@ export class RouteHelperService {
   }
 
   navigate(pathOrItem: string | string[] | RouteItem) {
-    const pathArray = Array.isArray(pathOrItem)
+    const pathArray = (Array.isArray(pathOrItem)
       ? pathOrItem
       : typeof pathOrItem === 'object'
         ? pathOrItem.fullPath.split('/')
-        : pathOrItem.split('/');
+        : pathOrItem.split('/')).filter(t => t.length);
     pathArray.unshift('/');
     return this.router.navigate(pathArray);
   }
@@ -111,7 +111,7 @@ export class RouteHelperService {
   }
 
   private buildRouteTree(item: RouteItem | undefined): string[] {
-    const routeParts = item?.fullPath.split('/') ?? [];
+    const routeParts = (item?.fullPath.split('/') ?? []).filter(t => t.length);
     routeParts.unshift('/');
     return routeParts;
   }
@@ -169,7 +169,7 @@ export class RouteHelperService {
     const mainEntry = config.find((t) => isRouteExtended(t) && t.layout === 'main') as RouteExtended;
 
     this.layout.set(mainEntry);
-    this.layoutRootPath.set(mainEntry.path ? mainEntry.path.startsWith('/') ? mainEntry.path : `/${mainEntry.path}` : '/')
+    this.layoutRootPath.set(mainEntry.path ? mainEntry.path.startsWith('/') ? mainEntry.path : `/${mainEntry.path}` : '')
 
     return mainEntry ? this.getRouteChildren(mainEntry) : null;
   }
