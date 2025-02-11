@@ -57,7 +57,15 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CacTableFilterBarComponent } from './table-filter-bar/table-filter-bar.component';
 import { CacTableFormMenuComponent } from './table-form-menu/table-form-menu.component';
-import { DataGetRequest, DataGetResponse, DateFns, effectDep, ItemRecord, objectToId } from '../../../../core';
+import {
+  DataGetRequest,
+  DataGetResponse,
+  DateFns,
+  effectDep,
+  injectOptional,
+  ItemRecord,
+  objectToId
+} from '../../../../core';
 import { SelectionModel, SortModel, TableFilterModel } from '../../../classes';
 import {
   ButtonClickEvent,
@@ -206,7 +214,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
   readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly dialog = inject(DialogService);
-  private readonly config = inject(TABLE_COMPONENT_CONFIG);
+  private readonly config = injectOptional(TABLE_COMPONENT_CONFIG);
 
   readonly ACTIVE_STRING_VALUE = 'Active';
 

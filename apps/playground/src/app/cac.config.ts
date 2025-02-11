@@ -39,9 +39,9 @@ export const provideCac = () => [
     backdropBlur: 'xl',
     panelClass: ['rounded-full'],
   }),
-  provide(TABLE_COMPONENT_CONFIG, {
-    print: true,
-  }),
+  // provide(TABLE_COMPONENT_CONFIG, {
+  //   print: true,
+  // }),
   // provide(BUTTON_COMPONENT_CONFIG, {
   //   iconPosition: 'suffix',
   // }),

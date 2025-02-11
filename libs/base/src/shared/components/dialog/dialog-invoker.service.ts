@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { ComponentType } from '@angular/cdk/overlay';
 import { CacBaseDialogComponent, DialogAction, DialogActionEvent } from './components/_base-dialog.component';
 import { filter, map, Observable, take } from 'rxjs';
-import { ActionTypes } from '../../../core';
+import { ActionTypes, injectOptional } from '../../../core';
 
 export interface DialogExtended<T, R> {
   ref: MatDialogRef<T, R>;
@@ -26,7 +26,7 @@ export const DIALOG_INVOKER_CONFIG = new InjectionToken<Partial<DialogExtendedCo
 })
 export class DialogInvokerService {
   readonly dialog = inject(MatDialog);
-  private readonly config = inject(DIALOG_INVOKER_CONFIG);
+  private readonly config = injectOptional(DIALOG_INVOKER_CONFIG);
 
   open<T, D, R>(component: ComponentType<T>, data?: D, config?: DialogExtendedConfig<D>): DialogExtended<T, R> {
     const ref = this.dialog.open<T, D, R>(component, {

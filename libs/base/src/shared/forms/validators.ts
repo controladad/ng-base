@@ -1,6 +1,7 @@
 import { AbstractControl, Validators as AngularValidators } from '@angular/forms';
 import { debounceTime, Subscription, take } from 'rxjs';
 import { inject, InjectionToken } from '@angular/core';
+import { injectOptional } from '../../core';
 
 const RegexIP = new RegExp(`^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}$`);
 const RegexPassword = new RegExp(`^(?=.*\\d)(?=.*[A-Za-z])(?=.*[a-zA-Z]).*$`);
@@ -28,7 +29,7 @@ function withDefault<T>(input: T | undefined, defaultValue: T) {
 
 export class Validators extends AngularValidators {
   private static config() {
-    const value = inject(VALIDATORS_CONFIG);
+    const value = injectOptional(VALIDATORS_CONFIG);
     return {
       ...VALIDATORS_DEFAULTS,
       ...value,

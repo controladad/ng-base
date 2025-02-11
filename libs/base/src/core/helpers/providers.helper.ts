@@ -1,4 +1,4 @@
-import { inject, InjectionToken } from '@angular/core';
+import { inject, InjectionToken, ProviderToken } from '@angular/core';
 
 function isClass(obj: any) {
   const isCtorClass = obj.constructor && obj.constructor.toString().substring(0, 5) === 'class';
@@ -28,12 +28,8 @@ export function componentWithDefaultConfig<T>(
   token: InjectionToken<T>,
   defaultValues: Partial<T> = {},
 ) {
-  let valuesInjected: T[] | T;
-  try {
-    valuesInjected = inject(token);
-  } catch {
-    return;
-  }
+  const valuesInjected = injectOptional(token) as T[] | T | undefined;
+  if (!valuesInjected) return;
 
   const values = valuesInjected instanceof Array ? valuesInjected : [valuesInjected];
 
@@ -50,5 +46,13 @@ export function componentWithDefaultConfig<T>(
   for (const key in defaults) {
     // @ts-ignore
     component[key] = defaults[key];
+  }
+}
+
+export function injectOptional<T>(token: ProviderToken<T>): T | undefined {
+  try {
+    return inject(token);
+  } catch {
+    return undefined;
   }
 }

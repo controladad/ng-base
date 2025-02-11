@@ -11,6 +11,7 @@ import { RouteHelperService } from '@controladad/ng-base';
       <div class="flex flex-wrap justify-center items-baseline gap-12 mt-16">
         <ng-content></ng-content>
       </div>
+<button (click)="onTest1()">test navigate</button>
     </div>
   `,
   styles: [``],
@@ -23,5 +24,9 @@ export class SectionComponent {
   constructor() {
     console.log(this.routeHelper.routeParts())
     console.log(this.routeHelper.routes())
+  }
+
+  onTest1() {
+    this.routeHelper.navigate(this.routeHelper.routes()[0].children![1])
   }
 }
