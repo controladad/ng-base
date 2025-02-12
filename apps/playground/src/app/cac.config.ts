@@ -17,6 +17,7 @@ import localeFa from '@angular/common/locales/fa';
 export const provideCac = () => [
   provideCacBase({
     applicationName: 'lib_playground',
+    environment: { yo: true },
     localization: {
       langs: ['en', 'fa'],
       localesPath: '/locales/',

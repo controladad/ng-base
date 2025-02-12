@@ -11,7 +11,7 @@ import {
   DatefnsJalaliDateAdapter, AppBaseStore
 } from './core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { CacGlobalConfig, API_BASEURL, registerIcons } from './configs';
+import { CacGlobalConfig, API_BASEURL, registerIcons, ENVIRONMENT } from './configs';
 import { setupGlobalServices, setupProdMode } from './globals';
 import { DateFnsAdapter } from '@angular/material-date-fns-adapter';
 import { loadTranslations } from '@angular/localize';
@@ -24,6 +24,13 @@ import { getStore } from '@ngneat/elf';
 export const provideApiBaseUrl = (urlFn: Function, deps?: any[]) =>
   ({
     provide: API_BASEURL,
+    useFactory: urlFn,
+    deps,
+  }) as Provider;
+
+export const provideEnvironment = (urlFn: Function, deps?: any[]) =>
+  ({
+    provide: ENVIRONMENT,
     useFactory: urlFn,
     deps,
   }) as Provider;
@@ -136,6 +143,10 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
 
   if (!config?.providersOnly) {
     interceptors = [provideApiInterceptor(), provideTokenInterceptor(), provideErrorInterceptor()];
+  }
+
+  if (config?.environment) {
+    additional.push(provideEnvironment(() => config.environment));
   }
 
   if (config?.apiBaseUrl && typeof config.apiBaseUrl === 'object') {

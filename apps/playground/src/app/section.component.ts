@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { RouteHelperService } from '@controladad/ng-base';
+import { ENVIRONMENT, RouteHelperService } from '@controladad/ng-base';
 
 @Component({
   selector: 'app-test-section',
@@ -24,6 +24,7 @@ export class SectionComponent {
   constructor() {
     console.log(this.routeHelper.pathChunks());
     console.log(this.routeHelper.routes());
+    console.log(inject(ENVIRONMENT));
   }
 
   onTest1() {
