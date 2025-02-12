@@ -34,7 +34,7 @@ export const appRoutes: RouteExtended[] = [
     loadComponent: () => import('./features/login-page/login-page.component').then((m) => m.LoginPageComponent),
   },
   {
-    path: '',
+    path: 'one',
     layout: 'main',
     loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
     children: [
@@ -52,6 +52,13 @@ export const appRoutes: RouteExtended[] = [
             path: 'triple',
             view: { label: 'Triple' },
             loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
+            children: [
+              {
+            path: 'forth',
+            view: { label: 'Forth' },
+            loadComponent: () => import('./section.component').then((m) => m.SectionComponent),
+          },
+            ]
           }
         ]
       },

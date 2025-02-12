@@ -21,44 +21,21 @@ export class RouteHelperService {
   private _currentRoutePermissionTree = signal<RoutePermission[] | undefined>(undefined);
 
   path = signal<string>('/');
-  routeParts = signal<string[]>([]);
   layout = signal<RouteExtended>(null as any);
   layoutRootPath = signal<string>('');
 
   allRoutes = this._allRoutes.asReadonly();
   currentRoutePermissionTree = this._currentRoutePermissionTree.asReadonly();
 
+  pathChunks = computed(() => this.routeToChunks(this.path()))
   routes = computed(() => this.filterRoutes(this.allRoutes()));
-
   routeItems = computed(() => {
     return this.getRouteItems();
   });
 
-  urls = computed(() => this.getUrls(this.routes()));
-
   constructor() {
     this.setupRouterEvents();
     this.updateConfig();
-  }
-
-  private setupRouterEvents() {
-    this.router.events.pipe(takeUntilDestroyed()).subscribe((e) => {
-      if (e instanceof ResolveStart) {
-        this.getRoutePermissions(e.state.root);
-        this.resolveRoutePath(e.url);
-      } else if (e instanceof NavigationEnd) {
-        if (!this._initialized) {
-          this._initialized = true;
-          this.getRoutePermissions(this.router.routerState.snapshot.root);
-        }
-        this.resolveRoutePath(e.urlAfterRedirects);
-      }
-    });
-  }
-
-  private updateConfig() {
-    this._allRoutes.set(this.parseRouteConfig(this.router.config) ?? []);
-    this.resolveRoutePath(this.location.path());
   }
 
   getRoutePermissions(state?: ActivatedRouteSnapshot | null) {
@@ -91,35 +68,39 @@ export class RouteHelperService {
   }
 
   navigate(pathOrItem: string | string[] | RouteItem) {
-    const pathArray = (Array.isArray(pathOrItem)
-      ? pathOrItem
-      : typeof pathOrItem === 'object'
-        ? pathOrItem.fullPath.split('/')
-        : pathOrItem.split('/')).filter(t => t.length);
-    pathArray.unshift('/');
-    return this.router.navigate(pathArray);
+    const chunks = this.routeToChunks(pathOrItem, true);
+    return this.router.navigate(chunks);
   }
 
-  private getRoutesAtLevel(level: number): RouteItem[] {
-    let currentRoutes = this.routes();
-    if (currentRoutes.length === 0) return [];
+  /**
+   * Check if a route is currently active (default behavior will check if the route is exactly activated)
+   * @param route route to check if active
+   * @param partial returns true if the given route is a parent of the activated route
+   */
+  isActive(route: string | string[] | RouteItem, partial?: boolean) {
+    const chunks = this.routeToChunks(route);
+    const currentRouteChunks = this.routeToChunks(this.path());
 
-    for (let i = 0; i < level; i++) {
-      currentRoutes = currentRoutes[0].children || [];
+    if (chunks.length > currentRouteChunks.length) return false;
+    if (chunks.length !== currentRouteChunks.length && !partial) return false;
+
+    for(let i = 0; i < currentRouteChunks.length; i++) {
+      const current = currentRouteChunks[i];
+      const chunk = chunks.at(i);
+
+      if (!chunk && partial) break;
+      if (current !== chunk) return false;
     }
-    return currentRoutes;
+
+    return true;
   }
 
-  private buildRouteTree(item: RouteItem | undefined): string[] {
-    const routeParts = (item?.fullPath.split('/') ?? []).filter(t => t.length);
-    routeParts.unshift('/');
-    return routeParts;
-  }
-
-  private buildRouteUrl(item: RouteItem | undefined): string {
-    const tree = this.buildRouteTree(item);
-    tree.shift();
-    return tree.join('/');
+  /**
+   * Same as `isActive(route, true)` function but returns true if either given route is a parent of the activated route or is exactly activated
+   * @param route route to check if active
+   */
+  isActivePartially(route: string | string[] | RouteItem) {
+    return this.isActive(route, true);
   }
 
   // if no url parameter is provided, the current url will be used
@@ -134,7 +115,7 @@ export class RouteHelperService {
 
   // if no url parameter is provided, the current url will be used
   getRoutePathAtLevel(level: number, url?: string): string | undefined {
-    return (url ? this.getRouteParts(url) : this.routeParts())[level];
+    return (url ? this.routeToChunks(url) : this.pathChunks())[level];
   }
 
   getFirstAllowedRoute(): string | null {
@@ -152,17 +133,42 @@ export class RouteHelperService {
     return findFirstAllowedChild(this.routes());
   }
 
+  private setupRouterEvents() {
+    this.router.events.pipe(takeUntilDestroyed()).subscribe((e) => {
+      if (e instanceof ResolveStart) {
+        this.getRoutePermissions(e.state.root);
+        this.resolveRoutePath(e.url);
+      } else if (e instanceof NavigationEnd) {
+        if (!this._initialized) {
+          this._initialized = true;
+          this.getRoutePermissions(this.router.routerState.snapshot.root);
+        }
+        this.resolveRoutePath(e.urlAfterRedirects);
+      }
+    });
+  }
+
+  private updateConfig() {
+    this._allRoutes.set(this.parseRouteConfig(this.router.config) ?? []);
+    this.resolveRoutePath(this.location.path());
+  }
+
+  private getRoutesAtLevel(level: number): RouteItem[] {
+    let currentRoutes = this.routes();
+    if (currentRoutes.length === 0) return [];
+
+    for (let i = 0; i < level; i++) {
+      currentRoutes = currentRoutes[0].children || [];
+    }
+    return currentRoutes;
+  }
+
   private resolveRoutePath(urlPath: string) {
     this.path.set(this.cleanupRouteUrl(urlPath));
-    this.routeParts.set(this.getRouteParts(urlPath));
   }
 
   private cleanupRouteUrl(url: string) {
     return url.startsWith('/') ? url.substring(1) : url;
-  }
-
-  private getRouteParts(url: string) {
-    return this.cleanupRouteUrl(url).split('/').filter(Boolean);
   }
 
   private parseRouteConfig(config: RoutesExtended | Routes): RouteItem[] | null {
@@ -191,6 +197,16 @@ export class RouteHelperService {
     };
 
     return (route.children ?? []).map((t) => processRoute(t)).filter((item): item is RouteItem => item !== null);
+  }
+
+  private routeToChunks(route: string | string[] | RouteItem, applySlash = false): string[] {
+    const joined = Array.isArray(route) ? route.join('/') : typeof route === 'object' ? route.fullPath : route;
+    const normalized = joined.replace(/\/+/g, '/');
+    const chunks = normalized.split('/').filter(t => t.length)
+
+    if (applySlash) chunks.unshift('/');
+
+    return chunks;
   }
 
   private routeToRouteItem(route: RouteExtended, level: number, parent?: RouteItem, rootPath?: string): RouteItem {
@@ -239,7 +255,7 @@ export class RouteHelperService {
 
   // if no route parameter is provided, the current route will be used
   private getRouteItems(route?: string) {
-    const parts = route ? this.getRouteParts(route) : this.routeParts();
+    const parts = route ? this.routeToChunks(route) : this.pathChunks();
     let currentItems = this.routes();
     const items: RouteItem[] = [];
 
@@ -289,20 +305,5 @@ export class RouteHelperService {
     // };
 
     // return routes.map(filterRoute).filter((route): route is RouteItem => route !== null);
-  }
-
-  private getUrls(routeItems: RouteItem[]): string[] {
-    const urls: string[] = [];
-    routeItems.forEach((item) => {
-      urls.push(`/${item.path}`);
-      (item.children ?? [])?.map((child) => {
-        urls.push(`/${item.path}/${child.path}`);
-        if (child.children) {
-          const grandChidRoutes = this.getUrls(child.children);
-          urls.push(...grandChidRoutes);
-        }
-      });
-    });
-    return urls;
   }
 }
