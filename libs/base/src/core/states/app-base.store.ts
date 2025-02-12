@@ -9,9 +9,10 @@ export interface AppBaseStoreProps {
 }
 
 export class _AppBaseStore<T extends AppBaseStoreProps> extends BaseStore<T> {
-  constructor() {
+  constructor(defaults?: T) {
     super({
       key: 'app',
+      default: defaults,
     });
   }
 
