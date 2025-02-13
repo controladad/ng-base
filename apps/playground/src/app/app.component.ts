@@ -20,6 +20,10 @@ export class AppComponent {
 
     console.log(DateFns().format(new Date(), 'yyyy-MM-dd'))
 
+    snackbar$.error('JSON deserialization for type \'Application.Queries.LoginAndRegister.AdminLoginRequest\' was missing required properties including: \'email\'.', {
+      duration: 999999
+    })
+
     // dialog$.prompt({ title: 'Hello', message: 'Yo!' })
 
     // setTimeout(() => {
