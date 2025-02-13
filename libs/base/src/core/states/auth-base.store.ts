@@ -15,6 +15,8 @@ export interface AuthBaseStoreProps<USER> {
 }
 
 export interface AuthBaseStoreLoginModel {
+  username: string;
+  password: string;
   rememberMe?: boolean;
 }
 
