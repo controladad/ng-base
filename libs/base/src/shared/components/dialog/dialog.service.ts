@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   CacPromptDialogComponent,
   PromptDialogData,
@@ -28,11 +28,13 @@ export interface InputDialogExtended<T, U> extends DialogExtended<CacInputDialog
   providedIn: 'root',
 })
 export class DialogService {
-  constructor(private dialog: DialogInvokerService) {}
+  protected readonly dialog = inject(DialogInvokerService)
+
   readonly DELETE_TITLE_PRE = $localize`:@@base.feature.dialog.delete.titleBeforeItemName:Are You Sure Deleteing: `
   readonly DELETE_TITLE_AFTER = $localize`:@@base.feature.dialog.delete.titleAfterItemName:?`
   readonly DELETE_CAPTION_PRE = $localize`:@@base.feature.dialog.delete.captionBeforeItemName:Deleting `
   readonly DELETE_CAPTION_AFTER = $localize`:@@base.feature.dialog.delete.captionAfterItemName:Cannot Be Undone, Continue?`
+
   prompt(data: PromptDialogData) {
     return this.dialog.open<CacPromptDialogComponent, PromptDialogData, PromptDialogResult>(CacPromptDialogComponent, data, {
       width: '85vw',
