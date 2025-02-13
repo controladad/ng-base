@@ -275,7 +275,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
 
   // if undefined, pagination is disabled
   paginationOptions = computed(
-    () => (!this.options().pagination ? null : this.options().pagination) as TablePagination,
+    () => (!this.options().pagination ? null : this.options().pagination) as TablePagination | undefined,
   );
 
   hiddenCols = computed(() =>
