@@ -46,7 +46,7 @@ import {
   TableAction,
   TableBulkAction,
   TableButtonEvent,
-  TableColumn,
+  TableColumn, TableColumnType,
   TableDialogParams,
   TableExportOutput,
   TableMenuParams,
@@ -148,19 +148,19 @@ export class TablePaginationMismatchError extends Error {
 // TODO: Add tooltip to action buttons
 // TODO: Refactor using TableService
 
-export class TableClass<T extends object> {
+export class TableClass<T extends object, COLS = TableColumnType> {
   private _initFn?: (ref: CacTableComponent<T>) => void;
 
   public items$ = new BehaviorSubject<T[] | undefined>(undefined);
   public ref?: CacTableComponent<T>;
 
-  constructor(public options?: TableOptions<T>) {}
+  constructor(public options?: TableOptions<T, COLS>) {}
 
   onInit(fn: typeof this._initFn) {
     this._initFn = fn;
   }
 
-  setOptions(options: TableOptions<T>) {
+  setOptions(options: TableOptions<T, COLS>) {
     this.options = options;
     this.ref?.setOptions();
   }
@@ -173,11 +173,6 @@ export class TableClass<T extends object> {
   refresh() {
     this.ref?.refresh();
   }
-}
-
-// this function acts as a type infer for typescript, using this function is optional
-export function table<T extends object>(options?: TableOptions<T>): TableClass<T> {
-  return new TableClass(options);
 }
 
 @Component({
@@ -243,7 +238,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
   @ViewChild('Table') tableElement!: ElementRef<HTMLElement>;
   @ViewChild('ActionCol') actionCol!: CacTableColActionComponent;
 
-  @Input('options') rawOptions: TableClass<T> | TableOptions<T> = this.TABLE_DEFAULTS as TableOptions<T>;
+  @Input('options') rawOptions: TableClass<T, any> | TableOptions<T, any> = this.TABLE_DEFAULTS as TableOptions<T>;
 
   @Output() add = new EventEmitter<TableButtonEvent>();
   @Output() clickRow = new EventEmitter<T>();
@@ -871,8 +866,14 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
     return value === '' || value === undefined || value === null || (value instanceof Array && !value.length);
   }
 
-  private colToTransformFn(col: TableColumn<T>) {
-    switch (col.type ?? 'text') {
+  public additionalColToTransformFn: {[p: string]: (value: any) => any} = {};
+  protected colToTransformFn(col: TableColumn<T>): (value: any) => any {
+    const type = col.type ?? 'text';
+
+    const customFn = this.additionalColToTransformFn[type];
+    if (customFn) return customFn;
+
+    switch (type) {
       case 'number':
         return (value: any) => {
           if (value === undefined || value === null) return value;

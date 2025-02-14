@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DriverRepository } from './repositories/driver.repository';
 import { ExtendedDialog } from './features/dialog-page/extended-dialog';
-import { DateFns } from '@controladad/ng-base';
 
 @Component({
   imports: [RouterModule],
@@ -17,12 +16,6 @@ export class AppComponent {
   constructor() {
     DriverRepository.init();
     dialog$ = inject(ExtendedDialog);
-
-    console.log(DateFns().format(new Date(), 'yyyy-MM-dd'))
-
-    snackbar$.error('JSON deserialization for type \'Application.Queries.LoginAndRegister.AdminLoginRequest\' was missing required properties including: \'email\'.', {
-      duration: 999999
-    })
 
     // dialog$.prompt({ title: 'Hello', message: 'Yo!' })
 

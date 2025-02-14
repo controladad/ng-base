@@ -76,13 +76,13 @@ export type TableFilterOptions = {
 };
 export type TableColumnFilter = string | boolean | TableFilterOptions[];
 
-export interface TableColumn<T> {
+export interface TableColumn<T, COLS = TableColumnType> {
   label: string;
   // second label
   icon?: string;
   hint?: string;
   width?: string;
-  type?: TableColumnType;
+  type?: COLS;
   // if string provided, it will be used as the sort key instead of the prop
   sortable?: boolean | string;
   // if string provided, it will be used as the filter key instead of the prop
@@ -148,11 +148,11 @@ export interface TablePagination {
 
 type ColumnKeyIndex<T> = keyof Partial<T> | string;
 
-export interface TableOptions<T extends object> {
+export interface TableOptions<T extends object, COLS = TableColumnType> {
   itemsFn: DataGetFn<T> | undefined;
   // This function transforms an item into a unique identifier, defaults to: (item) => item.id || item
   itemToIdFn?: ItemToId<T>;
-  columns: { [p in ColumnKeyIndex<T>]: TableColumn<T> };
+  columns: { [p in ColumnKeyIndex<T>]: TableColumn<T, COLS> };
   actions?: TableAction<T>[];
   bulkActions?: TableBulkAction<T>[];
   showIndex?: boolean;
