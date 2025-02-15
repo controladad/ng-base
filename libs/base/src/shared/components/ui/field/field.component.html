@@ -24,7 +24,7 @@
   [hideRequiredMarker]="true"
   [class.loading]="loading"
   [title]="control.displayText ?? (control.value !== null && control.value !== undefined ? control.value : '')"
-  [floatLabel]="currentFloatLabel()"
+  [floatLabel]="overrideFloatLabel() ?? floatLabel ?? 'auto'"
   (click)="onFormFieldClick()"
   >
   @if (label) {
@@ -99,7 +99,7 @@
         [categories]="categories"
         [menuClass]="menuClass"
         (onSelect)="onSelect.emit($event)"
-        (onMultipleSelect)="multipleSelect($event)"
+        (onMultiSelect)="onSelectOptionsMultiple($event)"
       ></cac-select-options>
     }
     @case ('date') {

@@ -110,7 +110,7 @@ export class CacSelectOptionsComponent<T> implements OnChanges, AfterViewInit, O
   @Output() menuClosed = new EventEmitter();
   @Output() onSelect = new EventEmitter<T>();
   @Output() onKeydown = new EventEmitter<KeyboardEvent>();
-  @Output() onMultipleSelect = new EventEmitter<ItemRecord<T>[]>();
+  @Output() onMultiSelect = new EventEmitter<ItemRecord<T>[]>();
 
   originalItems$ = new BehaviorSubject<ItemRecord<T>[] | undefined>(undefined);
   categories$ = new BehaviorSubject<ItemRecord<string | number>[] | undefined>(undefined);
@@ -339,7 +339,7 @@ export class CacSelectOptionsComponent<T> implements OnChanges, AfterViewInit, O
       this._selectionModel.toggle(item);
       const items = this._selectionModel.selected() as any;
       this.currentItemControl.setValue(items);
-      this.onMultipleSelect.emit(items);
+      this.onMultiSelect.emit(items);
     } else {
       if (item.optional) {
         this._recentOptionalItems = [item];
@@ -470,10 +470,10 @@ export class CacSelectOptionsComponent<T> implements OnChanges, AfterViewInit, O
 
     if (item.type === 'selectAll') {
       this._selectionModel.toggleAll();
-      this.currentItemControl.setValue(this._selectionModel.selected() as any);
+      const items = this._selectionModel.selected() as any;
+      this.currentItemControl.setValue(items);
+      this.onMultiSelect.emit(items);
     }
-
-    this.onMultipleSelect.emit(this._selectionModel.selected());
   }
 
   private scrollToFocusedIndex() {

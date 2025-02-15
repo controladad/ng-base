@@ -134,7 +134,7 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
   isFocused = signal(false);
   isMenuOpen = signal(false);
   hasStar = signal(false);
-  currentFloatLabel = signal(this.floatLabel ?? 'auto');
+  overrideFloatLabel = signal<FieldFloatLabelType | undefined>(undefined);
 
   protected tempControl = formControl();
 
@@ -247,6 +247,11 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
     this.numericAddToValue(-1);
   }
 
+  protected onSelectOptionsMultiple(v: any[]) {
+    // In multiple mode, floatLabel doesn't move on select, so we need to override it
+    this.overrideFloatLabel.set(v && v.length ? 'always' : undefined);
+  }
+
   protected openDatePicker(e: MouseEvent) {
     e.stopPropagation();
     this.isMenuOpen.set(true);
@@ -273,10 +278,6 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
 
   protected passwordVisibility() {
     this.showPassword$.next(!this.showPassword$.value);
-  }
-
-  multipleSelect(selectedItems: ItemRecord<T>[]) {
-    this.currentFloatLabel.set(selectedItems?.length || this.floatLabel === 'always' ? 'always' : 'auto');
   }
 }
 
