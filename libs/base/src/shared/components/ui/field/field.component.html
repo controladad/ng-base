@@ -19,6 +19,8 @@
   [class.ui-field-simple]="appearance === 'simple'"
   [class.is-readonly]="state.isReadonly"
   [class.hide-error]="hideError"
+  [class.ui-field-disabled]="control.disabled$ | async"
+  [class.ui-field-inactive]="(control.disabled$ | async) || state.isReadonly"
   class="ui-field relative w-full"
   appearance="outline"
   [hideRequiredMarker]="true"

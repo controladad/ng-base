@@ -44,6 +44,9 @@ export class ErrorHelper {
             }
           : undefined;
       }
+      if ('error' in error && typeof error === 'object' && 'code' in error.error && 'message' in error.error) {
+        return this.parseApiErrorObject(error.error);
+      }
       return error;
     } else if (typeof error === 'string') {
       try {

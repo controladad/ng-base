@@ -182,6 +182,23 @@ mat-calendar {
 }
 
 div[data-tippy-root] {
+  &.tippy-type-error {
+    .tippy-box {
+      @apply bg-error-500 text-white;
+    }
+    .tippy-arrow:before {
+      @apply text-error-500;
+    }
+  }
+  &.tippy-type-warning {
+    .tippy-box {
+      @apply text-white bg-yellow-600;
+    }
+    .tippy-arrow:before {
+      @apply text-yellow-600
+    }
+  }
+
   .tippy-box {
     @apply bg-surface text-surface-on p-6 text-sm;
     box-shadow:
