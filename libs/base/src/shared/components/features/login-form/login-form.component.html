@@ -1,5 +1,5 @@
 <div class="flex flex-col justify-evenly p-2 mx-8" (keydown.enter)="login(Button.createClickEvent(undefined))">
-  <img class="mx-auto" src="assets/base/images/cac-logo.png" alt="controladad-logo" />
+  <img class="mx-auto" [src]="logo.url" [alt]="logo.alt" />
   <h1 i18n="@@base.feature.login.title" class="text-3xl font-medium mt-12">Login</h1>
   <p i18n="@@base.feature.login.guide" class="mt-6 text-surface-on">Enter you username and password</p>
   <div class="mt-9">
