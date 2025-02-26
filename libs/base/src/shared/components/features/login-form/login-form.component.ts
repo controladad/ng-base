@@ -32,6 +32,10 @@ export class CacLoginFormComponent implements OnInit {
   private readonly router = inject(Router);
 
   @Input() options: LoginFormOptions = {};
+  @Input() logo = {
+    url: 'assets/base/images/cac-logo.png',
+    alt: 'controladad-logo'
+  };
 
   formBuilder = formBuilder<LoginFormGroup>({
     cols: 1,
