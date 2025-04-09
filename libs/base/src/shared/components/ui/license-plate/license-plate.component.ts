@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { CacControlErrorComponent } from '../control-error';
 import { createMask, InputMaskDirective } from '../../../directives';
-import { formControl, FormControlExtended } from '../../../forms';
+import { formControl, FormControlExtended } from '@al00x/forms';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { formControl } from '../../../forms';
+import { formControl } from '@al00x/forms';
 
 @Component({
   selector: 'cac-control-error',

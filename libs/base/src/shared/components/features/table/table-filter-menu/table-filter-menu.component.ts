@@ -18,7 +18,7 @@ import { TableFilterModel } from '../../../../classes';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { A11yModule } from '@angular/cdk/a11y';
-import { formControl, FormControlExtended } from '../../../../forms';
+import { formControl, FormControlExtended } from '@al00x/forms';
 
 @Component({
   selector: 'cac-table-filter-menu',

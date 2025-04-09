@@ -1,6 +1,6 @@
 import { computed, DestroyRef, signal } from '@angular/core';
 import { ItemToId } from '../../core';
-import { FormControlExtended } from '../forms';
+import { FormControlExtended } from '@al00x/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs';
 

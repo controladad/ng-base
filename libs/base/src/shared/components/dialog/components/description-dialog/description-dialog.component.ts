@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CacBaseDialogComponent } from '../_base-dialog.component';
 import { ButtonClickEvent, CacFieldComponent } from '../../../ui';
 import { CacDialogLayoutComponent } from '../../../layouts';
-import { formControl } from '../../../../forms';
+import { formControl } from '@al00x/forms';
 
 export interface DescriptionDialogData {
   title?: string;

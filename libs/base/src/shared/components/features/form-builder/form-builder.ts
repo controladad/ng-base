@@ -1,7 +1,7 @@
 import type { FormBuilderInputOption, FormBuilderOptions } from './form-builder.types';
 import { clone } from '../../../../core';
 import { computed, signal } from '@angular/core';
-import { FormControlExtended, formGroup } from '../../../forms';
+import { FormControlExtended, formGroup } from '@al00x/forms';
 
 type FormBuilderTransformer<T, U> = (value: T, raw: T) => U;
 

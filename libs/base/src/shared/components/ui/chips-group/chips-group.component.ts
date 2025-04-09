@@ -15,7 +15,7 @@ import { EventEmitter } from '@angular/core';
 import { startWith, Subscription } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CacChipsComponent } from '../chips';
-import { formControl, FormControlExtended } from '../../../forms';
+import { formControl, FormControlExtended } from '@al00x/forms';
 import { SelectionModel } from '../../../classes';
 import { componentWithDefaultConfig } from '../../../../core';
 

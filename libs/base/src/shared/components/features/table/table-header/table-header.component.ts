@@ -3,7 +3,7 @@ import { ButtonClickEvent, CacButtonComponent, CacFieldComponent } from '../../.
 import { TableBulkAction, TableOptions } from '../table.interfaces';
 import { PermissionHideDirective } from '../../../../directives';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { formControl } from '../../../../forms';
+import { formControl } from '@al00x/forms';
 import { ItemRecord } from '../../../../../core';
 
 @Component({

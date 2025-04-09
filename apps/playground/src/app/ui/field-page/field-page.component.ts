@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { CacFieldComponent, formBuilder, CacFormBuilderComponent, formControl, Validators } from '@controladad/ng-base';
+import { CacFieldComponent, formBuilder, CacFormBuilderComponent } from '@controladad/ng-base';
 import { SectionComponent } from '../../section.component';
+import { formControl, Validators } from '@al00x/forms';
 
 @Component({
   selector: 'app-field-page',

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
-import { formControl } from '../../../forms';
+import { formControl } from '@al00x/forms';
 
 @Component({
   selector: 'cac-checkbox',

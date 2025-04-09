@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnDestroy, signal, SimpleChanges } from '@angular/core';
 import { getFromItemRecord, ItemRecord, ItemRecords$ } from '../../../../core';
 import { Observable, of, Subscription, tap } from 'rxjs';
-import { FormControlExtended } from '../../../forms';
+import { FormControlExtended } from '@al00x/forms';
 
 @Component({
   selector: 'cac-field-view',

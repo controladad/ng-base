@@ -40,7 +40,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CacControlErrorComponent } from '../control-error';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { QuillModule } from 'ngx-quill';
-import { formControl, FormControlExtended } from '../../../forms';
+import { formControl, FormControlExtended } from '@al00x/forms';
 
 export type FieldInputType = 'text' | 'password' | 'password-eye' | 'number' | 'number-nobtn' | 'time';
 export type FieldControlType = 'input' | 'date' | 'datetime' | 'textarea' | 'select' | 'rich-text';

@@ -1,6 +1,5 @@
 import {
   AuthBaseStore,
-  BUTTON_COMPONENT_CONFIG,
   CHIP_COMPONENT_CONFIG,
   CHIPS_GROUP_COMPONENT_CONFIG,
   DATEFNS_PERSIAN_DATE_FORMATS,
@@ -8,7 +7,6 @@ import {
   ICON_COMPONENT_CONFIG,
   IMAGE_UPLOADER_COMPONENT_CONFIG,
   provide, provideCacBase,
-  TABLE_COMPONENT_CONFIG
 } from '@controladad/ng-base';
 import { AuthStore } from './states/auth.store';
 import { faIR } from 'date-fns-jalali/locale';

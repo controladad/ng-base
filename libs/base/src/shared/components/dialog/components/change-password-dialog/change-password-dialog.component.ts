@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CacDialogLayoutComponent } from '../../../layouts';
 import { CacBaseDialogComponent } from '../_base-dialog.component';
 import { ButtonClickEvent } from '../../../ui';
-import { formControl, Validators } from '../../../../forms';
+import { formControl, Validators } from '@al00x/forms';
 import { formBuilder, CacFormBuilderComponent } from '../../../features';
 
 export interface ChangePasswordDialogData {}

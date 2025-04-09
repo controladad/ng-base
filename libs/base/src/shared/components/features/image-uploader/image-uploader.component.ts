@@ -19,7 +19,7 @@ import { CacButtonComponent } from '../../ui';
 import { MatIcon } from '@angular/material/icon';
 import { Observable, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { formControl, FormControlExtended } from '../../../forms';
+import { formControl, FormControlExtended } from '@al00x/forms';
 import { componentWithDefaultConfig } from '../../../../core';
 
 export type ImageUploaderComponent = InstanceType<typeof CacImageUploaderComponent>

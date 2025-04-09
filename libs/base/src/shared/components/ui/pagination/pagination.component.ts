@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CacFieldComponent } from '../field';
 import { CacButtonComponent } from '../button';
 import { ItemRecord } from '../../../../core';
-import { formControl } from '../../../forms';
+import { formControl } from '@al00x/forms';
 
 export interface PaginationEvent {
   index: number;

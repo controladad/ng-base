@@ -4,12 +4,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import {
-  ApiInterceptor,
-  TokenInterceptor,
-  ErrorInterceptor,
-  DatefnsJalaliDateAdapter, AppBaseStore
-} from './core';
+import { ApiInterceptor, TokenInterceptor, ErrorInterceptor, DatefnsJalaliDateAdapter, AppBaseStore } from './core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { CacGlobalConfig, API_BASEURL, registerIcons, ENVIRONMENT } from './configs';
 import { setupGlobalServices, setupProdMode } from './globals';
@@ -19,6 +14,7 @@ import { enUS } from 'date-fns/locale';
 import localeEn from '@angular/common/locales/en';
 import { registerLocaleData } from '@angular/common';
 import { getStore } from '@ngneat/elf';
+import { provideFormErrors } from '@al00x/forms';
 
 // factory should return a string
 export const provideApiBaseUrl = (urlFn: Function, deps?: any[]) =>
@@ -73,11 +69,12 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
   const additional: Provider[] = [];
 
   const config = typeof configOrFn === 'function' ? configOrFn() : configOrFn;
-  const isProd = config?.isProd ?? false
+  const isProd = config?.isProd ?? false;
 
   CacGlobalConfig.localization = config?.localization ?? CacGlobalConfig.localization;
   CacGlobalConfig.applicationName = config?.applicationName ?? CacGlobalConfig.applicationName;
-  CacGlobalConfig.applyPrefixToStorageKeys = config?.applyPrefixToStorageKeys ?? CacGlobalConfig.applyPrefixToStorageKeys;
+  CacGlobalConfig.applyPrefixToStorageKeys =
+    config?.applyPrefixToStorageKeys ?? CacGlobalConfig.applyPrefixToStorageKeys;
   CacGlobalConfig.defaultLang = CacGlobalConfig.localization.langs[0];
 
   const appStore = getStore<any>(CacGlobalConfig.generateStoreKey('app')) ?? new AppBaseStore().store;
@@ -95,8 +92,8 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
   };
   appStore?.update((v) => ({
     ...v,
-    lang: currentLang
-  }))
+    lang: currentLang,
+  }));
 
   if (currentData.dateLocale) {
     providers.push({ provide: MAT_DATE_LOCALE, useValue: currentData.dateLocale });
@@ -130,6 +127,15 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
 
         // const roleApi = inject(RoleApiService)
         // firstValueFrom(roleApi.fetchPermissions())
+      }),
+      provideFormErrors({
+        default: $localize`:@@base.errors.control.default:This Field Is Incorrect.`,
+        required: $localize`:@@base.errors.control.required:This Field Is Required.`,
+        email: $localize`:@@base.errors.control.email:Email Format Is Incorrect.`,
+        codeMelli: $localize`:@@base.errors.control.nationalCode:National Code Format Is Incorrect.`,
+        unmatched: $localize`:@@base.errors.control.unmatched:This Field Does Not Match.`,
+        passwordLength: $localize`:@@base.errors.control.passwordLength:Password Should Be 8 Characters Or More`,
+        passwordChars: $localize`:@@base.errors.control.passwordChars:Password Should Contain Both Numbers And Letters.`,
       }),
       importProvidersFrom(HttpClientModule, MatDialogModule, MatSnackBarModule, MatProgressSpinnerModule),
 

@@ -6,7 +6,7 @@ import {
   CacSelectOptionsComponent,
 } from '../../ui';
 import { ItemRecords$ } from '../../../../core';
-import { formControl } from '../../../forms';
+import { formControl } from '@al00x/forms';
 
 @Component({
   selector: 'cac-license-plate-select',

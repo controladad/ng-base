@@ -4,7 +4,7 @@ import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Observable, of, startWith, Subscription } from 'rxjs';
 import { ItemRecord, ItemRecords$ } from '../../../../core';
-import { formControl, FormControlExtended } from '../../../forms';
+import { formControl, FormControlExtended } from '@al00x/forms';
 
 // TODO: UPDATE THIS COMPONENT
 // it has signal problem, and it isn't using our ui-checkbox

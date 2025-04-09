@@ -11,7 +11,7 @@ import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import { CacButtonComponent } from '../button';
 import { MatIconModule } from '@angular/material/icon';
 import { CacFieldComponent } from '../field';
-import { formControl } from '../../../forms';
+import { formControl } from '@al00x/forms';
 import { DateFns } from '../../../../core';
 
 export const DATE_FORMAT = 'yyyy/MM/dd';

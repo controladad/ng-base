@@ -2,7 +2,7 @@ import type { FieldAppearanceType, FieldControlType, FieldFloatLabelType, FieldI
 import type { ItemRecords$ } from '../../../../core';
 import type { Observable, Subscription } from 'rxjs';
 import type { Signal } from '@angular/core';
-import type { FormControlExtended } from '../../../forms';
+import type { FormControlExtended } from '@al00x/forms';
 
 export type FormBuilderInputType = FieldControlType | 'radio' | 'switch' | 'checkbox' | 'plate' | 'datetime';
 

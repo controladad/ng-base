@@ -22,6 +22,7 @@
     "url": "https://github.com/controladad/ng-base"
   },
   "peerDependencies": {
+    "@al00x/forms": "^1.0.0",
     "@al00x/printer": "^1.3.1",
     "@al00x/screen-detector": "^1.3.1",
     "@angular/common": "^19.0.0",

@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@al00x/forms": "^1.0.0",
     "@al00x/printer": "^1.3.1",
     "@al00x/screen-detector": "^1.3.1",
     "@angular/animations": "~19.0.0",

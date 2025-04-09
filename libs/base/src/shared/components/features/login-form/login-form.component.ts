@@ -3,7 +3,7 @@ import { formBuilder, CacFormBuilderComponent } from '../form-builder';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonClickEvent, CacButtonComponent } from '../../ui';
-import { formControl } from '../../../forms';
+import { formControl } from '@al00x/forms';
 import { AuthBaseStore } from '../../../../core';
 
 interface LoginFormGroup {

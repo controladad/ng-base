@@ -46,7 +46,7 @@ import { SelectionModel } from '../../../classes';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CacChipsGroupComponent } from '../chips-group';
 import { CacChipsComponent } from '../chips';
-import { formControl, FormControlExtended, isFormControlExtended } from '../../../forms';
+import { formControl, FormControlExtended, isFormControlExtended } from '@al00x/forms';
 
 interface SelectItem<T> extends ItemRecord<T> {
   optional?: boolean;
