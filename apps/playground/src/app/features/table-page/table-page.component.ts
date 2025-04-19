@@ -35,6 +35,11 @@ export class TablePageComponent {
     actions: [
       { type: 'button', content: 'CLICK', action: (item) => console.log(item) },
       { type: 'icon', content: 'trash', action: (item) => console.log(item) },
+    ],
+    bulkActions: [
+      { content: 'YES', action: (item) => console.log(item) },
+      { content: 'NO', action: (item) => console.log(item) },
+      { content: 'DELETE', action: (item) => console.log(item) },
     ]
   })
 }

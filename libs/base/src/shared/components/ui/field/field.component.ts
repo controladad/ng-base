@@ -100,7 +100,7 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
   @Input() hint?: string;
   @Input() loading = false;
   @Input() hideStar = false;
-  @Input() floatLabel?: FieldFloatLabelType = 'auto';
+  @Input() floatLabel?: FieldFloatLabelType;
 
   // Secondary Inputs
 
