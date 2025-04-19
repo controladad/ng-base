@@ -560,8 +560,8 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
     this.options.set(opt);
   }
 
-  protected onAction(item: T, action: TableAction<T>, trigger: MatMenuTrigger, e?: ButtonClickEvent) {
-    const result = action.action(item, {
+  protected onAction(item: TableRow<T>, action: TableAction<T>, trigger: MatMenuTrigger, e?: ButtonClickEvent) {
+    const result = action.action(item.originalItem, {
       ...this.createTableDialogParam('edit'),
       ...this.createTableMenuParam('edit', trigger),
     });

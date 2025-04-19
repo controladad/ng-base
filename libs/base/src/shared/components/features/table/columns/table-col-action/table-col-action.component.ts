@@ -17,6 +17,7 @@ import { PermissionHideDirective } from '../../../../../directives';
 import { MatBadge } from '@angular/material/badge';
 import { TableAction } from '../../table.interfaces';
 import { BehaviorSubject, Subject, take } from 'rxjs';
+import { TableRow } from '../../table.component';
 
 export const TABLE_COL_ACTION_PROP = '___action';
 
@@ -47,7 +48,7 @@ export class CacTableColActionComponent extends CacTableColBase implements After
 
   @Output() onAction = new EventEmitter<{
     action: TableAction<any>;
-    row: any;
+    row: TableRow<any>;
     trigger: MatMenuTrigger;
     clickEvent: ButtonClickEvent;
   }>();
