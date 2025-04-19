@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnDestroy, signal, SimpleChanges } from '@angular/core';
-import { getFromItemRecord, ItemRecord, ItemRecords$ } from '../../../../core';
+import { ArrayHelper, ItemRecord, ItemRecords$ } from '../../../../core';
 import { Observable, of, Subscription, tap } from 'rxjs';
 import { FormControlExtended } from '@al00x/forms';
 
@@ -71,7 +71,7 @@ export class CacFieldViewComponent implements OnChanges, OnDestroy {
     if (!this.items) return value;
     const currentItems = this.currentItems();
     if (!currentItems) return this.emptyValue;
-    const item = getFromItemRecord(currentItems, value);
+    const item = ArrayHelper.getFromItemRecord(currentItems, value);
     if (!item && value === null) return this.emptyValue;
     if (!item) return value;
     return item.label;

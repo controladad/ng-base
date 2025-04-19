@@ -1,7 +1,7 @@
 import type { FormBuilderInputOption, FormBuilderOptions } from './form-builder.types';
-import { clone } from '../../../../core';
 import { computed, signal } from '@angular/core';
 import { FormControlExtended, formGroup } from '@al00x/forms';
+import { ObjectHelper } from '../../../../core';
 
 type FormBuilderTransformer<T, U> = (value: T, raw: T) => U;
 
@@ -151,7 +151,7 @@ export class FormBuilder<T, U = T> implements FormBuilderOptions<T> {
     const cloned = new FormBuilder<T, U>(
       {
         ...this,
-        values: clone(this._values),
+        values: ObjectHelper.clone(this._values),
       },
       this._transfomer,
     );

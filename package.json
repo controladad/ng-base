@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve playground --hmr",
+    "build": "nx build base",
     "format": "nx format",
     "extract-tailwind": "npx tailwindcss -c ./tailwind.config.ts -i ./libs/base/src/styles.scss -o ./dist/libs/base/tailwind.css --postcss",
     "localize": "nx run base:extract-i18n"

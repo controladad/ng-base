@@ -1,4 +1,4 @@
-import { BaseApi, formBuilder } from '@controladad/ng-base';
+import { _BaseApi, formBuilder } from '@controladad/ng-base';
 import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { formControl } from '@al00x/forms';
@@ -30,7 +30,7 @@ export type DriverUpdate = Partial<
 @Injectable({
   providedIn: 'root',
 })
-export class DriverApi extends BaseApi<DriverEntity, DriverCreate, DriverUpdate> {
+export class DriverApi extends _BaseApi<DriverEntity, DriverCreate, DriverUpdate> {
   constructor() {
     super('/Drivers');
   }

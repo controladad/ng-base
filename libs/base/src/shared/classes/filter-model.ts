@@ -1,6 +1,11 @@
 import { computed, signal } from '@angular/core';
 import { BehaviorSubject, debounceTime, Subject } from 'rxjs';
-import { DataFilterTypes, DataGetRequest, getFromItemRecord, getFormattedDate, ItemRecords$ } from '../../core';
+import {
+  DataFilterTypes,
+  DataGetRequest,
+  ItemRecords$,
+  ArrayHelper, DateHelper
+} from '../../core';
 import type { FormBuilderInputType, TableColumnData, TableColumnFilter, TableFilterOptions } from '../components';
 import { BooleanValues } from '../data';
 
@@ -178,15 +183,15 @@ export class FilterModel {
     const value = filterValue.value;
     if (value instanceof Date) {
       if (filterValue.controlType === 'datetime') {
-        return getFormattedDate(value, 'HH:mm ,yyyy/MM/dd');
+        return DateHelper.format(value, 'HH:mm ,yyyy/MM/dd');
       }
-      return getFormattedDate(value);
+      return DateHelper.format(value);
     }
     if (filterValue.displayText && filterValue.displayText.length) {
       return filterValue.displayText instanceof Array ? filterValue.displayText.join(', ') : filterValue.displayText;
     }
     if (records && records instanceof Array) {
-      return getFromItemRecord(records, value)?.label ?? '';
+      return ArrayHelper.getFromItemRecord(records, value)?.label ?? '';
     }
     if (typeof value === 'boolean') {
       return value ? $localize`:@@base.values.trueText:Yes` : $localize`:@@base.values.falseText:No`;

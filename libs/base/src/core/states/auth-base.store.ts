@@ -3,11 +3,11 @@ import { getStore, select } from '@ngneat/elf';
 import { filter, interval, Observable, of, startWith, switchMap, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { BaseStore } from './_base.store';
-import { flatten } from '../helpers';
 import { localStorageStrategy, sessionStorageStrategy, StateStorage } from '@ngneat/elf-persist-state';
 import { CacGlobalConfig } from '../../configs';
 import { AppBaseStore } from './app-base.store';
 import { SnackbarService } from '../../shared';
+import { ArrayHelper } from '../helpers';
 
 export interface AuthBaseStoreProps<USER> {
   token?: string;
@@ -90,7 +90,7 @@ export class _AuthBaseStore<T extends AuthBaseStoreProps<any>, L extends AuthBas
 
   permissionKeys(state?: T): string[] {
     const user = (state ?? this.state).user;
-    return user?.roles?.length ? flatten(user?.roles.map((t: any) => t.permissions)) : user?.permissions;
+    return user?.roles?.length ? ArrayHelper.flatten(user?.roles.map((t: any) => t.permissions)) : user?.permissions;
   }
 
   login(model: L) {

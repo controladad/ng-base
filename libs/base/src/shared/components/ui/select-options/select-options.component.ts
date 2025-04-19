@@ -38,9 +38,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CacCheckboxComponent } from '../checkbox';
 import {
-  arraysEqual,
+  ArrayHelper,
   ItemRecord,
-  ItemRecords$,
+  ItemRecords$
 } from '../../../../core';
 import { SelectionModel } from '../../../classes';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -523,7 +523,7 @@ export class CacSelectOptionsComponent<T> implements OnChanges, AfterViewInit, O
     if (this.multiple) {
       const newValue = this._selectionModel.selected().map((t) => t.value);
       if (currentValue instanceof Array) {
-        if (!arraysEqual(currentValue, newValue)) {
+        if (!ArrayHelper.areEqual(currentValue, newValue)) {
           this.control.setValue(newValue);
         }
       } else {

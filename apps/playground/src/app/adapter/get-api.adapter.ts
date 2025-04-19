@@ -4,7 +4,7 @@ import {
   DataGetOptions,
   DataGetRequest,
   DataGetResponse,
-  DataSortDirection, toPascalCase
+  DataSortDirection, TextHelper
 } from '@controladad/ng-base';
 import { map, Observable } from 'rxjs';
 
@@ -70,12 +70,12 @@ const RESPONSE_MAPPER = <T>(response: APIPaginatedData<T> | T[]) => {
 };
 
 // Returns a function which can be used as an adapter for components such as Table.
-export function GetApiAdapter<T>(url: string, opts?: DataGetOptions<T>): DataGetFn<T> {
+function GetApiAdapter<T>(url: string, opts?: DataGetOptions<T>): DataGetFn<T> {
   return (req) => GetApiAdapterRequestBuild(url, req, opts);
 }
 
 // Directly request through the adapter without creating a middleware function
-export function GetApiRequest<T>(url: string, reqOptions?: DataGetRequest, opts?: DataGetOptions<T>): Observable<T[]> {
+function GetApiRequest<T>(url: string, reqOptions?: DataGetRequest, opts?: DataGetOptions<T>): Observable<T[]> {
   return GetApiAdapterRequestBuild(url, reqOptions, opts).pipe(
     map((result) => (result instanceof Array ? result : result.data)),
   );
@@ -93,7 +93,7 @@ function GetApiAdapterRequestBuild<T>(
     .pipe(map(opts?.mapFn ?? RESPONSE_MAPPER));
 }
 
-export function GetApiAdapterOptionsToQueryParam(reqOptions?: DataGetRequest, defaultOptions?: DataGetRequest) {
+function GetApiAdapterOptionsToQueryParam(reqOptions?: DataGetRequest, defaultOptions?: DataGetRequest) {
   const params: string[] = [];
 
   reqOptions = requestOptionsMerge(reqOptions, defaultOptions);
@@ -104,7 +104,7 @@ export function GetApiAdapterOptionsToQueryParam(reqOptions?: DataGetRequest, de
   }
 
   if (reqOptions?.sort) {
-    const sortKeyPascalCase = toPascalCase(reqOptions.sort.key);
+    const sortKeyPascalCase = TextHelper.toPascalCase(reqOptions.sort.key);
     const key = `${sortKeyPascalCase}`;
     params.push(`${SORT_BY_PARAM}=${key}`);
     params.push(`${SORT_DIR_PARAM}=${SORT_DIR_MAPPER(reqOptions.sort.direction)}`);
@@ -115,7 +115,7 @@ export function GetApiAdapterOptionsToQueryParam(reqOptions?: DataGetRequest, de
     for (const filter of reqOptions.filters) {
       if (filter.value === undefined) continue;
 
-      let filterKeyPascalCase = toPascalCase(filter.key);
+      let filterKeyPascalCase = TextHelper.toPascalCase(filter.key);
       if (!filter.strictKey) {
         filterKeyPascalCase = `${filterKeyPascalCase}${
           filter.type === 'greater' ? 'GT' : filter.type === 'lower' ? 'LT' : ''

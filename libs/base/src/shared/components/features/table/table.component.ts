@@ -63,8 +63,7 @@ import {
   DateFns,
   effectDep,
   injectOptional,
-  ItemRecord,
-  objectToId
+  ItemRecord, ObjectHelper
 } from '../../../../core';
 import { SelectionModel, SortModel, TableFilterModel } from '../../../classes';
 import {
@@ -121,10 +120,10 @@ export interface TableColumnData<T> extends TableColumn<T> {
 
 const TABLE_DEFAULT_GENERATOR = (defaultConfig?: Partial<TableOptions<any>>) =>
   ({
-    itemToIdFn: objectToId,
+    itemToIdFn: ObjectHelper.objectToId,
     actions: [],
     bulkActions: [],
-    selectionModel: new SelectionModel<any>(0, true, [], objectToId),
+    selectionModel: new SelectionModel<any>(0, true, [], ObjectHelper.objectToId),
     sortModel: new SortModel(),
     filterModel: new TableFilterModel(),
     ...defaultConfig,

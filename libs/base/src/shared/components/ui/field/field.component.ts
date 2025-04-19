@@ -28,11 +28,7 @@ import { AsyncPipe } from '@angular/common';
 import { createMask, InputMaskDirective, InputmaskOptions } from '../../../directives';
 import {
   ItemRecords$,
-  getDurationInHHMM,
-  getHHMMInDuration,
-  getFormattedDate,
-  parseDate,
-  ItemRecord,
+  ItemRecord, DateHelper
 } from '../../../../core';
 import { CacSelectOptionsComponent, OptionsTriggerDirective } from '../select-options';
 import { CacIconComponent } from '../icon';
@@ -289,10 +285,10 @@ function getInputMask(type: FieldMaskType | 'datetime') {
         inputFormat: 'HH:MM',
         placeholder: '__:__',
         parser: (v: string) => {
-          return getHHMMInDuration(v);
+          return DateHelper.formattedTimeToMinutes(v);
         },
         formatter: (v: string | number) => {
-          return typeof v === 'string' ? v : getDurationInHHMM(v);
+          return typeof v === 'string' ? v : DateHelper.minutesToFormattedTime(v);
         },
       });
     case 'datetime':
@@ -302,10 +298,10 @@ function getInputMask(type: FieldMaskType | 'datetime') {
         placeholder: '____/__/__ , __:__',
         parser: (v: string) => {
           if (v.includes('_')) return v;
-          return parseDate(v, 'yyyy/MM/dd , HH:mm');
+          return DateHelper.parse(v, 'yyyy/MM/dd , HH:mm');
         },
         formatter: (v: Date | string) => {
-          return getFormattedDate(v, 'yyyy/MM/dd , HH:mm');
+          return DateHelper.format(v, 'yyyy/MM/dd , HH:mm');
         },
       });
   }

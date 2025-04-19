@@ -1,7 +1,7 @@
 import { map, Observable, tap } from 'rxjs';
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { getFormattedDate, toPascalCase } from '../helpers';
+import { DateHelper, TextHelper } from '../helpers';
 import { DataGetOptions, DataGetRequest, ItemRecord } from '../interfaces';
 import { API_BASEURL } from '../../configs';
 
@@ -20,7 +20,7 @@ class Endpoint {
   ) {}
 
   get(method: EndpointMethods) {
-    let path = toPascalCase(this.path);
+    let path = TextHelper.toPascalCase(this.path);
     if (this.mapper && method in this.mapper) {
       const mapFn = this.mapper![method]!;
       path = typeof mapFn === 'function' ? mapFn(path) : mapFn;
@@ -41,7 +41,7 @@ function GetApiAdapterOptionsToQueryParam(param: {pagination: undefined}) {
   return null as any;
 }
 
-export class BaseApi<ENTITY, CREATE = any, UPDATE = any> {
+export class _BaseApi<ENTITY, CREATE = any, UPDATE = any> {
   readonly http = inject(HttpClient);
   readonly apiBaseUrl = inject(API_BASEURL);
 
@@ -201,7 +201,7 @@ export class BaseApi<ENTITY, CREATE = any, UPDATE = any> {
     const a = document.createElement('a');
     a.setAttribute('target', '_blank');
     a.href = `${this.apiBaseUrl}/${this.dropSlash(exportUrl)}`;
-    a.download = `${filename ? filename : 'export'}_${getFormattedDate(new Date(), 'yyyy-MM-dd_HH-mm-ss')}`;
+    a.download = `${filename ? filename : 'export'}_${DateHelper.format(new Date(), 'yyyy-MM-dd_HH-mm-ss')}`;
     a.style.display = 'none';
     document.body.appendChild(a);
     a.click();

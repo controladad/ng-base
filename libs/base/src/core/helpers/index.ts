@@ -8,3 +8,5 @@ export * from './observable.helper';
 export * from './array.helper';
 export * from './role.helper';
 export * from './providers.helper';
+export * from './api.helper';
+
