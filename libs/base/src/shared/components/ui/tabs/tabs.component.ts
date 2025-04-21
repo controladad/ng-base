@@ -2,40 +2,32 @@ import {
   ChangeDetectionStrategy,
   ContentChildren,
   Component,
-  Input,
   AfterViewInit,
-  TemplateRef,
   QueryList,
-  ElementRef,
-  WritableSignal,
-  signal,
+  signal, input
 } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatIcon } from '@angular/material/icon';
+import { MatTab, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
 import { NgTemplateOutlet } from '@angular/common';
-
-export interface TabItem {
-  label: string;
-  bodySlot: string;
-  icon?: string;
-}
+import { CacTabComponent } from './tab.component';
 
 @Component({
   selector: 'cac-tabs',
+  standalone: true,
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
-  standalone: true,
-  imports: [MatTabsModule, MatIconModule, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MatTabGroup, MatTab, MatTabLabel, MatIcon, NgTemplateOutlet],
 })
 export class CacTabsComponent implements AfterViewInit {
-  @Input() tabs: WritableSignal<TabItem[]> = signal([]);
-  @Input() hasIcon = true;
-  @ContentChildren('content') allBody?: QueryList<TemplateRef<ElementRef>>;
-  contents?: TemplateRef<ElementRef>[];
-  currentIndex = 0;
+  @ContentChildren(CacTabComponent) tabsQueryList?: QueryList<CacTabComponent>;
+
+  dynamicHeight = input(true);
+
+  tabs = signal<CacTabComponent[]>([]);
+  currentIndex = signal(0);
 
   ngAfterViewInit(): void {
-    this.contents = this.allBody?.toArray();
+    this.tabs.set(this.tabsQueryList?.toArray() ?? []);
   }
 }

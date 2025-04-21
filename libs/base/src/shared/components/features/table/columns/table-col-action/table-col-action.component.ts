@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -16,7 +15,6 @@ import { ButtonClickEvent, CacButtonComponent } from '../../../../ui';
 import { PermissionHideDirective } from '../../../../../directives';
 import { MatBadge } from '@angular/material/badge';
 import { TableAction } from '../../table.interfaces';
-import { BehaviorSubject, Subject, take } from 'rxjs';
 import { TableRow } from '../../table.component';
 
 export const TABLE_COL_ACTION_PROP = '___action';
@@ -39,7 +37,7 @@ export const TABLE_COL_ACTION_PROP = '___action';
   styleUrl: './table-col-action.component.scss',
   standalone: true,
 })
-export class CacTableColActionComponent extends CacTableColBase implements AfterViewInit {
+export class CacTableColActionComponent extends CacTableColBase {
   override prop = TABLE_COL_ACTION_PROP;
 
   @ViewChildren('ActionColCells') actionColCells?: QueryList<ElementRef<HTMLDivElement>>;
@@ -52,15 +50,4 @@ export class CacTableColActionComponent extends CacTableColBase implements After
     trigger: MatMenuTrigger;
     clickEvent: ButtonClickEvent;
   }>();
-
-  onVisible$ = new Subject<boolean>();
-
-  ngAfterViewInit() {
-    this.actionColCells?.changes.pipe(take(1)).subscribe(() => {
-      const isVisible = this.actionColCells?.some((wrapper) =>
-        Array.from(wrapper.nativeElement.children).some((el) => el.clientWidth !== 0),
-      );
-      this.onVisible$.next(isVisible ?? false);
-    });
-  }
 }

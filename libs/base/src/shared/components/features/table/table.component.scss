@@ -53,15 +53,14 @@
       }
 
       .mat-mdc-row:nth-child(even) {
-        @apply bg-surface-container-high;
-
-        //.mat-mdc-cell {
-        //  @apply text-surface-on-variant font-medium;
-        //}
+        @apply bg-surface-container-low;
+      }
+       .mat-mdc-row:nth-child(odd) {
+        @apply bg-surface-container-lowest;
       }
 
       .mat-mdc-row.highlighted {
-        @apply bg-primary-50;
+        @apply bg-primary-100;
       }
 
       .status-type-col {

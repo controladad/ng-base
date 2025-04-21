@@ -16,7 +16,7 @@ import {
   ElementRef,
   inject,
   DestroyRef,
-  TrackByFunction, InjectionToken
+  TrackByFunction, InjectionToken, effect
 } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import {
@@ -358,6 +358,10 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
       const options = this.options();
       options.filterModel?.setColumns(columns);
     });
+
+    effectDep(this.actions, (actions) => {
+      this.setHidden(actions.length === 0, TABLE_COL_ACTION_PROP as any);
+    })
   }
 
   ngOnInit() {
@@ -371,11 +375,6 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
   }
 
   ngAfterViewInit() {
-    this.actionCol.onVisible$.pipe(take(1)).subscribe((isVisible) => {
-      this.setHidden(!isVisible, TABLE_COL_ACTION_PROP as any);
-      this.cdr.detectChanges();
-    });
-
     this.cdr.detectChanges();
   }
 
@@ -561,6 +560,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
   }
 
   protected onAction(item: TableRow<T>, action: TableAction<T>, trigger: MatMenuTrigger, e?: ButtonClickEvent) {
+     this.setHighlighted(item.id);
     const result = action.action(item.originalItem, {
       ...this.createTableDialogParam('edit'),
       ...this.createTableMenuParam('edit', trigger),
