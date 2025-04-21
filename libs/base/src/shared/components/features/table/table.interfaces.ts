@@ -173,6 +173,7 @@ export interface TableOptions<T extends object> {
     itemName?: string;
     addButtonText?: string;
     actionsText?: string;
+    fitToContent?: boolean;
   };
 
   transformRequest?: (request: DataGetRequest) => DataGetRequest;

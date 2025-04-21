@@ -39,7 +39,7 @@
       <cac-table-filter-bar [filterModel]="options().filterModel!"></cac-table-filter-bar>
     }
 
-    <div #Table class="table-container {{ loading() ? 'opacity-50' : '' }}">
+    <div #Table class="table-container {{ loading() ? 'opacity-50' : '' }} {{ options().view?.fitToContent ? 'min-h-0' : '' }}">
       <!-- Table -->
       <table [dataSource]="dataSource" [trackBy]="trackByItem" mat-table class="table">
         <!-- Selection (Checkbox) Define -->

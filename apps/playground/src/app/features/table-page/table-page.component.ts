@@ -21,6 +21,7 @@ export class TablePageComponent {
       { id: 8, name: 'Sebastian Vettel', class: 'Ferrari', team: 'Red', car: 'F1', talented: true, transfer: false },
     ]).pipe(delay(1500))),
     pagination: { size: 25, },
+    view: { fitToContent: true },
     selectable: true,
     showIndex: true,
     columns: {
