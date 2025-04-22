@@ -37,9 +37,10 @@ import { CacControlErrorComponent } from '../control-error';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { QuillModule } from 'ngx-quill';
 import { formControl, FormControlExtended } from '@al00x/forms';
+import { CacButtonComponent } from '../button';
 
 export type FieldInputType = 'text' | 'password' | 'password-eye' | 'number' | 'number-nobtn' | 'time';
-export type FieldControlType = 'input' | 'date' | 'datetime' | 'textarea' | 'select' | 'rich-text';
+export type FieldControlType = 'input' | 'date' | 'datetime' | 'textarea' | 'select' | 'rich-text' | 'file';
 export type FieldAppearanceType = 'outlined' | 'simple' | 'compact';
 export type FieldMaskType = 'time';
 export type FieldFloatLabelType = 'always' | 'auto';
@@ -68,6 +69,7 @@ export type FieldFloatLabelType = 'always' | 'auto';
     MatProgressSpinnerModule,
     CacControlErrorComponent,
     QuillModule,
+    CacButtonComponent,
   ],
 })
 export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, OnChanges {
@@ -78,6 +80,7 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
   @ViewChild('SelectElement') selectElement?: ElementRef<HTMLInputElement>;
   @ViewChild('Options') selectOptions?: CacSelectOptionsComponent<any>;
   @ViewChild('DatePicker') datepickerElement?: MatDatepicker<any>;
+  @ViewChild('FileInput') fileInputElement?: ElementRef<HTMLInputElement>;
 
   // Primary Inputs
 
@@ -119,6 +122,8 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
   @Input() dateFilter: DateFilterFn<any> = () => true;
   @Input() menuClass?: string;
   @Input() min = 0;
+  @Input() fileAccept?: string;
+  @Input() fileMaxSize?: number;
 
   @Output() onSelect = new EventEmitter<T>();
 
@@ -169,6 +174,7 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
       });
       this.controlSub.add(
         this.control.value$.subscribe((value) => {
+          if (this.controlType === 'file') return;
           this.tempControl.setValue(value, { emitEvent: false });
         }),
       );
@@ -203,6 +209,7 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
     this.control.markAsDirty();
     this.control.markAsTouched();
     this.control.emitStatus();
+    this.tempControl.reset();
     this.focus();
   }
 
@@ -223,6 +230,32 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
         this.control.emitStatus();
       }, 1);
     }
+  }
+
+  protected onFileBrowse(e: MouseEvent) {
+    e.stopPropagation();
+    e.preventDefault();
+    this.fileInputElement?.nativeElement.click();
+  }
+
+  protected onFileInput(e: Event) {
+    const input = e.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) {
+      this.tempControl.setValue(undefined);
+      this.control.setValue(undefined);
+      return;
+    }
+    const file = input.files[0];
+
+    if (this.fileMaxSize && file.size > this.fileMaxSize!) {
+      alert(`File is too large. Maximum size allowed: ${this.formatFileSize(this.fileMaxSize)}`);
+      this.tempControl.setValue(undefined);
+      this.control.setValue(undefined);
+      return;
+    }
+
+    this.tempControl.setValue(file.name);
+    this.control.setValue(file as any);
   }
 
   protected onFormFieldClick() {
@@ -274,6 +307,16 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
 
   protected passwordVisibility() {
     this.showPassword$.next(!this.showPassword$.value);
+  }
+
+  private formatFileSize(bytes: number): string {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 }
 

@@ -1,6 +1,14 @@
 <app-test-section title="Fields">
   <cac-field [control]="control"></cac-field>
-<div>
-  <cac-form-builder [options]="form"></cac-form-builder>
-</div>
+  <div>
+    <cac-form-builder [options]="form"></cac-form-builder>
+  </div>
+
+  <cac-field
+  [control]="fileControl"
+  [controlType]="'file'"
+  [clearable]="true"
+  label="File You"
+></cac-field>
+
 </app-test-section>

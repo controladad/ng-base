@@ -19,4 +19,6 @@ export class FieldPageComponent {
       },
     },
   });
+
+  fileControl = formControl('', Validators.required);
 }

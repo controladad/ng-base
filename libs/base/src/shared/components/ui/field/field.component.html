@@ -1,58 +1,59 @@
-@let state = {
-  showPassword: showPassword$ | async,
-  isReadonly: control.readonly$ | async
-};
+@let state =
+  {
+    showPassword: showPassword$ | async,
+    isReadonly: control.readonly$ | async,
+  };
 
 @if (state) {
   <!--  <p *ngIf="label" class="ui-field-label">-->
   <!--    {{ label }}-->
   <!--    <span *ngIf="hasStar()" class="required-star">*</span>-->
-<!--  </p>-->
-<mat-form-field
-  #MatFormField
-  [class.type-textarea]="controlType === 'textarea'"
-  [class.infix-flex]="controlType === 'datetime'"
-  [class.align-left]="align === 'left'"
-  [class.align-right]="align === 'right'"
-  [class.ui-field-outlined]="appearance === 'outlined' && controlType !== 'rich-text'"
-  [class.ui-field-compact]="appearance === 'compact' || controlType === 'rich-text'"
-  [class.ui-field-simple]="appearance === 'simple'"
-  [class.is-readonly]="state.isReadonly"
-  [class.hide-error]="hideError"
-  [class.ui-field-disabled]="control.disabled$ | async"
-  [class.ui-field-inactive]="(control.disabled$ | async) || state.isReadonly"
-  class="ui-field relative w-full"
-  appearance="outline"
-  [hideRequiredMarker]="true"
-  [class.loading]="loading"
-  [title]="control.displayText ?? (control.value !== null && control.value !== undefined ? control.value : '')"
-  [floatLabel]="overrideFloatLabel() ?? floatLabel ?? (label && placeholder ? 'always' : 'auto')"
-  (click)="onFormFieldClick()"
+  <!--  </p>-->
+  <mat-form-field
+    #MatFormField
+    [class.type-textarea]="controlType === 'textarea'"
+    [class.infix-flex]="controlType === 'datetime'"
+    [class.align-left]="align === 'left'"
+    [class.align-right]="align === 'right'"
+    [class.ui-field-outlined]="appearance === 'outlined' && controlType !== 'rich-text'"
+    [class.ui-field-compact]="appearance === 'compact' || controlType === 'rich-text'"
+    [class.ui-field-simple]="appearance === 'simple'"
+    [class.is-readonly]="state.isReadonly"
+    [class.hide-error]="hideError"
+    [class.ui-field-disabled]="control.disabled$ | async"
+    [class.ui-field-inactive]="(control.disabled$ | async) || state.isReadonly"
+    class="ui-field relative w-full"
+    appearance="outline"
+    [hideRequiredMarker]="true"
+    [class.loading]="loading"
+    [title]="control.displayText ?? (control.value !== null && control.value !== undefined ? control.value : '')"
+    [floatLabel]="overrideFloatLabel() ?? floatLabel ?? (label && (placeholder || controlType === 'file') ? 'always' : 'auto')"
+    (click)="onFormFieldClick()"
   >
-  @if (label) {
-    <mat-label class="ui-field-label">
-      {{ label }}
-      @if (hasStar()) {
-        <span class="required-star">*</span>
-      }
-    </mat-label>
-  }
-  <!-- Prefix Elements -->
-  @if (prefixIcon) {
-    <mat-icon matPrefix class="w-6 h-6" [svgIcon]="prefixIcon"></mat-icon>
-  }
-  <!-- Inputs -->
-  @switch (controlType) {
-    @default {
-      <input
-        #InputElement
-        [class.numeric-field-fix]="maskType === 'time' || (inputType === 'number' && control.value)"
-        matInput
-        [min]="min"
-        [formControl]="control"
-        [placeholder]="placeholder ?? ''"
-        [readonly]="state.isReadonly"
-        [autocomplete]="autoComplete === true ? 'on' : autoComplete === false ? 'off' : autoComplete"
+    @if (label) {
+      <mat-label class="ui-field-label">
+        {{ label }}
+        @if (hasStar()) {
+          <span class="required-star">*</span>
+        }
+      </mat-label>
+    }
+    <!-- Prefix Elements -->
+    @if (prefixIcon) {
+      <mat-icon matPrefix class="w-6 h-6" [svgIcon]="prefixIcon"></mat-icon>
+    }
+    <!-- Inputs -->
+    @switch (controlType) {
+      @default {
+        <input
+          #InputElement
+          [class.numeric-field-fix]="maskType === 'time' || (inputType === 'number' && control.value)"
+          matInput
+          [min]="min"
+          [formControl]="control"
+          [placeholder]="placeholder ?? ''"
+          [readonly]="state.isReadonly"
+          [autocomplete]="autoComplete === true ? 'on' : autoComplete === false ? 'off' : autoComplete"
           [type]="
             inputType === 'password-eye'
               ? (showPassword$ | async)
@@ -62,190 +63,205 @@
                 ? 'number'
                 : inputType
           "
-        [inputMask]="inputMask"
-        (focus)="onFocus()"
-        (blur)="onBlur()"
-        [tabindex]="state.isReadonly ? -1 : 0"
+          [inputMask]="inputMask"
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+          [tabindex]="state.isReadonly ? -1 : 0"
         />
-    }
-    @case ('rich-text') {
-      <input matInput [formControl]="control" class="hidden" readonly tabindex="-1" />
-      <quill-editor
-        [formControl]="control"
-        class="bg-white min-h-92 w-full"
-        format="html"
-        [dir]="'ltr'"
-        [placeholder]="placeholder || 'Write Here'"
-        [modules]="{toolbar: {}}">
-      </quill-editor>
-    }
-    @case ('select') {
-      <input matInput [formControl]="control" class="hidden" readonly tabindex="-1" />
-      <input
-        #SelectElement
-        class="w-full bg-inherit"
-        [uiOptionsTriggerFor]="Options"
-        [formControl]="control.displayControl"
-        [tabindex]="state.isReadonly ? -1 : 0"
-        [placeholder]="placeholder ?? ''"
-        [readonly]="true"
+      }
+      @case ('rich-text') {
+        <input matInput [formControl]="control" class="hidden" readonly tabindex="-1" />
+        <quill-editor
+          [formControl]="control"
+          class="bg-white min-h-92 w-full"
+          format="html"
+          [dir]="'ltr'"
+          [placeholder]="placeholder || 'Write Here'"
+          [modules]="{ toolbar: {} }"
+        >
+        </quill-editor>
+      }
+      @case ('select') {
+        <input matInput [formControl]="control" class="hidden" readonly tabindex="-1" />
+        <input
+          #SelectElement
+          class="w-full bg-inherit"
+          [uiOptionsTriggerFor]="Options"
+          [formControl]="control.displayControl"
+          [tabindex]="state.isReadonly ? -1 : 0"
+          [placeholder]="placeholder ?? ''"
+          [readonly]="true"
         />
-      <cac-select-options
-        #Options
-        [control]="control"
-        [items]="items"
-        [optional]="optional"
-        [multiple]="multiple"
-        [searchable]="searchable"
-        [showIcons]="showIcons"
-        [categories]="categories"
-        [menuClass]="menuClass"
-        (onSelect)="onSelect.emit($event)"
-        (onMultiSelect)="onSelectOptionsMultiple($event)"
-      ></cac-select-options>
-    }
-    @case ('date') {
-      <input
-        matInput
-        [formControl]="control"
-        [matDatepicker]="DatePicker"
-        [placeholder]="placeholder ?? ''"
-        [readonly]="true"
-        (focus)="onFocus()"
-        (blur)="onBlur()"
-        [matDatepickerFilter]="dateFilter"
-        [tabindex]="state.isReadonly ? -1 : 0"
+        <cac-select-options
+          #Options
+          [control]="control"
+          [items]="items"
+          [optional]="optional"
+          [multiple]="multiple"
+          [searchable]="searchable"
+          [showIcons]="showIcons"
+          [categories]="categories"
+          [menuClass]="menuClass"
+          (onSelect)="onSelect.emit($event)"
+          (onMultiSelect)="onSelectOptionsMultiple($event)"
+        ></cac-select-options>
+      }
+      @case ('date') {
+        <input
+          matInput
+          [formControl]="control"
+          [matDatepicker]="DatePicker"
+          [placeholder]="placeholder ?? ''"
+          [readonly]="true"
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+          [matDatepickerFilter]="dateFilter"
+          [tabindex]="state.isReadonly ? -1 : 0"
         />
-    }
-    @case ('datetime') {
-      <input
-        matInput
-        #InputElement
-        [formControl]="control"
-        class="numeric-field-fix"
-        [readonly]="state.isReadonly"
-        autocomplete="off"
-        [inputMask]="inputMask"
-        (focus)="onFocus()"
-        (blur)="onBlur()"
-        [tabindex]="state.isReadonly ? -1 : 0"
+      }
+      @case ('datetime') {
+        <input
+          matInput
+          #InputElement
+          [formControl]="control"
+          class="numeric-field-fix"
+          [readonly]="state.isReadonly"
+          autocomplete="off"
+          [inputMask]="inputMask"
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+          [tabindex]="state.isReadonly ? -1 : 0"
         />
-      <input class="hidden" [matDatepicker]="DatePicker" [formControl]="tempControl" tabindex="-1" readonly />
-      <!--        <input-->
-      <!--          class="flex-auto"-->
-      <!--          [formControl]="control"-->
-      <!--          [matDatepicker]="DatePicker"-->
-      <!--          [placeholder]="placeholder ?? ''"-->
-      <!--          [readonly]="true"-->
-      <!--          (focus)="onFocus()"-->
-      <!--          (blur)="onBlur()"-->
-      <!--          [matDatepickerFilter]="dateFilter"-->
-      <!--          [tabindex]="state.isReadonly ? -1 : 0"-->
-      <!--        />-->
+        <input class="hidden" [matDatepicker]="DatePicker" [formControl]="tempControl" tabindex="-1" readonly />
+        <!--        <input-->
+        <!--          class="flex-auto"-->
+        <!--          [formControl]="control"-->
+        <!--          [matDatepicker]="DatePicker"-->
+        <!--          [placeholder]="placeholder ?? ''"-->
+        <!--          [readonly]="true"-->
+        <!--          (focus)="onFocus()"-->
+        <!--          (blur)="onBlur()"-->
+        <!--          [matDatepickerFilter]="dateFilter"-->
+        <!--          [tabindex]="state.isReadonly ? -1 : 0"-->
+        <!--        />-->
+      }
+      @case ('textarea') {
+        <textarea
+          matInput
+          [formControl]="control"
+          [placeholder]="placeholder ?? ''"
+          [readonly]="state.isReadonly"
+          [rows]="textareaRows ?? 3"
+          [style]="!resizable ? 'resize: none;' : ''"
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+          [tabindex]="state.isReadonly ? -1 : 0"
+        ></textarea>
+      }
+      @case ('file') {
+        <input #FileInput class="hidden" type="file" readonly [accept]="fileAccept" (change)="onFileInput($event)" />
+        <input
+          matInput
+          readonly
+          [formControl]="tempControl"
+          placeholder="Select a file..."
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+          [tabindex]="state.isReadonly ? -1 : 0"
+        />
+      }
     }
-    @case ('textarea') {
-      <textarea
-        matInput
-        [formControl]="control"
-        [placeholder]="placeholder ?? ''"
-        [readonly]="state.isReadonly"
-        [rows]="textareaRows ?? 3"
-        [style]="!resizable ? 'resize: none;' : ''"
-        (focus)="onFocus()"
-        (blur)="onBlur()"
-        [tabindex]="state.isReadonly ? -1 : 0"
-      ></textarea>
+    <mat-datepicker #DatePicker (closed)="onDatePickerClose()" [restoreFocus]="false">
+      <mat-datepicker-actions>
+        <button class="text-error" mat-button matDatepickerCancel i18n="@@base.ui.field.cancel">Cancel</button>
+        <button class="text-primary" mat-button matDatepickerApply i18n="@@base.ui.field.apply">Save</button>
+      </mat-datepicker-actions>
+    </mat-datepicker>
+    <!-- Suffix Elements -->
+    <!--    <mat-icon-->
+    <!--      *ngIf="inputType === 'password'"-->
+    <!--      matSuffix-->
+    <!--      class="w-6 h-6 cursor-pointer select-none"-->
+    <!--      (click)="showPassword$.next(!state.showPassword)"-->
+    <!--    >-->
+    <!--      {{ state.showPassword ? 'visibility' : 'visibility_off' }}-->
+    <!--    </mat-icon>-->
+    @if (isLoading()) {
+      <div class="absolute bottom-0 left-0 right-0">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
     }
+    @if (clearable) {
+      <cac-icon
+        icon="close"
+        matSuffix
+        class="clear-button {{
+          control.value === '' ||
+          control.value === undefined ||
+          control.value === null ||
+          control.value?.length === 0 ||
+          control.disabled ||
+          control.readonly
+            ? 'hide-clear'
+            : ''
+        }} {{
+          !isFocused() && controlType !== 'select' && controlType !== 'date' && controlType !== 'file' ? 'opacity-0 pointer-events-none' : ''
+        }}"
+        size="1.5rem"
+        (mousedown)="$event.preventDefault()"
+        (onClick)="onClearClick($event)"
+      ></cac-icon>
+    }
+    @if (controlType === 'date' || controlType === 'datetime') {
+      <cac-icon class="date-toggle-button" matSuffix (onClick)="openDatePicker($event)">
+        <mat-icon class="w-6 h-6 text-primary-600" matDatepickerToggleIcon svgIcon="calendar"></mat-icon>
+      </cac-icon>
+    }
+    @if(controlType === 'file') {
+      <button
+        matSuffix
+          class="w-20"
+          [disabled]="state.isReadonly || (control.disabled$ | async)"
+          (click)="onFileBrowse($event)"
+        >
+          Browse
+        </button>
+    }
+    @if (prefix) {
+      <span matPrefix class="text-sm font-medium opacity-70">{{ prefix }}</span>
+    }
+    @if (suffix) {
+      <span matSuffix class="text-sm font-medium opacity-70">{{ suffix }}</span>
+    }
+    @if (suffixIcon) {
+      <mat-icon matSuffix class="w-6 h-6" [svgIcon]="suffixIcon"></mat-icon>
+    }
+    @if (inputType === 'password-eye') {
+      <mat-icon
+        (click)="passwordVisibility()"
+        matSuffix
+        [svgIcon]="(showPassword$ | async) ? 'eye' : 'eye-slash'"
+      ></mat-icon>
+    }
+    @if (controlType === 'select' && !state.isReadonly) {
+      <mat-icon class="w-4 text-inherit" matSuffix svgIcon="dropdown"></mat-icon>
+    }
+    @if (controlType === 'input' && inputType === 'number') {
+      <div class="numeric-control" matSuffix>
+        <cac-icon class="text-primary h-4" icon="numeric-up" size="0.75rem" (onClick)="onNumericUp()"></cac-icon>
+        <cac-icon class="text-primary h-4" icon="numeric-down" size="0.75rem" (onClick)="onNumericDown()"></cac-icon>
+      </div>
+    }
+    @if (!hideSuffix) {
+      <div class="empty:hidden" matSuffix>
+        <ng-content select="[slot=suffix]"></ng-content>
+      </div>
+    }
+  </mat-form-field>
+  <!-- Error, we are not using mat-error because of the limitations -->
+  @if (!hideError && !invisibleError) {
+    <cac-control-error [control]="control"></cac-control-error>
   }
-  <mat-datepicker #DatePicker (closed)="onDatePickerClose()" [restoreFocus]="false">
-    <mat-datepicker-actions>
-      <button class="text-error" mat-button matDatepickerCancel i18n="@@base.ui.field.cancel">Cancel</button>
-      <button class="text-primary" mat-button matDatepickerApply i18n="@@base.ui.field.apply">Save</button>
-    </mat-datepicker-actions>
-  </mat-datepicker>
-  <!-- Suffix Elements -->
-  <!--    <mat-icon-->
-  <!--      *ngIf="inputType === 'password'"-->
-  <!--      matSuffix-->
-  <!--      class="w-6 h-6 cursor-pointer select-none"-->
-  <!--      (click)="showPassword$.next(!state.showPassword)"-->
-  <!--    >-->
-  <!--      {{ state.showPassword ? 'visibility' : 'visibility_off' }}-->
-<!--    </mat-icon>-->
-@if (isLoading()) {
-  <div class="absolute bottom-0 left-0 right-0">
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  </div>
-}
-@if (clearable) {
-  <cac-icon
-    icon="close"
-    matSuffix
-      class="clear-button {{
-        control.value === '' ||
-        control.value === undefined ||
-        control.value === null ||
-        control.value?.length === 0 ||
-        control.disabled ||
-        control.readonly
-          ? 'hide-clear'
-          : ''
-      }} {{
-        !isFocused() && controlType !== 'select' && controlType !== 'date' ? 'opacity-0 pointer-events-none' : ''
-      }}"
-    size="1.5rem"
-    (mousedown)="$event.preventDefault()"
-    (onClick)="onClearClick($event)"
-  ></cac-icon>
-}
-@if (controlType === 'date' || controlType === 'datetime') {
-  <cac-icon
-    class="date-toggle-button"
-    matSuffix
-    (onClick)="openDatePicker($event)"
-    >
-    <mat-icon class="w-6 h-6 text-primary-600" matDatepickerToggleIcon svgIcon="calendar"></mat-icon>
-  </cac-icon>
-}
-@if (prefix) {
-  <span matPrefix class="text-sm font-medium opacity-70">{{ prefix }}</span>
-}
-@if (suffix) {
-  <span matSuffix class="text-sm font-medium opacity-70">{{ suffix }}</span>
-}
-@if (suffixIcon) {
-  <mat-icon matSuffix class="w-6 h-6" [svgIcon]="suffixIcon"></mat-icon>
-}
-@if (inputType === 'password-eye') {
-  <mat-icon
-    (click)="passwordVisibility()"
-    matSuffix
-    [svgIcon]="(showPassword$ | async) ? 'eye' : 'eye-slash'"
-  ></mat-icon>
-}
-@if (controlType === 'select' && !state.isReadonly) {
-  <mat-icon
-    class="w-4 text-inherit"
-    matSuffix
-    svgIcon="dropdown"
-  ></mat-icon>
-}
-@if (controlType === 'input' && inputType === 'number') {
-  <div class="numeric-control" matSuffix>
-    <cac-icon class="text-primary h-4" icon="numeric-up" size="0.75rem" (onClick)="onNumericUp()"></cac-icon>
-    <cac-icon class="text-primary h-4" icon="numeric-down" size="0.75rem" (onClick)="onNumericDown()"></cac-icon>
-  </div>
-}
-@if (!hideSuffix) {
-  <div class="empty:hidden" matSuffix>
-    <ng-content select="[slot=suffix]"></ng-content>
-  </div>
-}
-</mat-form-field>
-<!-- Error, we are not using mat-error because of the limitations -->
-@if (!hideError && !invisibleError) {
-  <cac-control-error [control]="control"></cac-control-error>
-}
 }
 
 @if (loading) {
