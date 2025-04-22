@@ -4,12 +4,17 @@ import {
   Component,
   AfterViewInit,
   QueryList,
-  signal, input
+  signal, input, output
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTab, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
 import { NgTemplateOutlet } from '@angular/common';
 import { CacTabComponent } from './tab.component';
+
+export interface CacTabTabChangeEvent {
+  index: number;
+  tab: CacTabComponent;
+}
 
 @Component({
   selector: 'cac-tabs',
@@ -24,10 +29,17 @@ export class CacTabsComponent implements AfterViewInit {
 
   dynamicHeight = input(true);
 
+  onTabChange = output<CacTabTabChangeEvent>();
+
   tabs = signal<CacTabComponent[]>([]);
   currentIndex = signal(0);
 
   ngAfterViewInit(): void {
     this.tabs.set(this.tabsQueryList?.toArray() ?? []);
+  }
+
+  tabChange(index: number) {
+    this.currentIndex.set(index);
+    this.onTabChange.emit({ index, tab: this.tabs()[index] });
   }
 }
