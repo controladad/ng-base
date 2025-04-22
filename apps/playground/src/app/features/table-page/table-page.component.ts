@@ -16,8 +16,8 @@ export class TablePageComponent {
   table = table({
     itemsFn: GetOfflineAdapter(
       of([
-        { id: 1, name: 'Sebastian Vettel', class: 'Ferrari', team: 'Red', car: 'F24', talented: true, transfer: false },
-        { id: 2, name: 'Lewis Hamilton', class: 'Mercedes', team: 'Blue', car: 'W13', talented: true, transfer: false },
+        { id: 1, name: 'Sebastian Vettel', class: 'Ferrari', team: 'Red', car: 'F24', talented: true, transfer: false, prof: '/test-prof.png' },
+        { id: 2, name: 'Lewis Hamilton', class: 'Mercedes', team: 'Blue', car: 'W13', talented: true, transfer: false, prof: '' },
         {
           id: 3,
           name: 'Max Verstappen',
@@ -25,7 +25,7 @@ export class TablePageComponent {
           team: 'Silver',
           car: 'RB18',
           talented: true,
-          transfer: false,
+          transfer: false, prof: ''
         },
         {
           id: 4,
@@ -34,7 +34,7 @@ export class TablePageComponent {
           team: 'Silver',
           car: 'F1',
           talented: true,
-          transfer: false,
+          transfer: false, prof: ''
         },
         {
           id: 5,
@@ -43,7 +43,7 @@ export class TablePageComponent {
           team: 'Yellow',
           car: 'F1',
           talented: true,
-          transfer: false,
+          transfer: false, prof: ''
         },
         {
           id: 6,
@@ -52,10 +52,10 @@ export class TablePageComponent {
           team: 'Blue',
           car: 'AMR22',
           talented: true,
-          transfer: false,
+          transfer: false, prof: ''
         },
-        { id: 7, name: 'Pierre Gasly', class: 'Alpine', team: 'Red', car: 'A22', talented: true, transfer: false },
-        { id: 8, name: 'Sebastian Vettel', class: 'Ferrari', team: 'Red', car: 'F1', talented: true, transfer: false },
+        { id: 7, name: 'Pierre Gasly', class: 'Alpine', team: 'Red', car: 'A22', talented: true, transfer: false, prof: '' },
+        { id: 8, name: 'Sebastian Vettel', class: 'Ferrari', team: 'Red', car: 'F1', talented: true, transfer: false, prof: '' },
       ]).pipe(delay(1500)),
     ),
     pagination: { size: 25 },
@@ -63,6 +63,7 @@ export class TablePageComponent {
     selectable: true,
     showIndex: true,
     columns: {
+      prof: { label: '', type: 'image' },
       id: { label: 'ردیف' },
       name: { label: 'نام', filterable: true, sortable: true },
       class: { label: 'کلاس' },

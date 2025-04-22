@@ -26,14 +26,23 @@
   >
     @let dynamicClass =
       row.data[col.prop].dynamicClass$ ? (row.data[col.prop].dynamicClass$ | async) : row.data[col.prop].dynamicClass;
+    @let colData = row.data[col.prop];
+
     @switch (col.type) {
+      @case ('image') {
+        <div class="overflow-hidden pointer-events-none {{ dynamicClass }}" style="height: 2.5rem; width: 2.5rem; border-radius: 9999px; background: #e4e4e4">
+          @if(colData.rawValue) {
+            <img class="w-full h-full" [src]="colData.value" alt="" />
+          }
+        </div>
+      }
       @case ('status') {
         <button
           class="status-type-col {{
             (
-              row.data[col.prop].isValueTrue$
-                ? (row.data[col.prop].isValueTrue$ | async)
-                : row.data[col.prop].isValueTrue
+              colData.isValueTrue$
+                ? (colData.isValueTrue$ | async)
+                : colData.isValueTrue
             )
               ? 'text-green-700'
               : 'text-red-600'
@@ -63,7 +72,7 @@
         <cac-license-plate
           class="absolute scale-50 min-w-[19rem] pointer-events-none"
           style="transform-origin: top right"
-          [value]="row.data[col.prop].rawValue"
+          [value]="colData.rawValue"
           [hideError]="true"
         ></cac-license-plate>
         <div class="w-44 h-6"></div>

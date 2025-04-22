@@ -26,7 +26,9 @@ export type TableColumnType =
   | 'tag'
   | 'date'
   | 'datetime'
-  | 'minutes';
+  | 'minutes'
+  | 'image'
+  | string; // for custom types
 
 export type TableRefreshFn = () => void;
 
