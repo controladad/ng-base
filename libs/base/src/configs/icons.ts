@@ -16,7 +16,10 @@ const baseIcons = [
 export type BASE_ICONS = (typeof baseIcons)[number];
 
 let isBaseRegistered = false;
-export function registerIcons(icons?: string[]) {
+export function registerIcons(config?: {
+  additionalIcons?: string[];
+  additionalIconsDir?: string;
+}) {
   const sanitizer = inject(DomSanitizer);
   const iconRegistry = inject(MatIconRegistry);
 
@@ -27,7 +30,11 @@ export function registerIcons(icons?: string[]) {
     isBaseRegistered = true;
   }
 
-  for (const icon of icons ?? []) {
-    iconRegistry.addSvgIcon(icon, sanitizer.bypassSecurityTrustResourceUrl(`./assets/icons/${icon}.svg`));
+  for (const icon of config?.additionalIcons ?? []) {
+    let dir = config?.additionalIconsDir ?? `./assets/icons`;
+    if (dir.endsWith('/')) {
+      dir = dir.slice(0, -1);
+    }
+    iconRegistry.addSvgIcon(icon, sanitizer.bypassSecurityTrustResourceUrl(`${dir}/${icon}.svg`));
   }
 }
