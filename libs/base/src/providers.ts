@@ -61,6 +61,7 @@ export interface CacBaseProviderConfig {
 
   isProd?: boolean;
   apiBaseUrl?: string | { fn: Function; deps?: any[] };
+  icons?: string[];
 }
 
 export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBaseProviderConfig)) => {
@@ -112,7 +113,7 @@ export const provideCacBase = (configOrFn?: CacBaseProviderConfig | (() => CacBa
         config?.initializeFn?.();
         setupGlobalServices();
         setupProdMode(isProd);
-        registerIcons();
+        registerIcons(config?.icons);
 
         if (config?.localization?.localesPath && currentLang !== 'en') {
           const path = `${!config.localization?.localesPath.startsWith('/') ? '/' : ''}${config.localization?.localesPath}${!config.localization?.localesPath.endsWith('/') ? '/' : ''}`;
