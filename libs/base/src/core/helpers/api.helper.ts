@@ -10,13 +10,13 @@ export class APIHelper {
   }
 
   // turn `{ id: 1, a: "", b: "", c: "" }` to `{ id: 1, a: { value: "" }, b: {value: ""}, c: { value: ""} }`
-  static nestValues(obj: any) {
+  static nestValues(obj: any, keepIdAtTopLevel = true) {
     const keys = Object.keys(obj);
     const idKey = keys.find((t) => t === 'id') ?? keys.find((t) => t.toLowerCase().includes('id'));
 
     return Object.entries(obj).reduce((acc, [key, value]) => {
       if (value === undefined) return acc;
-      if (key === idKey) {
+      if (key === idKey && keepIdAtTopLevel) {
         acc[key] = value; // Keep "id" at the top level
       } else {
         acc[key] = { value };
