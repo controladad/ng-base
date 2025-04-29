@@ -1,4 +1,5 @@
-<mat-tab-group (selectedTabChange)="tabChange($event.index)" [dynamicHeight]="dynamicHeight()" mat-stretch-tabs="true" mat-align-tabs="center">
+<mat-tab-group [selectedIndex]="currentIndex()" (selectedTabChange)="tabChange($event.index)"
+               [dynamicHeight]="dynamicHeight()" mat-stretch-tabs="true" mat-align-tabs="center">
   @for (tab of tabs(); track tab.label(); let index = $index) {
     <mat-tab [label]="tab.label()">
       <ng-template mat-tab-label>
