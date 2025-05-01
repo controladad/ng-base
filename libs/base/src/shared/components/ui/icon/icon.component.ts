@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { NgStyle } from '@angular/common';
-import { BASE_ICONS } from '../../../../configs';
+import { ICONS } from '../../../../configs';
 import { Subscription } from 'rxjs';
 import { componentWithDefaultConfig } from '../../../../core';
 
@@ -31,7 +31,7 @@ export const ICON_COMPONENT_CONFIG = new InjectionToken<Partial<IconComponentTyp
 export class CacIconComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('MatIcon') matIcon!: MatIcon;
 
-  @Input() icon?: BASE_ICONS | string;
+  @Input() icon?: ICONS | string;
   @Input() disabled = false;
   @Input() size = '1.5rem';
   @Input() strokeWidth = 1.9;

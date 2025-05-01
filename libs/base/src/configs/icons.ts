@@ -13,7 +13,11 @@ const baseIcons = [
   'user-circle', 'users', 'wrench'
 ] as const;
 
-export type BASE_ICONS = (typeof baseIcons)[number];
+export interface IconsOverride {
+  [key: string]: any;
+}
+
+export type ICONS = (typeof baseIcons)[number] & keyof IconsOverride;
 
 let isBaseRegistered = false;
 export function registerIcons(config?: {
