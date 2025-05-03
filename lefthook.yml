@@ -19,7 +19,7 @@ pre-push:
       run: npx nx release minor --skip-publish
 
     - name: Publish tags
-      run: git push --tags --no-verify
+      run: git push --tags --no-verify --force
 # pre-commit:
 #   parallel: true
 #   jobs:
