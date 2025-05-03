@@ -71,7 +71,7 @@ export class CacPaginationComponent implements OnChanges {
 
   visibleCount = signal(10);
   selectedIndex = signal(0);
-  size = computed(() => this._sizeProp() ?? this._currentSizeControlValue() ?? 0);
+  size = computed(() => this._currentSizeControlValue() ?? 0);
   page = computed(() => this.selectedIndex() + 1);
   totalPages = computed(() => {
     const count = Math.ceil((this._total() ?? 0) / (this.size() ?? 1));
@@ -133,6 +133,11 @@ export class CacPaginationComponent implements OnChanges {
   constructor(private screen: ScreenDetectorService) {
     effect(() => {
       this.currentSizeControl.setValue(this.size())
+    })
+    effect(() => {
+      const value = this._sizeProp();
+      if (value === undefined) return;
+      this.currentSizeControl.setValue(value)
     })
 
     this.currentSizeControl.valueChanges
