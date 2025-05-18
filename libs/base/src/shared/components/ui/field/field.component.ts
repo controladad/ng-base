@@ -35,7 +35,7 @@ import { CacIconComponent } from '../icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CacControlErrorComponent } from '../control-error';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { QuillModule } from 'ngx-quill';
+import { QuillModule, QuillModules } from 'ngx-quill';
 import { formControl, FormControlExtended } from '@al00x/forms';
 import { CacButtonComponent } from '../button';
 
@@ -124,6 +124,7 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
   @Input() min = 0;
   @Input() fileAccept?: string;
   @Input() fileMaxSize?: number;
+  @Input() quillModules!: QuillModules;
 
   @Output() onSelect = new EventEmitter<T>();
 
@@ -142,6 +143,12 @@ export class CacFieldComponent<T> implements OnInit, AfterViewInit, OnDestroy, O
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
+    if (this.quillModules && this.quillModules.toolbar === undefined) {
+      this.quillModules.toolbar = {};
+    } else {
+      this.quillModules = { toolbar: {} }
+    }
+
     if (this.maskType) {
       this.inputMask = getInputMask(this.maskType);
     } else if (this.controlType === 'datetime') {
