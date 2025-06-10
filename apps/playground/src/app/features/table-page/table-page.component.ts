@@ -62,6 +62,7 @@ export class TablePageComponent {
     view: { fitToContent: true },
     selectable: true,
     showIndex: true,
+    print: true,
     columns: {
       prof: { label: '', type: 'image' },
       id: { label: 'ردیف' },
