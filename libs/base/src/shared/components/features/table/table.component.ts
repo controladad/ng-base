@@ -34,6 +34,7 @@ import {
   NEVER,
   switchMap,
   take,
+  finalize,
 } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -631,7 +632,17 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
 
   protected onPrint(e: ButtonClickEvent) {
     this._printSub?.unsubscribe();
-    this._printSub = this.print().pipe(e.pipe()).subscribe();
+    this._printSub = this.print().pipe(
+      e.pipe(),
+      finalize(() => {
+        this._printSub = undefined;
+      })
+    ).subscribe({
+      error: (error) => {
+        console.error('Print error:', error);
+        e.setLoading(false);
+      }
+    });
   }
 
   protected onRefresh() {

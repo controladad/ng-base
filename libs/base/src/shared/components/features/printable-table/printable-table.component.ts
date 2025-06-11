@@ -1,10 +1,12 @@
 import {
   AfterViewInit,
+  AfterViewChecked,
   Component,
   DestroyRef,
   inject,
   Input,
   OnChanges,
+  OnDestroy,
   QueryList,
   signal,
   SimpleChanges,
@@ -12,7 +14,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 
-import { of, Subject, switchMap, take, combineLatest } from 'rxjs';
+import { of, Subject, switchMap, take, combineLatest, delay } from 'rxjs';
 import { AlxPrintDirective, AlxPrintModule } from '@al00x/printer';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -29,8 +31,10 @@ export interface PrintableTableData {
   templateUrl: './printable-table.component.html',
   styleUrls: ['./printable-table.component.scss'],
 })
-export class CacPrintableTableComponent implements OnChanges, AfterViewInit {
+export class CacPrintableTableComponent implements OnChanges, AfterViewInit, AfterViewChecked, OnDestroy {
   readonly destroyRef = inject(DestroyRef);
+
+  private _pendingRender = false;
 
   @ViewChild('Printer') printer!: AlxPrintDirective;
 
@@ -47,34 +51,53 @@ export class CacPrintableTableComponent implements OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data']) {
       this._currentData.set(this.data);
+      this._pendingRender = true;
     }
   }
 
   ngAfterViewInit() {
+    this._pendingRender = true;
+
     combineLatest([this.cols.changes, this.rows.changes, this.headers.changes])
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        setTimeout(() => {
-          this.rendered$.next(null);
-        }, 100);
+        this._pendingRender = true;
       });
+  }
+
+  ngAfterViewChecked() {
+    if (this._pendingRender) {
+      this._pendingRender = false;
+      this.rendered$.next(null);
+    }
+  }
+
+  ngOnDestroy() {
+    this.printer?.cleanup();
   }
 
   render(data: PrintableTableData) {
     this._currentData.set(data);
+    this._pendingRender = true;
     return this.rendered$.pipe(take(1));
   }
 
   // Render and print
   print(data: PrintableTableData) {
+    this.printer.cleanup();
+
     return this.render(data).pipe(
+      delay(0),
       switchMap(() => {
-        // this.printer.cleanup();
-        // this.printer.prepare();
-        // window.print();
-        this.printer.print();
-        return of(null);
-      }),
+        try {
+          this.printer.print();
+          return of(null);
+        } catch (error) {
+          console.error('Print error:', error);
+          this.printer.cleanup();
+          throw error;
+        }
+      })
     );
   }
 }
