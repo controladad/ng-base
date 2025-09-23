@@ -55,7 +55,8 @@ export class OptionsTriggerDirective implements OnInit, AfterViewInit {
     fromEvent(this._selectorEl!, 'focus')
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        if (this._previouslyActivatedEl === document.activeElement) return;
+        // Don't auto-open on initial page load/refresh
+        if (this._previouslyActivatedEl === document.activeElement || this._previouslyActivatedEl === undefined) return;
         this.openMenu();
       });
 
