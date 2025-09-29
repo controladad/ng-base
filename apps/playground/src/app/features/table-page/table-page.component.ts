@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
-import {
-  GetOfflineAdapter,
-  table,
-  CacTableComponent, CacTabsComponent, CacTabComponent
-} from '@controladad/ng-base';
+import { GetOfflineAdapter, table, CacTableComponent, CacTabsComponent, CacTabComponent, CacTableColumnSelectorComponent } from '@controladad/ng-base';
 import { delay, of } from 'rxjs';
 
 @Component({
   selector: 'app-table-page',
-  imports: [CacTableComponent, CacTabsComponent, CacTabComponent],
+  imports: [CacTableComponent, CacTabsComponent, CacTabComponent, CacTableColumnSelectorComponent],
   templateUrl: './table-page.component.html',
   styleUrl: './table-page.component.scss',
 })

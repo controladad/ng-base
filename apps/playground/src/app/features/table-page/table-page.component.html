@@ -1,1 +1,8 @@
-<cac-table [options]="table"></cac-table>
+<!-- <cac-table [options]="table" /> -->
+
+<cac-table [options]="table" #tableRef>
+    <div slot="header-start" class="flex gap-2 items-center">
+        <cac-table-column-selector [tableRef]="tableRef" [storageKey]="'products-table'" [label]="'Visible Columns'"
+            [placeholder]="'Choose columns to display'">
+        </cac-table-column-selector>
+    </div>
