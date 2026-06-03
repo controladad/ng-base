@@ -91,5 +91,8 @@
 </ng-template>
 
 <ng-template #TotalCountText>
-  <p class="text-xs font-medium whitespace-nowrap" i18n="@@base.ui.pagination.totalCount">Total: {{ _total() }}</p>
+  <p class="text-xs font-medium whitespace-nowrap">
+    <span i18n="@@base.ui.pagination.totalCount" class="mx-0.5">Total:</span>
+    <span>{{ _total() }}</span>
+  </p>
 </ng-template>
