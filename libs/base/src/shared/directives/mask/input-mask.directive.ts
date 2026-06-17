@@ -16,7 +16,6 @@ import {
 import { InputMaskConfig, INPUT_MASK_CONFIG } from './config';
 import { AbstractControl, ControlValueAccessor, NgControl, Validator } from '@angular/forms';
 import { InputmaskOptions } from './types';
-import Inputmask from 'inputmask';
 
 // The initial issue: https://github.com/ngneat/input-mask/issues/40
 // Webpack 5 has module resolution changes. Libraries should configure the `output.export`
@@ -24,6 +23,9 @@ import Inputmask from 'inputmask';
 // a UMD format, to tell Webpack that there's a default export.
 // The `_Inputmask` is an object with 2 properties: `{ __esModule: true, default: Inputmask }`.
 // But we want to be backwards-compatible, so we try to read the `default` property first; otherwise, we fall back to `_Inputmask`.
+
+declare function require(module: string): any;
+const InputmaskModule = require('inputmask') as any;
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -43,6 +45,8 @@ export class InputMaskDirective<T = any> implements OnInit, OnDestroy, ControlVa
 
   private inputMaskOptions: InputmaskOptions<T> = {};
   private mutationObserver?: MutationObserver;
+  
+  private InputmaskClass: any;
 
   inputMaskPlugin?: Inputmask.Instance;
   nativeInputElement?: HTMLInputElement;
@@ -61,6 +65,7 @@ export class InputMaskDirective<T = any> implements OnInit, OnDestroy, ControlVa
       this.ngControl.valueAccessor = this;
     }
     this.setNativeInputElement(config);
+    this.InputmaskClass = InputmaskModule.default || InputmaskModule;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -134,7 +139,7 @@ export class InputMaskDirective<T = any> implements OnInit, OnDestroy, ControlVa
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { parser, formatter, ...options } = inputMaskOptions;
-    this.inputMaskPlugin = this.ngZone.runOutsideAngular(() => new Inputmask(options).mask(nativeInputElement));
+    this.inputMaskPlugin = this.ngZone.runOutsideAngular(() => new this.InputmaskClass(options).mask(nativeInputElement));
     if (this.control) {
       setTimeout(() => {
         this.control!.updateValueAndValidity();
