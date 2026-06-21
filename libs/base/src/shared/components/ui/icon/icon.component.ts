@@ -57,13 +57,16 @@ export class CacIconComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    if (!this.matIcon) return;
     // @ts-ignore
     const fetchSub = this.matIcon._currentIconFetch as Subscription;
-    fetchSub.add(() => {
-      const svgElement = this.matIcon._elementRef.nativeElement.children.item(0) as SVGElement;
-      if (!svgElement) return;
-      svgElement.style.strokeWidth = `${this.strokeWidth}`;
-    });
+    if (fetchSub) {
+      fetchSub.add(() => {
+        const svgElement = this.matIcon._elementRef.nativeElement.children.item(0) as SVGElement;
+        if (!svgElement) return;
+        svgElement.style.strokeWidth = `${this.strokeWidth}`;
+      });
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -353,6 +353,7 @@ function getInputMask(type: FieldMaskType | 'datetime') {
         formatter: (v: Date | string) => {
           return DateHelper.format(v, 'yyyy/MM/dd , HH:mm');
         },
+        postValidation: (_, __, ___, result) => result,
       });
   }
 }
