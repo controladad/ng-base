@@ -73,6 +73,7 @@
   (onClick)="onAdd.emit($event)"
   icon="plus"
   action="create"
+  [permission]="options.view?.addButtonPermission"
 >
   {{ options.view?.addButtonText ?? ADD_TEXT + ' ' + options.view?.itemName }}
 </cac-button>

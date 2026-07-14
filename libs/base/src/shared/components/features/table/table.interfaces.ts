@@ -174,6 +174,7 @@ export interface TableOptions<T extends object> {
     title?: string;
     itemName?: string;
     addButtonText?: string;
+    addButtonPermission?: string;
     actionsText?: string;
     fitToContent?: boolean;
   };

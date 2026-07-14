@@ -2,10 +2,11 @@ import {
   ChangeDetectorRef,
   Directive,
   ElementRef,
+  inject,
   Input,
   OnInit,
 } from '@angular/core';
-import { ActionTypes } from '../../core';
+import { ActionTypes, PermissionService } from '../../core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 
 // TODO: Fix Permissions
@@ -20,6 +21,8 @@ export class PermissionHideDirective implements OnInit {
   @Input() uiPermissionHide?: string | boolean = true;
   @Input() uiPermissionHideAction?: ActionTypes;
   @Input() uiPermissionHideKey?: string;
+
+  private readonly permission = inject(PermissionService);
 
   constructor(
     private host: ElementRef<HTMLElement>,
@@ -52,8 +55,8 @@ export class PermissionHideDirective implements OnInit {
 
     if (!actions && !permission) return;
 
-    // const hasPermission = permission ? this.role.hasPermission(permission) : this.role.hasActionPermission(actions);
-    const hasPermission = true;
+    //const hasPermission = permission ? this.role.hasPermission(permission) : this.role.hasActionPermission(actions);
+    const hasPermission = permission ? this.permission.hasPermission(permission) : true;
 
     if ((this.uiPermissionHide || this.uiPermissionHide === '') && !hasPermission) {
       this.host.nativeElement.classList.add(

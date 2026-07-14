@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, NavigationEnd, ResolveStart, Router, Routes } f
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouteExtended, RouteItem, RoutePermission, RoutesExtended } from '../interfaces';
 import { Location } from '@angular/common';
-import { isRouteExtended } from '../helpers';
+import { includes, isRouteExtended } from '../helpers';
 import { AuthBaseStore } from '../states';
 
 // TODO: Fix Permissions
@@ -229,20 +229,19 @@ export class RouteHelperService {
   }
 
   private extractPermissions(route: RouteExtended): { permissionName?: string; permissionKey?: string[] } {
-    // if (!route.permissions) return {};
-    //
-    // const permissionName = typeof route.permissions === 'string' ? route.permissions : route.permissions.name;
-    // const rawKey = typeof route.permissions === 'string' ? undefined : route.permissions.key;
-    //
-    // const permissionKey =
-    //   !rawKey && permissionName
-    //     ? this.roleApi.getPermissionKeysByAction(permissionName, 'read')
-    //     : typeof rawKey === 'string'
-    //     ? [rawKey]
-    //     : rawKey;
-    //
-    // return { permissionName, permissionKey };
-    return { permissionName: undefined, permissionKey: undefined };
+    if (!route.permissions) return {};
+    
+    const permissionName = typeof route.permissions === 'string' ? route.permissions : route.permissions.name;
+    const rawKey = typeof route.permissions === 'string' ? undefined : route.permissions.key;
+    
+    const permissionKey =
+      !rawKey && permissionName
+        ? [permissionName]
+        : typeof rawKey === 'string'
+        ? [rawKey]
+        : rawKey;
+    
+    return { permissionName, permissionKey };
   }
 
   private extractIcon(route: RouteExtended) {
@@ -272,7 +271,7 @@ export class RouteHelperService {
   }
 
   private filterRoutes(routes: RouteItem[]): RouteItem[] {
-    return routes;
+    // return routes;
 
     // const filteredRoutes: RouteItem[] = [];
     // const mappedRoutes = (this.auth.permissionKeysSignal() ?? []).map(x => x.permissions);
@@ -285,25 +284,25 @@ export class RouteHelperService {
     // });
     // return filteredRoutes;
 
-    // const perms = this.auth.permissionKeysSignal()?.map(t => t.toLowerCase()) ?? [];
-    // const isLoggedIn = this.auth.isLoggedIn();
+    const perms = this.auth.permissionKeysSignal()?.map(t => t.toLowerCase()) ?? [];
+    const isLoggedIn = this.auth.isLoggedIn();
 
-    // const filterRoute = (route: RouteItem): RouteItem | null => {
-    //   const isVisible = isLoggedIn
-    //     ? route.permission
-    //       ? includes(perms, route.permission.keys.map(t => t.toLowerCase()))
-    //       : true
-    //     : !!route.visibleToGuest;
+    const filterRoute = (route: RouteItem): RouteItem | null => {
+      const isVisible = isLoggedIn
+        ? route.permission
+          ? includes(perms, route.permission.keys.map(t => t.toLowerCase()))
+          : true
+        : !!route.visibleToGuest;
 
-    //   if (!isVisible) return null;
+      if (!isVisible) return null;
 
-    //   const filteredChildren = route.children
-    //     ?.map(filterRoute)
-    //     .filter((child): child is RouteItem => child !== null) ?? [];
+      const filteredChildren = route.children
+        ?.map(filterRoute)
+        .filter((child): child is RouteItem => child !== null) ?? [];
 
-    //   return { ...route, children: filteredChildren };
-    // };
+      return { ...route, children: filteredChildren };
+    };
 
-    // return routes.map(filterRoute).filter((route): route is RouteItem => route !== null);
+    return routes.map(filterRoute).filter((route): route is RouteItem => route !== null);
   }
 }
