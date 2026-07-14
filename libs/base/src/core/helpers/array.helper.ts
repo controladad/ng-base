@@ -57,3 +57,11 @@ export function arraysEqual(a: any[], b: any[]) {
   }
   return true;
 }
+
+export function includes<T>(array: T[], terms: T | T[]) {
+  if (!(terms instanceof Array)) return array.includes(terms);
+  for (const term of terms) {
+    if (array.includes(term)) return true;
+  }
+  return false;
+}
