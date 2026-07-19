@@ -88,6 +88,7 @@
     "base.ui.select.chooseOptionalValue": "انتخاب مقدار اختیاری:",
     "base.ui.select.loading": "در حال بارگذاری..",
     "base.ui.select.noItemsAvailable": "آیتمی موجود نیست.",
+    "base.ui.button.insufficientPermission": "شما دسترسی لازم برای انجام این عمل را ندارید",
     "base.errors.control.required":"این فیلد الزامی می باشد.",
     "base.errors.control.email":"این ایمیل درست نیست.",
     "base.errors.control.nationalCode":"کد ملی نامعتبر است.",
