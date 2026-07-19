@@ -55,9 +55,11 @@ export class _AuthBaseStore<T extends AuthBaseStoreProps<any>, L extends AuthBas
 
       // Specific api which returns user info based on the current token
       meApi: () => Observable<T['user']>;
+      checkPermissionsAfterLogin?: boolean;
     } = {
       loginApi: () => throwError(() => new Error('Please implement login api in the AuthStore')),
       meApi: () => of(undefined),
+      checkPermissionsAfterLogin: false,
     },
   ) {
     super({
@@ -90,14 +92,14 @@ export class _AuthBaseStore<T extends AuthBaseStoreProps<any>, L extends AuthBas
 
   permissionKeys(state?: T): string[] {
     const user = (state ?? this.state).user;
-    return user?.roles?.length ? ArrayHelper.flatten(user?.roles.map((t: any) => t.permissions)) : user?.permissions;
+    return user?.permissions;
   }
 
   login(model: L) {
     this.app.setRememberMe(model.rememberMe ?? false);
     return this.opts.loginApi(model).pipe(
       switchMap((result) => {
-        return this.checkLoginValidity(result);
+        return this.opts.checkPermissionsAfterLogin ? this.checkLoginValidity(result) : of(result);
       }),
       tap((result) => {
         this.patch(result);

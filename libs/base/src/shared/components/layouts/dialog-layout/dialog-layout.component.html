@@ -27,6 +27,7 @@
       (onSubmit)="onSubmit.emit($event)"
       (onCancel)="onCancelClick()"
       (onError)="onError.emit()"
+      [permission]="permission"
       >
       <ng-content select="[slot=bottom]"></ng-content>
     </cac-bottom-controls>

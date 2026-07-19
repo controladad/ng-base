@@ -55,7 +55,7 @@ export type TableMenuParams = {
 };
 
 export type TableDialogParams = {
-  openDialog: <T, U>(formBuilder: FormBuilder<T, U>, value?: Partial<T>) => InputDialogExtended<T, U>;
+  openDialog: <T, U>(formBuilder: FormBuilder<T, U>, value?: Partial<T>, permission?: string) => InputDialogExtended<T, U>;
 };
 
 export type TableStateParams = {
@@ -174,7 +174,11 @@ export interface TableOptions<T extends object> {
     title?: string;
     itemName?: string;
     addButtonText?: string;
-    addButtonPermission?: string;
+    permission?: {
+      add?: string;
+      print?: string;
+      export?: string;
+    };
     actionsText?: string;
     fitToContent?: boolean;
   };

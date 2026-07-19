@@ -966,7 +966,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
 
   private createTableDialogParam(mode: 'create' | 'edit') {
     return {
-      openDialog: (formBuilder, value) => {
+      openDialog: (formBuilder, value, permission) => {
         formBuilder.reset(value);
 
         return this.dialog
@@ -978,6 +978,7 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
             subtitle: $localize`:@@base.feature.table.createDialog.subtitle:Fill in the details and click save`,
             deleteButton: true,
             formBuilder,
+            permission,
           })
           .setActionType(mode === 'edit' ? 'update' : 'create');
       },
