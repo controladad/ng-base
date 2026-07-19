@@ -16,6 +16,7 @@ export interface InputDialogData<T, U> {
   addButtonText?: string;
   addButtonClass?: string;
   deleteButton?: boolean;
+  permission?: string;
 
   footerHtmlContent?: string;
 }

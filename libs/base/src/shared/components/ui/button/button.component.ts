@@ -6,6 +6,7 @@ import {
   EventEmitter,
   HostBinding,
   HostListener,
+  inject,
   InjectionToken,
   Input,
   OnChanges,
@@ -21,7 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgStyle, NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { pipe, tap, UnaryFunction } from 'rxjs';
-import { ActionTypes, componentWithDefaultConfig, startWithTap } from '../../../../core';
+import { ActionTypes, componentWithDefaultConfig, PermissionService, startWithTap } from '../../../../core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CacIconComponent } from '../icon';
@@ -62,6 +63,8 @@ export const BUTTON_COMPONENT_CONFIG = new InjectionToken<Partial<ButtonComponen
 export class CacButtonComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('Button', { read: ElementRef }) btnElement?: ElementRef<HTMLButtonElement>;
 
+  private readonly permissionService = inject(PermissionService);
+  
   @Input() icon?: string;
   @Input() iconPosition: 'prefix' | 'suffix' = 'prefix';
   @Input() appearance: ButtonAppearanceType = 'filled';
@@ -100,6 +103,8 @@ export class CacButtonComponent implements OnInit, AfterViewInit, OnChanges {
 
   loading = signal(false);
   insufficientPermission = signal(false);
+
+  readonly INSUFFICIENT_PERMISSION_TEXT = $localize`:@@base.ui.button.insufficientPermission:You have insufficient permission.`
 
   constructor() {
     componentWithDefaultConfig(this, BUTTON_COMPONENT_CONFIG);
@@ -201,6 +206,10 @@ export class CacButtonComponent implements OnInit, AfterViewInit, OnChanges {
     // this.insufficientPermission.set(
     //   this.permission ? !this.role.hasPermission(this.permission) : !this.role.hasActionPermission(this.action),
     // );
+
+    this.insufficientPermission.set(
+      this.permission ? !this.permissionService.hasPermission(this.permission) : false,
+    );
   }
 
   private setDisabledClass() {

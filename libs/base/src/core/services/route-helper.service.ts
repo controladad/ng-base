@@ -284,13 +284,13 @@ export class RouteHelperService {
     // });
     // return filteredRoutes;
 
-    const perms = this.auth.permissionKeysSignal()?.map(t => t.toLowerCase()) ?? [];
+    const perms = this.auth.permissionKeysSignal() ?? [];
     const isLoggedIn = this.auth.isLoggedIn();
 
     const filterRoute = (route: RouteItem): RouteItem | null => {
       const isVisible = isLoggedIn
         ? route.permission
-          ? includes(perms, route.permission.keys.map(t => t.toLowerCase()))
+          ? includes(perms, route.permission.keys)
           : true
         : !!route.visibleToGuest;
 

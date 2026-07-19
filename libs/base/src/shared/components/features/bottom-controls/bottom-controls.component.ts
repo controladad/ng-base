@@ -36,6 +36,7 @@ export class CacBottomControlsComponent implements OnInit, OnChanges {
   @Input() form?: AbstractControl;
   @Input() disabled = false;
   @Input() actionType?: ActionTypes | undefined;
+  @Input() permission?: string;
 
   @Output() onCancel = new EventEmitter();
   @Output() onError = new EventEmitter();

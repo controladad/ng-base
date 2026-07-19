@@ -40,6 +40,7 @@
   (onClick)="onExport.emit($event)"
   icon="excel-file"
   action="export"
+  [permission]="options.view?.permission?.export"
 >
   <span class="mr-1"
   i18n="@@base.feature.table.header.exportExcel">
@@ -56,6 +57,7 @@
   (onClick)="onPrint.emit($event)"
   icon="print"
   action="print"
+  [permission]="options.view?.permission?.print"
 >
   <span class="mr-1"
   i18n="@@base.feature.table.header.print">
@@ -73,7 +75,7 @@
   (onClick)="onAdd.emit($event)"
   icon="plus"
   action="create"
-  [permission]="options.view?.addButtonPermission"
+  [permission]="options.view?.permission?.add"
 >
   {{ options.view?.addButtonText ?? ADD_TEXT + ' ' + options.view?.itemName }}
 </cac-button>

@@ -8,7 +8,7 @@ import { AuthBaseStore } from '../states';
 export class PermissionService {
     private auth = inject(AuthBaseStore);
 
-    public currentUserPermissions = computed<string[]>(() => this.auth.permissionKeysSignal()?.map((t) => t.toString().toLowerCase()) ?? []);
+    public currentUserPermissions = computed<string[]>(() => this.auth.permissionKeysSignal()?.map((t) => t.toString()) ?? []);
 
     hasPermission(permission: string) {
         if (this.auth.isSuper()) return true;

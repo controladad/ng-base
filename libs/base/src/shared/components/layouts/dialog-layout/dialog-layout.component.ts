@@ -23,6 +23,7 @@ export class CacDialogLayoutComponent {
   @Input() showCloseBtn = true;
   @Input() form?: AbstractControl;
   @Input() hideControls = false;
+  @Input() permission?: string;
 
   @Output() onSubmit = new EventEmitter<ButtonClickEvent>();
   @Output() onError = new EventEmitter();
