@@ -944,6 +944,10 @@ export class CacTableComponent<T extends object> implements OnInit, OnChanges, A
     }
   }
 
+  isGroupRow(groupByProp: string) {
+    return (index: number, row: any) => !!row.originalItem?.[groupByProp];
+  }
+
   private createTableStateParam() {
     const e = {
       setLoader: (loading) => this.loading.set(loading),

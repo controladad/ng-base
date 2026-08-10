@@ -79,6 +79,21 @@
           *matRowDef="let row; let col; columns: columnsLabels()"
           [attr.data-id]="row.originalItem.id"
         ></tr>
+
+        @let groupByProp = options().groupByProp;
+
+        @if (groupByProp) {
+         <ng-container matColumnDef="groupHeader">
+            <td colspan="999" mat-cell *matCellDef="let group"><strong>{{group.originalItem?.[groupByProp]}}</strong></td>
+          </ng-container>
+
+          <tr
+            class="feature-table-row bg-gray-300"
+            mat-row
+            *matRowDef="let row; columns: ['groupHeader']; when: isGroupRow(groupByProp)"
+          ></tr>
+        }
+
       </table>
     </div>
     <div class="empty:hidden px-12 py-3 border-t border-inherit flex gap-16">

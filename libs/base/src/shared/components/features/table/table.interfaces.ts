@@ -183,6 +183,8 @@ export interface TableOptions<T extends object> {
     fitToContent?: boolean;
   };
 
+  groupByProp?: string;
+
   transformRequest?: (request: DataGetRequest) => DataGetRequest;
 
   events?: {
