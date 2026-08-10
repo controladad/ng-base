@@ -30,7 +30,7 @@
     "@ngneat/elf-persist-state": "^1.2.1",
     "date-fns": "^4.1.0",
     "date-fns-jalali": "^4.1.0-0",
-    "inputmask": "^5.0.9",
+    "inputmask": "5.0.9",
     "ngx-file-drop": "^16.0.0",
     "ngx-quill": "^27.0.0",
     "ngx-skeleton-loader": "^10.0.0",
