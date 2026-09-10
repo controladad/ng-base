@@ -3,7 +3,6 @@ import { ItemToId } from '../../core';
 import { FormControlExtended } from '@al00x/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs';
-import * as uuid from 'uuid';
 
 // TODO: Update constructor initial parameters (turn into object, it's messy currently)
 // TODO: add formControl binding
@@ -29,7 +28,7 @@ export class SelectionModel<T> {
   public hasSelection = computed(() => this.selectedCount() !== 0);
 
   constructor(itemsCount?: number, multiple?: boolean, initial?: T[], itemToId?: ItemToId<T>) {
-    this.id = uuid.v4();
+    this.id = crypto.randomUUID();
     this._totalCount = itemsCount ?? 0;
     this._multiple = multiple ?? true;
     this._itemToId = itemToId ?? (((t) => (t && typeof t === 'object' && 'id' in t ? t.id : t)) as ItemToId<T>);

@@ -28,7 +28,6 @@
     "@angular/router": "~19.0.0",
     "@ngneat/elf": "^2.5.1",
     "@ngneat/elf-persist-state": "^1.2.1",
-    "@types/uuid": "^10.0.0",
     "date-fns": "^4.1.0",
     "date-fns-jalali": "^4.1.0-0",
     "inputmask": "5.0.9",
